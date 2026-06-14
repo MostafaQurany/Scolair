@@ -1,0 +1,25 @@
+{
+  "@@locale": "ar",
+  "appName": "سكولير",
+  "homeTitle": "الرئيسية",
+  "homeSubtitle": "مساحة المدرسة جاهزة.",
+  "homeSummaryTitle": "نظرة على اليوم",
+  "classCount": "{count, plural, =0{لا توجد حصص} =1{حصة واحدة} other{{count} حصص}}",
+  "@classCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assignmentCount": "{count, plural, =0{لا توجد واجبات} =1{واجب واحد} other{{count} واجبات}}",
+  "@assignmentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "retry": "إعادة المحاولة",
+  "loading": "جار التحميل"
+}
