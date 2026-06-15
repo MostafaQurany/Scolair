@@ -5,7 +5,7 @@ This file helps future agents understand the current work state without relying 
 ## Current Status
 
 - Branch: `student`
-- Project stage: agent rules and project workflow setup
+- Project stage: Flutter starter app with shared agent workflow
 - Main rule source: `.agent/project-rules.md`
 - Spec workflow: lightweight specs in `.agent/specs/`
 
@@ -23,18 +23,18 @@ This file helps future agents understand the current work state without relying 
 - Simplified localization usage rules to prefer `context.l10n.keyName` through a project extension.
 - Added localization best practices for modals, placeholders, plurals, RTL layouts, text expansion, and translation QA.
 - Initialized the `student` branch as a Flutter Android+iOS app with starter architecture, packages, localization, DI, networking, storage, theme, and a Home feature.
+- Applied the Stitch Scolair theme system to the `student` branch with light/dark Material 3 themes, Hanken Grotesk typography, and student role-tone defaults.
 
 ## In-Progress Tasks
 
-- Review and refine `.agent/project-rules.md` before copying it to `parent` and `teacher` branches.
+- Apply the Stitch Scolair theme system to the `parent` branch.
 
 ## Next Tasks
 
 - Add Cursor and root agent instruction files if stronger rule loading is needed.
-- After approval, copy or merge `.agent/project-rules.md` and `.agent/project-memory.md` into `parent` and `teacher`.
 - Create a feature spec in `.agent/specs/` before starting any major Flutter feature.
-- When the Flutter app files exist, enable `flutter_localizations`, `intl`, `flutter.generate`, `l10n.yaml`, `core/localization/localization_extension.dart`, and `lib/l10n/` ARB files.
-- Repeat the Flutter initialization setup on the `teacher` and `parent` branches.
+- Continue building real features inside `lib/features/` using small widgets, Cubit, Freezed states, DI, Retrofit/Dio networking, and normal Flutter Navigator routing.
+- Apply the same Stitch theme system to `parent` with branch-specific role-tone defaults.
 
 ## Open Questions
 
@@ -48,6 +48,7 @@ This file helps future agents understand the current work state without relying 
 - 2026-06-14: Reworked localization rules to match the provided official Flutter localization guide: `flutter_localizations`, `intl`, ARB files, generated `AppLocalizations`, RTL, placeholders, plurals, modals, and QA. Flutter validation was not run because no Flutter code exists yet.
 - 2026-06-14: Initialized the `student` Flutter app. `flutter pub get`, code generation, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
 - 2026-06-14: Updated localization import guidance to use local generated files under `lib/l10n/` for Flutter 3.44.
+- 2026-06-15: Applied the Stitch Scolair theme system on `student`. `flutter pub get`, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
 
 ## Notes For Future Agents
 
