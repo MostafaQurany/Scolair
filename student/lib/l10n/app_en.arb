@@ -1,0 +1,25 @@
+{
+  "@@locale": "en",
+  "appName": "Scolair",
+  "homeTitle": "Scolair Home",
+  "homeSubtitle": "Your school workspace is ready.",
+  "homeSummaryTitle": "Today at a glance",
+  "classCount": "{count, plural, =0{No classes} =1{1 class} other{{count} classes}}",
+  "@classCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "assignmentCount": "{count, plural, =0{No assignments} =1{1 assignment} other{{count} assignments}}",
+  "@assignmentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "retry": "Retry",
+  "loading": "Loading"
+}
