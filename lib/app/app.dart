@@ -20,6 +20,8 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Scolair',
           theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: ThemeMode.system,
           initialRoute: AppRouteNames.home,
           routes: {AppRouteNames.home: (_) => const HomeScreen()},
           localizationsDelegates: AppLocalizations.localizationsDelegates,

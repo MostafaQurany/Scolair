@@ -4,7 +4,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 import '../../domain/entities/home_summary.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
@@ -48,12 +47,20 @@ class _HomeContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return ListView(
       padding: EdgeInsetsDirectional.all(20.r),
       children: [
-        Text(context.l10n.homeTitle, style: AppTextStyles.titleLarge),
+        Text(context.l10n.homeTitle, style: textTheme.headlineSmall),
         SizedBox(height: 8.h),
-        Text(context.l10n.homeSubtitle, style: AppTextStyles.body),
+        Text(
+          context.l10n.homeSubtitle,
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
+        ),
         SizedBox(height: 24.h),
         _SummaryPanel(summary: summary),
       ],
@@ -68,16 +75,15 @@ class _SummaryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Card(
       child: Padding(
         padding: EdgeInsetsDirectional.all(16.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              context.l10n.homeSummaryTitle,
-              style: AppTextStyles.titleMedium,
-            ),
+            Text(context.l10n.homeSummaryTitle, style: textTheme.titleMedium),
             SizedBox(height: 16.h),
             _SummaryRow(text: context.l10n.classCount(summary.classCount)),
             SizedBox(height: 10.h),
@@ -98,6 +104,8 @@ class _SummaryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Row(
       children: [
         Container(
@@ -109,7 +117,7 @@ class _SummaryRow extends StatelessWidget {
           ),
         ),
         SizedBox(width: 10.w),
-        Expanded(child: Text(text, style: AppTextStyles.body)),
+        Expanded(child: Text(text, style: textTheme.bodyMedium)),
       ],
     );
   }
@@ -122,13 +130,19 @@ class _HomeError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Center(
       child: Padding(
         padding: EdgeInsetsDirectional.all(20.r),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(message, style: AppTextStyles.body),
+            Text(
+              message,
+              style: textTheme.bodyMedium?.copyWith(color: colorScheme.error),
+            ),
             SizedBox(height: 12.h),
             FilledButton(
               onPressed: context.read<HomeCubit>().loadSummary,
