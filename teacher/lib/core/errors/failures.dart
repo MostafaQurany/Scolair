@@ -9,6 +9,10 @@ final class NetworkFailure extends Failure {
   const NetworkFailure(super.message, {super.code});
 }
 
+final class ServerFailure extends Failure {
+  const ServerFailure(super.message, {super.code});
+}
+
 final class CacheFailure extends Failure {
   const CacheFailure(super.message, {super.code});
 }

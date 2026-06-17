@@ -145,6 +145,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Loading'**
   String get loading;
+
+  /// No description provided for @loginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher Login'**
+  String get loginTitle;
+
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with your organization email to continue.'**
+  String get loginSubtitle;
+
+  /// No description provided for @phoneNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneNumberLabel;
+
+  /// No description provided for @phoneNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get phoneNumberHint;
+
+  /// No description provided for @sendOtpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send OTP'**
+  String get sendOtpButton;
+
+  /// No description provided for @orgLoginLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with phone instead'**
+  String get orgLoginLink;
+
+  /// No description provided for @forgotPasswordLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPasswordLink;
+
+  /// No description provided for @phoneLoginSecurityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your teacher account is tied to your school credentials.'**
+  String get phoneLoginSecurityNote;
+
+  /// No description provided for @orgLoginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Login'**
+  String get orgLoginTitle;
+
+  /// No description provided for @orgLoginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number to receive a one-time code.'**
+  String get orgLoginSubtitle;
+
+  /// No description provided for @emailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get emailLabel;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In en, this message translates to:
+  /// **'your@school.edu'**
+  String get emailHint;
+
+  /// No description provided for @passwordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get passwordLabel;
+
+  /// No description provided for @passwordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your password'**
+  String get passwordHint;
+
+  /// No description provided for @orgLoginButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get orgLoginButton;
+
+  /// No description provided for @otpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify your identity'**
+  String get otpTitle;
+
+  /// No description provided for @otpSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the 6-digit code sent to {identifier}'**
+  String otpSubtitle(String identifier);
+
+  /// No description provided for @otpResend.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get otpResend;
+
+  /// No description provided for @otpVerifyButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get otpVerifyButton;
+
+  /// No description provided for @authErrorOtpInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid or expired code. Please try again.'**
+  String get authErrorOtpInvalid;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll send you a reset code.'**
+  String get forgotPasswordSubtitle;
+
+  /// No description provided for @sendResetLinkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Reset Code'**
+  String get sendResetLinkButton;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @newPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New Password'**
+  String get newPasswordLabel;
+
+  /// No description provided for @newPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter new password'**
+  String get newPasswordHint;
+
+  /// No description provided for @confirmPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password'**
+  String get confirmPasswordLabel;
+
+  /// No description provided for @confirmPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-enter new password'**
+  String get confirmPasswordHint;
+
+  /// No description provided for @resetPasswordButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get resetPasswordButton;
+
+  /// No description provided for @passwordMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match.'**
+  String get passwordMismatch;
+
+  /// No description provided for @biometricTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric Unlock'**
+  String get biometricTitle;
+
+  /// No description provided for @biometricSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use biometrics to access your account.'**
+  String get biometricSubtitle;
+
+  /// No description provided for @biometricPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Authenticate'**
+  String get biometricPrompt;
+
+  /// No description provided for @usePasswordFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Use password instead'**
+  String get usePasswordFallback;
+
+  /// No description provided for @authErrorGeneric.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get authErrorGeneric;
 }
 
 class _AppLocalizationsDelegate

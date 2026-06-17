@@ -1,11 +1,11 @@
-# Scolair Project Memory
+﻿# Scolair Project Memory
 
 This file helps future agents understand the current work state without relying on chat history.
 
 ## Current Status
 
 - Branch: `parent`
-- Project stage: Flutter starter app with shared agent workflow
+- Project stage: Flutter parent app with starter architecture and auth screen flow
 - Main rule source: `.agent/project-rules.md`
 - Spec workflow: lightweight specs in `.agent/specs/`
 
@@ -25,6 +25,7 @@ This file helps future agents understand the current work state without relying 
 - Initialized the `student` branch as a Flutter Android+iOS app with starter architecture, packages, localization, DI, networking, storage, theme, and a Home feature.
 - Initialized the `parent` branch as a Flutter Android+iOS app with starter architecture, packages, localization, DI, networking, storage, theme, and a Home feature.
 - Applied the Stitch Scolair theme system to the `parent` branch with light/dark Material 3 themes, Hanken Grotesk typography, and parent role-tone defaults.
+- Implemented the parent auth screen flow from `.agent/specs/auth-screens.md`: data/domain/presentation layers, JSON models, Freezed Cubits, six Navigator-based screens, shared auth widgets, API endpoint/client declarations, DI, `local_auth`, and localized English/Arabic strings.
 
 ## In-Progress Tasks
 
@@ -32,9 +33,9 @@ This file helps future agents understand the current work state without relying 
 
 ## Next Tasks
 
-- Add Cursor and root agent instruction files if stronger rule loading is needed.
-- Create a feature spec in `.agent/specs/` before starting any major Flutter feature.
-- Continue building real features inside `lib/features/` using small widgets, Cubit, Freezed states, DI, Retrofit/Dio networking, and normal Flutter Navigator routing.
+- After auth screens: add token persistence and auto-login logic (when backend is ready).
+- Add backend auth wiring when API contracts are ready; current auth remote datasource methods intentionally throw `UnimplementedError('TODO: wire up when backend is ready')`.
+- Add app-start biometric gating when saved-token/session requirements are defined.
 - Use the Stitch theme tokens for future UI work instead of hardcoded colors.
 
 ## Open Questions
@@ -51,6 +52,7 @@ This file helps future agents understand the current work state without relying 
 - 2026-06-14: Updated localization import guidance to use local generated files under `lib/l10n/` for Flutter 3.44.
 - 2026-06-14: Initialized the `parent` Flutter app. `flutter pub get`, code generation, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
 - 2026-06-15: Applied the Stitch Scolair theme system on `parent`. `flutter pub get`, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
+- 2026-06-17: Implemented parent auth screens. `flutter pub get`, `dart run build_runner build --delete-conflicting-outputs`, `flutter gen-l10n`, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed. Stitch MCP exposed project-wide `list_screens`; downloaded and inspected returned auth/reference artifacts under `.agent/stitch-auth/`.
 
 ## Notes For Future Agents
 

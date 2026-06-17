@@ -21,5 +21,39 @@
     }
   },
   "retry": "Retry",
-  "loading": "Loading"
+  "loading": "Loading",
+  "loginTitle": "Student Login",
+  "loginSubtitle": "Sign in to access your academic workspace.",
+  "emailLabel": "Email",
+  "emailHint": "Enter your email",
+  "passwordLabel": "Password",
+  "passwordHint": "Enter your password",
+  "forgotPasswordLink": "Forgot password?",
+  "loginButton": "Log in",
+  "otpTitle": "Verify your email",
+  "otpSubtitle": "We sent a 6-digit code to {email}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "email": {}
+    }
+  },
+  "otpResend": "Resend code",
+  "otpVerifyButton": "Verify",
+  "forgotPasswordTitle": "Forgot password?",
+  "forgotPasswordSubtitle": "Enter your email and we will send you a reset code",
+  "sendResetLinkButton": "Send reset code",
+  "resetPasswordTitle": "Reset password",
+  "newPasswordLabel": "New password",
+  "newPasswordHint": "Enter new password",
+  "confirmPasswordLabel": "Confirm password",
+  "confirmPasswordHint": "Re-enter new password",
+  "resetPasswordButton": "Reset password",
+  "passwordMismatch": "Passwords do not match",
+  "biometricTitle": "Welcome back",
+  "biometricSubtitle": "Use biometrics to sign in",
+  "biometricPrompt": "Authenticate to access Scolair",
+  "usePasswordFallback": "Use password instead",
+  "authErrorInvalidCredentials": "Incorrect email or password",
+  "authErrorOtpInvalid": "Invalid or expired code",
+  "authErrorGeneric": "Something went wrong. Please try again"
 }
