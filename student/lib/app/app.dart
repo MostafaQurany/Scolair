@@ -3,6 +3,11 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../core/constants/app_route_names.dart';
 import '../core/theme/app_theme.dart';
+import '../features/auth/presentation/screens/biometric_unlock_screen.dart';
+import '../features/auth/presentation/screens/forgot_password_screen.dart';
+import '../features/auth/presentation/screens/login_screen.dart';
+import '../features/auth/presentation/screens/otp_verification_screen.dart';
+import '../features/auth/presentation/screens/reset_password_screen.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../l10n/app_localizations.dart';
 
@@ -22,8 +27,16 @@ class App extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
-          initialRoute: AppRouteNames.home,
-          routes: {AppRouteNames.home: (_) => const HomeScreen()},
+          initialRoute: AppRouteNames.login,
+          routes: {
+            AppRouteNames.home: (_) => const HomeScreen(),
+            AppRouteNames.login: (_) => const LoginScreen(),
+            AppRouteNames.otpVerification: (_) => const OtpVerificationScreen(),
+            AppRouteNames.forgotPassword: (_) => const ForgotPasswordScreen(),
+            AppRouteNames.resetPassword: (_) => const ResetPasswordScreen(),
+            AppRouteNames.biometricUnlock: (_) =>
+                const BiometricUnlockScreen(),
+          },
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
         );

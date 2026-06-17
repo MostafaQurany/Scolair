@@ -21,5 +21,47 @@
     }
   },
   "retry": "إعادة المحاولة",
-  "loading": "جار التحميل"
+  "loading": "جار التحميل",
+  "loginTitle": "تسجيل دخول المعلم",
+  "loginSubtitle": "سجّل دخولك ببريد مؤسستك للمتابعة.",
+  "phoneNumberLabel": "رقم الهاتف",
+  "phoneNumberHint": "أدخل رقم هاتفك",
+  "sendOtpButton": "إرسال الرمز",
+  "orgLoginLink": "تسجيل الدخول بالهاتف بدلاً من ذلك",
+  "forgotPasswordLink": "نسيت كلمة المرور؟",
+  "phoneLoginSecurityNote": "حسابك كمعلم مرتبط ببيانات اعتماد مدرستك.",
+  "orgLoginTitle": "تسجيل الدخول بالهاتف",
+  "orgLoginSubtitle": "أدخل رقم هاتفك لاستلام رمز التحقق.",
+  "emailLabel": "البريد الإلكتروني",
+  "emailHint": "your@school.edu",
+  "passwordLabel": "كلمة المرور",
+  "passwordHint": "أدخل كلمة المرور",
+  "orgLoginButton": "تسجيل الدخول",
+  "otpTitle": "التحقق من هويتك",
+  "otpSubtitle": "أدخل الرمز المكون من 6 أرقام المُرسَل إلى {identifier}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "identifier": {
+        "type": "String"
+      }
+    }
+  },
+  "otpResend": "إعادة إرسال الرمز",
+  "otpVerifyButton": "تحقق",
+  "authErrorOtpInvalid": "الرمز غير صحيح أو منتهي الصلاحية. حاول مجدداً.",
+  "forgotPasswordTitle": "نسيت كلمة المرور؟",
+  "forgotPasswordSubtitle": "سنرسل لك رمز إعادة تعيين.",
+  "sendResetLinkButton": "إرسال رمز الاسترداد",
+  "resetPasswordTitle": "إعادة تعيين كلمة المرور",
+  "newPasswordLabel": "كلمة المرور الجديدة",
+  "newPasswordHint": "أدخل كلمة المرور الجديدة",
+  "confirmPasswordLabel": "تأكيد كلمة المرور",
+  "confirmPasswordHint": "أعد إدخال كلمة المرور الجديدة",
+  "resetPasswordButton": "إعادة تعيين",
+  "passwordMismatch": "كلمتا المرور غير متطابقتين.",
+  "biometricTitle": "فتح ببصمة الإصبع",
+  "biometricSubtitle": "استخدم البيانات البيومترية للوصول إلى حسابك.",
+  "biometricPrompt": "المصادقة",
+  "usePasswordFallback": "استخدام كلمة المرور بدلاً من ذلك",
+  "authErrorGeneric": "حدث خطأ ما. حاول مجدداً."
 }

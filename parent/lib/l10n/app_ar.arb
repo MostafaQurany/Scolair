@@ -21,5 +21,47 @@
     }
   },
   "retry": "إعادة المحاولة",
-  "loading": "جار التحميل"
+  "loading": "جار التحميل",
+  "loginTitle": "دخول ولي الأمر",
+  "loginSubtitle": "سجّل دخولك ببريد مؤسستك للمتابعة.",
+  "phoneNumberLabel": "رقم الهاتف",
+  "phoneNumberHint": "أدخل رقم هاتفك",
+  "sendOtpButton": "إرسال رمز التحقق",
+  "orgLoginLink": "تسجيل الدخول بالهاتف بدلاً من ذلك",
+  "phoneLoginSecurityNote": "حساب ولي الأمر يحمي بيانات طفلك الحساسة.",
+  "emailLabel": "البريد الإلكتروني",
+  "emailHint": "أدخل بريدك الإلكتروني",
+  "passwordLabel": "كلمة المرور",
+  "passwordHint": "أدخل كلمة المرور",
+  "forgotPasswordLink": "نسيت كلمة المرور؟",
+  "loginButton": "تسجيل الدخول",
+  "orgLoginTitle": "تسجيل الدخول بالهاتف",
+  "orgLoginSubtitle": "أدخل رقم هاتفك لاستلام رمز التحقق.",
+  "orgLoginButton": "متابعة",
+  "otpTitle": "تحقق من هويتك",
+  "otpSubtitle": "أرسلنا رمزاً مكوناً من 6 أرقام إلى {identifier}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "identifier": {}
+    }
+  },
+  "otpResend": "إعادة إرسال الرمز",
+  "otpVerifyButton": "تحقق",
+  "forgotPasswordTitle": "نسيت كلمة المرور؟",
+  "forgotPasswordSubtitle": "أدخل بريدك الإلكتروني وسنرسل لك رمز إعادة التعيين",
+  "sendResetLinkButton": "إرسال رمز الاستعادة",
+  "resetPasswordTitle": "إعادة تعيين كلمة المرور",
+  "newPasswordLabel": "كلمة المرور الجديدة",
+  "newPasswordHint": "أدخل كلمة المرور الجديدة",
+  "confirmPasswordLabel": "تأكيد كلمة المرور",
+  "confirmPasswordHint": "أعد إدخال كلمة المرور الجديدة",
+  "resetPasswordButton": "إعادة التعيين",
+  "passwordMismatch": "كلمتا المرور غير متطابقتين",
+  "biometricTitle": "مرحباً بعودتك",
+  "biometricSubtitle": "استخدم المقاييس الحيوية لفتح القفل",
+  "biometricPrompt": "المصادقة للوصول إلى سكولير",
+  "usePasswordFallback": "استخدم كلمة المرور بدلاً من ذلك",
+  "authErrorInvalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+  "authErrorOtpInvalid": "الرمز غير صالح أو منتهي الصلاحية",
+  "authErrorGeneric": "حدث خطأ ما. يرجى المحاولة مرة أخرى"
 }

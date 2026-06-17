@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scolair - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#0050cb",
+                        "secondary": "#006875",
+                        "on-error": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-alt": "#F9FAFB",
+                        "on-secondary-fixed": "#001f24",
+                        "border-tint": "#E4E7EC",
+                        "surface-variant": "#d9e3fb",
+                        "tertiary-container": "#6a7286",
+                        "on-secondary-container": "#00616d",
+                        "on-secondary-fixed-variant": "#004f58",
+                        "secondary-fixed": "#9cf0ff",
+                        "on-tertiary-container": "#f8f8ff",
+                        "primary-fixed": "#dae1ff",
+                        "on-primary-container": "#f8f7ff",
+                        "tertiary": "#52596c",
+                        "on-background": "#111c2d",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#bfc6dc",
+                        "surface-container-low": "#f0f3ff",
+                        "on-surface": "#111c2d",
+                        "academic-blue": "#004EEB",
+                        "bright-cyan": "#00E5FF",
+                        "feed-indigo": "#4F46E5",
+                        "outline": "#727687",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#ecf0ff",
+                        "dark-navy-bg": "#0B0F19",
+                        "inverse-surface": "#273143",
+                        "background": "#f9f9ff",
+                        "on-primary-fixed": "#001849",
+                        "feed-mint": "#10B981",
+                        "feed-amber": "#F59E0B",
+                        "surface-dim": "#d0daf2",
+                        "on-tertiary-fixed": "#141b2c",
+                        "surface-container-highest": "#d9e3fb",
+                        "inverse-primary": "#b3c5ff",
+                        "primary-container": "#0066ff",
+                        "surface": "#f9f9ff",
+                        "surface-bright": "#f9f9ff",
+                        "surface-tint": "#0054d6",
+                        "on-tertiary": "#ffffff",
+                        "feed-coral": "#F43F5E",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "secondary-container": "#00e3fd",
+                        "outline-variant": "#c2c6d8",
+                        "secondary-fixed-dim": "#00daf3",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "tertiary-fixed": "#dbe2f9",
+                        "surface-container": "#e8eeff",
+                        "electric-blue": "#0066FF",
+                        "surface-container-high": "#dfe8ff",
+                        "on-tertiary-fixed-variant": "#3f4759",
+                        "on-surface-variant": "#424656",
+                        "error-container": "#ffdad6",
+                        "feed-teal": "#0D9488"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit-2": "8px",
+                        "unit-6": "24px",
+                        "unit-4": "16px",
+                        "unit-3": "12px",
+                        "gutter": "12px",
+                        "base": "4px",
+                        "margin-mobile": "16px",
+                        "unit-8": "32px",
+                        "unit-1": "4px",
+                        "margin-tablet": "24px"
+                    },
+                    "fontFamily": {
+                        "card-title": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "section-title": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "card-title": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "section-title": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col md:hidden">
+<!-- Content Canvas -->
+<main class="flex-1 flex flex-col px-margin-mobile pt-12 pb-8 overflow-y-auto">
+<!-- Logo Header -->
+<div class="flex flex-col items-center mb-10">
+<div class="w-20 h-20 bg-electric-blue rounded-xl flex items-center justify-center mb-4 shadow-md">
+<span class="material-symbols-outlined text-white text-4xl" style="font-variation-settings: 'FILL' 1;">
+                    school
+                </span>
+</div>
+<h1 class="font-display-lg text-display-lg text-academic-blue">scolair</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 text-center">LMS application for institutions</p>
+</div>
+<!-- Login Form Container -->
+<div class="bg-surface-container-lowest rounded-xl p-unit-4 shadow-sm border border-border-tint mb-6">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-6">Welcome Back</h2>
+<form class="flex flex-col gap-unit-4">
+<!-- Org Code/ID -->
+<div class="flex flex-col gap-unit-1">
+<label class="font-label-md text-label-md text-on-surface-variant" for="org-id">Organization ID</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            domain
+                        </span>
+<input class="w-full bg-surface-alt border border-border-tint rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-colors" id="org-id" placeholder="e.g. EDUNIV-2024" type="text"/>
+</div>
+</div>
+<!-- Student ID / Email -->
+<div class="flex flex-col gap-unit-1">
+<label class="font-label-md text-label-md text-on-surface-variant" for="student-id">Student ID or Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            person
+                        </span>
+<input class="w-full bg-surface-alt border border-border-tint rounded-lg py-3 pl-10 pr-4 font-body-md text-body-md text-on-surface focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-colors" id="student-id" placeholder="Enter your academic ID" type="text"/>
+</div>
+</div>
+<!-- Password -->
+<div class="flex flex-col gap-unit-1">
+<div class="flex justify-between items-center">
+<label class="font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
+<a class="font-label-md text-label-md text-electric-blue hover:underline" href="#">Forgot?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            lock
+                        </span>
+<input class="w-full bg-surface-alt border border-border-tint rounded-lg py-3 pl-10 pr-10 font-body-md text-body-md text-on-surface focus:outline-none focus:border-electric-blue focus:ring-1 focus:ring-electric-blue transition-colors" id="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="mt-4 w-full bg-electric-blue text-white rounded-lg py-3 font-card-title text-card-title shadow-md hover:bg-primary-container transition-colors active:scale-[0.98]" type="button">
+                    Sign In
+                </button>
+</form>
+</div>
+<!-- Location Permission Info Card -->
+<div class="bg-surface-container-low rounded-xl p-unit-4 border border-border-tint flex gap-unit-3 items-start mt-auto">
+<div class="w-10 h-10 rounded-full bg-surface flex items-center justify-center flex-shrink-0 text-electric-blue">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">
+                    location_on
+                </span>
+</div>
+<div>
+<h3 class="font-section-title text-section-title text-on-surface mb-1">Location Services</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Scolair requires location permissions to verify campus attendance for required practical sessions and exams. Your privacy is maintained.
+                </p>
+</div>
+</div>
+</main>
+</body></html>
