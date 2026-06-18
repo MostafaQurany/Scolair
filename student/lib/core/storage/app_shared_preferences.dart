@@ -12,4 +12,12 @@ class AppSharedPreferences {
   }
 
   Future<bool> remove(String key) => _preferences.remove(key);
+
+  bool get isFirstTime {
+    return _preferences.getBool('isFirstTime') ?? true;
+  }
+
+  Future<bool> setFirstTime(bool value) {
+    return _preferences.setBool('isFirstTime', value);
+  }
 }
