@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../core/constants/app_route_names.dart';
-import '../core/di/dependency_injection.dart';
-import '../core/storage/app_shared_preferences.dart';
 import '../core/theme/app_theme.dart';
+import '../features/auth/presentation/screens/biometric_unlock_screen.dart';
+import '../features/auth/presentation/screens/forgot_password_screen.dart';
+import '../features/auth/presentation/screens/login_screen.dart';
+import '../features/auth/presentation/screens/otp_verification_screen.dart';
+import '../features/auth/presentation/screens/reset_password_screen.dart';
 import '../features/home/presentation/screens/home_screen.dart';
-import '../features/onboarding/presentation/screens/OnboardingScreen.dart';
-import '../features/splash/presentation/cubit/splash_cubit.dart';
-import '../features/splash/presentation/screens/SplashScreen.dart';
 import '../l10n/app_localizations.dart';
 
 class App extends StatelessWidget {
@@ -28,16 +27,15 @@ class App extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
-          initialRoute: AppRouteNames.splash,
+          initialRoute: AppRouteNames.login,
           routes: {
-            AppRouteNames.splash: (_) => BlocProvider(
-              create: (context) => SplashCubit(getIt<AppSharedPreferences>()),
-              child: const SplashScreen(),
-            ),
-            AppRouteNames.onboarding: (context) => OnboardingScreen(
-              preferences: getIt<AppSharedPreferences>(),
-            ),
             AppRouteNames.home: (_) => const HomeScreen(),
+            AppRouteNames.login: (_) => const LoginScreen(),
+            AppRouteNames.otpVerification: (_) => const OtpVerificationScreen(),
+            AppRouteNames.forgotPassword: (_) => const ForgotPasswordScreen(),
+            AppRouteNames.resetPassword: (_) => const ResetPasswordScreen(),
+            AppRouteNames.biometricUnlock: (_) =>
+                const BiometricUnlockScreen(),
           },
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

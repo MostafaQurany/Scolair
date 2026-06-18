@@ -341,6 +341,15 @@ Text(context.l10n.itemCount(count));
 - Do not hardcode large fixed sizes when the UI should adapt across devices.
 - Keep layouts flexible with `Expanded`, `Flexible`, `Wrap`, `LayoutBuilder`, and scroll views where needed.
 - Test important screens on small and large devices.
+## Assets
+
+- Store all image, icon, and media assets inside `assets/` at the project root.
+- Use one sub-folder per asset type: `assets/images/`, `assets/audio/`, etc.
+- Declare every asset folder in `pubspec.yaml` under `flutter: assets:`.
+- Never hardcode asset path strings directly in widgets or screens.
+- Define every asset path as a `static const String` in `core/constants/app_assets.dart`.
+- Reference assets in code only via `AppAssets.xxx` (e.g., `Image.asset(AppAssets.logoHeader)`).
+- Keep `app_assets.dart` the single source of truth for all asset paths in the project.
 
 ## API And Data
 
@@ -376,6 +385,17 @@ Text(context.l10n.itemCount(count));
 - If the latest package version is not compatible, choose another supported package instead of using an old version.
 - Do not add a new package when Flutter, Dart, or an existing project dependency already solves the problem well.
 - Keep `pubspec.yaml` dependencies clean and remove unused packages.
+
+## Screen File Size Rule
+
+**Hard limit: no screen dart file may exceed 250 lines.**
+
+To stay within this limit:
+- Extract every repeated or sizeable chunk of UI into a private `_Widget` class at the bottom of the same file, or into a named file in `presentation/widgets/` if used by more than one screen.
+- Keep the `build` method of `_XxxView` under ~30 lines by delegating to extracted widgets.
+- Shared elements (logo header, form footer links, error banners) must be extracted into `presentation/widgets/` and reused across screens.
+- Do not duplicate widget code between screen files.
+
 
 ## Branch Rules
 

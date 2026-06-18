@@ -49,4 +49,115 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loading => 'Loading';
+
+  @override
+  String get loginTitle => 'Teacher Login';
+
+  @override
+  String get loginSubtitle =>
+      'Sign in with your organization email to continue.';
+
+  @override
+  String get phoneNumberLabel => 'Phone Number';
+
+  @override
+  String get phoneNumberHint => 'Enter your phone number';
+
+  @override
+  String get sendOtpButton => 'Send OTP';
+
+  @override
+  String get orgLoginLink => 'Sign in with phone instead';
+
+  @override
+  String get forgotPasswordLink => 'Forgot password?';
+
+  @override
+  String get phoneLoginSecurityNote =>
+      'Your teacher account is tied to your school credentials.';
+
+  @override
+  String get orgLoginTitle => 'Phone Login';
+
+  @override
+  String get orgLoginSubtitle =>
+      'Enter your phone number to receive a one-time code.';
+
+  @override
+  String get emailLabel => 'Email';
+
+  @override
+  String get emailHint => 'your@school.edu';
+
+  @override
+  String get passwordLabel => 'Password';
+
+  @override
+  String get passwordHint => 'Enter your password';
+
+  @override
+  String get orgLoginButton => 'Sign In';
+
+  @override
+  String get otpTitle => 'Verify your identity';
+
+  @override
+  String otpSubtitle(String identifier) {
+    return 'Enter the 6-digit code sent to $identifier';
+  }
+
+  @override
+  String get otpResend => 'Resend code';
+
+  @override
+  String get otpVerifyButton => 'Verify';
+
+  @override
+  String get authErrorOtpInvalid =>
+      'Invalid or expired code. Please try again.';
+
+  @override
+  String get forgotPasswordTitle => 'Forgot Password?';
+
+  @override
+  String get forgotPasswordSubtitle => 'We\'ll send you a reset code.';
+
+  @override
+  String get sendResetLinkButton => 'Send Reset Code';
+
+  @override
+  String get resetPasswordTitle => 'Reset Password';
+
+  @override
+  String get newPasswordLabel => 'New Password';
+
+  @override
+  String get newPasswordHint => 'Enter new password';
+
+  @override
+  String get confirmPasswordLabel => 'Confirm Password';
+
+  @override
+  String get confirmPasswordHint => 'Re-enter new password';
+
+  @override
+  String get resetPasswordButton => 'Reset Password';
+
+  @override
+  String get passwordMismatch => 'Passwords do not match.';
+
+  @override
+  String get biometricTitle => 'Biometric Unlock';
+
+  @override
+  String get biometricSubtitle => 'Use biometrics to access your account.';
+
+  @override
+  String get biometricPrompt => 'Authenticate';
+
+  @override
+  String get usePasswordFallback => 'Use password instead';
+
+  @override
+  String get authErrorGeneric => 'Something went wrong. Please try again.';
 }

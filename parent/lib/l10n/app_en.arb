@@ -21,5 +21,47 @@
     }
   },
   "retry": "Retry",
-  "loading": "Loading"
+  "loading": "Loading",
+  "loginTitle": "Parent Login",
+  "loginSubtitle": "Sign in with your organization email to continue.",
+  "phoneNumberLabel": "Phone Number",
+  "phoneNumberHint": "Enter your phone number",
+  "sendOtpButton": "Send OTP",
+  "orgLoginLink": "Sign in with phone instead",
+  "phoneLoginSecurityNote": "Your parent account protects sensitive child information.",
+  "emailLabel": "Email",
+  "emailHint": "Enter your email",
+  "passwordLabel": "Password",
+  "passwordHint": "Enter your password",
+  "forgotPasswordLink": "Forgot password?",
+  "loginButton": "Log in",
+  "orgLoginTitle": "Phone Login",
+  "orgLoginSubtitle": "Enter your phone number to receive a one-time code.",
+  "orgLoginButton": "Continue",
+  "otpTitle": "Verify your identity",
+  "otpSubtitle": "We sent a 6-digit code to {identifier}",
+  "@otpSubtitle": {
+    "placeholders": {
+      "identifier": {}
+    }
+  },
+  "otpResend": "Resend code",
+  "otpVerifyButton": "Verify",
+  "forgotPasswordTitle": "Forgot password?",
+  "forgotPasswordSubtitle": "Enter your email and we will send you a reset code",
+  "sendResetLinkButton": "Send reset code",
+  "resetPasswordTitle": "Reset password",
+  "newPasswordLabel": "New password",
+  "newPasswordHint": "Enter new password",
+  "confirmPasswordLabel": "Confirm password",
+  "confirmPasswordHint": "Re-enter new password",
+  "resetPasswordButton": "Reset password",
+  "passwordMismatch": "Passwords do not match",
+  "biometricTitle": "Welcome back",
+  "biometricSubtitle": "Use biometrics to unlock",
+  "biometricPrompt": "Authenticate to access Scolair",
+  "usePasswordFallback": "Use password instead",
+  "authErrorInvalidCredentials": "Incorrect email or password",
+  "authErrorOtpInvalid": "Invalid or expired code",
+  "authErrorGeneric": "Something went wrong. Please try again"
 }

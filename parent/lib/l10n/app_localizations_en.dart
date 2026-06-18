@@ -49,4 +49,121 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loading => 'Loading';
+
+  @override
+  String get loginTitle => 'Parent Login';
+
+  @override
+  String get loginSubtitle =>
+      'Sign in with your organization email to continue.';
+
+  @override
+  String get phoneNumberLabel => 'Phone Number';
+
+  @override
+  String get phoneNumberHint => 'Enter your phone number';
+
+  @override
+  String get sendOtpButton => 'Send OTP';
+
+  @override
+  String get orgLoginLink => 'Sign in with phone instead';
+
+  @override
+  String get phoneLoginSecurityNote =>
+      'Your parent account protects sensitive child information.';
+
+  @override
+  String get emailLabel => 'Email';
+
+  @override
+  String get emailHint => 'Enter your email';
+
+  @override
+  String get passwordLabel => 'Password';
+
+  @override
+  String get passwordHint => 'Enter your password';
+
+  @override
+  String get forgotPasswordLink => 'Forgot password?';
+
+  @override
+  String get loginButton => 'Log in';
+
+  @override
+  String get orgLoginTitle => 'Phone Login';
+
+  @override
+  String get orgLoginSubtitle =>
+      'Enter your phone number to receive a one-time code.';
+
+  @override
+  String get orgLoginButton => 'Continue';
+
+  @override
+  String get otpTitle => 'Verify your identity';
+
+  @override
+  String otpSubtitle(Object identifier) {
+    return 'We sent a 6-digit code to $identifier';
+  }
+
+  @override
+  String get otpResend => 'Resend code';
+
+  @override
+  String get otpVerifyButton => 'Verify';
+
+  @override
+  String get forgotPasswordTitle => 'Forgot password?';
+
+  @override
+  String get forgotPasswordSubtitle =>
+      'Enter your email and we will send you a reset code';
+
+  @override
+  String get sendResetLinkButton => 'Send reset code';
+
+  @override
+  String get resetPasswordTitle => 'Reset password';
+
+  @override
+  String get newPasswordLabel => 'New password';
+
+  @override
+  String get newPasswordHint => 'Enter new password';
+
+  @override
+  String get confirmPasswordLabel => 'Confirm password';
+
+  @override
+  String get confirmPasswordHint => 'Re-enter new password';
+
+  @override
+  String get resetPasswordButton => 'Reset password';
+
+  @override
+  String get passwordMismatch => 'Passwords do not match';
+
+  @override
+  String get biometricTitle => 'Welcome back';
+
+  @override
+  String get biometricSubtitle => 'Use biometrics to unlock';
+
+  @override
+  String get biometricPrompt => 'Authenticate to access Scolair';
+
+  @override
+  String get usePasswordFallback => 'Use password instead';
+
+  @override
+  String get authErrorInvalidCredentials => 'Incorrect email or password';
+
+  @override
+  String get authErrorOtpInvalid => 'Invalid or expired code';
+
+  @override
+  String get authErrorGeneric => 'Something went wrong. Please try again';
 }
