@@ -55,5 +55,14 @@
   "usePasswordFallback": "استخدم كلمة المرور بدلاً من ذلك",
   "authErrorInvalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
   "authErrorOtpInvalid": "الرمز غير صالح أو منتهي الصلاحية",
-  "authErrorGeneric": "حدث خطأ ما. يرجى المحاولة مرة أخرى"
+  "authErrorGeneric": "حدث خطأ ما. يرجى المحاولة مرة أخرى",
+  "onboardingPage1Title": "مرحباً",
+  "onboardingPage1Body": "مرحباً بك في سكولير — مساحة عملك الأكاديمية.",
+  "onboardingPage2Title": "تعلّم",
+  "onboardingPage2Body": "تابع حصصك وواجباتك وتقدمك الدراسي.",
+  "onboardingPage3Title": "ابدأ الآن",
+  "onboardingPage3Body": "كل ما تحتاجه للمدرسة في مكان واحد.",
+  "onboardingNextButton": "التالي",
+  "onboardingDoneButton": "ابدأ الآن",
+  "onboardingSkipButton": "تخطَّ"
 }

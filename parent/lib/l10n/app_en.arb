@@ -63,5 +63,14 @@
   "usePasswordFallback": "Use password instead",
   "authErrorInvalidCredentials": "Incorrect email or password",
   "authErrorOtpInvalid": "Invalid or expired code",
-  "authErrorGeneric": "Something went wrong. Please try again"
+  "authErrorGeneric": "Something went wrong. Please try again",
+  "onboardingPage1Title": "Welcome",
+  "onboardingPage1Body": "Welcome to Scolair — stay connected with your child's education.",
+  "onboardingPage2Title": "Stay Informed",
+  "onboardingPage2Body": "Track your child's classes, assignments, and academic progress.",
+  "onboardingPage3Title": "Get Started",
+  "onboardingPage3Body": "Everything you need to support your child, in one place.",
+  "onboardingNextButton": "Next",
+  "onboardingDoneButton": "Get Started",
+  "onboardingSkipButton": "Skip"
 }

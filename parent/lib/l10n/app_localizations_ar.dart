@@ -165,4 +165,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get authErrorGeneric => 'حدث خطأ ما. يرجى المحاولة مرة أخرى';
+
+  @override
+  String get onboardingPage1Title => 'مرحباً';
+
+  @override
+  String get onboardingPage1Body =>
+      'مرحباً بك في سكولير — ابقَ على تواصل مع مسيرة طفلك التعليمية.';
+
+  @override
+  String get onboardingPage2Title => 'ابقَ مطّلعاً';
+
+  @override
+  String get onboardingPage2Body => 'تابع حصص طفلك وواجباته وتقدّمه الأكاديمي.';
+
+  @override
+  String get onboardingPage3Title => 'ابدأ الآن';
+
+  @override
+  String get onboardingPage3Body => 'كل ما تحتاجه لدعم طفلك في مكان واحد.';
+
+  @override
+  String get onboardingNextButton => 'التالي';
+
+  @override
+  String get onboardingDoneButton => 'ابدأ الآن';
+
+  @override
+  String get onboardingSkipButton => 'تخطَّ';
 }

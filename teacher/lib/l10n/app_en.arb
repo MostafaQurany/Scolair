@@ -63,5 +63,14 @@
   "biometricSubtitle": "Use biometrics to access your account.",
   "biometricPrompt": "Authenticate",
   "usePasswordFallback": "Use password instead",
-  "authErrorGeneric": "Something went wrong. Please try again."
+  "authErrorGeneric": "Something went wrong. Please try again.",
+  "onboardingPage1Title": "Welcome",
+  "onboardingPage1Body": "Welcome to Scolair — your teaching workspace.",
+  "onboardingPage2Title": "Teach",
+  "onboardingPage2Body": "Manage your classes, assignments, and student progress.",
+  "onboardingPage3Title": "Get Started",
+  "onboardingPage3Body": "Everything you need to teach effectively, in one place.",
+  "onboardingNextButton": "Next",
+  "onboardingDoneButton": "Get Started",
+  "onboardingSkipButton": "Skip"
 }

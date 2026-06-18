@@ -14,6 +14,8 @@ import '../../features/auth/presentation/cubit/forgot_password/forgot_password_c
 import '../../features/auth/presentation/cubit/login/login_cubit.dart';
 import '../../features/auth/presentation/cubit/otp/otp_cubit.dart';
 import '../../features/auth/presentation/cubit/reset_password/reset_password_cubit.dart';
+import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
+import '../../features/splash/presentation/cubit/splash_cubit.dart';
 import '../../features/home/data/datasources/local/home_local_datasource.dart';
 import '../../features/home/data/repositories/home_repository_impl.dart';
 import '../../features/home/domain/repositories/home_repository.dart';
@@ -69,5 +71,8 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<ResetPasswordCubit>(
       () => ResetPasswordCubit(getIt()),
     )
-    ..registerFactory<BiometricCubit>(BiometricCubit.new);
+    ..registerFactory<BiometricCubit>(BiometricCubit.new)
+    // Splash & Onboarding
+    ..registerFactory<SplashCubit>(() => SplashCubit(getIt()))
+    ..registerFactory<OnboardingCubit>(() => OnboardingCubit(getIt()));
 }

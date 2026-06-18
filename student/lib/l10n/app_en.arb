@@ -55,5 +55,14 @@
   "usePasswordFallback": "Use password instead",
   "authErrorInvalidCredentials": "Incorrect email or password",
   "authErrorOtpInvalid": "Invalid or expired code",
-  "authErrorGeneric": "Something went wrong. Please try again"
+  "authErrorGeneric": "Something went wrong. Please try again",
+  "onboardingPage1Title": "Welcome",
+  "onboardingPage1Body": "Welcome to Scolair — your academic workspace.",
+  "onboardingPage2Title": "Learn",
+  "onboardingPage2Body": "Track your classes, assignments, and progress.",
+  "onboardingPage3Title": "Get Started",
+  "onboardingPage3Body": "Everything you need for school, in one place.",
+  "onboardingNextButton": "Next",
+  "onboardingDoneButton": "Get Started",
+  "onboardingSkipButton": "Skip"
 }

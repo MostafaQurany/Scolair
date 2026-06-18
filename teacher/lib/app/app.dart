@@ -10,6 +10,8 @@ import '../features/auth/presentation/screens/org_email_login_screen.dart';
 import '../features/auth/presentation/screens/otp_verification_screen.dart';
 import '../features/auth/presentation/screens/reset_password_screen.dart';
 import '../features/home/presentation/screens/home_screen.dart';
+import '../features/onboarding/presentation/screens/onboarding_screen.dart';
+import '../features/splash/presentation/screens/splash_screen.dart';
 import '../l10n/app_localizations.dart';
 
 class App extends StatelessWidget {
@@ -28,17 +30,17 @@ class App extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
-          initialRoute: AppRouteNames.login,
+          initialRoute: AppRouteNames.splash,
           routes: {
+            AppRouteNames.splash: (_) => const SplashScreen(),
+            AppRouteNames.onboarding: (_) => const OnboardingScreen(),
+            AppRouteNames.home: (_) => const HomeScreen(),
             AppRouteNames.login: (_) => const LoginScreen(),
             AppRouteNames.orgEmailLogin: (_) => const OrgEmailLoginScreen(),
-            AppRouteNames.otpVerification: (_) =>
-                const OtpVerificationScreen(),
+            AppRouteNames.otpVerification: (_) => const OtpVerificationScreen(),
             AppRouteNames.forgotPassword: (_) => const ForgotPasswordScreen(),
             AppRouteNames.resetPassword: (_) => const ResetPasswordScreen(),
-            AppRouteNames.biometricUnlock: (_) =>
-                const BiometricUnlockScreen(),
-            AppRouteNames.home: (_) => const HomeScreen(),
+            AppRouteNames.biometricUnlock: (_) => const BiometricUnlockScreen(),
           },
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

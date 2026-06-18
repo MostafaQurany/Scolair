@@ -24,6 +24,7 @@ This file helps future agents understand the current work state without relying 
 - Added localization best practices for modals, placeholders, plurals, RTL layouts, text expansion, and translation QA.
 - Initialized the `student` branch as a Flutter Android+iOS app with starter architecture, packages, localization, DI, networking, storage, theme, and a Home feature.
 - Applied the Stitch Scolair theme system to the `student` branch with light/dark Material 3 themes, Hanken Grotesk typography, and student role-tone defaults.
+- Applied project rules to `splash` and `onboarding` features: renamed files to snake_case, converted states to Freezed sealed classes, replaced raw Colors with AppColors, replaced hardcoded asset paths with AppAssets, replaced hardcoded route strings with AppRouteNames, moved prefs logic from screen into OnboardingCubit, replaced `introduction_screen` package with custom PageView UI, added localization keys to ARB files, registered both cubits in DI, added splash/onboarding routes to app.dart, changed initialRoute to splash, created `core/constants/app_assets.dart`, created `assets/images/` directory.
 
 ## In-Progress Tasks
 
@@ -49,6 +50,7 @@ This file helps future agents understand the current work state without relying 
 - 2026-06-14: Initialized the `student` Flutter app. `flutter pub get`, code generation, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
 - 2026-06-14: Updated localization import guidance to use local generated files under `lib/l10n/` for Flutter 3.44.
 - 2026-06-15: Applied the Stitch Scolair theme system on `student`. `flutter pub get`, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
+- 2026-06-18: Applied project rules to splash and onboarding features. `flutter pub run build_runner build` and `flutter analyze` passed with zero issues. Logo asset must be placed at `assets/images/logo.png` before running on device.
 
 ## Notes For Future Agents
 

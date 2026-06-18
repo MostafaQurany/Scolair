@@ -63,5 +63,14 @@
   "biometricSubtitle": "استخدم البيانات البيومترية للوصول إلى حسابك.",
   "biometricPrompt": "المصادقة",
   "usePasswordFallback": "استخدام كلمة المرور بدلاً من ذلك",
-  "authErrorGeneric": "حدث خطأ ما. حاول مجدداً."
+  "authErrorGeneric": "حدث خطأ ما. حاول مجدداً.",
+  "onboardingPage1Title": "مرحباً",
+  "onboardingPage1Body": "مرحباً بك في سكولير — مساحة عملك التعليمية.",
+  "onboardingPage2Title": "علِّم",
+  "onboardingPage2Body": "أدِر حصصك وواجباتك وتقدُّم طلابك.",
+  "onboardingPage3Title": "ابدأ الآن",
+  "onboardingPage3Body": "كل ما تحتاجه للتدريس الفعّال في مكان واحد.",
+  "onboardingNextButton": "التالي",
+  "onboardingDoneButton": "ابدأ الآن",
+  "onboardingSkipButton": "تخطَّ"
 }

@@ -21,6 +21,8 @@ import '../../features/home/data/repositories/home_repository_impl.dart';
 import '../../features/home/domain/repositories/home_repository.dart';
 import '../../features/home/domain/usecases/get_home_summary_usecase.dart';
 import '../../features/home/presentation/cubit/home_cubit.dart';
+import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
+import '../../features/splash/presentation/cubit/splash_cubit.dart';
 import '../network/api_client.dart';
 import '../network/dio_factory.dart';
 import '../storage/app_secure_storage.dart';
@@ -46,9 +48,7 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<ApiClient>(() => ApiClient(getIt()))
     // Auth
     ..registerLazySingleton<AuthRemoteDataSource>(AuthRemoteDataSource.new)
-    ..registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(getIt()),
-    )
+    ..registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt()))
     ..registerLazySingleton<SendOtpUseCase>(() => SendOtpUseCase(getIt()))
     ..registerLazySingleton<LoginUseCase>(() => LoginUseCase(getIt()))
     ..registerLazySingleton<VerifyOtpUseCase>(() => VerifyOtpUseCase(getIt()))
@@ -61,20 +61,17 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<PhoneLoginCubit>(() => PhoneLoginCubit(getIt()))
     ..registerFactory<LoginCubit>(() => LoginCubit(getIt()))
     ..registerFactory<OtpCubit>(() => OtpCubit(getIt()))
-    ..registerFactory<ForgotPasswordCubit>(
-      () => ForgotPasswordCubit(getIt()),
-    )
-    ..registerFactory<ResetPasswordCubit>(
-      () => ResetPasswordCubit(getIt()),
-    )
+    ..registerFactory<ForgotPasswordCubit>(() => ForgotPasswordCubit(getIt()))
+    ..registerFactory<ResetPasswordCubit>(() => ResetPasswordCubit(getIt()))
     ..registerFactory<BiometricCubit>(BiometricCubit.new)
     // Home
     ..registerLazySingleton<HomeLocalDataSource>(HomeLocalDataSource.new)
-    ..registerLazySingleton<HomeRepository>(
-      () => HomeRepositoryImpl(getIt()),
-    )
+    ..registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(getIt()))
     ..registerLazySingleton<GetHomeSummaryUseCase>(
       () => GetHomeSummaryUseCase(getIt()),
     )
-    ..registerFactory<HomeCubit>(() => HomeCubit(getIt()));
+    ..registerFactory<HomeCubit>(() => HomeCubit(getIt()))
+    // Splash & Onboarding
+    ..registerFactory<SplashCubit>(() => SplashCubit(getIt()))
+    ..registerFactory<OnboardingCubit>(() => OnboardingCubit(getIt()));
 }
