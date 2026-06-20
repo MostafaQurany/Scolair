@@ -323,37 +323,37 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPage1Title.
   ///
   /// In en, this message translates to:
-  /// **'Welcome'**
+  /// **'Your Learning Wall'**
   String get onboardingPage1Title;
 
   /// No description provided for @onboardingPage1Body.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Scolair — your academic workspace.'**
+  /// **'Follow posts, announcements, lessons, and updates from your school community in one place.'**
   String get onboardingPage1Body;
 
   /// No description provided for @onboardingPage2Title.
   ///
   /// In en, this message translates to:
-  /// **'Learn'**
+  /// **'Learn Smarter'**
   String get onboardingPage2Title;
 
   /// No description provided for @onboardingPage2Body.
   ///
   /// In en, this message translates to:
-  /// **'Track your classes, assignments, and progress.'**
+  /// **'Open courses, continue lessons, complete tasks, and ask AI for help inside your lesson.'**
   String get onboardingPage2Body;
 
   /// No description provided for @onboardingPage3Title.
   ///
   /// In en, this message translates to:
-  /// **'Get Started'**
+  /// **'Stay On Track'**
   String get onboardingPage3Title;
 
   /// No description provided for @onboardingPage3Body.
   ///
   /// In en, this message translates to:
-  /// **'Everything you need for school, in one place.'**
+  /// **'Keep your notes, tasks, grades, chats, and study progress organized every day.'**
   String get onboardingPage3Body;
 
   /// No description provided for @onboardingNextButton.

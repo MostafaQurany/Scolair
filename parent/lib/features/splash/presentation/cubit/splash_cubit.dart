@@ -16,7 +16,8 @@ class SplashCubit extends Cubit<SplashState> {
     if (isFirstTime) {
       emit(SplashState.navigate(AppRouteNames.onboarding));
     } else {
-      emit(SplashState.navigate(AppRouteNames.home));
+      //TODO:- if he already login (from token expired or not and use refresh to get new token) go to home else go to login screen
+      emit(SplashState.navigate(AppRouteNames.login));
     }
   }
 }

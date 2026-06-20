@@ -162,25 +162,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get authErrorGeneric => 'Something went wrong. Please try again.';
 
   @override
-  String get onboardingPage1Title => 'Welcome';
+  String get onboardingPage1Title => 'Lead Your Classes';
 
   @override
   String get onboardingPage1Body =>
-      'Welcome to Scolair — your teaching workspace.';
+      'Share posts, manage class updates, moderate comments, and keep students connected.';
 
   @override
-  String get onboardingPage2Title => 'Teach';
+  String get onboardingPage2Title => 'Create And Manage';
 
   @override
   String get onboardingPage2Body =>
-      'Manage your classes, assignments, and student progress.';
+      'Build lessons, homework, exams, live sessions, files, attendance, and class activities.';
 
   @override
-  String get onboardingPage3Title => 'Get Started';
+  String get onboardingPage3Title => 'Support Every Student';
 
   @override
   String get onboardingPage3Body =>
-      'Everything you need to teach effectively, in one place.';
+      'Review submissions, mark attendance, track progress, grade work, and contact parents when needed.';
 
   @override
   String get onboardingNextButton => 'Next';

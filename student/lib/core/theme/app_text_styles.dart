@@ -14,7 +14,7 @@ abstract final class AppTextStyles {
         ? AppColors.darkTextSecondary
         : AppColors.lightTextSecondary;
     final baseTheme = isDark ? ThemeData.dark() : ThemeData.light();
-    final hankenTheme = GoogleFonts.hankenGroteskTextTheme(baseTheme.textTheme);
+    final hankenTheme = GoogleFonts.dmSansTextTheme(baseTheme.textTheme);
 
     return hankenTheme.copyWith(
       displaySmall: _style(
@@ -120,7 +120,7 @@ abstract final class AppTextStyles {
     required Color color,
     required double height,
   }) {
-    return GoogleFonts.hankenGrotesk(
+    return GoogleFonts.dmSans(
       fontSize: size.sp,
       fontWeight: weight,
       color: color,

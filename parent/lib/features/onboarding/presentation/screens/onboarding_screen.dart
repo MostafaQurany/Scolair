@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -28,93 +30,130 @@ class _OnboardingView extends StatefulWidget {
   State<_OnboardingView> createState() => _OnboardingViewState();
 }
 
-class _OnboardingViewState extends State<_OnboardingView> {
+class _OnboardingViewState extends State<_OnboardingView>
+    with SingleTickerProviderStateMixin {
   late final PageController _pageController;
+  late final AnimationController _entranceCtrl;
+  late final Animation<double> _fadeAnim;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController();
+    _entranceCtrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _fadeAnim = CurvedAnimation(parent: _entranceCtrl, curve: Curves.easeOut);
+    _entranceCtrl.forward();
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+    _entranceCtrl.dispose();
     super.dispose();
+  }
+
+  void _onPageChanged(int index) {
+    context.read<OnboardingCubit>().changePage(index);
+    _entranceCtrl
+      ..reset()
+      ..forward();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OnboardingCubit, OnboardingState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          navigate: (route) => Navigator.pushReplacementNamed(context, route),
-        );
-      },
+      listener: (context, state) =>
+          state.whenOrNull(navigate: (r) => Navigator.pushReplacementNamed(context, r)),
       builder: (context, state) {
         final pageIndex = state.whenOrNull(initial: (i) => i) ?? 0;
         final cubit = context.read<OnboardingCubit>();
+        final isRtl = Directionality.of(context) == TextDirection.rtl;
+        final reduceMotion = MediaQuery.of(context).disableAnimations;
+        final slideAnim = reduceMotion
+            ? const AlwaysStoppedAnimation(Offset.zero)
+            : Tween<Offset>(
+                begin: Offset(isRtl ? 0.3 : -0.3, 0),
+                end: Offset.zero,
+              ).animate(CurvedAnimation(parent: _entranceCtrl, curve: Curves.easeOut));
+        final (asset, title, body) = switch (pageIndex) {
+          0 => (AppAssets.onboarding1, context.l10n.onboardingPage1Title, context.l10n.onboardingPage1Body),
+          1 => (AppAssets.onboarding2, context.l10n.onboardingPage2Title, context.l10n.onboardingPage2Body),
+          _ => (AppAssets.onboarding3, context.l10n.onboardingPage3Title, context.l10n.onboardingPage3Body),
+        };
+
         return Scaffold(
           backgroundColor: AppColors.lightBackground,
           body: SafeArea(
             child: Column(
               children: [
+                _TopBar(pageIndex: pageIndex, onSkip: cubit.finish),
                 Expanded(
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: 3,
-                    onPageChanged: cubit.changePage,
-                    itemBuilder: (_, index) => _OnboardingPage(index),
-                  ),
-                ),
-                _DotIndicator(currentPage: pageIndex, count: 3),
-                SizedBox(height: 16.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Stack(
+                    fit: StackFit.expand,
                     children: [
-                      if (pageIndex < 2)
-                        TextButton(
-                          onPressed: cubit.finish,
-                          child: Text(
-                            context.l10n.onboardingSkipButton,
-                            style: AppTextStyles.body.copyWith(
-                              color: AppColors.lightTextSecondary,
+                      PageView.builder(
+                        controller: _pageController,
+                        itemCount: 3,
+                        onPageChanged: _onPageChanged,
+                        allowImplicitScrolling: true,
+                        itemBuilder: (_, _) => const SizedBox.shrink(),
+                      ),
+                      Positioned.fill(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 24.w,
+                            vertical: 16.h,
+                          ),
+                          child: SlideTransition(
+                            position: slideAnim,
+                            child: FadeTransition(
+                              opacity: _fadeAnim,
+                              child: _IllustrationCard(assetPath: asset),
                             ),
                           ),
-                        )
-                      else
-                        const SizedBox.shrink(),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primary,
-                          foregroundColor: AppColors.darkTextPrimary,
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 32.w,
-                            vertical: 14.h,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.r),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (pageIndex < 2) {
-                            _pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          } else {
-                            cubit.finish();
-                          }
-                        },
-                        child: Text(
-                          pageIndex < 2
-                              ? context.l10n.onboardingNextButton
-                              : context.l10n.onboardingDoneButton,
                         ),
                       ),
                     ],
+                  ),
+                ),
+                SizedBox(height: 16.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.w),
+                  child: Text(
+                    title,
+                    style: AppTextStyles.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 32.w),
+                  child: Text(
+                    body,
+                    style: AppTextStyles.body.copyWith(
+                      color: AppColors.lightTextSecondary,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: 24.h),
+                _DotIndicator(currentPage: pageIndex, count: 3),
+                SizedBox(height: 20.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: _AnimatedButton(
+                    label: pageIndex < 2
+                        ? context.l10n.onboardingNextButton
+                        : context.l10n.onboardingDoneButton,
+                    onPressed: () => pageIndex < 2
+                        ? _pageController.nextPage(
+                            duration: const Duration(milliseconds: 350),
+                            curve: Curves.easeInOut,
+                          )
+                        : cubit.finish(),
                   ),
                 ),
                 SizedBox(height: 32.h),
@@ -127,50 +166,68 @@ class _OnboardingViewState extends State<_OnboardingView> {
   }
 }
 
-class _OnboardingPage extends StatelessWidget {
-  const _OnboardingPage(this.pageIndex);
-
-  final int pageIndex;
+class _IllustrationCard extends StatelessWidget {
+  const _IllustrationCard({required this.assetPath});
+  final String assetPath;
 
   @override
   Widget build(BuildContext context) {
-    final (title, body, icon) = switch (pageIndex) {
-      0 => (
-          context.l10n.onboardingPage1Title,
-          context.l10n.onboardingPage1Body,
-          Icons.family_restroom,
-        ),
-      1 => (
-          context.l10n.onboardingPage2Title,
-          context.l10n.onboardingPage2Body,
-          Icons.child_care,
-        ),
-      _ => (
-          context.l10n.onboardingPage3Title,
-          context.l10n.onboardingPage3Body,
-          Icons.rocket_launch,
-        ),
-    };
-
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 32.w),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 120.r, color: AppColors.primary),
-          SizedBox(height: 40.h),
-          Text(
-            title,
-            style: AppTextStyles.titleLarge,
-            textAlign: TextAlign.center,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(24.r),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.15),
+            blurRadius: 32,
+            spreadRadius: 8,
+            offset: const Offset(0, 8),
           ),
-          SizedBox(height: 16.h),
-          Text(
-            body,
-            style: AppTextStyles.body.copyWith(
-              color: AppColors.lightTextSecondary,
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24.r),
+        child: Image.asset(assetPath, fit: BoxFit.contain),
+      ),
+    );
+  }
+}
+
+class _TopBar extends StatelessWidget {
+  const _TopBar({required this.pageIndex, required this.onSkip});
+  final int pageIndex;
+  final VoidCallback onSkip;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 60.h,
+      child: Row(
+        children: [
+          SizedBox(width: 88.w),
+          Expanded(
+            child: Text(
+              'Scolair',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.spaceMono(
+                color: AppColors.primary,
+                fontWeight: FontWeight.w700,
+                fontSize: 20.sp,
+              ),
             ),
-            textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            width: 88.w,
+            child: pageIndex < 2
+                ? TextButton(
+                    onPressed: onSkip,
+                    child: Text(
+                      context.l10n.onboardingSkipButton,
+                      style: AppTextStyles.body.copyWith(
+                        color: AppColors.lightTextSecondary,
+                      ),
+                    ),
+                  )
+                : null,
           ),
         ],
       ),
@@ -180,7 +237,6 @@ class _OnboardingPage extends StatelessWidget {
 
 class _DotIndicator extends StatelessWidget {
   const _DotIndicator({required this.currentPage, required this.count});
-
   final int currentPage;
   final int count;
 
@@ -191,9 +247,10 @@ class _DotIndicator extends StatelessWidget {
       children: List.generate(count, (index) {
         final isActive = index == currentPage;
         return AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
           margin: EdgeInsets.symmetric(horizontal: 4.w),
-          width: isActive ? 20.w : 8.w,
+          width: isActive ? 24.w : 8.w,
           height: 8.h,
           decoration: BoxDecoration(
             color: isActive ? AppColors.primary : AppColors.lightDivider,
@@ -201,6 +258,70 @@ class _DotIndicator extends StatelessWidget {
           ),
         );
       }),
+    );
+  }
+}
+
+class _AnimatedButton extends StatefulWidget {
+  const _AnimatedButton({required this.label, required this.onPressed});
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  State<_AnimatedButton> createState() => _AnimatedButtonState();
+}
+
+class _AnimatedButtonState extends State<_AnimatedButton>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 80),
+    );
+    _scale = Tween<double>(begin: 1.0, end: 0.97).animate(_ctrl);
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerDown: (_) => _ctrl.forward(),
+      onPointerUp: (_) => _ctrl.reverse(),
+      onPointerCancel: (_) => _ctrl.reverse(),
+      child: ScaleTransition(
+        scale: _scale,
+        child: SizedBox(
+          width: double.infinity,
+          child: FilledButton(
+            onPressed: widget.onPressed,
+            style: FilledButton.styleFrom(
+              backgroundColor: AppColors.primary,
+              foregroundColor: AppColors.darkTextPrimary,
+              padding: EdgeInsets.symmetric(vertical: 16.h),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14.r),
+              ),
+            ),
+            child: Text(
+              widget.label,
+              style: AppTextStyles.body.copyWith(
+                color: AppColors.darkTextPrimary,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -161,24 +161,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get authErrorGeneric => 'حدث خطأ ما. حاول مجدداً.';
 
   @override
-  String get onboardingPage1Title => 'مرحباً';
+  String get onboardingPage1Title => 'قُد فصولك';
 
   @override
   String get onboardingPage1Body =>
-      'مرحباً بك في سكولير — مساحة عملك التعليمية.';
+      'شارك المنشورات وأدِر تحديثات الفصل وتحكّم في التعليقات وابقِ الطلاب على تواصل.';
 
   @override
-  String get onboardingPage2Title => 'علِّم';
+  String get onboardingPage2Title => 'أنشئ وأدِر';
 
   @override
-  String get onboardingPage2Body => 'أدِر حصصك وواجباتك وتقدُّم طلابك.';
+  String get onboardingPage2Body =>
+      'ابنِ الدروس والواجبات والامتحانات والجلسات المباشرة والملفات والحضور والأنشطة الصفية.';
 
   @override
-  String get onboardingPage3Title => 'ابدأ الآن';
+  String get onboardingPage3Title => 'ادعم كل طالب';
 
   @override
   String get onboardingPage3Body =>
-      'كل ما تحتاجه للتدريس الفعّال في مكان واحد.';
+      'راجع التسليمات وسجّل الحضور وتابع التقدم وصحّح الأعمال وتواصل مع أولياء الأمور عند الحاجة.';
 
   @override
   String get onboardingNextButton => 'التالي';

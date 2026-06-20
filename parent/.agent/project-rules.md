@@ -342,6 +342,15 @@ Text(context.l10n.itemCount(count));
 - Keep layouts flexible with `Expanded`, `Flexible`, `Wrap`, `LayoutBuilder`, and scroll views where needed.
 - Test important screens on small and large devices.
 
+## Typography
+
+- Use **DM Sans** from Google Fonts (`GoogleFonts.dmSans(...)`) as the project-wide font for all UI text.
+- Use **Space Mono** from Google Fonts (`GoogleFonts.spaceMono(...)`) exclusively for the `'Scolair'` brand word wherever it appears.
+- Never hardcode font family strings — always call `GoogleFonts.dmSans(...)` or `GoogleFonts.spaceMono(...)`.
+- All font sizes must use `.sp` (from `flutter_screenutil_plus`) for responsive scaling.
+- Define all reusable text styles in `core/theme/app_text_styles.dart` using DM Sans.
+- Do not add a named style for Space Mono in `AppTextStyles` — apply it inline where `'Scolair'` appears.
+
 ## Assets
 
 - Store all image, icon, and media assets inside `assets/` at the project root.

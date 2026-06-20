@@ -371,37 +371,37 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingPage1Title.
   ///
   /// In en, this message translates to:
-  /// **'Welcome'**
+  /// **'Follow Every Child'**
   String get onboardingPage1Title;
 
   /// No description provided for @onboardingPage1Body.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Scolair — stay connected with your child\'s education.'**
+  /// **'See your children\'s homework, exams, grades, attendance, reports, and school updates quickly.'**
   String get onboardingPage1Body;
 
   /// No description provided for @onboardingPage2Title.
   ///
   /// In en, this message translates to:
-  /// **'Stay Informed'**
+  /// **'Monitor Progress'**
   String get onboardingPage2Title;
 
   /// No description provided for @onboardingPage2Body.
   ///
   /// In en, this message translates to:
-  /// **'Track your child\'s classes, assignments, and academic progress.'**
+  /// **'Review grades, homework, exams, attendance, and reports with clear child-focused details.'**
   String get onboardingPage2Body;
 
   /// No description provided for @onboardingPage3Title.
   ///
   /// In en, this message translates to:
-  /// **'Get Started'**
+  /// **'Stay Connected'**
   String get onboardingPage3Title;
 
   /// No description provided for @onboardingPage3Body.
   ///
   /// In en, this message translates to:
-  /// **'Everything you need to support your child, in one place.'**
+  /// **'Chat with teachers, receive announcements, approve events, and support your child with confidence.'**
   String get onboardingPage3Body;
 
   /// No description provided for @onboardingNextButton.
