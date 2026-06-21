@@ -72,5 +72,17 @@
   "onboardingPage3Body": "تواصل مع المعلمين وتلقَّ الإعلانات وأقرّ الفعاليات وادعم طفلك بثقة.",
   "onboardingNextButton": "التالي",
   "onboardingDoneButton": "ابدأ الآن",
-  "onboardingSkipButton": "تخطَّ"
+  "onboardingSkipButton": "تخطَّ",
+  "registerTitle": "إنشاء حساب",
+  "fullNameLabel": "الاسم الكامل",
+  "fullNameHint": "أدخل اسمك الكامل",
+  "agreeTermsLabel": "أوافق على الشروط والأحكام",
+  "createAccountButton": "إنشاء حساب",
+  "alreadyHaveAccountLink": "لديك حساب بالفعل؟ تسجيل الدخول",
+  "continueWithGoogleButton": "المتابعة مع Google",
+  "changePasswordTitle": "تغيير كلمة المرور",
+  "currentPasswordLabel": "كلمة المرور الحالية",
+  "updatePasswordButton": "تحديث كلمة المرور",
+  "updatePasswordSuccess": "تم تحديث كلمة المرور بنجاح",
+  "logoutButton": "تسجيل الخروج"
 }

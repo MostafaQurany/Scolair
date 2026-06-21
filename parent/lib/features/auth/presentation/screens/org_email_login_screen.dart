@@ -5,8 +5,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/phone_login/phone_login_cubit.dart';
 import '../cubit/phone_login/phone_login_state.dart';
 import '../widgets/auth_primary_button.dart';
@@ -48,8 +46,10 @@ class _PhoneLoginViewState extends State<_PhoneLoginView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
   }
@@ -105,9 +105,9 @@ class _PhoneLoginViewState extends State<_PhoneLoginView>
           flow: OtpFlowType.phoneLogin,
         ),
       ),
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorGeneric)),
-      ),
+      error: (_) => ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorGeneric))),
     );
   }
 }
@@ -137,12 +137,12 @@ class _PhoneLoginBody extends StatelessWidget {
             children: [
               const AuthBrandMark(compact: true),
               SizedBox(height: 16.h),
-              Text(context.l10n.orgLoginTitle, style: AppTextStyles.titleLarge),
+              Text(context.l10n.orgLoginTitle, style: Theme.of(context).textTheme.titleLarge),
               SizedBox(height: 6.h),
               Text(
                 context.l10n.orgLoginSubtitle,
-                style: AppTextStyles.body.copyWith(
-                  color: AppColors.lightTextSecondary,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
               ),
               SizedBox(height: 22.h),
@@ -164,9 +164,9 @@ class _PhoneLoginBody extends StatelessWidget {
         Text(
           context.l10n.phoneLoginSecurityNote,
           textAlign: TextAlign.center,
-          style: AppTextStyles.body.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontSize: 12.sp,
-            color: AppColors.lightTextSecondary,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
       ],
@@ -196,7 +196,7 @@ class _PhoneRow extends StatelessWidget {
         Container(
           height: 56.h,
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.lightBorder),
+            border: Border.all(color: Theme.of(context).colorScheme.outline),
             borderRadius: BorderRadius.circular(8.r),
           ),
           padding: EdgeInsetsDirectional.symmetric(horizontal: 8.w),

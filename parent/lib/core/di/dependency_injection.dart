@@ -5,16 +5,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../features/auth/data/datasources/remote/auth_remote_datasource.dart';
 import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
+import '../../features/auth/domain/usecases/change_password_usecase.dart';
 import '../../features/auth/domain/usecases/forgot_password_usecase.dart';
 import '../../features/auth/domain/usecases/login_usecase.dart';
+import '../../features/auth/domain/usecases/logout_usecase.dart';
 import '../../features/auth/domain/usecases/org_login_usecase.dart';
+import '../../features/auth/domain/usecases/refresh_token_usecase.dart';
 import '../../features/auth/domain/usecases/reset_password_usecase.dart';
 import '../../features/auth/domain/usecases/send_otp_usecase.dart';
 import '../../features/auth/domain/usecases/verify_otp_usecase.dart';
 import '../../features/auth/presentation/cubit/biometric/biometric_cubit.dart';
+import '../../features/auth/presentation/cubit/change_password/change_password_cubit.dart';
 import '../../features/auth/presentation/cubit/forgot_password/forgot_password_cubit.dart';
 import '../../features/auth/presentation/cubit/login/login_cubit.dart';
 import '../../features/auth/presentation/cubit/otp/otp_cubit.dart';
+import '../../features/auth/presentation/cubit/register/register_cubit.dart';
 import '../../features/auth/presentation/cubit/phone_login/phone_login_cubit.dart';
 import '../../features/auth/presentation/cubit/reset_password/reset_password_cubit.dart';
 import '../../features/home/data/datasources/local/home_local_datasource.dart';
@@ -39,41 +44,61 @@ Future<void> setupDependencyInjection() async {
   }
 
   getIt
+    // Storage
     ..registerLazySingleton<SharedPreferences>(() => sharedPreferences)
     ..registerLazySingleton<AppSharedPreferences>(
       () => AppSharedPreferences(getIt()),
     )
     ..registerLazySingleton<AppSecureStorage>(AppSecureStorage.new)
+    // Network
     ..registerLazySingleton<Dio>(() => DioFactory.create(getIt()))
     ..registerLazySingleton<ApiClient>(() => ApiClient(getIt()))
+    // Home feature
     ..registerLazySingleton<HomeLocalDataSource>(HomeLocalDataSource.new)
     ..registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(getIt()))
     ..registerLazySingleton<GetHomeSummaryUseCase>(
       () => GetHomeSummaryUseCase(getIt()),
     )
     ..registerFactory<HomeCubit>(() => HomeCubit(getIt()))
+    // Auth — data
     ..registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(getIt()),
     )
-    ..registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(getIt()))
-    ..registerLazySingleton<SendOtpUseCase>(() => SendOtpUseCase(getIt()))
+    ..registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(getIt(), getIt()),
+    )
+    // Auth — use cases
     ..registerLazySingleton<LoginUseCase>(() => LoginUseCase(getIt()))
-    ..registerLazySingleton<OrgLoginUseCase>(() => OrgLoginUseCase(getIt()))
-    ..registerLazySingleton<VerifyOtpUseCase>(() => VerifyOtpUseCase(getIt()))
-    ..registerLazySingleton<ForgotPasswordUseCase>(
-      () => ForgotPasswordUseCase(getIt()),
+    ..registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt()))
+    ..registerLazySingleton<GoogleLoginUseCase>(
+      () => GoogleLoginUseCase(getIt()),
     )
-    ..registerLazySingleton<ResetPasswordUseCase>(
-      () => ResetPasswordUseCase(getIt()),
+    ..registerLazySingleton<RefreshTokenUseCase>(
+      () => RefreshTokenUseCase(getIt()),
     )
-    ..registerFactory<PhoneLoginCubit>(() => PhoneLoginCubit(getIt()))
+    ..registerLazySingleton<LogoutUseCase>(() => LogoutUseCase(getIt()))
+    ..registerLazySingleton<ForgotPasswordSendOtpUseCase>(
+      () => ForgotPasswordSendOtpUseCase(getIt()),
+    )
+    ..registerLazySingleton<ForgotPasswordVerifyOtpUseCase>(
+      () => ForgotPasswordVerifyOtpUseCase(getIt()),
+    )
+    ..registerLazySingleton<ForgotPasswordResetUseCase>(
+      () => ForgotPasswordResetUseCase(getIt()),
+    )
+    ..registerLazySingleton<ChangePasswordUseCase>(
+      () => ChangePasswordUseCase(getIt()),
+    )
+    // Auth — cubits
     ..registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt()))
+    ..registerFactory<RegisterCubit>(() => RegisterCubit(getIt()))
     ..registerFactory<OtpCubit>(() => OtpCubit(getIt()))
     ..registerFactory<ForgotPasswordCubit>(() => ForgotPasswordCubit(getIt()))
     ..registerFactory<ResetPasswordCubit>(() => ResetPasswordCubit(getIt()))
+    ..registerFactory<ChangePasswordCubit>(() => ChangePasswordCubit(getIt()))
+    ..registerFactory<PhoneLoginCubit>(PhoneLoginCubit.new)
     ..registerFactory<BiometricCubit>(BiometricCubit.new)
-  // Splash & Onboarding
-    ..registerFactory<SplashCubit>(() => SplashCubit(getIt()))
+    // Splash & Onboarding
+    ..registerFactory<SplashCubit>(() => SplashCubit(getIt(), getIt(), getIt()))
     ..registerFactory<OnboardingCubit>(() => OnboardingCubit(getIt()));
-
 }

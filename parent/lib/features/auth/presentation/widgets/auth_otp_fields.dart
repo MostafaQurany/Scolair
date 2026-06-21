@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 
 class AuthOtpFields extends StatefulWidget {
   const AuthOtpFields({required this.onChanged, super.key});
@@ -53,11 +51,10 @@ class _AuthOtpFieldsState extends State<AuthOtpFields> {
                 FilteringTextInputFormatter.digitsOnly,
                 LengthLimitingTextInputFormatter(1),
               ],
-              style: AppTextStyles.textTheme(Brightness.light).headlineSmall,
+              style: Theme.of(context).textTheme.headlineSmall,
               decoration: InputDecoration(
                 counterText: '',
                 contentPadding: EdgeInsets.zero,
-                fillColor: AppColors.lightSurface,
                 constraints: BoxConstraints.tightFor(height: 56.h),
               ),
               onChanged: (value) => _handleChange(index, value),

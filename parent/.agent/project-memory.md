@@ -33,9 +33,8 @@ This file helps future agents understand the current work state without relying 
 
 ## Next Tasks
 
-- After auth screens: add token persistence and auto-login logic (when backend is ready).
-- Add backend auth wiring when API contracts are ready; current auth remote datasource methods intentionally throw `UnimplementedError('TODO: wire up when backend is ready')`.
 - Add app-start biometric gating when saved-token/session requirements are defined.
+- Configure Google Sign-In client ID: `android/app/google-services.json` and `ios/Runner/GoogleService-Info.plist` are required before Google login works on device.
 - Use the Stitch theme tokens for future UI work instead of hardcoded colors.
 
 ## Open Questions
@@ -53,6 +52,7 @@ This file helps future agents understand the current work state without relying 
 - 2026-06-14: Initialized the `parent` Flutter app. `flutter pub get`, code generation, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
 - 2026-06-15: Applied the Stitch Scolair theme system on `parent`. `flutter pub get`, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
 - 2026-06-17: Implemented parent auth screens. `flutter pub get`, `dart run build_runner build --delete-conflicting-outputs`, `flutter gen-l10n`, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed. Stitch MCP exposed project-wide `list_screens`; downloaded and inspected returned auth/reference artifacts under `.agent/stitch-auth/`.
+- 2026-06-21: Completed auth backend integration. Wired all auth endpoints to Frappe/LMS backend (`dev.scolair.site`). Added Register + Change Password screens, token refresh interceptor (queued 401 retry), splash auto-login logic, Google login (UI + `google_sign_in` package). `dart run build_runner build`, `flutter gen-l10n`, `dart format .`, `flutter analyze` (0 issues), `flutter test` (passed). Spec: `.agent/specs/auth-integration.md`.
 
 ## Notes For Future Agents
 

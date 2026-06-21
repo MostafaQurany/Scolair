@@ -5,8 +5,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
+
 import '../cubit/login/login_cubit.dart';
 import '../cubit/login/login_state.dart';
 import '../widgets/auth_primary_button.dart';
@@ -153,7 +152,7 @@ class _LoginBody extends StatelessWidget {
               children: [
                 Text(
                   context.l10n.loginTitle,
-                  style: AppTextStyles.titleLarge.copyWith(
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w800,
                   ),
@@ -161,8 +160,8 @@ class _LoginBody extends StatelessWidget {
                 SizedBox(height: 6.h),
                 Text(
                   context.l10n.loginSubtitle,
-                  style: AppTextStyles.body.copyWith(
-                    color: AppColors.lightTextSecondary,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
                 SizedBox(height: 22.h),

@@ -5,8 +5,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/forgot_password/forgot_password_cubit.dart';
 import '../cubit/forgot_password/forgot_password_state.dart';
 import '../widgets/auth_primary_button.dart';
@@ -145,14 +143,14 @@ class _ForgotPasswordBody extends StatelessWidget {
               children: [
                 Text(
                   context.l10n.forgotPasswordTitle,
-                  style: AppTextStyles.titleLarge,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 SizedBox(height: 8.h),
                 Text(
                   context.l10n.forgotPasswordSubtitle,
                   textAlign: TextAlign.center,
-                  style: AppTextStyles.body.copyWith(
-                    color: AppColors.lightTextSecondary,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
                 ),
                 SizedBox(height: 24.h),

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
 import '../cubit/reset_password/reset_password_cubit.dart';
 import '../cubit/reset_password/reset_password_state.dart';
 import '../widgets/auth_primary_button.dart';
@@ -54,8 +55,10 @@ class _ResetPasswordViewState extends State<_ResetPasswordView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
   }
@@ -102,7 +105,6 @@ class _ResetPasswordViewState extends State<_ResetPasswordView>
       context.read<ResetPasswordCubit>().reset(
         widget.token,
         _newPasswordController.text,
-        _confirmPasswordController.text,
       );
     }
   }
@@ -114,9 +116,7 @@ class _ResetPasswordViewState extends State<_ResetPasswordView>
         AppRouteNames.login,
         (_) => false,
       ),
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorGeneric)),
-      ),
+      error: (msg) => AppSnackBar.showError(context, msg),
     );
   }
 }
@@ -158,10 +158,9 @@ class _ResetPasswordBody extends StatelessWidget {
               obscureText: true,
               textInputAction: TextInputAction.next,
               prefixIcon: const Icon(Icons.lock_outline),
-              validator: (value) =>
-                  (value == null || value.trim().isEmpty)
-                      ? context.l10n.authErrorGeneric
-                      : null,
+              validator: (value) => (value == null || value.trim().isEmpty)
+                  ? context.l10n.authErrorGeneric
+                  : null,
             ),
             SizedBox(height: 14.h),
             AuthTextField(

@@ -130,9 +130,9 @@ class _BiometricBody extends StatelessWidget {
           width: 96.r,
           height: 96.r,
           decoration: BoxDecoration(
-            color: AppColors.primarySoft,
+            color: Theme.of(context).colorScheme.primaryContainer,
             shape: BoxShape.circle,
-            border: Border.all(color: AppColors.lightBorder),
+            border: Border.all(color: Theme.of(context).colorScheme.outline),
           ),
           child: Icon(Icons.fingerprint, color: AppColors.primary, size: 56.r),
         ),

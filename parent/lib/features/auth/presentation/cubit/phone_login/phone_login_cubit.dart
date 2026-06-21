@@ -1,19 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/usecases/send_otp_usecase.dart';
 import 'phone_login_state.dart';
 
+// Phone login flow is not part of the current API integration.
+// This cubit is kept as a no-op stub to preserve the existing screen.
 class PhoneLoginCubit extends Cubit<PhoneLoginState> {
-  PhoneLoginCubit(this._sendOtp) : super(const PhoneLoginState.initial());
-
-  final SendOtpUseCase _sendOtp;
+  PhoneLoginCubit() : super(const PhoneLoginState.initial());
 
   Future<void> sendOtp(String countryCode, String phone) async {
     emit(const PhoneLoginState.loading());
-    final result = await _sendOtp(countryCode: countryCode, phone: phone);
-    result.when(
-      success: (_) => emit(const PhoneLoginState.sent()),
-      failure: (f) => emit(PhoneLoginState.error(f.message)),
-    );
+    emit(const PhoneLoginState.error('Phone login is not supported'));
   }
 }

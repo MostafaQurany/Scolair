@@ -7,7 +7,8 @@ class SendOtpRequestData {
   const SendOtpRequestData({required this.phone, required this.countryCode});
 
   final String phone;
-  @JsonKey(name: 'country_code') final String countryCode;
+  @JsonKey(name: 'country_code')
+  final String countryCode;
 
   factory SendOtpRequestData.fromJson(Map<String, dynamic> json) =>
       _$SendOtpRequestDataFromJson(json);
