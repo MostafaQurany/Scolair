@@ -1,60 +1,77 @@
 import '../../../../../core/network/api_client.dart';
+import '../../models/change_password_request_data.dart';
 import '../../models/forgot_password_request_data.dart';
+import '../../models/forgot_password_send_otp_response_data.dart';
+import '../../models/google_login_request_data.dart';
 import '../../models/login_request_data.dart';
-import '../../models/send_otp_request_data.dart';
 import '../../models/login_response_data.dart';
+import '../../models/logout_request_data.dart';
 import '../../models/otp_verify_request_data.dart';
 import '../../models/otp_verify_response_data.dart';
+import '../../models/refresh_token_request_data.dart';
+import '../../models/refresh_token_response_data.dart';
+import '../../models/register_request_data.dart';
+import '../../models/register_response_data.dart';
 import '../../models/reset_password_request_data.dart';
 
 abstract interface class AuthRemoteDataSource {
-  Future<void> sendOtp(SendOtpRequestData request);
+  Future<RegisterResponseData> register(RegisterRequestData request);
   Future<LoginResponseData> login(LoginRequestData request);
-  Future<LoginResponseData> orgLogin(LoginRequestData request);
-  Future<OtpVerifyResponseData> verifyOtp(OtpVerifyRequestData request);
-  Future<void> forgotPassword(ForgotPasswordRequestData request);
-  Future<void> resetPassword(ResetPasswordRequestData request);
+  Future<LoginResponseData> googleLogin(GoogleLoginRequestData request);
+  Future<RefreshTokenResponseData> refreshToken(
+    RefreshTokenRequestData request,
+  );
+  Future<void> logout(LogoutRequestData request);
+  Future<ForgotPasswordSendOtpResponseData> forgotPasswordSendOtp(
+    ForgotPasswordRequestData request,
+  );
+  Future<OtpVerifyResponseData> forgotPasswordVerifyOtp(
+    OtpVerifyRequestData request,
+  );
+  Future<void> forgotPasswordReset(ResetPasswordRequestData request);
+  Future<void> changePassword(ChangePasswordRequestData request);
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   const AuthRemoteDataSourceImpl(this._apiClient);
 
-  // ignore: unused_field — will be used when backend is wired up
   final ApiClient _apiClient;
 
   @override
-  Future<void> sendOtp(SendOtpRequestData request) {
-    // TODO: wire up when backend is ready
-    throw UnimplementedError('sendOtp not implemented');
-  }
+  Future<RegisterResponseData> register(RegisterRequestData request) =>
+      _apiClient.register(request);
 
   @override
-  Future<LoginResponseData> login(LoginRequestData request) {
-    // TODO: wire up when backend is ready
-    throw UnimplementedError('login not implemented');
-  }
+  Future<LoginResponseData> login(LoginRequestData request) =>
+      _apiClient.login(request);
 
   @override
-  Future<LoginResponseData> orgLogin(LoginRequestData request) {
-    // TODO: wire up when backend is ready
-    throw UnimplementedError('orgLogin not implemented');
-  }
+  Future<LoginResponseData> googleLogin(GoogleLoginRequestData request) =>
+      _apiClient.googleLogin(request);
 
   @override
-  Future<OtpVerifyResponseData> verifyOtp(OtpVerifyRequestData request) {
-    // TODO: wire up when backend is ready
-    throw UnimplementedError('verifyOtp not implemented');
-  }
+  Future<RefreshTokenResponseData> refreshToken(
+    RefreshTokenRequestData request,
+  ) => _apiClient.refreshToken(request);
 
   @override
-  Future<void> forgotPassword(ForgotPasswordRequestData request) {
-    // TODO: wire up when backend is ready
-    throw UnimplementedError('forgotPassword not implemented');
-  }
+  Future<void> logout(LogoutRequestData request) => _apiClient.logout(request);
 
   @override
-  Future<void> resetPassword(ResetPasswordRequestData request) {
-    // TODO: wire up when backend is ready
-    throw UnimplementedError('resetPassword not implemented');
-  }
+  Future<ForgotPasswordSendOtpResponseData> forgotPasswordSendOtp(
+    ForgotPasswordRequestData request,
+  ) => _apiClient.forgotPasswordSendOtp(request);
+
+  @override
+  Future<OtpVerifyResponseData> forgotPasswordVerifyOtp(
+    OtpVerifyRequestData request,
+  ) => _apiClient.forgotPasswordVerifyOtp(request);
+
+  @override
+  Future<void> forgotPasswordReset(ResetPasswordRequestData request) =>
+      _apiClient.forgotPasswordReset(request);
+
+  @override
+  Future<void> changePassword(ChangePasswordRequestData request) =>
+      _apiClient.changePassword(request);
 }

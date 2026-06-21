@@ -7,7 +7,6 @@ class LoginUseCase {
 
   final AuthRepository _repository;
 
-  Future<ApiResult<AuthToken>> call(String email, String password) {
-    return _repository.login(email, password);
-  }
+  Future<ApiResult<AuthToken>> call(String username, String password) =>
+      _repository.login(username, password);
 }

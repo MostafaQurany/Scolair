@@ -3,7 +3,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 
 class AuthSurface extends StatelessWidget {
   const AuthSurface({required this.child,
@@ -65,9 +64,9 @@ class AuthCard extends StatelessWidget {
       width: double.infinity,
       padding: padding ?? EdgeInsetsDirectional.all(16.r),
       decoration: BoxDecoration(
-        color: AppColors.lightSurface,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: AppColors.lightBorder),
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
         boxShadow: [
           BoxShadow(
             color: AppColors.primary.withValues(alpha: 0.06),
@@ -126,9 +125,9 @@ class AuthHeader extends StatelessWidget {
             width: 64.r,
             height: 64.r,
             decoration: BoxDecoration(
-              color: AppColors.primarySoft,
+              color: Theme.of(context).colorScheme.primaryContainer,
               shape: BoxShape.circle,
-              border: Border.all(color: AppColors.lightBorder),
+              border: Border.all(color: Theme.of(context).colorScheme.outline),
             ),
             child: Icon(icon, color: AppColors.primary, size: 28.r),
           ),
@@ -137,7 +136,7 @@ class AuthHeader extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: AppTextStyles.titleLarge.copyWith(
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontSize: 24.sp,
             fontWeight: FontWeight.w800,
           ),
@@ -146,8 +145,8 @@ class AuthHeader extends StatelessWidget {
         Text(
           subtitle,
           textAlign: TextAlign.center,
-          style: AppTextStyles.body.copyWith(
-            color: AppColors.lightTextSecondary,
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
       ],

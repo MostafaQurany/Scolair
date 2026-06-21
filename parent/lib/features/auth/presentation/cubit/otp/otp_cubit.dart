@@ -6,13 +6,13 @@ import 'otp_state.dart';
 class OtpCubit extends Cubit<OtpState> {
   OtpCubit(this._verifyOtpUseCase) : super(const OtpState.initial());
 
-  final VerifyOtpUseCase _verifyOtpUseCase;
+  final ForgotPasswordVerifyOtpUseCase _verifyOtpUseCase;
 
-  Future<void> verify(String email, String otp) async {
+  Future<void> verify(String sessionId, String otp) async {
     emit(const OtpState.loading());
-    final result = await _verifyOtpUseCase(email, otp);
+    final result = await _verifyOtpUseCase(sessionId, otp);
     result.when(
-      success: (token) => emit(OtpState.success(token)),
+      success: (resetToken) => emit(OtpState.success(resetToken)),
       failure: (failure) => emit(OtpState.error(failure.message)),
     );
   }

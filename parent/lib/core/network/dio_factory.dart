@@ -7,24 +7,27 @@ import 'interceptors/logging_interceptor.dart';
 
 abstract final class DioFactory {
   static Dio create(AppSecureStorage secureStorage) {
-    final dio = Dio(
-      BaseOptions(
-        baseUrl: ApiEndpoints.baseUrl,
-        connectTimeout: const Duration(seconds: 30),
-        receiveTimeout: const Duration(seconds: 30),
-        sendTimeout: const Duration(seconds: 30),
-        headers: const {
-          Headers.acceptHeader: Headers.jsonContentType,
-          Headers.contentTypeHeader: Headers.jsonContentType,
-        },
-      ),
-    );
+    final refreshDio = _buildBaseDio();
 
+    final dio = _buildBaseDio();
     dio.interceptors.addAll([
-      AuthInterceptor(secureStorage),
+      AuthInterceptor(secureStorage, refreshDio),
       SafeLoggingInterceptor(),
     ]);
 
     return dio;
   }
+
+  static Dio _buildBaseDio() => Dio(
+    BaseOptions(
+      baseUrl: ApiEndpoints.baseUrl,
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(seconds: 30),
+      sendTimeout: const Duration(seconds: 30),
+      headers: const {
+        Headers.acceptHeader: Headers.jsonContentType,
+        Headers.contentTypeHeader: Headers.jsonContentType,
+      },
+    ),
+  );
 }

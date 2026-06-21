@@ -41,8 +41,10 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -101,9 +103,9 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
   }
 
   void _showError(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(context.l10n.authErrorGeneric)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorGeneric)));
   }
 }
 
@@ -127,9 +129,9 @@ class _BiometricBody extends StatelessWidget {
           width: 96.r,
           height: 96.r,
           decoration: BoxDecoration(
-            color: AppColors.primarySoft,
+            color: Theme.of(context).colorScheme.primaryContainer,
             shape: BoxShape.circle,
-            border: Border.all(color: AppColors.lightBorder),
+            border: Border.all(color: Theme.of(context).colorScheme.outline),
           ),
           child: Icon(Icons.fingerprint, color: AppColors.primary, size: 56.r),
         ),

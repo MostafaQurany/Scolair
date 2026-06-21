@@ -195,4 +195,40 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get onboardingSkipButton => 'تخطَّ';
+
+  @override
+  String get registerTitle => 'إنشاء حساب';
+
+  @override
+  String get fullNameLabel => 'الاسم الكامل';
+
+  @override
+  String get fullNameHint => 'أدخل اسمك الكامل';
+
+  @override
+  String get agreeTermsLabel => 'أوافق على الشروط والأحكام';
+
+  @override
+  String get createAccountButton => 'إنشاء حساب';
+
+  @override
+  String get alreadyHaveAccountLink => 'لديك حساب بالفعل؟ تسجيل الدخول';
+
+  @override
+  String get continueWithGoogleButton => 'المتابعة مع Google';
+
+  @override
+  String get changePasswordTitle => 'تغيير كلمة المرور';
+
+  @override
+  String get currentPasswordLabel => 'كلمة المرور الحالية';
+
+  @override
+  String get updatePasswordButton => 'تحديث كلمة المرور';
+
+  @override
+  String get updatePasswordSuccess => 'تم تحديث كلمة المرور بنجاح';
+
+  @override
+  String get logoutButton => 'تسجيل الخروج';
 }

@@ -1,8 +1,13 @@
 import 'otp_flow_type.dart';
 
 class OtpArgs {
-  const OtpArgs({required this.identifier, required this.flow});
+  const OtpArgs({
+    required this.identifier,
+    required this.flow,
+    this.sessionId = '',
+  });
 
-  final String identifier; // full phone+countryCode for phoneLogin; email for forgotPassword
+  final String identifier;
   final OtpFlowType flow;
+  final String sessionId;
 }

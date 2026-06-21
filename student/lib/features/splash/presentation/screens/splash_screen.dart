@@ -32,7 +32,6 @@ class _SplashView extends StatelessWidget {
         );
       },
       child: Scaffold(
-        backgroundColor: AppColors.lightBackground,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -43,7 +42,7 @@ class _SplashView extends StatelessWidget {
                 width: 120.w,
                 child: LinearProgressIndicator(
                   color: AppColors.primary,
-                  backgroundColor: AppColors.lightDivider,
+                  backgroundColor: Theme.of(context).colorScheme.outlineVariant,
                 ),
               ),
             ],

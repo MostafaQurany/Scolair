@@ -162,6 +162,38 @@ lib/
   - Keep logs safe and avoid printing tokens, passwords, or private user data.
   - Disable or reduce noisy logs for production builds.
 
+## Error Handling
+
+### Rule: Single conversion point
+- All exceptions must be converted to `Failure` via `ErrorHandler.handle(error)` in `core/errors/error_handler.dart`.
+- Do not call `e.toString()`, `e.message`, or build `Failure` objects manually outside of `ErrorHandler`.
+- Repositories must catch `on Object` and return `ApiFailure(ErrorHandler.handle(e))`.
+- Never let raw exceptions propagate to Cubits or widgets.
+
+### Rule: Failure types
+- `NetworkFailure` — no internet, timeout, connection refused.
+- `ServerFailure` — server responded with 4xx/5xx; message extracted from response body.
+- `CacheFailure` — local storage read/write errors.
+- `UnknownFailure` — anything else.
+- `ErrorHandler` reads Frappe response body in this order: `data['message']` → `data['exception']` → first message in `data['_server_messages']` → fallback to `'Server error (statusCode)'`.
+
+### Rule: Cubit error states
+- Every Cubit that emits `loading()` MUST always emit a terminal state (`success`, `error`, etc.) in every code path — no early returns after `loading()` without a terminal emit.
+- Cubit error states carry the full `failure.message` string — never discard it with `_`.
+- Cubit states must NOT carry `Failure` objects or Dio types — only `String message`.
+
+### Rule: Error display — SnackBar is the standard
+- All user-visible errors are shown via `AppSnackBar.showError(context, message)` from `core/widgets/app_snack_bar.dart`.
+- All user-visible success confirmations are shown via `AppSnackBar.showSuccess(context, message)`.
+- Never call `ScaffoldMessenger.of(context).showSnackBar(...)` directly in screens — always use `AppSnackBar`.
+- `AppSnackBar.showError` falls back to `context.l10n.authErrorGeneric` if the message is empty.
+- Always check `context.mounted` before calling `AppSnackBar` methods (the helper does this internally).
+
+### Rule: Screen error listening
+- Every screen that has a Cubit with an error state MUST handle it in `_handleState` (or equivalent listener).
+- Never use `_` to discard the error message parameter — always pass it to `AppSnackBar.showError`.
+- Do not hardcode error strings in screens; use the message from the state, with `context.l10n.authErrorGeneric` as fallback only when the message is empty (handled by `AppSnackBar` automatically).
+
 ## State Management
 
 - Use `flutter_bloc` with Cubit for state management.
@@ -350,6 +382,18 @@ Text(context.l10n.itemCount(count));
 - All font sizes must use `.sp` (from `flutter_screenutil_plus`) for responsive scaling.
 - Define all reusable text styles in `core/theme/app_text_styles.dart` using DM Sans.
 - Do not add a named style for Space Mono in `AppTextStyles` — apply it inline where `'Scolair'` appears.
+
+## Theme and Dark Mode
+
+- The app uses `ThemeMode.system` — it automatically follows the device setting. Do not add manual theme toggles unless explicitly requested.
+- Never reference `AppColors.lightXxx` or `AppColors.darkXxx` directly inside widgets or screens.
+- Use `Theme.of(context).colorScheme.xxx` for all colors (surface, outline, primary, onSurface, onSurfaceVariant, etc.).
+- Use `Theme.of(context).textTheme.xxx` for all text styles (titleLarge, bodyMedium, bodySmall, etc.).
+- Use `Theme.of(context).scaffoldBackgroundColor` for full-screen backgrounds; never set `Scaffold.backgroundColor` to a hardcoded `AppColors` constant.
+- `AppColors.lightXxx` / `AppColors.darkXxx` may ONLY appear inside `core/theme/app_colors.dart` and `core/theme/app_theme.dart`.
+- `AppColors.primary`, `AppColors.darkTextPrimary` etc. (non-light/dark prefixed) may be used in widget files only when the semantic meaning is fixed regardless of brightness (e.g. white text on a blue primary button).
+- The static getters `AppTextStyles.titleLarge`, `.body`, `.caption`, `.titleMedium` are removed — do not add them back. Use `Theme.of(context).textTheme` instead.
+- InputDecoration in custom widgets must NOT override `fillColor` — omit it so it inherits from `inputDecorationTheme.fillColor` which is already brightness-aware.
 
 ## Assets
 

@@ -5,7 +5,7 @@ class SafeLoggingInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     if (kDebugMode) {
-      debugPrint('HTTP ${options.method} ${options.uri}');
+      debugPrint('HTTP ${options.method} ${options.uri} \n ${options.data}');
     }
     handler.next(options);
   }

@@ -7,7 +7,6 @@ import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/onboarding_cubit.dart';
 import '../cubit/onboarding_state.dart';
 
@@ -85,7 +84,6 @@ class _OnboardingViewState extends State<_OnboardingView>
         };
 
         return Scaffold(
-          backgroundColor: AppColors.lightBackground,
           body: SafeArea(
             child: Column(
               children: [
@@ -125,7 +123,7 @@ class _OnboardingViewState extends State<_OnboardingView>
                   padding: EdgeInsets.symmetric(horizontal: 32.w),
                   child: Text(
                     title,
-                    style: AppTextStyles.titleLarge,
+                    style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -134,8 +132,8 @@ class _OnboardingViewState extends State<_OnboardingView>
                   padding: EdgeInsets.symmetric(horizontal: 32.w),
                   child: Text(
                     body,
-                    style: AppTextStyles.body.copyWith(
-                      color: AppColors.lightTextSecondary,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -223,8 +221,8 @@ class _TopBar extends StatelessWidget {
                     onPressed: onSkip,
                     child: Text(
                       context.l10n.onboardingSkipButton,
-                      style: AppTextStyles.body.copyWith(
-                        color: AppColors.lightTextSecondary,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   )
@@ -254,7 +252,7 @@ class _DotIndicator extends StatelessWidget {
           width: isActive ? 24.w : 8.w,
           height: 8.h,
           decoration: BoxDecoration(
-            color: isActive ? AppColors.primary : AppColors.lightDivider,
+            color: isActive ? AppColors.primary : Theme.of(context).colorScheme.outlineVariant,
             borderRadius: BorderRadius.circular(4.r),
           ),
         );
@@ -315,7 +313,7 @@ class _AnimatedButtonState extends State<_AnimatedButton>
             ),
             child: Text(
               widget.label,
-              style: AppTextStyles.body.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.darkTextPrimary,
                 fontWeight: FontWeight.w700,
               ),

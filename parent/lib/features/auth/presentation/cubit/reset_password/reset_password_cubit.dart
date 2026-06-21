@@ -4,22 +4,13 @@ import '../../../domain/usecases/reset_password_usecase.dart';
 import 'reset_password_state.dart';
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
-  ResetPasswordCubit(this._resetPasswordUseCase)
-    : super(const ResetPasswordState.initial());
+  ResetPasswordCubit(this._useCase) : super(const ResetPasswordState.initial());
 
-  final ResetPasswordUseCase _resetPasswordUseCase;
+  final ForgotPasswordResetUseCase _useCase;
 
-  Future<void> reset(
-    String token,
-    String newPassword,
-    String confirmPassword,
-  ) async {
+  Future<void> reset(String resetToken, String newPassword) async {
     emit(const ResetPasswordState.loading());
-    final result = await _resetPasswordUseCase(
-      token,
-      newPassword,
-      confirmPassword,
-    );
+    final result = await _useCase(resetToken, newPassword);
     result.when(
       success: (_) => emit(const ResetPasswordState.success()),
       failure: (failure) => emit(ResetPasswordState.error(failure.message)),

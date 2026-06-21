@@ -1,14 +1,15 @@
 import '../../../../core/network/api_result.dart';
 import '../repositories/auth_repository.dart';
 
-class SendOtpUseCase {
-  const SendOtpUseCase(this._repository);
+class RegisterUseCase {
+  const RegisterUseCase(this._repository);
 
   final AuthRepository _repository;
 
-  Future<ApiResult<void>> call({
-    required String countryCode,
-    required String phone,
-  }) =>
-      _repository.sendOtp(countryCode, phone);
+  Future<ApiResult<void>> call(
+    String fullName,
+    String email,
+    String password,
+    bool verifyTerms,
+  ) => _repository.register(fullName, email, password, verifyTerms);
 }

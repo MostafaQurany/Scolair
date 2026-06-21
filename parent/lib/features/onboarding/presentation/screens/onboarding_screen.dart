@@ -7,7 +7,6 @@ import '../../../../core/constants/app_assets.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/onboarding_cubit.dart';
 import '../cubit/onboarding_state.dart';
 
@@ -65,8 +64,9 @@ class _OnboardingViewState extends State<_OnboardingView>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OnboardingCubit, OnboardingState>(
-      listener: (context, state) =>
-          state.whenOrNull(navigate: (r) => Navigator.pushReplacementNamed(context, r)),
+      listener: (context, state) => state.whenOrNull(
+        navigate: (r) => Navigator.pushReplacementNamed(context, r),
+      ),
       builder: (context, state) {
         final pageIndex = state.whenOrNull(initial: (i) => i) ?? 0;
         final cubit = context.read<OnboardingCubit>();
@@ -77,15 +77,29 @@ class _OnboardingViewState extends State<_OnboardingView>
             : Tween<Offset>(
                 begin: Offset(isRtl ? 0.3 : -0.3, 0),
                 end: Offset.zero,
-              ).animate(CurvedAnimation(parent: _entranceCtrl, curve: Curves.easeOut));
+              ).animate(
+                CurvedAnimation(parent: _entranceCtrl, curve: Curves.easeOut),
+              );
         final (asset, title, body) = switch (pageIndex) {
-          0 => (AppAssets.onboarding1, context.l10n.onboardingPage1Title, context.l10n.onboardingPage1Body),
-          1 => (AppAssets.onboarding2, context.l10n.onboardingPage2Title, context.l10n.onboardingPage2Body),
-          _ => (AppAssets.onboarding3, context.l10n.onboardingPage3Title, context.l10n.onboardingPage3Body),
+          0 => (
+            AppAssets.onboarding1,
+            context.l10n.onboardingPage1Title,
+            context.l10n.onboardingPage1Body,
+          ),
+          1 => (
+            AppAssets.onboarding2,
+            context.l10n.onboardingPage2Title,
+            context.l10n.onboardingPage2Body,
+          ),
+          _ => (
+            AppAssets.onboarding3,
+            context.l10n.onboardingPage3Title,
+            context.l10n.onboardingPage3Body,
+          ),
         };
 
         return Scaffold(
-          backgroundColor: AppColors.lightBackground,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: SafeArea(
             child: Column(
               children: [
@@ -124,7 +138,7 @@ class _OnboardingViewState extends State<_OnboardingView>
                   padding: EdgeInsets.symmetric(horizontal: 32.w),
                   child: Text(
                     title,
-                    style: AppTextStyles.titleLarge,
+                    style: Theme.of(context).textTheme.titleLarge,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -133,8 +147,8 @@ class _OnboardingViewState extends State<_OnboardingView>
                   padding: EdgeInsets.symmetric(horizontal: 32.w),
                   child: Text(
                     body,
-                    style: AppTextStyles.body.copyWith(
-                      color: AppColors.lightTextSecondary,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -222,8 +236,8 @@ class _TopBar extends StatelessWidget {
                     onPressed: onSkip,
                     child: Text(
                       context.l10n.onboardingSkipButton,
-                      style: AppTextStyles.body.copyWith(
-                        color: AppColors.lightTextSecondary,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                     ),
                   )
@@ -253,7 +267,7 @@ class _DotIndicator extends StatelessWidget {
           width: isActive ? 24.w : 8.w,
           height: 8.h,
           decoration: BoxDecoration(
-            color: isActive ? AppColors.primary : AppColors.lightDivider,
+            color: isActive ? AppColors.primary : Theme.of(context).colorScheme.outlineVariant,
             borderRadius: BorderRadius.circular(4.r),
           ),
         );
@@ -314,7 +328,7 @@ class _AnimatedButtonState extends State<_AnimatedButton>
             ),
             child: Text(
               widget.label,
-              style: AppTextStyles.body.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.darkTextPrimary,
                 fontWeight: FontWeight.w700,
               ),
