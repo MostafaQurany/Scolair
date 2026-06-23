@@ -8,6 +8,6 @@ part 'otp_state.freezed.dart';
 sealed class OtpState with _$OtpState {
   const factory OtpState.initial() = _Initial;
   const factory OtpState.loading() = _Loading;
-  const factory OtpState.success(AuthToken token) = _Success;
+  const factory OtpState.success(String token) = _Success;
   const factory OtpState.error(String message) = _Error;
 }

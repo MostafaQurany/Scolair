@@ -7,6 +7,6 @@ class VerifyOtpUseCase {
 
   final AuthRepository _repository;
 
-  Future<ApiResult<AuthToken>> call(String email, String otp) =>
-      _repository.verifyOtp(email, otp);
+  Future<ApiResult<String>> call(String sessionId, String otp) =>
+      _repository.forgotPasswordVerifyOtp(sessionId, otp);
 }

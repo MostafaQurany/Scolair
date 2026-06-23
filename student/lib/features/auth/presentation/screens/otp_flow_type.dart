@@ -1,1 +1,1 @@
-enum OtpFlowType { login, forgotPassword }
+enum OtpFlowType { phoneLogin, forgotPassword }

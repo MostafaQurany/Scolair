@@ -41,8 +41,10 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -95,18 +97,15 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
     state.whenOrNull(
       authenticated: () =>
           Navigator.pushReplacementNamed(context, AppRouteNames.home),
-      unavailable: () => Navigator.pushReplacementNamed(
-        context,
-        AppRouteNames.login,
-      ),
+      unavailable: () => _showError(context),
       failed: (_) => _showError(context),
     );
   }
 
   void _showError(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(context.l10n.authErrorGeneric)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorGeneric)));
   }
 }
 

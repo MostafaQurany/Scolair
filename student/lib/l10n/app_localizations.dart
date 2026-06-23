@@ -212,6 +212,108 @@ abstract class AppLocalizations {
   /// **'Resend code'**
   String get otpResend;
 
+  /// No description provided for @currentPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPasswordLabel;
+
+  /// No description provided for @updatePasswordSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password updated successfully'**
+  String get updatePasswordSuccess;
+
+  /// No description provided for @changePasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get changePasswordTitle;
+
+  /// No description provided for @updatePasswordButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Update password'**
+  String get updatePasswordButton;
+
+  /// No description provided for @createAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account'**
+  String get createAccountButton;
+
+  /// No description provided for @continueWithGoogleButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get continueWithGoogleButton;
+
+  /// No description provided for @orgLoginTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Login'**
+  String get orgLoginTitle;
+
+  /// No description provided for @orgLoginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number to receive a one-time code.'**
+  String get orgLoginSubtitle;
+
+  /// No description provided for @sendOtpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send OTP'**
+  String get sendOtpButton;
+
+  /// No description provided for @phoneLoginSecurityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your parent account protects sensitive child information.'**
+  String get phoneLoginSecurityNote;
+
+  /// No description provided for @phoneNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get phoneNumberHint;
+
+  /// No description provided for @phoneNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phoneNumberLabel;
+
+  /// No description provided for @fullNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name'**
+  String get fullNameLabel;
+
+  /// No description provided for @fullNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full name'**
+  String get fullNameHint;
+
+  /// No description provided for @registerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account'**
+  String get registerTitle;
+
+  /// No description provided for @agreeTermsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to the Terms & Conditions'**
+  String get agreeTermsLabel;
+
+  /// No description provided for @alreadyHaveAccountLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account? Log in'**
+  String get alreadyHaveAccountLink;
+
   /// No description provided for @otpVerifyButton.
   ///
   /// In en, this message translates to:

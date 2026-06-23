@@ -9,10 +9,10 @@ part of 'otp_verify_request_data.dart';
 OtpVerifyRequestData _$OtpVerifyRequestDataFromJson(
   Map<String, dynamic> json,
 ) => OtpVerifyRequestData(
-  email: json['email'] as String,
+  sessionId: json['session_id'] as String,
   otp: json['otp'] as String,
 );
 
 Map<String, dynamic> _$OtpVerifyRequestDataToJson(
   OtpVerifyRequestData instance,
-) => <String, dynamic>{'email': instance.email, 'otp': instance.otp};
+) => <String, dynamic>{'session_id': instance.sessionId, 'otp': instance.otp};

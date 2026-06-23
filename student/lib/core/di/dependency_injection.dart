@@ -7,6 +7,8 @@ import '../../features/auth/data/repositories/auth_repository_impl.dart';
 import '../../features/auth/domain/repositories/auth_repository.dart';
 import '../../features/auth/domain/usecases/forgot_password_usecase.dart';
 import '../../features/auth/domain/usecases/login_usecase.dart';
+import '../../features/auth/domain/usecases/org_login_usecase.dart';
+import '../../features/auth/domain/usecases/refresh_token_usecase.dart';
 import '../../features/auth/domain/usecases/reset_password_usecase.dart';
 import '../../features/auth/domain/usecases/verify_otp_usecase.dart';
 import '../../features/auth/presentation/cubit/biometric/biometric_cubit.dart';
@@ -51,9 +53,11 @@ Future<void> setupDependencyInjection() async {
     )
     ..registerFactory<HomeCubit>(() => HomeCubit(getIt()))
     // Auth
-    ..registerLazySingleton<AuthRemoteDataSource>(AuthRemoteDataSource.new)
+    ..registerLazySingleton<AuthRemoteDataSource>(
+          () => AuthRemoteDataSourceImpl(getIt()),
+    )
     ..registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(getIt()),
+      () => AuthRepositoryImpl(getIt(), getIt()),
     )
     ..registerLazySingleton<LoginUseCase>(() => LoginUseCase(getIt()))
     ..registerLazySingleton<VerifyOtpUseCase>(() => VerifyOtpUseCase(getIt()))
@@ -63,7 +67,7 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<ResetPasswordUseCase>(
       () => ResetPasswordUseCase(getIt()),
     )
-    ..registerFactory<LoginCubit>(() => LoginCubit(getIt()))
+    ..registerFactory<LoginCubit>(() => LoginCubit(getIt(), getIt()))
     ..registerFactory<OtpCubit>(() => OtpCubit(getIt()))
     ..registerFactory<ForgotPasswordCubit>(
       () => ForgotPasswordCubit(getIt()),
@@ -71,8 +75,13 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<ResetPasswordCubit>(
       () => ResetPasswordCubit(getIt()),
     )
+    ..registerLazySingleton<GoogleLoginUseCase>(
+          () => GoogleLoginUseCase(getIt()),
+    )
+    ..registerLazySingleton<RefreshTokenUseCase>(
+            () => RefreshTokenUseCase(getIt()),)
     ..registerFactory<BiometricCubit>(BiometricCubit.new)
     // Splash & Onboarding
-    ..registerFactory<SplashCubit>(() => SplashCubit(getIt()))
+    ..registerFactory<SplashCubit>(() => SplashCubit(getIt(), getIt(), getIt()))
     ..registerFactory<OnboardingCubit>(() => OnboardingCubit(getIt()));
 }

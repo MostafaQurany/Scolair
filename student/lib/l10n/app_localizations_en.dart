@@ -86,6 +86,59 @@ class AppLocalizationsEn extends AppLocalizations {
   String get otpResend => 'Resend code';
 
   @override
+  String get currentPasswordLabel => 'Current password';
+
+  @override
+  String get updatePasswordSuccess => 'Password updated successfully';
+
+  @override
+  String get changePasswordTitle => 'Change Password';
+
+  @override
+  String get updatePasswordButton => 'Update password';
+
+  @override
+  String get createAccountButton => 'Create account';
+
+  @override
+  String get continueWithGoogleButton => 'Continue with Google';
+
+  @override
+  String get orgLoginTitle => 'Phone Login';
+
+  @override
+  String get orgLoginSubtitle =>
+      'Enter your phone number to receive a one-time code.';
+
+  @override
+  String get sendOtpButton => 'Send OTP';
+
+  @override
+  String get phoneLoginSecurityNote =>
+      'Your parent account protects sensitive child information.';
+
+  @override
+  String get phoneNumberHint => 'Enter your phone number';
+
+  @override
+  String get phoneNumberLabel => 'Phone Number';
+
+  @override
+  String get fullNameLabel => 'Full name';
+
+  @override
+  String get fullNameHint => 'Enter your full name';
+
+  @override
+  String get registerTitle => 'Create account';
+
+  @override
+  String get agreeTermsLabel => 'I agree to the Terms & Conditions';
+
+  @override
+  String get alreadyHaveAccountLink => 'Already have an account? Log in';
+
+  @override
   String get otpVerifyButton => 'Verify';
 
   @override
