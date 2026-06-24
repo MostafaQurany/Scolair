@@ -4,7 +4,7 @@ part 'google_login_request_data.g.dart';
 
 @JsonSerializable()
 class GoogleLoginRequestData {
-  const GoogleLoginRequestData({required this.idToken, this.role = 'parent'});
+  const GoogleLoginRequestData({required this.idToken, this.role = 'teacher'});
 
   @JsonKey(name: 'id_token')
   final String idToken;
