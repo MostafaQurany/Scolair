@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/theme/app_text_styles.dart';
 
 class AuthSurface extends StatelessWidget {
-  const AuthSurface({required this.child,
+  const AuthSurface({
+    required this.child,
     this.isBack = false,
-    this.centered = false, super.key});
+    this.centered = false,
+    super.key
+  });
 
   final Widget child;
   final bool centered;
@@ -17,8 +20,7 @@ class AuthSurface extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
     final padding = MediaQuery.paddingOf(context);
-    final minHeight =
-        screenHeight - padding.top - padding.bottom - 48.h - 24.h;
+    final minHeight = screenHeight - padding.top - padding.bottom - 48.h - 24.h;
 
     final content = SingleChildScrollView(
       padding: EdgeInsetsDirectional.fromSTEB(
@@ -81,50 +83,21 @@ class AuthCard extends StatelessWidget {
 }
 
 class AuthBrandMark extends StatelessWidget {
-  const AuthBrandMark({this.label, this.compact = false, super.key});
+  const AuthBrandMark({this.compact = false, super.key});
 
-  final String? label;
   final bool compact;
 
   @override
   Widget build(BuildContext context) {
-    final iconSize = compact ? 24.r : 64.r;
+    if (!compact) {
+      return Image.asset(AppAssets.logoHeader, height: 90.h);
+    }
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          width: iconSize,
-          height: iconSize,
-          decoration: BoxDecoration(
-            color: compact ? Colors.transparent : AppColors.primary,
-            borderRadius: BorderRadius.circular(compact ? 0 : 12.r),
-            boxShadow: compact
-                ? null
-                : [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: 0.18),
-                      blurRadius: 14.r,
-                      offset: Offset(0, 5.h),
-                    ),
-                  ],
-          ),
-          child: Icon(
-            Icons.school_outlined,
-            color: compact ? AppColors.primary : AppColors.darkTextPrimary,
-            size: compact ? 22.r : 32.r,
-          ),
-        ),
-        if (!compact && label != null) ...[
-          SizedBox(height: 12.h),
-          Text(
-            label!,
-            style: AppTextStyles.textTheme(
-              Brightness.light,
-            ).displaySmall?.copyWith(color: AppColors.primary, fontSize: 28.sp),
-          ),
-        ],
-      ],
+    return Container(
+      width: 24.r,
+      height: 24.r,
+      decoration: const BoxDecoration(color: Colors.transparent),
+      child: Icon(Icons.school_outlined, color: AppColors.primary, size: 22.r),
     );
   }
 }

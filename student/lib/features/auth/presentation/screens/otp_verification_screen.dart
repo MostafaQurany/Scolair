@@ -5,6 +5,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
 import '../cubit/forgot_password/forgot_password_cubit.dart';
 import '../cubit/forgot_password/forgot_password_state.dart';
 import '../cubit/otp/otp_cubit.dart';
@@ -23,22 +24,32 @@ class OtpVerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as OtpArgs? ??
-        const OtpArgs(email: '', flow: OtpFlowType.login);
+            const OtpArgs(identifier: '', flow: OtpFlowType.forgotPassword);
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt<OtpCubit>()),
         BlocProvider(create: (_) => getIt<ForgotPasswordCubit>()),
       ],
-      child: _OtpVerificationView(args: args),
+      child: _OtpVerificationView(
+        identifier: args.identifier,
+        flow: args.flow,
+        sessionId: args.sessionId,
+      ),
     );
   }
 }
 
 class _OtpVerificationView extends StatefulWidget {
-  const _OtpVerificationView({required this.args});
+  const _OtpVerificationView({
+    required this.identifier,
+    required this.flow,
+    required this.sessionId,
+  });
 
-  final OtpArgs args;
+  final String identifier;
+  final OtpFlowType flow;
+  final String sessionId;
 
   @override
   State<_OtpVerificationView> createState() => _OtpVerificationViewState();
@@ -59,8 +70,10 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
   }
@@ -75,12 +88,12 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<OtpCubit, OtpState>(listener: _handleOtpState),
         BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
-          listener: _handleResendState,
+          listener: _handleForgotResend,
         ),
       ],
-      child: BlocBuilder<OtpCubit, OtpState>(
+      child: BlocConsumer<OtpCubit, OtpState>(
+        listener: _handleOtpState,
         builder: (context, state) => Scaffold(
           body: AuthSurface(
             isBack: true,
@@ -90,12 +103,12 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
               child: SlideTransition(
                 position: _slide,
                 child: _OtpBody(
-                  email: widget.args.email,
+                  identifier: widget.identifier,
                   isLoading: state.maybeWhen(
                     loading: () => true,
                     orElse: () => false,
                   ),
-                  onChanged: (v) => _otp = v,
+                  onOtpChanged: (v) => _otp = v,
                   onVerify: _verify,
                   onResend: _resend,
                 ),
@@ -108,87 +121,85 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
   }
 
   void _verify() {
-    context.read<OtpCubit>().verify(widget.args.email, _otp);
+    if (_otp.length == 6) {
+      context.read<OtpCubit>().verify(widget.sessionId, _otp);
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorOtpInvalid)));
+    }
   }
 
   void _resend() {
-    context.read<ForgotPasswordCubit>().sendResetCode(widget.args.email);
+    context.read<ForgotPasswordCubit>().sendResetCode(widget.identifier);
   }
 
   void _handleOtpState(BuildContext context, OtpState state) {
     state.whenOrNull(
-      success: (token) {
-        if (widget.args.flow == OtpFlowType.forgotPassword) {
-          Navigator.pushNamed(
-            context,
-            AppRouteNames.resetPassword,
-            arguments: ResetPasswordArgs(token: token.accessToken),
-          );
-        } else {
-          Navigator.pushReplacementNamed(context, AppRouteNames.home);
-        }
-      },
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorOtpInvalid)),
+      success: (resetToken) => Navigator.pushNamed(
+        context,
+        AppRouteNames.resetPassword,
+        arguments: ResetPasswordArgs(token: resetToken),
       ),
+      error: (msg) => AppSnackBar.showError(context, msg),
     );
   }
 
-  void _handleResendState(BuildContext context, ForgotPasswordState state) {
+  void _handleForgotResend(BuildContext context, ForgotPasswordState state) {
     state.whenOrNull(
-      sent: () => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.otpResend)),
-      ),
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorGeneric)),
-      ),
+      sent: (_) => AppSnackBar.showSuccess(context, context.l10n.otpResend),
+      error: (msg) => AppSnackBar.showError(context, msg),
     );
   }
 }
 
 class _OtpBody extends StatelessWidget {
   const _OtpBody({
-    required this.email,
+    required this.identifier,
     required this.isLoading,
-    required this.onChanged,
+    required this.onOtpChanged,
     required this.onVerify,
     required this.onResend,
   });
 
-  final String email;
+  final String identifier;
   final bool isLoading;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String> onOtpChanged;
   final VoidCallback onVerify;
   final VoidCallback onResend;
 
   @override
   Widget build(BuildContext context) {
-    return AuthCard(
-      padding: EdgeInsetsDirectional.all(24.r),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AuthHeader(
-            title: context.l10n.otpTitle,
-            subtitle: context.l10n.otpSubtitle(email),
-            icon: Icons.lock_person_outlined,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AuthHeader(
+          title: context.l10n.otpTitle,
+          subtitle: context.l10n.otpSubtitle(identifier),
+          icon: Icons.lock_person_outlined,
+        ),
+        SizedBox(height: 24.h),
+        AuthCard(
+          padding: EdgeInsetsDirectional.all(24.r),
+          child: Column(
+            children: [
+              AuthOtpFields(onChanged: onOtpChanged),
+              SizedBox(height: 18.h),
+              TextButton.icon(
+                onPressed: onResend,
+                icon: Icon(Icons.refresh_outlined, size: 16.r),
+                label: Text(context.l10n.otpResend),
+              ),
+              SizedBox(height: 22.h),
+              AuthPrimaryButton(
+                label: context.l10n.otpVerifyButton,
+                onPressed: onVerify,
+                isLoading: isLoading,
+              ),
+            ],
           ),
-          SizedBox(height: 24.h),
-          AuthOtpFields(onChanged: onChanged),
-          SizedBox(height: 16.h),
-          TextButton.icon(
-            onPressed: onResend,
-            icon: const Icon(Icons.refresh, size: 18),
-            label: Text(context.l10n.otpResend),
-          ),
-          SizedBox(height: 8.h),
-          AuthPrimaryButton(
-            label: context.l10n.otpVerifyButton,
-            onPressed: onVerify,
-            isLoading: isLoading,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -19,51 +19,51 @@ mixin _$SplashState {
 
 
 
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SplashState);
-}
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SplashState);
+  }
 
 
-@override
-int get hashCode => runtimeType.hashCode;
+  @override
+  int get hashCode => runtimeType.hashCode;
 
-@override
-String toString() {
-  return 'SplashState()';
-}
+  @override
+  String toString() {
+    return 'SplashState()';
+  }
 
 
 }
 
 /// @nodoc
 class $SplashStateCopyWith<$Res>  {
-$SplashStateCopyWith(SplashState _, $Res Function(SplashState) __);
+  $SplashStateCopyWith(SplashState _, $Res Function(SplashState) __);
 }
 
 
 /// Adds pattern-matching-related methods to [SplashState].
 extension SplashStatePatterns on SplashState {
-/// A variant of `map` that fallback to returning `orElse`.
-///
-/// It is equivalent to doing:
-/// ```dart
-/// switch (sealedClass) {
-///   case final Subclass value:
-///     return ...;
-///   case _:
-///     return orElse();
-/// }
-/// ```
+  /// A variant of `map` that fallback to returning `orElse`.
+  ///
+  /// It is equivalent to doing:
+  /// ```dart
+  /// switch (sealedClass) {
+  ///   case final Subclass value:
+  ///     return ...;
+  ///   case _:
+  ///     return orElse();
+  /// }
+  /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Navigate value)?  navigate,required TResult orElse(),}){
+  @optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _Loading value)?  loading,TResult Function( _Navigate value)?  navigate,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case _Loading() when loading != null:
 return loading(_that);case _Navigate() when navigate != null:
 return navigate(_that);case _:
-  return orElse();
+return orElse();
 
 }
 }
@@ -81,12 +81,12 @@ return navigate(_that);case _:
 /// ```
 
 @optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _Loading value)  loading,required TResult Function( _Navigate value)  navigate,}){
-final _that = this;
-switch (_that) {
-case _Initial():
-return initial(_that);case _Loading():
-return loading(_that);case _Navigate():
-return navigate(_that);}
+  final _that = this;
+  switch (_that) {
+    case _Initial():
+      return initial(_that);case _Loading():
+    return loading(_that);case _Navigate():
+    return navigate(_that);}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -101,15 +101,15 @@ return navigate(_that);}
 /// ```
 
 @optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _Loading value)?  loading,TResult? Function( _Navigate value)?  navigate,}){
-final _that = this;
-switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _Loading() when loading != null:
-return loading(_that);case _Navigate() when navigate != null:
-return navigate(_that);case _:
-  return null;
+  final _that = this;
+  switch (_that) {
+    case _Initial() when initial != null:
+      return initial(_that);case _Loading() when loading != null:
+    return loading(_that);case _Navigate() when navigate != null:
+    return navigate(_that);case _:
+    return null;
 
-}
+  }
 }
 /// A variant of `when` that fallback to an `orElse` callback.
 ///
@@ -129,7 +129,7 @@ case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Navigate() when navigate != null:
 return navigate(_that.route);case _:
-  return orElse();
+return orElse();
 
 }
 }
@@ -171,7 +171,7 @@ case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Navigate() when navigate != null:
 return navigate(_that.route);case _:
-  return null;
+return null;
 
 }
 }
@@ -182,8 +182,8 @@ return navigate(_that.route);case _:
 
 
 class _Initial implements SplashState {
-  const _Initial();
-  
+const _Initial();
+
 
 
 
@@ -192,7 +192,7 @@ class _Initial implements SplashState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
 }
 
 
@@ -201,7 +201,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SplashState.initial()';
+return 'SplashState.initial()';
 }
 
 
@@ -214,8 +214,8 @@ String toString() {
 
 
 class _Loading implements SplashState {
-  const _Loading();
-  
+const _Loading();
+
 
 
 
@@ -224,7 +224,7 @@ class _Loading implements SplashState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
+return identical(this, other) || (other.runtimeType == runtimeType&&other is _Loading);
 }
 
 
@@ -233,7 +233,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'SplashState.loading()';
+return 'SplashState.loading()';
 }
 
 
@@ -246,10 +246,10 @@ String toString() {
 
 
 class _Navigate implements SplashState {
-  const _Navigate(this.route);
-  
+const _Navigate(this.route);
 
- final  String route;
+
+final  String route;
 
 /// Create a copy of SplashState
 /// with the given fields replaced by the non-null parameter values.
@@ -261,7 +261,7 @@ _$NavigateCopyWith<_Navigate> get copyWith => __$NavigateCopyWithImpl<_Navigate>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Navigate&&(identical(other.route, route) || other.route == route));
+return identical(this, other) || (other.runtimeType == runtimeType&&other is _Navigate&&(identical(other.route, route) || other.route == route));
 }
 
 
@@ -270,7 +270,7 @@ int get hashCode => Object.hash(runtimeType,route);
 
 @override
 String toString() {
-  return 'SplashState.navigate(route: $route)';
+return 'SplashState.navigate(route: $route)';
 }
 
 
@@ -278,10 +278,10 @@ String toString() {
 
 /// @nodoc
 abstract mixin class _$NavigateCopyWith<$Res> implements $SplashStateCopyWith<$Res> {
-  factory _$NavigateCopyWith(_Navigate value, $Res Function(_Navigate) _then) = __$NavigateCopyWithImpl;
+factory _$NavigateCopyWith(_Navigate value, $Res Function(_Navigate) _then) = __$NavigateCopyWithImpl;
 @useResult
 $Res call({
- String route
+String route
 });
 
 
@@ -290,19 +290,19 @@ $Res call({
 }
 /// @nodoc
 class __$NavigateCopyWithImpl<$Res>
-    implements _$NavigateCopyWith<$Res> {
-  __$NavigateCopyWithImpl(this._self, this._then);
+implements _$NavigateCopyWith<$Res> {
+__$NavigateCopyWithImpl(this._self, this._then);
 
-  final _Navigate _self;
-  final $Res Function(_Navigate) _then;
+final _Navigate _self;
+final $Res Function(_Navigate) _then;
 
 /// Create a copy of SplashState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? route = null,}) {
-  return _then(_Navigate(
+return _then(_Navigate(
 null == route ? _self.route : route // ignore: cast_nullable_to_non_nullable
 as String,
-  ));
+));
 }
 
 

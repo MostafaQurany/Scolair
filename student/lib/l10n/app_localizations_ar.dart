@@ -86,6 +86,58 @@ class AppLocalizationsAr extends AppLocalizations {
   String get otpResend => 'إعادة إرسال الرمز';
 
   @override
+  String get currentPasswordLabel => 'كلمة المرور الحالية';
+
+  @override
+  String get updatePasswordSuccess => 'تم تحديث كلمة المرور بنجاح';
+
+  @override
+  String get changePasswordTitle => 'تغير كلمة السر';
+
+  @override
+  String get updatePasswordButton => 'تحديث كلمة المرور';
+
+  @override
+  String get createAccountButton => 'إنشاء حساب';
+
+  @override
+  String get continueWithGoogleButton => 'المتابعة مع Google';
+
+  @override
+  String get orgLoginTitle => 'تسجيل الدخول بالهاتف';
+
+  @override
+  String get orgLoginSubtitle => 'أدخل رقم هاتفك لاستلام رمز التحقق.';
+
+  @override
+  String get sendOtpButton => 'إرسال رمز التحقق';
+
+  @override
+  String get phoneLoginSecurityNote =>
+      'حساب ولي الأمر يحمي بيانات طفلك الحساسة.';
+
+  @override
+  String get phoneNumberHint => 'أدخل رقم هاتفك';
+
+  @override
+  String get phoneNumberLabel => 'رقم الهاتف';
+
+  @override
+  String get fullNameLabel => 'الاسم الكامل';
+
+  @override
+  String get fullNameHint => 'أدخل اسمك الكامل';
+
+  @override
+  String get registerTitle => 'إنشاء حساب';
+
+  @override
+  String get agreeTermsLabel => 'أوافق على الشروط والأحكام';
+
+  @override
+  String get alreadyHaveAccountLink => 'لديك حساب بالفعل؟ تسجيل الدخول';
+
+  @override
   String get otpVerifyButton => 'تحقق';
 
   @override

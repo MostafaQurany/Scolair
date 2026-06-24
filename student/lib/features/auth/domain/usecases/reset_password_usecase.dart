@@ -9,6 +9,5 @@ class ResetPasswordUseCase {
   Future<ApiResult<void>> call(
     String token,
     String newPassword,
-    String confirmPassword,
-  ) => _repository.resetPassword(token, newPassword, confirmPassword);
+  ) => _repository.forgotPasswordReset(token, newPassword);
 }

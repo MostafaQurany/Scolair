@@ -6,6 +6,6 @@ part 'forgot_password_state.freezed.dart';
 sealed class ForgotPasswordState with _$ForgotPasswordState {
   const factory ForgotPasswordState.initial() = _Initial;
   const factory ForgotPasswordState.loading() = _Loading;
-  const factory ForgotPasswordState.sent() = _Sent;
+  const factory ForgotPasswordState.sent(String sessionId) = _Sent;
   const factory ForgotPasswordState.error(String message) = _Error;
 }

@@ -6,6 +6,6 @@ class ForgotPasswordUseCase {
 
   final AuthRepository _repository;
 
-  Future<ApiResult<void>> call(String email) =>
-      _repository.forgotPassword(email);
+  Future<ApiResult<String>> call(String email) =>
+      _repository.forgotPasswordSendOtp(email);
 }

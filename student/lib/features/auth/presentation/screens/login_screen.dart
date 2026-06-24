@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 
+import '../../../../core/widgets/app_snack_bar.dart';
 import '../cubit/login/login_cubit.dart';
 import '../cubit/login/login_state.dart';
 import '../widgets/auth_primary_button.dart';
@@ -85,6 +87,9 @@ class _LoginViewState extends State<_LoginView>
                 onSubmit: _submit,
                 onForgotPassword: () =>
                     Navigator.pushNamed(context, AppRouteNames.forgotPassword),
+                onRegister: () =>
+                    Navigator.pushNamed(context, AppRouteNames.register),
+                onGoogleLogin: () => _googleLogin(context),
               ),
             ),
           ),
@@ -102,15 +107,32 @@ class _LoginViewState extends State<_LoginView>
     }
   }
 
+  Future<void> _googleLogin(BuildContext context) async {
+    final googleSignIn = GoogleSignIn(
+      scopes: ['email', 'openid'],
+      serverClientId:
+      '1037955830206-ts4o5a3dgmc1pat80r2vmi7rh3o3jv31.apps.googleusercontent.com',
+    );
+    try {
+      final account = await googleSignIn.signIn();
+      if (account == null) return;
+      final auth = await account.authentication;
+      final idToken = auth.idToken;
+      if (idToken == null || !context.mounted) return;
+      context.read<LoginCubit>().googleLogin(idToken);
+    } catch (e) {
+      AppSnackBar.showError(context, e.toString());
+    }
+  }
+
   void _handleState(BuildContext context, LoginState state) {
     state.whenOrNull(
-      success: (_) => Navigator.pushReplacementNamed(
+      success: (_) => Navigator.pushNamedAndRemoveUntil(
         context,
         AppRouteNames.home,
+            (_) => false,
       ),
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorInvalidCredentials)),
-      ),
+      error: (msg) => AppSnackBar.showError(context, msg),
     );
   }
 }
@@ -125,6 +147,8 @@ class _LoginBody extends StatelessWidget {
     required this.isLoading,
     required this.onSubmit,
     required this.onForgotPassword,
+    required this.onRegister,
+    required this.onGoogleLogin,
   });
 
   final GlobalKey<FormState> formKey;
@@ -135,28 +159,22 @@ class _LoginBody extends StatelessWidget {
   final bool isLoading;
   final VoidCallback onSubmit;
   final VoidCallback onForgotPassword;
+  final VoidCallback onRegister;
+  final VoidCallback onGoogleLogin;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        AuthBrandMark(label: context.l10n.appName),
-        SizedBox(height: 36.h),
-        AuthCard(
-          padding: EdgeInsetsDirectional.all(24.r),
-          child: Form(
-            key: formKey,
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          const AuthBrandMark(),
+          SizedBox(height: 36.h),
+          AuthCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  context.l10n.loginTitle,
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontSize: 22.sp,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
+                Text(context.l10n.loginTitle, style: Theme.of(context).textTheme.titleLarge),
                 SizedBox(height: 6.h),
                 Text(
                   context.l10n.loginSubtitle,
@@ -171,11 +189,10 @@ class _LoginBody extends StatelessWidget {
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
-                  prefixIcon: const Icon(Icons.person_outline),
-                  validator: (v) =>
-                      (v == null || v.trim().isEmpty)
-                          ? context.l10n.authErrorGeneric
-                          : null,
+                  prefixIcon: const Icon(Icons.contact_mail_outlined),
+                  validator: (v) => (v == null || v.trim().isEmpty)
+                      ? context.l10n.authErrorGeneric
+                      : null,
                 ),
                 SizedBox(height: 14.h),
                 AuthTextField(
@@ -186,17 +203,16 @@ class _LoginBody extends StatelessWidget {
                   textInputAction: TextInputAction.done,
                   prefixIcon: const Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
+                    onPressed: onTogglePassword,
                     icon: Icon(
                       obscurePassword
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined,
                     ),
-                    onPressed: onTogglePassword,
                   ),
-                  validator: (v) =>
-                      (v == null || v.isEmpty)
-                          ? context.l10n.authErrorGeneric
-                          : null,
+                  validator: (v) => (v == null || v.trim().isEmpty)
+                      ? context.l10n.authErrorGeneric
+                      : null,
                 ),
                 Align(
                   alignment: AlignmentDirectional.centerEnd,
@@ -205,17 +221,44 @@ class _LoginBody extends StatelessWidget {
                     child: Text(context.l10n.forgotPasswordLink),
                   ),
                 ),
-                SizedBox(height: 8.h),
                 AuthPrimaryButton(
                   label: context.l10n.loginButton,
                   onPressed: onSubmit,
                   isLoading: isLoading,
                 ),
+                SizedBox(height: 12.h),
+                _GoogleButton(onPressed: onGoogleLogin),
+                SizedBox(height: 12.h),
+                Center(
+                  child: TextButton(
+                    onPressed: onRegister,
+                    child: Text(context.l10n.createAccountButton),
+                  ),
+                ),
               ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
+    );
+  }
+}
+
+class _GoogleButton extends StatelessWidget {
+  const _GoogleButton({required this.onPressed});
+
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 52.h,
+      child: OutlinedButton.icon(
+        onPressed: onPressed,
+        icon: const Icon(Icons.g_mobiledata_rounded, size: 24),
+        label: Text(context.l10n.continueWithGoogleButton),
+      ),
     );
   }
 }
