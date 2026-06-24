@@ -126,12 +126,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function()?  sent,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String sessionId)?  sent,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Sent() when sent != null:
-return sent();case _Error() when error != null:
+return sent(_that.sessionId);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -150,12 +150,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function()  sent,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String sessionId)  sent,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Sent():
-return sent();case _Error():
+return sent(_that.sessionId);case _Error():
 return error(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -170,12 +170,12 @@ return error(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function()?  sent,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String sessionId)?  sent,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Sent() when sent != null:
-return sent();case _Error() when error != null:
+return sent(_that.sessionId);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -252,33 +252,67 @@ String toString() {
 
 
 class _Sent implements ForgotPasswordState {
-  const _Sent();
+  const _Sent(this.sessionId);
   
 
+ final  String sessionId;
 
-
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SentCopyWith<_Sent> get copyWith => __$SentCopyWithImpl<_Sent>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Sent);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Sent&&(identical(other.sessionId, sessionId) || other.sessionId == sessionId));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,sessionId);
 
 @override
 String toString() {
-  return 'ForgotPasswordState.sent()';
+  return 'ForgotPasswordState.sent(sessionId: $sessionId)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$SentCopyWith<$Res> implements $ForgotPasswordStateCopyWith<$Res> {
+  factory _$SentCopyWith(_Sent value, $Res Function(_Sent) _then) = __$SentCopyWithImpl;
+@useResult
+$Res call({
+ String sessionId
+});
 
 
+
+
+}
+/// @nodoc
+class __$SentCopyWithImpl<$Res>
+    implements _$SentCopyWith<$Res> {
+  __$SentCopyWithImpl(this._self, this._then);
+
+  final _Sent _self;
+  final $Res Function(_Sent) _then;
+
+/// Create a copy of ForgotPasswordState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? sessionId = null,}) {
+  return _then(_Sent(
+null == sessionId ? _self.sessionId : sessionId // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

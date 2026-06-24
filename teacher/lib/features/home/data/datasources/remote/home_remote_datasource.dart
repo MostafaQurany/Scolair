@@ -5,7 +5,7 @@ class HomeRemoteDataSource {
 
   final ApiClient _apiClient;
 
-  Future<void> checkHealth() {
-    return _apiClient.healthCheck();
+  Future<void> checkHealth() async {
+    throw Exception("hello");
   }
 }

@@ -190,4 +190,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingSkipButton => 'Skip';
+
+  @override
+  String get registerTitle => 'Create account';
+
+  @override
+  String get fullNameLabel => 'Full name';
+
+  @override
+  String get fullNameHint => 'Enter your full name';
+
+  @override
+  String get agreeTermsLabel => 'I agree to the Terms & Conditions';
+
+  @override
+  String get createAccountButton => 'Create account';
+
+  @override
+  String get alreadyHaveAccountLink => 'Already have an account? Log in';
+
+  @override
+  String get continueWithGoogleButton => 'Continue with Google';
+
+  @override
+  String get changePasswordTitle => 'Change password';
+
+  @override
+  String get currentPasswordLabel => 'Current password';
+
+  @override
+  String get updatePasswordButton => 'Update password';
+
+  @override
+  String get updatePasswordSuccess => 'Password updated successfully';
+
+  @override
+  String get logoutButton => 'Log out';
 }

@@ -72,5 +72,17 @@
   "onboardingPage3Body": "Review submissions, mark attendance, track progress, grade work, and contact parents when needed.",
   "onboardingNextButton": "Next",
   "onboardingDoneButton": "Get Started",
-  "onboardingSkipButton": "Skip"
+  "onboardingSkipButton": "Skip",
+  "registerTitle": "Create account",
+  "fullNameLabel": "Full name",
+  "fullNameHint": "Enter your full name",
+  "agreeTermsLabel": "I agree to the Terms & Conditions",
+  "createAccountButton": "Create account",
+  "alreadyHaveAccountLink": "Already have an account? Log in",
+  "continueWithGoogleButton": "Continue with Google",
+  "changePasswordTitle": "Change password",
+  "currentPasswordLabel": "Current password",
+  "updatePasswordButton": "Update password",
+  "updatePasswordSuccess": "Password updated successfully",
+  "logoutButton": "Log out"
 }

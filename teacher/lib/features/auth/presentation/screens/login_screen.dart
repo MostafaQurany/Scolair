@@ -96,7 +96,7 @@ class _LoginViewState extends State<_LoginView>
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      context.read<LoginCubit>().orgLogin(
+      context.read<LoginCubit>().login(
         _emailController.text.trim(),
         _passwordController.text,
       );

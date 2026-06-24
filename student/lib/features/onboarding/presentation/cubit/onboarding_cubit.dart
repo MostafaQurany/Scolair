@@ -13,6 +13,6 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
   Future<void> finish() async {
     await _prefs.setFirstTime(false);
-    emit(const OnboardingState.navigate(AppRouteNames.home));
+    emit(const OnboardingState.navigate(AppRouteNames.login));
   }
 }

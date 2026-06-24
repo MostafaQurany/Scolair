@@ -4,9 +4,11 @@ part 'otp_verify_request_data.g.dart';
 
 @JsonSerializable()
 class OtpVerifyRequestData {
-  const OtpVerifyRequestData({required this.identifier, required this.otp});
+  const OtpVerifyRequestData({required this.sessionId, required this.otp});
 
-  final String identifier;
+  @JsonKey(name: 'session_id')
+  final String sessionId;
+
   final String otp;
 
   factory OtpVerifyRequestData.fromJson(Map<String, dynamic> json) =>

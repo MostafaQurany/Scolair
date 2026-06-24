@@ -5,12 +5,11 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
 import '../cubit/forgot_password/forgot_password_cubit.dart';
 import '../cubit/forgot_password/forgot_password_state.dart';
 import '../cubit/otp/otp_cubit.dart';
 import '../cubit/otp/otp_state.dart';
-import '../cubit/phone_login/phone_login_cubit.dart';
-import '../cubit/phone_login/phone_login_state.dart';
 import '../widgets/auth_otp_fields.dart';
 import '../widgets/auth_primary_button.dart';
 import '../widgets/auth_surface.dart';
@@ -25,27 +24,32 @@ class OtpVerificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as OtpArgs? ??
-        const OtpArgs(identifier: '', flow: OtpFlowType.phoneLogin);
+        const OtpArgs(identifier: '', flow: OtpFlowType.forgotPassword);
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt<OtpCubit>()),
         BlocProvider(create: (_) => getIt<ForgotPasswordCubit>()),
-        BlocProvider(create: (_) => getIt<PhoneLoginCubit>()),
       ],
       child: _OtpVerificationView(
         identifier: args.identifier,
         flow: args.flow,
+        sessionId: args.sessionId,
       ),
     );
   }
 }
 
 class _OtpVerificationView extends StatefulWidget {
-  const _OtpVerificationView({required this.identifier, required this.flow});
+  const _OtpVerificationView({
+    required this.identifier,
+    required this.flow,
+    required this.sessionId,
+  });
 
   final String identifier;
   final OtpFlowType flow;
+  final String sessionId;
 
   @override
   State<_OtpVerificationView> createState() => _OtpVerificationViewState();
@@ -66,8 +70,10 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
   }
@@ -82,9 +88,6 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<PhoneLoginCubit, PhoneLoginState>(
-          listener: _handlePhoneResend,
-        ),
         BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
           listener: _handleForgotResend,
         ),
@@ -119,60 +122,33 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
 
   void _verify() {
     if (_otp.length == 6) {
-      context.read<OtpCubit>().verify(widget.identifier, _otp);
+      context.read<OtpCubit>().verify(widget.sessionId, _otp);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorOtpInvalid)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorOtpInvalid)));
     }
   }
 
   void _resend() {
-    if (widget.flow == OtpFlowType.phoneLogin) {
-      context.read<PhoneLoginCubit>().sendOtp('+1', widget.identifier);
-    } else {
-      context.read<ForgotPasswordCubit>().sendResetCode(widget.identifier);
-    }
+    context.read<ForgotPasswordCubit>().sendResetCode(widget.identifier);
   }
 
   void _handleOtpState(BuildContext context, OtpState state) {
     state.whenOrNull(
-      success: (token) {
-        if (widget.flow == OtpFlowType.forgotPassword) {
-          Navigator.pushNamed(
-            context,
-            AppRouteNames.resetPassword,
-            arguments: ResetPasswordArgs(token: token.accessToken),
-          );
-          return;
-        }
-        Navigator.pushReplacementNamed(context, AppRouteNames.home);
-      },
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorOtpInvalid)),
+      success: (resetToken) => Navigator.pushNamed(
+        context,
+        AppRouteNames.resetPassword,
+        arguments: ResetPasswordArgs(token: resetToken),
       ),
-    );
-  }
-
-  void _handlePhoneResend(BuildContext context, PhoneLoginState state) {
-    state.whenOrNull(
-      sent: () => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.otpResend)),
-      ),
-      error: (msg) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(msg)),
-      ),
+      error: (msg) => AppSnackBar.showError(context, msg),
     );
   }
 
   void _handleForgotResend(BuildContext context, ForgotPasswordState state) {
     state.whenOrNull(
-      sent: () => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.otpResend)),
-      ),
-      error: (msg) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(msg)),
-      ),
+      sent: (_) => AppSnackBar.showSuccess(context, context.l10n.otpResend),
+      error: (msg) => AppSnackBar.showError(context, msg),
     );
   }
 }

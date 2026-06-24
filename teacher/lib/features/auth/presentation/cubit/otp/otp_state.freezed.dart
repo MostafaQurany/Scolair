@@ -126,12 +126,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( AuthToken token)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( String resetToken)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Success() when success != null:
-return success(_that.token);case _Error() when error != null:
+return success(_that.resetToken);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -150,12 +150,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( AuthToken token)  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( String resetToken)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Loading():
 return loading();case _Success():
-return success(_that.token);case _Error():
+return success(_that.resetToken);case _Error():
 return error(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -170,12 +170,12 @@ return error(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( AuthToken token)?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( String resetToken)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Loading() when loading != null:
 return loading();case _Success() when success != null:
-return success(_that.token);case _Error() when error != null:
+return success(_that.resetToken);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -252,10 +252,10 @@ String toString() {
 
 
 class _Success implements OtpState {
-  const _Success(this.token);
+  const _Success(this.resetToken);
   
 
- final  AuthToken token;
+ final  String resetToken;
 
 /// Create a copy of OtpState
 /// with the given fields replaced by the non-null parameter values.
@@ -267,16 +267,16 @@ _$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.token, token) || other.token == token));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.resetToken, resetToken) || other.resetToken == resetToken));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,token);
+int get hashCode => Object.hash(runtimeType,resetToken);
 
 @override
 String toString() {
-  return 'OtpState.success(token: $token)';
+  return 'OtpState.success(resetToken: $resetToken)';
 }
 
 
@@ -287,7 +287,7 @@ abstract mixin class _$SuccessCopyWith<$Res> implements $OtpStateCopyWith<$Res> 
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
 @useResult
 $Res call({
- AuthToken token
+ String resetToken
 });
 
 
@@ -304,10 +304,10 @@ class __$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of OtpState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? token = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? resetToken = null,}) {
   return _then(_Success(
-null == token ? _self.token : token // ignore: cast_nullable_to_non_nullable
-as AuthToken,
+null == resetToken ? _self.resetToken : resetToken // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
