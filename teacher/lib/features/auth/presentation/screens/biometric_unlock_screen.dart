@@ -95,8 +95,11 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
 
   void _handleState(BuildContext context, BiometricState state) {
     state.whenOrNull(
-      authenticated: () =>
-          Navigator.pushReplacementNamed(context, AppRouteNames.home),
+      authenticated: () => Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRouteNames.homeLayout,
+        (_) => false,
+      ),
       unavailable: () => _showError(context),
       failed: (_) => _showError(context),
     );

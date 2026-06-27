@@ -84,5 +84,14 @@
   "currentPasswordLabel": "Current password",
   "updatePasswordButton": "Update password",
   "updatePasswordSuccess": "Password updated successfully",
-  "logoutButton": "Log out"
+  "logoutButton": "Log out",
+  "navHome": "Home",
+  "navClasses": "Classes",
+  "navStudents": "Students",
+  "navMessages": "Messages",
+  "navSchedule": "Schedule",
+  "navClassesPlaceholder": "Class tools will appear here.",
+  "navStudentsPlaceholder": "Student records will appear here.",
+  "navMessagesPlaceholder": "Messages will appear here.",
+  "navSchedulePlaceholder": "Schedule tools will appear here."
 }

@@ -137,7 +137,10 @@ class _PhoneLoginBody extends StatelessWidget {
             children: [
               const AuthBrandMark(compact: true),
               SizedBox(height: 16.h),
-              Text(context.l10n.orgLoginTitle, style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                context.l10n.orgLoginTitle,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               SizedBox(height: 6.h),
               Text(
                 context.l10n.orgLoginSubtitle,

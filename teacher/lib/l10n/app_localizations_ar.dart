@@ -225,4 +225,31 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get logoutButton => 'تسجيل الخروج';
+
+  @override
+  String get navHome => 'الرئيسية';
+
+  @override
+  String get navClasses => 'الفصول';
+
+  @override
+  String get navStudents => 'الطلاب';
+
+  @override
+  String get navMessages => 'الرسائل';
+
+  @override
+  String get navSchedule => 'الجدول';
+
+  @override
+  String get navClassesPlaceholder => 'ستظهر أدوات الفصول هنا.';
+
+  @override
+  String get navStudentsPlaceholder => 'ستظهر سجلات الطلاب هنا.';
+
+  @override
+  String get navMessagesPlaceholder => 'ستظهر الرسائل هنا.';
+
+  @override
+  String get navSchedulePlaceholder => 'ستظهر أدوات الجدول هنا.';
 }

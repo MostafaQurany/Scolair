@@ -9,6 +9,7 @@ import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/org_email_login_screen.dart';
 import '../features/auth/presentation/screens/otp_verification_screen.dart';
 import '../features/auth/presentation/screens/reset_password_screen.dart';
+import '../features/home/presentation/screens/home_layout.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../features/splash/presentation/screens/splash_screen.dart';
@@ -31,10 +32,17 @@ class App extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
           initialRoute: AppRouteNames.splash,
+          onGenerateInitialRoutes: (_) => [
+            MaterialPageRoute(
+              settings: const RouteSettings(name: AppRouteNames.splash),
+              builder: (_) => const SplashScreen(),
+            ),
+          ],
           routes: {
             AppRouteNames.splash: (_) => const SplashScreen(),
             AppRouteNames.onboarding: (_) => const OnboardingScreen(),
             AppRouteNames.home: (_) => const HomeScreen(),
+            AppRouteNames.homeLayout: (_) => const HomeLayout(),
             AppRouteNames.login: (_) => const LoginScreen(),
             AppRouteNames.orgEmailLogin: (_) => const OrgEmailLoginScreen(),
             AppRouteNames.otpVerification: (_) => const OtpVerificationScreen(),

@@ -481,6 +481,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Log out'**
   String get logoutButton;
+
+  /// No description provided for @navHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
+  /// No description provided for @navClasses.
+  ///
+  /// In en, this message translates to:
+  /// **'Classes'**
+  String get navClasses;
+
+  /// No description provided for @navStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'Students'**
+  String get navStudents;
+
+  /// No description provided for @navMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get navMessages;
+
+  /// No description provided for @navSchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get navSchedule;
+
+  /// No description provided for @navClassesPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Class tools will appear here.'**
+  String get navClassesPlaceholder;
+
+  /// No description provided for @navStudentsPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Student records will appear here.'**
+  String get navStudentsPlaceholder;
+
+  /// No description provided for @navMessagesPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages will appear here.'**
+  String get navMessagesPlaceholder;
+
+  /// No description provided for @navSchedulePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule tools will appear here.'**
+  String get navSchedulePlaceholder;
 }
 
 class _AppLocalizationsDelegate

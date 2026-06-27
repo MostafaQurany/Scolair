@@ -25,6 +25,8 @@ This file helps future agents understand the current work state without relying 
 - Initialized the `student` branch as a Flutter Android+iOS app with starter architecture, packages, localization, DI, networking, storage, theme, and a Home feature.
 - Initialized the `teacher` branch as a Flutter Android+iOS app with starter architecture, packages, localization, DI, networking, storage, theme, and a Home feature.
 - Applied the Stitch Scolair theme system to the `teacher` branch with light/dark Material 3 themes, Hanken Grotesk typography, and teacher role-tone defaults.
+- Added the LMS adaptive navigation UI foundation on `teacher` with parent-controlled bottom nav, compact rail, expanded rail/sidebar, localized labels, and reusable width breakpoint extensions.
+- Added `HomeLayout` as the authenticated app shell route and routed auth/splash success flows to `/home-layout` to avoid duplicate Home route stacking.
 
 ## In-Progress Tasks
 
@@ -38,6 +40,7 @@ This file helps future agents understand the current work state without relying 
 - When the Flutter app files exist, enable `flutter_localizations`, `intl`, `flutter.generate`, `l10n.yaml`, `core/localization/localization_extension.dart`, and `lib/l10n/` ARB files.
 - Repeat the Flutter initialization setup on the `parent` branch.
 - Apply the same Stitch theme system to `student` and `parent` with branch-specific role-tone defaults.
+- Replace `HomeLayout` placeholder tab bodies with real Classes, Students, Messages, and Schedule features.
 
 ## Open Questions
 
@@ -53,6 +56,8 @@ This file helps future agents understand the current work state without relying 
 - 2026-06-14: Updated localization import guidance to use local generated files under `lib/l10n/` for Flutter 3.44.
 - 2026-06-14: Initialized the `teacher` Flutter app. `flutter pub get`, code generation, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
 - 2026-06-15: Applied the Stitch Scolair theme system on `teacher`. `flutter pub get`, `dart format --set-exit-if-changed .`, `flutter analyze`, and `flutter test` passed.
+- 2026-06-27: Implemented LMS adaptive navigation UI foundation on `teacher`. `dart format .` ran, scoped analyzer for new navigation/localization files passed, full `flutter analyze` and `flutter test` still fail on existing unrelated issues.
+- 2026-06-27: Added `HomeLayout` route wiring and startup stack fix. Validation results are recorded in `.agent/specs/001-lms-adaptive-navigation/tasks.md`.
 
 ## Notes For Future Agents
 

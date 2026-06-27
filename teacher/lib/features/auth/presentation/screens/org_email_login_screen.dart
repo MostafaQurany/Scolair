@@ -46,8 +46,10 @@ class _PhoneLoginViewState extends State<_PhoneLoginView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
   }
@@ -103,9 +105,9 @@ class _PhoneLoginViewState extends State<_PhoneLoginView>
           flow: OtpFlowType.phoneLogin,
         ),
       ),
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorGeneric)),
-      ),
+      error: (_) => ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorGeneric))),
     );
   }
 }
@@ -135,7 +137,10 @@ class _PhoneLoginBody extends StatelessWidget {
             children: [
               const AuthBrandMark(compact: true),
               SizedBox(height: 16.h),
-              Text(context.l10n.orgLoginTitle, style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                context.l10n.orgLoginTitle,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
               SizedBox(height: 6.h),
               Text(
                 context.l10n.orgLoginSubtitle,

@@ -32,7 +32,7 @@ class SplashCubit extends Cubit<SplashState> {
 
     final result = await _refreshTokenUseCase(refreshToken);
     result.when(
-      success: (_) => emit(SplashState.navigate(AppRouteNames.home)),
+      success: (_) => emit(SplashState.navigate(AppRouteNames.homeLayout)),
       failure: (_) {
         _secureStorage.clearAll();
         emit(SplashState.navigate(AppRouteNames.login));

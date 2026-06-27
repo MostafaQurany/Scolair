@@ -226,4 +226,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get logoutButton => 'Log out';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navClasses => 'Classes';
+
+  @override
+  String get navStudents => 'Students';
+
+  @override
+  String get navMessages => 'Messages';
+
+  @override
+  String get navSchedule => 'Schedule';
+
+  @override
+  String get navClassesPlaceholder => 'Class tools will appear here.';
+
+  @override
+  String get navStudentsPlaceholder => 'Student records will appear here.';
+
+  @override
+  String get navMessagesPlaceholder => 'Messages will appear here.';
+
+  @override
+  String get navSchedulePlaceholder => 'Schedule tools will appear here.';
 }

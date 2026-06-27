@@ -117,7 +117,7 @@ class _RegisterViewState extends State<_RegisterView>
     state.whenOrNull(
       success: () => Navigator.pushNamedAndRemoveUntil(
         context,
-        AppRouteNames.home,
+        AppRouteNames.homeLayout,
         (_) => false,
       ),
       error: (msg) => AppSnackBar.showError(context, msg),

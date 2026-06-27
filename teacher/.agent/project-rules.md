@@ -56,6 +56,8 @@ lib/
       app_secure_storage.dart
     constants/
       app_route_names.dart
+    extensions/
+      adaptive_layout_extension.dart
     localization/
       localization_extension.dart
     utils/
@@ -125,6 +127,7 @@ lib/
 - `core/theme/` owns colors, text styles, and app theme.
 - `core/storage/` owns shared preferences and secure storage wrappers.
 - `core/constants/app_route_names.dart` owns route name constants.
+- `core/extensions/` owns reusable BuildContext and app-wide Dart extensions.
 - `core/localization/` owns simple localization helpers.
 - `core/widgets/` is only for widgets reused across multiple features.
 - `core/errors/` is for shared failure and exception handling.
@@ -373,6 +376,9 @@ Text(context.l10n.itemCount(count));
 - Do not hardcode large fixed sizes when the UI should adapt across devices.
 - Keep layouts flexible with `Expanded`, `Flexible`, `Wrap`, `LayoutBuilder`, and scroll views where needed.
 - Test important screens on small and large devices.
+- Use `core/extensions/adaptive_layout_extension.dart` for reusable width-based layout detection.
+- Standard breakpoints are compact `< 600`, medium `>= 600 && < 840`, and expanded `>= 840`.
+- Do not use device-name or platform checks to decide mobile/tablet layouts.
 
 ## Typography
 

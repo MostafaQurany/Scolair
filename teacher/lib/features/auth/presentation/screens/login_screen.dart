@@ -46,8 +46,10 @@ class _LoginViewState extends State<_LoginView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
   }
@@ -105,11 +107,14 @@ class _LoginViewState extends State<_LoginView>
 
   void _handleState(BuildContext context, LoginState state) {
     state.whenOrNull(
-      success: (_) =>
-          Navigator.pushReplacementNamed(context, AppRouteNames.home),
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorGeneric)),
+      success: (_) => Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRouteNames.homeLayout,
+        (_) => false,
       ),
+      error: (_) => ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorGeneric))),
     );
   }
 }
