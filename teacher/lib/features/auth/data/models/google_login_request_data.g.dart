@@ -10,7 +10,7 @@ GoogleLoginRequestData _$GoogleLoginRequestDataFromJson(
   Map<String, dynamic> json,
 ) => GoogleLoginRequestData(
   idToken: json['id_token'] as String,
-  role: json['role'] as String? ?? 'parent',
+  role: json['role'] as String? ?? 'teacher',
 );
 
 Map<String, dynamic> _$GoogleLoginRequestDataToJson(

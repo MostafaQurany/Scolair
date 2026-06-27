@@ -33,6 +33,13 @@ import '../network/api_client.dart';
 import '../network/dio_factory.dart';
 import '../storage/app_secure_storage.dart';
 import '../storage/app_shared_preferences.dart';
+import '../../features/courses/data/datasources/remote/courses_remote_datasource.dart';
+import '../../features/courses/data/repositories/courses_repository_impl.dart';
+import '../../features/courses/domain/repositories/courses_repository.dart';
+import '../../features/courses/domain/usecases/courses_usecases.dart';
+import '../../features/courses/presentation/cubit/courses_cubit.dart';
+import '../../features/courses/presentation/cubit/course_details_cubit.dart';
+import '../../features/courses/presentation/cubit/lesson_details_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -100,5 +107,34 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<BiometricCubit>(BiometricCubit.new)
     // Splash & Onboarding
     ..registerFactory<SplashCubit>(() => SplashCubit(getIt(), getIt(), getIt()))
-    ..registerFactory<OnboardingCubit>(() => OnboardingCubit(getIt()));
+    ..registerFactory<OnboardingCubit>(() => OnboardingCubit(getIt()))
+    // Courses Feature
+    ..registerLazySingleton<CoursesRemoteDataSource>(
+      () => CoursesRemoteDataSourceImpl(getIt()),
+    )
+    ..registerLazySingleton<CoursesRepository>(
+      () => CoursesRepositoryImpl(getIt()),
+    )
+    // Use Cases
+    ..registerLazySingleton<ListCoursesUseCase>(() => ListCoursesUseCase(getIt()))
+    ..registerLazySingleton<GetCourseUseCase>(() => GetCourseUseCase(getIt()))
+    ..registerLazySingleton<CreateCourseUseCase>(() => CreateCourseUseCase(getIt()))
+    ..registerLazySingleton<UpdateCourseUseCase>(() => UpdateCourseUseCase(getIt()))
+    ..registerLazySingleton<DeleteCourseUseCase>(() => DeleteCourseUseCase(getIt()))
+    ..registerLazySingleton<GetChaptersUseCase>(() => GetChaptersUseCase(getIt()))
+    ..registerLazySingleton<GetChapterUseCase>(() => GetChapterUseCase(getIt()))
+    ..registerLazySingleton<CreateChapterUseCase>(() => CreateChapterUseCase(getIt()))
+    ..registerLazySingleton<UpdateChapterUseCase>(() => UpdateChapterUseCase(getIt()))
+    ..registerLazySingleton<DeleteChapterUseCase>(() => DeleteChapterUseCase(getIt()))
+    ..registerLazySingleton<GetLessonsUseCase>(() => GetLessonsUseCase(getIt()))
+    ..registerLazySingleton<GetLessonUseCase>(() => GetLessonUseCase(getIt()))
+    ..registerLazySingleton<CreateLessonUseCase>(() => CreateLessonUseCase(getIt()))
+    ..registerLazySingleton<UploadFileUseCase>(() => UploadFileUseCase(getIt()))
+    ..registerLazySingleton<UpdateLessonUseCase>(() => UpdateLessonUseCase(getIt()))
+    ..registerLazySingleton<DeleteLessonUseCase>(() => DeleteLessonUseCase(getIt()))
+    ..registerLazySingleton<GetMyCoursesUseCase>(() => GetMyCoursesUseCase(getIt()))
+    // Cubits
+    ..registerFactory<CoursesCubit>(() => CoursesCubit(getIt(), getIt()))
+    ..registerFactory<CourseDetailsCubit>(() => CourseDetailsCubit(getIt(), getIt(), getIt()))
+    ..registerFactory<LessonDetailsCubit>(() => LessonDetailsCubit(getIt()));
 }
