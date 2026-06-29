@@ -1,5 +1,7 @@
+// add the unfouce even when navigation should be unfouce too
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../core/utils/unfocus_navigatio_observer.dart';
 
 import '../core/constants/app_route_names.dart';
 import '../core/theme/app_theme.dart';
@@ -32,6 +34,9 @@ class App extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
           themeMode: ThemeMode.system,
           initialRoute: AppRouteNames.splash,
+
+          navigatorObservers: [UnfocusNavigationObserver()],
+
           onGenerateInitialRoutes: (_) => [
             MaterialPageRoute(
               settings: const RouteSettings(name: AppRouteNames.splash),
@@ -52,6 +57,17 @@ class App extends StatelessWidget {
           },
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+
+          builder: (context, child) {
+            return GestureDetector(
+              onTap: () {
+                // Using FocusManager inside the global builder context to guarantee
+                // it hits the correct scope regardless of the current context state.
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              child: child!,
+            );
+          },
         );
       },
     );

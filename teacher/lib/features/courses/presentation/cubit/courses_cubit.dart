@@ -3,42 +3,178 @@ import '../../domain/usecases/courses_usecases.dart';
 import 'courses_state.dart';
 
 class CoursesCubit extends Cubit<CoursesState> {
-  CoursesCubit(this._listCoursesUseCase, this._getMyCoursesUseCase)
-      : super(const CoursesState());
+  CoursesCubit(
+    this._listCoursesUseCase,
+    this._getMyCoursesUseCase,
+    this._deleteCourseUseCase,
+  ) : super(const CoursesState());
 
   final ListCoursesUseCase _listCoursesUseCase;
   final GetMyCoursesUseCase _getMyCoursesUseCase;
+  final DeleteCourseUseCase _deleteCourseUseCase;
+  int _requestId = 0;
 
   Future<void> loadCourses() async {
-    emit(state.copyWith(isLoading: true, errorMessage: null));
-    final allRes = await _listCoursesUseCase();
+    final requestId = ++_requestId;
+    emit(state.copyWith(isInitialLoading: true, errorMessage: null));
+
+    final allRes = await _listCoursesUseCase(
+      searchText: state.searchText,
+      publishedFilter: state.publishedFilter,
+    );
     final myRes = await _getMyCoursesUseCase();
+    if (requestId != _requestId) return;
 
     allRes.when(
       success: (allCourses) {
         myRes.when(
           success: (myCoursesData) {
-            emit(state.copyWith(
-              isLoading: false,
-              allCourses: allCourses,
-              myCourses: myCoursesData.courses,
-            ));
+            emit(
+              state.copyWith(
+                isInitialLoading: false,
+                allCourses: allCourses,
+                myCourses: myCoursesData.courses,
+                errorMessage: null,
+              ),
+            );
           },
           failure: (fail) {
-            emit(state.copyWith(
-              isLoading: false,
-              allCourses: allCourses,
-              myCourses: const [],
-              errorMessage: fail.message,
-            ));
+            emit(
+              state.copyWith(
+                isInitialLoading: false,
+                allCourses: allCourses,
+                myCourses: const [],
+                errorMessage: allCourses.isEmpty ? fail.message : null,
+              ),
+            );
           },
         );
       },
       failure: (fail) {
-        emit(state.copyWith(
-          isLoading: false,
-          errorMessage: fail.message,
-        ));
+        emit(
+          state.copyWith(isInitialLoading: false, errorMessage: fail.message),
+        );
+      },
+    );
+  }
+
+  Future<void> refreshCourses() async {
+    final requestId = ++_requestId;
+    emit(state.copyWith(isRefreshing: true, errorMessage: null));
+
+    final allRes = await _listCoursesUseCase(
+      searchText: state.searchText,
+      publishedFilter: state.publishedFilter,
+    );
+    final myRes = await _getMyCoursesUseCase();
+    if (requestId != _requestId) return;
+
+    allRes.when(
+      success: (allCourses) {
+        myRes.when(
+          success: (myCoursesData) {
+            emit(
+              state.copyWith(
+                isRefreshing: false,
+                allCourses: allCourses,
+                myCourses: myCoursesData.courses,
+                errorMessage: null,
+              ),
+            );
+          },
+          failure: (fail) {
+            emit(
+              state.copyWith(
+                isRefreshing: false,
+                allCourses: allCourses,
+                errorMessage: fail.message,
+              ),
+            );
+          },
+        );
+      },
+      failure: (fail) {
+        emit(state.copyWith(isRefreshing: false, errorMessage: fail.message));
+      },
+    );
+  }
+
+  Future<void> searchCourses(String searchText) async {
+    await _loadFilteredCourses(searchText: searchText);
+  }
+
+  Future<void> filterByPublished(bool? publishedFilter) async {
+    await _loadFilteredCourses(
+      publishedFilter: publishedFilter,
+      updatePublishedFilter: true,
+    );
+  }
+
+  Future<void> deleteCourse(String courseName) async {
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _deleteCourseUseCase(courseName);
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(isMutating: false, mutationSuccess: 'courseDeleted'),
+        );
+        loadCourses();
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  void clearMutationState() {
+    emit(state.copyWith(mutationSuccess: null, mutationError: null));
+  }
+
+  Future<void> _loadFilteredCourses({
+    String? searchText,
+    bool? publishedFilter,
+    bool updatePublishedFilter = false,
+  }) async {
+    final nextSearchText = searchText ?? state.searchText;
+    final nextPublishedFilter = updatePublishedFilter
+        ? publishedFilter
+        : state.publishedFilter;
+    final requestId = ++_requestId;
+
+    emit(
+      state.copyWith(
+        searchText: nextSearchText,
+        publishedFilter: nextPublishedFilter,
+        isFiltering: true,
+        errorMessage: null,
+      ),
+    );
+
+    final result = await _listCoursesUseCase(
+      searchText: nextSearchText,
+      publishedFilter: nextPublishedFilter,
+    );
+    if (requestId != _requestId) return;
+
+    result.when(
+      success: (courses) {
+        emit(
+          state.copyWith(
+            isFiltering: false,
+            allCourses: courses,
+            errorMessage: null,
+          ),
+        );
+      },
+      failure: (fail) {
+        emit(state.copyWith(isFiltering: false, errorMessage: fail.message));
       },
     );
   }

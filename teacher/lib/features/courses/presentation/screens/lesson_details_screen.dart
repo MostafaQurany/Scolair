@@ -3,9 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
+import '../../domain/usecases/courses_usecases.dart';
 import '../cubit/lesson_details_cubit.dart';
 import '../cubit/lesson_details_state.dart';
 import '../widgets/editorjs_renderer.dart';
+import '../screens/lesson_form_screen.dart';
+import '../widgets/forms/delete_confirmation_dialog.dart';
 
 class LessonDetailsScreen extends StatelessWidget {
   const LessonDetailsScreen({
@@ -17,13 +22,87 @@ class LessonDetailsScreen extends StatelessWidget {
   final String lessonName;
   final String chapterName;
 
+  Future<void> _deleteLesson(
+    BuildContext context,
+    LessonDetailsCubit cubit,
+  ) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => DeleteConfirmationDialog(
+        title: context.l10n.deleteLessonConfirmTitle,
+        body: context.l10n.deleteLessonConfirmBody,
+      ),
+    );
+
+    if (confirmed == true && context.mounted) {
+      final res = await getIt<DeleteLessonUseCase>().call(lessonName);
+      if (context.mounted) {
+        res.when(
+          success: (_) {
+            AppSnackBar.showSuccess(context, context.l10n.lessonDeletedSuccess);
+            Navigator.pop(
+              context,
+              true,
+            ); // Pop screen back with success indicator to refresh outline.
+          },
+          failure: (fail) => AppSnackBar.showError(context, fail.message),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<LessonDetailsCubit>()..loadLessonDetails(lessonName),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Lesson Material'),
+          title: Text(context.l10n.lessonMaterial),
+          actions: [
+            BlocBuilder<LessonDetailsCubit, LessonDetailsState>(
+              builder: (context, state) {
+                final lesson = state.lesson;
+                if (lesson == null) return const SizedBox.shrink();
+
+                final cubit = context.read<LessonDetailsCubit>();
+                return PopupMenuButton<String>(
+                  onSelected: (value) async {
+                    if (value == 'edit') {
+                      final updated = await Navigator.push<bool>(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => LessonFormScreen(
+                            chapterName: chapterName,
+                            editingLesson: lesson,
+                          ),
+                        ),
+                      );
+                      if (updated == true && context.mounted) {
+                        cubit.loadLessonDetails(lessonName);
+                      }
+                    } else if (value == 'delete') {
+                      _deleteLesson(context, cubit);
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    PopupMenuItem(
+                      value: 'edit',
+                      child: Text(context.l10n.editLesson),
+                    ),
+                    PopupMenuItem(
+                      value: 'delete',
+                      child: Text(
+                        context.l10n.deleteLesson,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.error,
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
         ),
         body: _LessonDetailsView(chapterName: chapterName),
       ),
@@ -56,17 +135,20 @@ class _LessonDetailsView extends StatelessWidget {
                 children: [
                   Text(
                     state.errorMessage!,
-                    style: textTheme.bodyMedium?.copyWith(color: colorScheme.error),
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.error,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 12.h),
                   FilledButton(
                     onPressed: () {
                       context.read<LessonDetailsCubit>().loadLessonDetails(
-                            context.read<LessonDetailsCubit>().state.lesson?.name ?? '',
-                          );
+                        context.read<LessonDetailsCubit>().state.lesson?.name ??
+                            '',
+                      );
                     },
-                    child: const Text('Retry'),
+                    child: Text(context.l10n.retry),
                   ),
                 ],
               ),
@@ -86,13 +168,17 @@ class _LessonDetailsView extends StatelessWidget {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
               decoration: BoxDecoration(
-                color: colorScheme.secondaryContainer.withOpacity(0.5),
+                color: colorScheme.secondaryContainer.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(6.r),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.folder_open, size: 14.r, color: colorScheme.secondary),
+                  Icon(
+                    Icons.folder_open,
+                    size: 14.r,
+                    color: colorScheme.secondary,
+                  ),
                   SizedBox(width: 6.w),
                   Expanded(
                     child: Text(
@@ -112,33 +198,40 @@ class _LessonDetailsView extends StatelessWidget {
             // Lesson title
             Text(
               lesson.title,
-              style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+              style: textTheme.headlineSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 24.h),
             // Editor.js content renderer
             EditorJsRenderer(content: lesson.content),
 
             // Instructor notes or files if present
-            if (lesson.instructorNotes != null && lesson.instructorNotes!.isNotEmpty) ...[
+            if (lesson.instructorNotes != null &&
+                lesson.instructorNotes!.isNotEmpty) ...[
               SizedBox(height: 32.h),
               const Divider(),
               SizedBox(height: 16.h),
               Text(
-                'Instructor Notes',
-                style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                context.l10n.instructorNotes,
+                style: textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 8.h),
               Container(
                 padding: EdgeInsets.all(16.r),
                 decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.08),
+                  color: colorScheme.tertiaryContainer.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12.r),
-                  border: Border.all(color: Colors.amber.withOpacity(0.3)),
+                  border: Border.all(
+                    color: colorScheme.tertiaryContainer.withValues(alpha: 0.4),
+                  ),
                 ),
                 child: Text(
                   lesson.instructorNotes!,
                   style: textTheme.bodyMedium?.copyWith(
-                    color: Colors.amber.shade900,
+                    color: colorScheme.onTertiaryContainer,
                   ),
                 ),
               ),

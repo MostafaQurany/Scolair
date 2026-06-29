@@ -3,7 +3,10 @@ import '../../../../core/network/api_result.dart';
 import '../../data/models/courses_models.dart';
 
 abstract class CoursesRepository {
-  Future<ApiResult<List<CourseModel>>> listCourses();
+  Future<ApiResult<List<CourseModel>>> listCourses({
+    String searchText = '',
+    bool? publishedFilter,
+  });
   Future<ApiResult<CourseModel>> getCourse(String courseName);
   Future<ApiResult<CourseModel>> createCourse({
     required String title,
@@ -17,7 +20,12 @@ abstract class CoursesRepository {
   Future<ApiResult<CourseModel>> updateCourse({
     required String courseName,
     required String title,
-    required String tags,
+    String? description,
+    String? shortIntroduction,
+    String? tags,
+    bool? published,
+    String? videoLink,
+    bool? enableCertification,
   });
   Future<ApiResult<void>> deleteCourse(String courseName);
   Future<ApiResult<List<ChapterSummaryModel>>> getChapters(String courseName);
@@ -40,7 +48,7 @@ abstract class CoursesRepository {
     required bool includeInPreview,
     Map<String, dynamic>? content,
   });
-  Future<ApiResult<void>> uploadFile({
+  Future<ApiResult<String>> uploadFile({
     required File file,
     required int isPrivate,
     required String doctype,
@@ -51,6 +59,7 @@ abstract class CoursesRepository {
     required String lessonName,
     required String title,
     required bool includeInPreview,
+    Map<String, dynamic>? content,
   });
   Future<ApiResult<void>> deleteLesson(String lessonName);
   Future<ApiResult<MyCoursesData>> myCourses();

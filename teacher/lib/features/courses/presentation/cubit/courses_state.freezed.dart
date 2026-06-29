@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CoursesState {
 
- bool get isLoading; List<CourseModel>? get allCourses; List<CourseModel>? get myCourses; String? get errorMessage;
+ String get searchText; bool? get publishedFilter; bool get isInitialLoading; bool get isRefreshing; bool get isFiltering; bool get isMutating; List<CourseModel>? get allCourses; List<CourseModel>? get myCourses; String? get errorMessage; String? get mutationSuccess; String? get mutationError;
 /// Create a copy of CoursesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $CoursesStateCopyWith<CoursesState> get copyWith => _$CoursesStateCopyWithImpl<C
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoursesState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other.allCourses, allCourses)&&const DeepCollectionEquality().equals(other.myCourses, myCourses)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CoursesState&&(identical(other.searchText, searchText) || other.searchText == searchText)&&(identical(other.publishedFilter, publishedFilter) || other.publishedFilter == publishedFilter)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isFiltering, isFiltering) || other.isFiltering == isFiltering)&&(identical(other.isMutating, isMutating) || other.isMutating == isMutating)&&const DeepCollectionEquality().equals(other.allCourses, allCourses)&&const DeepCollectionEquality().equals(other.myCourses, myCourses)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationSuccess, mutationSuccess) || other.mutationSuccess == mutationSuccess)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(allCourses),const DeepCollectionEquality().hash(myCourses),errorMessage);
+int get hashCode => Object.hash(runtimeType,searchText,publishedFilter,isInitialLoading,isRefreshing,isFiltering,isMutating,const DeepCollectionEquality().hash(allCourses),const DeepCollectionEquality().hash(myCourses),errorMessage,mutationSuccess,mutationError);
 
 @override
 String toString() {
-  return 'CoursesState(isLoading: $isLoading, allCourses: $allCourses, myCourses: $myCourses, errorMessage: $errorMessage)';
+  return 'CoursesState(searchText: $searchText, publishedFilter: $publishedFilter, isInitialLoading: $isInitialLoading, isRefreshing: $isRefreshing, isFiltering: $isFiltering, isMutating: $isMutating, allCourses: $allCourses, myCourses: $myCourses, errorMessage: $errorMessage, mutationSuccess: $mutationSuccess, mutationError: $mutationError)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $CoursesStateCopyWith<$Res>  {
   factory $CoursesStateCopyWith(CoursesState value, $Res Function(CoursesState) _then) = _$CoursesStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, List<CourseModel>? allCourses, List<CourseModel>? myCourses, String? errorMessage
+ String searchText, bool? publishedFilter, bool isInitialLoading, bool isRefreshing, bool isFiltering, bool isMutating, List<CourseModel>? allCourses, List<CourseModel>? myCourses, String? errorMessage, String? mutationSuccess, String? mutationError
 });
 
 
@@ -63,12 +63,19 @@ class _$CoursesStateCopyWithImpl<$Res>
 
 /// Create a copy of CoursesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? allCourses = freezed,Object? myCourses = freezed,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? searchText = null,Object? publishedFilter = freezed,Object? isInitialLoading = null,Object? isRefreshing = null,Object? isFiltering = null,Object? isMutating = null,Object? allCourses = freezed,Object? myCourses = freezed,Object? errorMessage = freezed,Object? mutationSuccess = freezed,Object? mutationError = freezed,}) {
   return _then(CoursesState(
-isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+searchText: null == searchText ? _self.searchText : searchText // ignore: cast_nullable_to_non_nullable
+as String,publishedFilter: freezed == publishedFilter ? _self.publishedFilter : publishedFilter // ignore: cast_nullable_to_non_nullable
+as bool?,isInitialLoading: null == isInitialLoading ? _self.isInitialLoading : isInitialLoading // ignore: cast_nullable_to_non_nullable
+as bool,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
+as bool,isFiltering: null == isFiltering ? _self.isFiltering : isFiltering // ignore: cast_nullable_to_non_nullable
+as bool,isMutating: null == isMutating ? _self.isMutating : isMutating // ignore: cast_nullable_to_non_nullable
 as bool,allCourses: freezed == allCourses ? _self.allCourses : allCourses // ignore: cast_nullable_to_non_nullable
 as List<CourseModel>?,myCourses: freezed == myCourses ? _self.myCourses : myCourses // ignore: cast_nullable_to_non_nullable
 as List<CourseModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,mutationSuccess: freezed == mutationSuccess ? _self.mutationSuccess : mutationSuccess // ignore: cast_nullable_to_non_nullable
+as String?,mutationError: freezed == mutationError ? _self.mutationError : mutationError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -154,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String searchText,  bool? publishedFilter,  bool isInitialLoading,  bool isRefreshing,  bool isFiltering,  bool isMutating,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses,  String? errorMessage,  String? mutationSuccess,  String? mutationError)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CoursesState() when $default != null:
-return $default(_that.isLoading,_that.allCourses,_that.myCourses,_that.errorMessage);case _:
+return $default(_that.searchText,_that.publishedFilter,_that.isInitialLoading,_that.isRefreshing,_that.isFiltering,_that.isMutating,_that.allCourses,_that.myCourses,_that.errorMessage,_that.mutationSuccess,_that.mutationError);case _:
   return orElse();
 
 }
@@ -175,10 +182,10 @@ return $default(_that.isLoading,_that.allCourses,_that.myCourses,_that.errorMess
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String searchText,  bool? publishedFilter,  bool isInitialLoading,  bool isRefreshing,  bool isFiltering,  bool isMutating,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses,  String? errorMessage,  String? mutationSuccess,  String? mutationError)  $default,) {final _that = this;
 switch (_that) {
 case _CoursesState():
-return $default(_that.isLoading,_that.allCourses,_that.myCourses,_that.errorMessage);case _:
+return $default(_that.searchText,_that.publishedFilter,_that.isInitialLoading,_that.isRefreshing,_that.isFiltering,_that.isMutating,_that.allCourses,_that.myCourses,_that.errorMessage,_that.mutationSuccess,_that.mutationError);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +202,10 @@ return $default(_that.isLoading,_that.allCourses,_that.myCourses,_that.errorMess
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String searchText,  bool? publishedFilter,  bool isInitialLoading,  bool isRefreshing,  bool isFiltering,  bool isMutating,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses,  String? errorMessage,  String? mutationSuccess,  String? mutationError)?  $default,) {final _that = this;
 switch (_that) {
 case _CoursesState() when $default != null:
-return $default(_that.isLoading,_that.allCourses,_that.myCourses,_that.errorMessage);case _:
+return $default(_that.searchText,_that.publishedFilter,_that.isInitialLoading,_that.isRefreshing,_that.isFiltering,_that.isMutating,_that.allCourses,_that.myCourses,_that.errorMessage,_that.mutationSuccess,_that.mutationError);case _:
   return null;
 
 }
@@ -210,10 +217,15 @@ return $default(_that.isLoading,_that.allCourses,_that.myCourses,_that.errorMess
 
 
 class _CoursesState implements CoursesState {
-  const _CoursesState({this.isLoading = false,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses, this.errorMessage}): _allCourses = allCourses,_myCourses = myCourses;
+  const _CoursesState({this.searchText = '', this.publishedFilter, this.isInitialLoading = false, this.isRefreshing = false, this.isFiltering = false, this.isMutating = false,  List<CourseModel>? allCourses,  List<CourseModel>? myCourses, this.errorMessage, this.mutationSuccess, this.mutationError}): _allCourses = allCourses,_myCourses = myCourses;
   
 
-@override@JsonKey() final  bool isLoading;
+@override@JsonKey() final  String searchText;
+@override final  bool? publishedFilter;
+@override@JsonKey() final  bool isInitialLoading;
+@override@JsonKey() final  bool isRefreshing;
+@override@JsonKey() final  bool isFiltering;
+@override@JsonKey() final  bool isMutating;
  final  List<CourseModel>? _allCourses;
 @override List<CourseModel>? get allCourses {
   final value = _allCourses;
@@ -233,6 +245,8 @@ class _CoursesState implements CoursesState {
 }
 
 @override final  String? errorMessage;
+@override final  String? mutationSuccess;
+@override final  String? mutationError;
 
 /// Create a copy of CoursesState
 /// with the given fields replaced by the non-null parameter values.
@@ -244,16 +258,16 @@ _$CoursesStateCopyWith<_CoursesState> get copyWith => __$CoursesStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoursesState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&const DeepCollectionEquality().equals(other._allCourses, _allCourses)&&const DeepCollectionEquality().equals(other._myCourses, _myCourses)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CoursesState&&(identical(other.searchText, searchText) || other.searchText == searchText)&&(identical(other.publishedFilter, publishedFilter) || other.publishedFilter == publishedFilter)&&(identical(other.isInitialLoading, isInitialLoading) || other.isInitialLoading == isInitialLoading)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isFiltering, isFiltering) || other.isFiltering == isFiltering)&&(identical(other.isMutating, isMutating) || other.isMutating == isMutating)&&const DeepCollectionEquality().equals(other._allCourses, _allCourses)&&const DeepCollectionEquality().equals(other._myCourses, _myCourses)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationSuccess, mutationSuccess) || other.mutationSuccess == mutationSuccess)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,const DeepCollectionEquality().hash(_allCourses),const DeepCollectionEquality().hash(_myCourses),errorMessage);
+int get hashCode => Object.hash(runtimeType,searchText,publishedFilter,isInitialLoading,isRefreshing,isFiltering,isMutating,const DeepCollectionEquality().hash(_allCourses),const DeepCollectionEquality().hash(_myCourses),errorMessage,mutationSuccess,mutationError);
 
 @override
 String toString() {
-  return 'CoursesState(isLoading: $isLoading, allCourses: $allCourses, myCourses: $myCourses, errorMessage: $errorMessage)';
+  return 'CoursesState(searchText: $searchText, publishedFilter: $publishedFilter, isInitialLoading: $isInitialLoading, isRefreshing: $isRefreshing, isFiltering: $isFiltering, isMutating: $isMutating, allCourses: $allCourses, myCourses: $myCourses, errorMessage: $errorMessage, mutationSuccess: $mutationSuccess, mutationError: $mutationError)';
 }
 
 
@@ -264,7 +278,7 @@ abstract mixin class _$CoursesStateCopyWith<$Res> implements $CoursesStateCopyWi
   factory _$CoursesStateCopyWith(_CoursesState value, $Res Function(_CoursesState) _then) = __$CoursesStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, List<CourseModel>? allCourses, List<CourseModel>? myCourses, String? errorMessage
+ String searchText, bool? publishedFilter, bool isInitialLoading, bool isRefreshing, bool isFiltering, bool isMutating, List<CourseModel>? allCourses, List<CourseModel>? myCourses, String? errorMessage, String? mutationSuccess, String? mutationError
 });
 
 
@@ -281,12 +295,19 @@ class __$CoursesStateCopyWithImpl<$Res>
 
 /// Create a copy of CoursesState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? allCourses = freezed,Object? myCourses = freezed,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? searchText = null,Object? publishedFilter = freezed,Object? isInitialLoading = null,Object? isRefreshing = null,Object? isFiltering = null,Object? isMutating = null,Object? allCourses = freezed,Object? myCourses = freezed,Object? errorMessage = freezed,Object? mutationSuccess = freezed,Object? mutationError = freezed,}) {
   return _then(_CoursesState(
-isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+searchText: null == searchText ? _self.searchText : searchText // ignore: cast_nullable_to_non_nullable
+as String,publishedFilter: freezed == publishedFilter ? _self.publishedFilter : publishedFilter // ignore: cast_nullable_to_non_nullable
+as bool?,isInitialLoading: null == isInitialLoading ? _self.isInitialLoading : isInitialLoading // ignore: cast_nullable_to_non_nullable
+as bool,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
+as bool,isFiltering: null == isFiltering ? _self.isFiltering : isFiltering // ignore: cast_nullable_to_non_nullable
+as bool,isMutating: null == isMutating ? _self.isMutating : isMutating // ignore: cast_nullable_to_non_nullable
 as bool,allCourses: freezed == allCourses ? _self._allCourses : allCourses // ignore: cast_nullable_to_non_nullable
 as List<CourseModel>?,myCourses: freezed == myCourses ? _self._myCourses : myCourses // ignore: cast_nullable_to_non_nullable
 as List<CourseModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,mutationSuccess: freezed == mutationSuccess ? _self.mutationSuccess : mutationSuccess // ignore: cast_nullable_to_non_nullable
+as String?,mutationError: freezed == mutationError ? _self.mutationError : mutationError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

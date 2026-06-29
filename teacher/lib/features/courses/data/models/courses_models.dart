@@ -6,22 +6,24 @@ part 'courses_models.g.dart';
 class InstructorModel {
   const InstructorModel({
     required this.name,
-    required this.username,
-    required this.fullName,
+    this.username,
+    this.fullName,
     this.userImage,
     this.firstName,
     this.bio,
+    this.instructor,
   });
 
   final String name;
-  final String username;
+  final String? username;
   @JsonKey(name: 'full_name')
-  final String fullName;
+  final String? fullName;
   @JsonKey(name: 'user_image')
   final String? userImage;
   @JsonKey(name: 'first_name')
   final String? firstName;
   final String? bio;
+  final String? instructor;
 
   factory InstructorModel.fromJson(Map<String, dynamic> json) =>
       _$InstructorModelFromJson(json);
@@ -126,6 +128,7 @@ class CourseModel {
   final int? enrollments;
   final dynamic rating; // can be String or number from API
   final List<InstructorModel>? instructors;
+  @JsonKey(fromJson: _membershipFromJson)
   final MembershipModel? membership;
   @JsonKey(name: 'rating_count')
   final int? ratingCount;
@@ -136,6 +139,14 @@ class CourseModel {
       _$CourseModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CourseModelToJson(this);
+}
+
+MembershipModel? _membershipFromJson(Object? json) {
+  if (json is Map<String, dynamic>) {
+    return MembershipModel.fromJson(json);
+  }
+
+  return null;
 }
 
 @JsonSerializable()
@@ -151,9 +162,9 @@ class ChapterSummaryModel {
   final int idx;
   final String name;
   final String title;
-  @JsonKey(name: 'is_scorm_package')
+  @JsonKey(name: 'is_scorm_package', defaultValue: 0)
   final int isScormPackage;
-  @JsonKey(name: 'lesson_count')
+  @JsonKey(name: 'lesson_count', defaultValue: 0)
   final int lessonCount;
 
   factory ChapterSummaryModel.fromJson(Map<String, dynamic> json) =>
@@ -445,10 +456,7 @@ class CreateLessonResponseData {
 
 @JsonSerializable()
 class MyCoursesData {
-  const MyCoursesData({
-    required this.role,
-    required this.courses,
-  });
+  const MyCoursesData({required this.role, required this.courses});
 
   final String role;
   final List<CourseModel> courses;
@@ -475,4 +483,30 @@ class MyCoursesResponseData {
       _$MyCoursesResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$MyCoursesResponseDataToJson(this);
+}
+
+@JsonSerializable()
+class UploadFileMessage {
+  const UploadFileMessage({required this.fileUrl, this.name});
+
+  @JsonKey(name: 'file_url')
+  final String fileUrl;
+  final String? name;
+
+  factory UploadFileMessage.fromJson(Map<String, dynamic> json) =>
+      _$UploadFileMessageFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UploadFileMessageToJson(this);
+}
+
+@JsonSerializable()
+class UploadFileResponseData {
+  const UploadFileResponseData({required this.message});
+
+  final UploadFileMessage message;
+
+  factory UploadFileResponseData.fromJson(Map<String, dynamic> json) =>
+      _$UploadFileResponseDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UploadFileResponseDataToJson(this);
 }

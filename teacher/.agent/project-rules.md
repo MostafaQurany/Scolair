@@ -420,6 +420,7 @@ Text(context.l10n.itemCount(count));
 - Convert data models to domain entities before exposing them to presentation when useful.
 - Use Dio for HTTP client configuration.
 - Use Retrofit for API declarations and generated API client code.
+- For Frappe list filters, build a Dart filter map, encode it with `jsonEncode`, and pass it as a query parameter; do not concatenate filter JSON into URLs manually.
 - Keep Retrofit annotations inside API service files, not inside Cubits or widgets.
 - Keep base URL, headers, timeouts, and interceptors inside `core/network/`.
 - Never expose raw Dio, Retrofit, HTTP, or storage calls directly to UI code.

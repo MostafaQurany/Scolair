@@ -266,9 +266,10 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<ListCoursesResponseData> listCourses() async {
+  Future<ListCoursesResponseData> listCourses(String? filters) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'filters': filters};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ListCoursesResponseData>(
@@ -608,7 +609,7 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<void> uploadFile({
+  Future<UploadFileResponseData> uploadFile({
     required MultipartFile file,
     required int isPrivate,
     required String doctype,
@@ -624,7 +625,7 @@ class _ApiClient implements ApiClient {
     _data.fields.add(MapEntry('doctype', doctype));
     _data.fields.add(MapEntry('docname', docname));
     _data.fields.add(MapEntry('fieldname', fieldname));
-    final _options = _setStreamType<void>(
+    final _options = _setStreamType<UploadFileResponseData>(
       Options(
             method: 'POST',
             headers: _headers,
@@ -639,7 +640,15 @@ class _ApiClient implements ApiClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    await _dio.fetch<void>(_options);
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late UploadFileResponseData _value;
+    try {
+      _value = UploadFileResponseData.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
   }
 
   @override

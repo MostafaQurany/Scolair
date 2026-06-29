@@ -12,7 +12,7 @@ abstract final class DioFactory {
     final dio = _buildBaseDio();
     dio.interceptors.addAll([
       AuthInterceptor(secureStorage, refreshDio),
-      SafeLoggingInterceptor(),
+      getDioLogger(),
     ]);
 
     return dio;

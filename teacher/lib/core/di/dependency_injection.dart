@@ -40,6 +40,8 @@ import '../../features/courses/domain/usecases/courses_usecases.dart';
 import '../../features/courses/presentation/cubit/courses_cubit.dart';
 import '../../features/courses/presentation/cubit/course_details_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_details_cubit.dart';
+import '../../features/courses/presentation/cubit/course_form_cubit.dart';
+import '../../features/courses/presentation/cubit/lesson_form_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -116,25 +118,67 @@ Future<void> setupDependencyInjection() async {
       () => CoursesRepositoryImpl(getIt()),
     )
     // Use Cases
-    ..registerLazySingleton<ListCoursesUseCase>(() => ListCoursesUseCase(getIt()))
+    ..registerLazySingleton<ListCoursesUseCase>(
+      () => ListCoursesUseCase(getIt()),
+    )
     ..registerLazySingleton<GetCourseUseCase>(() => GetCourseUseCase(getIt()))
-    ..registerLazySingleton<CreateCourseUseCase>(() => CreateCourseUseCase(getIt()))
-    ..registerLazySingleton<UpdateCourseUseCase>(() => UpdateCourseUseCase(getIt()))
-    ..registerLazySingleton<DeleteCourseUseCase>(() => DeleteCourseUseCase(getIt()))
-    ..registerLazySingleton<GetChaptersUseCase>(() => GetChaptersUseCase(getIt()))
+    ..registerLazySingleton<CreateCourseUseCase>(
+      () => CreateCourseUseCase(getIt()),
+    )
+    ..registerLazySingleton<UpdateCourseUseCase>(
+      () => UpdateCourseUseCase(getIt()),
+    )
+    ..registerLazySingleton<DeleteCourseUseCase>(
+      () => DeleteCourseUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetChaptersUseCase>(
+      () => GetChaptersUseCase(getIt()),
+    )
     ..registerLazySingleton<GetChapterUseCase>(() => GetChapterUseCase(getIt()))
-    ..registerLazySingleton<CreateChapterUseCase>(() => CreateChapterUseCase(getIt()))
-    ..registerLazySingleton<UpdateChapterUseCase>(() => UpdateChapterUseCase(getIt()))
-    ..registerLazySingleton<DeleteChapterUseCase>(() => DeleteChapterUseCase(getIt()))
+    ..registerLazySingleton<CreateChapterUseCase>(
+      () => CreateChapterUseCase(getIt()),
+    )
+    ..registerLazySingleton<UpdateChapterUseCase>(
+      () => UpdateChapterUseCase(getIt()),
+    )
+    ..registerLazySingleton<DeleteChapterUseCase>(
+      () => DeleteChapterUseCase(getIt()),
+    )
     ..registerLazySingleton<GetLessonsUseCase>(() => GetLessonsUseCase(getIt()))
     ..registerLazySingleton<GetLessonUseCase>(() => GetLessonUseCase(getIt()))
-    ..registerLazySingleton<CreateLessonUseCase>(() => CreateLessonUseCase(getIt()))
+    ..registerLazySingleton<CreateLessonUseCase>(
+      () => CreateLessonUseCase(getIt()),
+    )
     ..registerLazySingleton<UploadFileUseCase>(() => UploadFileUseCase(getIt()))
-    ..registerLazySingleton<UpdateLessonUseCase>(() => UpdateLessonUseCase(getIt()))
-    ..registerLazySingleton<DeleteLessonUseCase>(() => DeleteLessonUseCase(getIt()))
-    ..registerLazySingleton<GetMyCoursesUseCase>(() => GetMyCoursesUseCase(getIt()))
+    ..registerLazySingleton<UpdateLessonUseCase>(
+      () => UpdateLessonUseCase(getIt()),
+    )
+    ..registerLazySingleton<DeleteLessonUseCase>(
+      () => DeleteLessonUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetMyCoursesUseCase>(
+      () => GetMyCoursesUseCase(getIt()),
+    )
     // Cubits
-    ..registerFactory<CoursesCubit>(() => CoursesCubit(getIt(), getIt()))
-    ..registerFactory<CourseDetailsCubit>(() => CourseDetailsCubit(getIt(), getIt(), getIt()))
-    ..registerFactory<LessonDetailsCubit>(() => LessonDetailsCubit(getIt()));
+    ..registerFactory<CoursesCubit>(
+      () => CoursesCubit(getIt(), getIt(), getIt()),
+    )
+    ..registerFactory<CourseDetailsCubit>(
+      () => CourseDetailsCubit(
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+      ),
+    )
+    ..registerFactory<LessonDetailsCubit>(
+      () => LessonDetailsCubit(getIt(), getIt()),
+    )
+    ..registerFactory<CourseFormCubit>(() => CourseFormCubit(getIt(), getIt()))
+    ..registerFactory<LessonFormCubit>(
+      () => LessonFormCubit(getIt(), getIt(), getIt()),
+    );
 }

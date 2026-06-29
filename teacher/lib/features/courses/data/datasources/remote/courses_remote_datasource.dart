@@ -1,10 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
+
 import 'package:dio/dio.dart';
+
 import '../../../../../core/network/api_client.dart';
 import '../../models/courses_models.dart';
 
 abstract class CoursesRemoteDataSource {
-  Future<ListCoursesResponseData> listCourses();
+  Future<ListCoursesResponseData> listCourses({
+    String searchText = '',
+    bool? publishedFilter,
+  });
   Future<GetCourseResponseData> getCourse(String courseName);
   Future<CreateCourseResponseData> createCourse(Map<String, dynamic> body);
   Future<CreateCourseResponseData> updateCourse(Map<String, dynamic> body);
@@ -17,7 +23,7 @@ abstract class CoursesRemoteDataSource {
   Future<GetLessonsResponseData> getLessons(String chapterName);
   Future<GetLessonResponseData> getLesson(String lessonName);
   Future<CreateLessonResponseData> createLesson(Map<String, dynamic> body);
-  Future<void> uploadFile({
+  Future<UploadFileResponseData> uploadFile({
     required File file,
     required int isPrivate,
     required String doctype,
@@ -35,7 +41,18 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   final ApiClient _apiClient;
 
   @override
-  Future<ListCoursesResponseData> listCourses() => _apiClient.listCourses();
+  Future<ListCoursesResponseData> listCourses({
+    String searchText = '',
+    bool? publishedFilter,
+  }) {
+    final trimmedSearch = searchText.trim();
+    final filters = <String, dynamic>{
+      if (publishedFilter != null) 'published': publishedFilter ? 1 : 0,
+      if (trimmedSearch.isNotEmpty) 'name': ['like', '%$trimmedSearch%'],
+    };
+
+    return _apiClient.listCourses(filters.isEmpty ? null : jsonEncode(filters));
+  }
 
   @override
   Future<GetCourseResponseData> getCourse(String courseName) =>
@@ -86,14 +103,14 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
       _apiClient.createLesson(body);
 
   @override
-  Future<void> uploadFile({
+  Future<UploadFileResponseData> uploadFile({
     required File file,
     required int isPrivate,
     required String doctype,
     required String docname,
     required String fieldname,
   }) async {
-    final fileName = file.path.split('/').last;
+    final fileName = file.path.split(Platform.pathSeparator).last;
     final multipartFile = await MultipartFile.fromFile(
       file.path,
       filename: fileName,

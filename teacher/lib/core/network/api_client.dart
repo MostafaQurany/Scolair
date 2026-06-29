@@ -60,28 +60,40 @@ abstract class ApiClient {
   Future<void> changePassword(@Body() ChangePasswordRequestData request);
 
   @GET(ApiEndpoints.listCourses)
-  Future<ListCoursesResponseData> listCourses();
+  Future<ListCoursesResponseData> listCourses(
+    @Query('filters') String? filters,
+  );
 
   @GET(ApiEndpoints.getCourse)
   Future<GetCourseResponseData> getCourse(@Query('course') String courseName);
 
   @POST(ApiEndpoints.createCourse)
-  Future<CreateCourseResponseData> createCourse(@Body() Map<String, dynamic> body);
+  Future<CreateCourseResponseData> createCourse(
+    @Body() Map<String, dynamic> body,
+  );
 
   @PUT(ApiEndpoints.updateCourse)
-  Future<CreateCourseResponseData> updateCourse(@Body() Map<String, dynamic> body);
+  Future<CreateCourseResponseData> updateCourse(
+    @Body() Map<String, dynamic> body,
+  );
 
   @DELETE(ApiEndpoints.deleteCourse)
   Future<void> deleteCourse(@Body() Map<String, dynamic> body);
 
   @GET(ApiEndpoints.getChapters)
-  Future<GetChaptersResponseData> getChapters(@Query('course') String courseName);
+  Future<GetChaptersResponseData> getChapters(
+    @Query('course') String courseName,
+  );
 
   @GET(ApiEndpoints.getChapter)
-  Future<GetChapterResponseData> getChapter(@Query('chapter') String chapterName);
+  Future<GetChapterResponseData> getChapter(
+    @Query('chapter') String chapterName,
+  );
 
   @POST(ApiEndpoints.createChapter)
-  Future<CreateChapterResponseData> createChapter(@Body() Map<String, dynamic> body);
+  Future<CreateChapterResponseData> createChapter(
+    @Body() Map<String, dynamic> body,
+  );
 
   @PUT(ApiEndpoints.updateChapter)
   Future<void> updateChapter(@Body() Map<String, dynamic> body);
@@ -90,17 +102,21 @@ abstract class ApiClient {
   Future<void> deleteChapter(@Body() Map<String, dynamic> body);
 
   @GET(ApiEndpoints.getLessons)
-  Future<GetLessonsResponseData> getLessons(@Query('chapter') String chapterName);
+  Future<GetLessonsResponseData> getLessons(
+    @Query('chapter') String chapterName,
+  );
 
   @GET(ApiEndpoints.getLesson)
   Future<GetLessonResponseData> getLesson(@Query('lesson') String lessonName);
 
   @POST(ApiEndpoints.createLesson)
-  Future<CreateLessonResponseData> createLesson(@Body() Map<String, dynamic> body);
+  Future<CreateLessonResponseData> createLesson(
+    @Body() Map<String, dynamic> body,
+  );
 
   @POST(ApiEndpoints.uploadFile)
   @MultiPart()
-  Future<void> uploadFile({
+  Future<UploadFileResponseData> uploadFile({
     @Part(name: 'file') required MultipartFile file,
     @Part(name: 'is_private') required int isPrivate,
     @Part(name: 'doctype') required String doctype,

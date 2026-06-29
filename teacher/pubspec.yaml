@@ -47,7 +47,12 @@ dependencies:
   flutter_secure_storage: ^10.3.1
   intl: any
   google_fonts: ^8.1.0
-  local_auth: ^2.3.0
+  local_auth: ^3.0.1
+  pretty_dio_logger: ^1.4.0
+  youtube_player_iframe: ^6.0.2
+  url_launcher: ^6.3.1
+  file_picker: ^11.0.2
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$LessonDetailsState {
 
- bool get isLoading; LessonDetailModel? get lesson; String? get errorMessage;
+ bool get isLoading; bool get isMutating; LessonDetailModel? get lesson; String? get errorMessage; String? get mutationSuccess; String? get mutationError;
 /// Create a copy of LessonDetailsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $LessonDetailsStateCopyWith<LessonDetailsState> get copyWith => _$LessonDetailsS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is LessonDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.lesson, lesson) || other.lesson == lesson)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LessonDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isMutating, isMutating) || other.isMutating == isMutating)&&(identical(other.lesson, lesson) || other.lesson == lesson)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationSuccess, mutationSuccess) || other.mutationSuccess == mutationSuccess)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,lesson,errorMessage);
+int get hashCode => Object.hash(runtimeType,isLoading,isMutating,lesson,errorMessage,mutationSuccess,mutationError);
 
 @override
 String toString() {
-  return 'LessonDetailsState(isLoading: $isLoading, lesson: $lesson, errorMessage: $errorMessage)';
+  return 'LessonDetailsState(isLoading: $isLoading, isMutating: $isMutating, lesson: $lesson, errorMessage: $errorMessage, mutationSuccess: $mutationSuccess, mutationError: $mutationError)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $LessonDetailsStateCopyWith<$Res>  {
   factory $LessonDetailsStateCopyWith(LessonDetailsState value, $Res Function(LessonDetailsState) _then) = _$LessonDetailsStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, LessonDetailModel? lesson, String? errorMessage
+ bool isLoading, bool isMutating, LessonDetailModel? lesson, String? errorMessage, String? mutationSuccess, String? mutationError
 });
 
 
@@ -63,11 +63,14 @@ class _$LessonDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of LessonDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? lesson = freezed,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? isMutating = null,Object? lesson = freezed,Object? errorMessage = freezed,Object? mutationSuccess = freezed,Object? mutationError = freezed,}) {
   return _then(LessonDetailsState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,isMutating: null == isMutating ? _self.isMutating : isMutating // ignore: cast_nullable_to_non_nullable
 as bool,lesson: freezed == lesson ? _self.lesson : lesson // ignore: cast_nullable_to_non_nullable
 as LessonDetailModel?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,mutationSuccess: freezed == mutationSuccess ? _self.mutationSuccess : mutationSuccess // ignore: cast_nullable_to_non_nullable
+as String?,mutationError: freezed == mutationError ? _self.mutationError : mutationError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -153,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  LessonDetailModel? lesson,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  bool isMutating,  LessonDetailModel? lesson,  String? errorMessage,  String? mutationSuccess,  String? mutationError)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _LessonDetailsState() when $default != null:
-return $default(_that.isLoading,_that.lesson,_that.errorMessage);case _:
+return $default(_that.isLoading,_that.isMutating,_that.lesson,_that.errorMessage,_that.mutationSuccess,_that.mutationError);case _:
   return orElse();
 
 }
@@ -174,10 +177,10 @@ return $default(_that.isLoading,_that.lesson,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  LessonDetailModel? lesson,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  bool isMutating,  LessonDetailModel? lesson,  String? errorMessage,  String? mutationSuccess,  String? mutationError)  $default,) {final _that = this;
 switch (_that) {
 case _LessonDetailsState():
-return $default(_that.isLoading,_that.lesson,_that.errorMessage);case _:
+return $default(_that.isLoading,_that.isMutating,_that.lesson,_that.errorMessage,_that.mutationSuccess,_that.mutationError);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +197,10 @@ return $default(_that.isLoading,_that.lesson,_that.errorMessage);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  LessonDetailModel? lesson,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  bool isMutating,  LessonDetailModel? lesson,  String? errorMessage,  String? mutationSuccess,  String? mutationError)?  $default,) {final _that = this;
 switch (_that) {
 case _LessonDetailsState() when $default != null:
-return $default(_that.isLoading,_that.lesson,_that.errorMessage);case _:
+return $default(_that.isLoading,_that.isMutating,_that.lesson,_that.errorMessage,_that.mutationSuccess,_that.mutationError);case _:
   return null;
 
 }
@@ -209,12 +212,15 @@ return $default(_that.isLoading,_that.lesson,_that.errorMessage);case _:
 
 
 class _LessonDetailsState implements LessonDetailsState {
-  const _LessonDetailsState({this.isLoading = false, this.lesson, this.errorMessage});
+  const _LessonDetailsState({this.isLoading = false, this.isMutating = false, this.lesson, this.errorMessage, this.mutationSuccess, this.mutationError});
   
 
 @override@JsonKey() final  bool isLoading;
+@override@JsonKey() final  bool isMutating;
 @override final  LessonDetailModel? lesson;
 @override final  String? errorMessage;
+@override final  String? mutationSuccess;
+@override final  String? mutationError;
 
 /// Create a copy of LessonDetailsState
 /// with the given fields replaced by the non-null parameter values.
@@ -226,16 +232,16 @@ _$LessonDetailsStateCopyWith<_LessonDetailsState> get copyWith => __$LessonDetai
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LessonDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.lesson, lesson) || other.lesson == lesson)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _LessonDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isMutating, isMutating) || other.isMutating == isMutating)&&(identical(other.lesson, lesson) || other.lesson == lesson)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationSuccess, mutationSuccess) || other.mutationSuccess == mutationSuccess)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,lesson,errorMessage);
+int get hashCode => Object.hash(runtimeType,isLoading,isMutating,lesson,errorMessage,mutationSuccess,mutationError);
 
 @override
 String toString() {
-  return 'LessonDetailsState(isLoading: $isLoading, lesson: $lesson, errorMessage: $errorMessage)';
+  return 'LessonDetailsState(isLoading: $isLoading, isMutating: $isMutating, lesson: $lesson, errorMessage: $errorMessage, mutationSuccess: $mutationSuccess, mutationError: $mutationError)';
 }
 
 
@@ -246,7 +252,7 @@ abstract mixin class _$LessonDetailsStateCopyWith<$Res> implements $LessonDetail
   factory _$LessonDetailsStateCopyWith(_LessonDetailsState value, $Res Function(_LessonDetailsState) _then) = __$LessonDetailsStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, LessonDetailModel? lesson, String? errorMessage
+ bool isLoading, bool isMutating, LessonDetailModel? lesson, String? errorMessage, String? mutationSuccess, String? mutationError
 });
 
 
@@ -263,11 +269,14 @@ class __$LessonDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of LessonDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? lesson = freezed,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? isMutating = null,Object? lesson = freezed,Object? errorMessage = freezed,Object? mutationSuccess = freezed,Object? mutationError = freezed,}) {
   return _then(_LessonDetailsState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,isMutating: null == isMutating ? _self.isMutating : isMutating // ignore: cast_nullable_to_non_nullable
 as bool,lesson: freezed == lesson ? _self.lesson : lesson // ignore: cast_nullable_to_non_nullable
 as LessonDetailModel?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,mutationSuccess: freezed == mutationSuccess ? _self.mutationSuccess : mutationSuccess // ignore: cast_nullable_to_non_nullable
+as String?,mutationError: freezed == mutationError ? _self.mutationError : mutationError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

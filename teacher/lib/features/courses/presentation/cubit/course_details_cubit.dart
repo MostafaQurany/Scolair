@@ -8,11 +8,19 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
     this._getCourseUseCase,
     this._getChaptersUseCase,
     this._getChapterUseCase,
+    this._createChapterUseCase,
+    this._updateChapterUseCase,
+    this._deleteChapterUseCase,
+    this._deleteLessonUseCase,
   ) : super(const CourseDetailsState());
 
   final GetCourseUseCase _getCourseUseCase;
   final GetChaptersUseCase _getChaptersUseCase;
   final GetChapterUseCase _getChapterUseCase;
+  final CreateChapterUseCase _createChapterUseCase;
+  final UpdateChapterUseCase _updateChapterUseCase;
+  final DeleteChapterUseCase _deleteChapterUseCase;
+  final DeleteLessonUseCase _deleteLessonUseCase;
 
   Future<void> loadCourseDetails(String courseName) async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
@@ -42,42 +50,163 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
             }
 
             if (errorMsg != null) {
-              emit(state.copyWith(
-                isLoading: false,
-                course: course,
-                errorMessage: errorMsg,
-              ));
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  course: course,
+                  errorMessage: errorMsg,
+                ),
+              );
             } else {
-              // Sort chapters by index if needed
               chapterDetails.sort((a, b) {
-                // Parse idx from summary or use index
-                final aIdx = chapterSummaries.firstWhere((s) => s.name == a.name).idx;
-                final bIdx = chapterSummaries.firstWhere((s) => s.name == b.name).idx;
+                final aIdx = chapterSummaries
+                    .firstWhere((s) => s.name == a.name)
+                    .idx;
+                final bIdx = chapterSummaries
+                    .firstWhere((s) => s.name == b.name)
+                    .idx;
                 return aIdx.compareTo(bIdx);
               });
 
-              emit(state.copyWith(
-                isLoading: false,
-                course: course,
-                chapters: chapterDetails,
-              ));
+              emit(
+                state.copyWith(
+                  isLoading: false,
+                  course: course,
+                  chapters: chapterDetails,
+                ),
+              );
             }
           },
           failure: (fail) {
-            emit(state.copyWith(
-              isLoading: false,
-              course: course,
-              errorMessage: fail.message,
-            ));
+            emit(
+              state.copyWith(
+                isLoading: false,
+                course: course,
+                errorMessage: fail.message,
+              ),
+            );
           },
         );
       },
       failure: (fail) {
-        emit(state.copyWith(
-          isLoading: false,
-          errorMessage: fail.message,
-        ));
+        emit(state.copyWith(isLoading: false, errorMessage: fail.message));
       },
     );
+  }
+
+  Future<void> createChapter({
+    required String title,
+    required String courseName,
+    bool isScormPackage = false,
+  }) async {
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _createChapterUseCase(
+      title: title,
+      courseName: courseName,
+      isScormPackage: isScormPackage,
+    );
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(isMutating: false, mutationSuccess: 'chapterCreated'),
+        );
+        loadCourseDetails(courseName);
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  Future<void> updateChapter({
+    required String chapterName,
+    required String title,
+  }) async {
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _updateChapterUseCase(
+      chapterName: chapterName,
+      title: title,
+    );
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(isMutating: false, mutationSuccess: 'chapterUpdated'),
+        );
+        if (state.course != null) {
+          loadCourseDetails(state.course!.name);
+        }
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  Future<void> deleteChapter(String chapterName) async {
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _deleteChapterUseCase(chapterName);
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(isMutating: false, mutationSuccess: 'chapterDeleted'),
+        );
+        if (state.course != null) {
+          loadCourseDetails(state.course!.name);
+        }
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  Future<void> deleteLesson(String lessonName) async {
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _deleteLessonUseCase(lessonName);
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(isMutating: false, mutationSuccess: 'lessonDeleted'),
+        );
+        if (state.course != null) {
+          loadCourseDetails(state.course!.name);
+        }
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  void clearMutationState() {
+    emit(state.copyWith(mutationSuccess: null, mutationError: null));
   }
 }

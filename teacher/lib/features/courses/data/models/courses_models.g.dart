@@ -9,11 +9,12 @@ part of 'courses_models.dart';
 InstructorModel _$InstructorModelFromJson(Map<String, dynamic> json) =>
     InstructorModel(
       name: json['name'] as String,
-      username: json['username'] as String,
-      fullName: json['full_name'] as String,
+      username: json['username'] as String?,
+      fullName: json['full_name'] as String?,
       userImage: json['user_image'] as String?,
       firstName: json['first_name'] as String?,
       bio: json['bio'] as String?,
+      instructor: json['instructor'] as String?,
     );
 
 Map<String, dynamic> _$InstructorModelToJson(InstructorModel instance) =>
@@ -24,6 +25,7 @@ Map<String, dynamic> _$InstructorModelToJson(InstructorModel instance) =>
       'user_image': instance.userImage,
       'first_name': instance.firstName,
       'bio': instance.bio,
+      'instructor': instance.instructor,
     };
 
 MembershipModel _$MembershipModelFromJson(Map<String, dynamic> json) =>
@@ -76,9 +78,7 @@ CourseModel _$CourseModelFromJson(Map<String, dynamic> json) => CourseModel(
   instructors: (json['instructors'] as List<dynamic>?)
       ?.map((e) => InstructorModel.fromJson(e as Map<String, dynamic>))
       .toList(),
-  membership: json['membership'] == null
-      ? null
-      : MembershipModel.fromJson(json['membership'] as Map<String, dynamic>),
+  membership: _membershipFromJson(json['membership']),
   ratingCount: (json['rating_count'] as num?)?.toInt(),
   owner: json['owner'] as String?,
   creation: json['creation'] as String?,
@@ -122,8 +122,8 @@ ChapterSummaryModel _$ChapterSummaryModelFromJson(Map<String, dynamic> json) =>
       idx: (json['idx'] as num).toInt(),
       name: json['name'] as String,
       title: json['title'] as String,
-      isScormPackage: (json['is_scorm_package'] as num).toInt(),
-      lessonCount: (json['lesson_count'] as num).toInt(),
+      isScormPackage: (json['is_scorm_package'] as num?)?.toInt() ?? 0,
+      lessonCount: (json['lesson_count'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$ChapterSummaryModelToJson(
@@ -408,3 +408,22 @@ Map<String, dynamic> _$MyCoursesResponseDataToJson(
   'message': instance.message,
   'data': instance.data,
 };
+
+UploadFileMessage _$UploadFileMessageFromJson(Map<String, dynamic> json) =>
+    UploadFileMessage(
+      fileUrl: json['file_url'] as String,
+      name: json['name'] as String?,
+    );
+
+Map<String, dynamic> _$UploadFileMessageToJson(UploadFileMessage instance) =>
+    <String, dynamic>{'file_url': instance.fileUrl, 'name': instance.name};
+
+UploadFileResponseData _$UploadFileResponseDataFromJson(
+  Map<String, dynamic> json,
+) => UploadFileResponseData(
+  message: UploadFileMessage.fromJson(json['message'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$UploadFileResponseDataToJson(
+  UploadFileResponseData instance,
+) => <String, dynamic>{'message': instance.message};

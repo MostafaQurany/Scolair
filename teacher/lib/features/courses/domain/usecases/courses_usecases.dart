@@ -6,7 +6,13 @@ import '../repositories/courses_repository.dart';
 class ListCoursesUseCase {
   const ListCoursesUseCase(this._repository);
   final CoursesRepository _repository;
-  Future<ApiResult<List<CourseModel>>> call() => _repository.listCourses();
+  Future<ApiResult<List<CourseModel>>> call({
+    String searchText = '',
+    bool? publishedFilter,
+  }) => _repository.listCourses(
+    searchText: searchText,
+    publishedFilter: publishedFilter,
+  );
 }
 
 class GetCourseUseCase {
@@ -28,14 +34,14 @@ class CreateCourseUseCase {
     required String videoLink,
     required bool enableCertification,
   }) => _repository.createCourse(
-        title: title,
-        description: description,
-        shortIntroduction: shortIntroduction,
-        tags: tags,
-        published: published,
-        videoLink: videoLink,
-        enableCertification: enableCertification,
-      );
+    title: title,
+    description: description,
+    shortIntroduction: shortIntroduction,
+    tags: tags,
+    published: published,
+    videoLink: videoLink,
+    enableCertification: enableCertification,
+  );
 }
 
 class UpdateCourseUseCase {
@@ -44,12 +50,22 @@ class UpdateCourseUseCase {
   Future<ApiResult<CourseModel>> call({
     required String courseName,
     required String title,
-    required String tags,
+    String? description,
+    String? shortIntroduction,
+    String? tags,
+    bool? published,
+    String? videoLink,
+    bool? enableCertification,
   }) => _repository.updateCourse(
-        courseName: courseName,
-        title: title,
-        tags: tags,
-      );
+    courseName: courseName,
+    title: title,
+    description: description,
+    shortIntroduction: shortIntroduction,
+    tags: tags,
+    published: published,
+    videoLink: videoLink,
+    enableCertification: enableCertification,
+  );
 }
 
 class DeleteCourseUseCase {
@@ -81,10 +97,10 @@ class CreateChapterUseCase {
     required String courseName,
     required bool isScormPackage,
   }) => _repository.createChapter(
-        title: title,
-        courseName: courseName,
-        isScormPackage: isScormPackage,
-      );
+    title: title,
+    courseName: courseName,
+    isScormPackage: isScormPackage,
+  );
 }
 
 class UpdateChapterUseCase {
@@ -93,10 +109,7 @@ class UpdateChapterUseCase {
   Future<ApiResult<void>> call({
     required String chapterName,
     required String title,
-  }) => _repository.updateChapter(
-        chapterName: chapterName,
-        title: title,
-      );
+  }) => _repository.updateChapter(chapterName: chapterName, title: title);
 }
 
 class DeleteChapterUseCase {
@@ -129,29 +142,29 @@ class CreateLessonUseCase {
     required bool includeInPreview,
     Map<String, dynamic>? content,
   }) => _repository.createLesson(
-        title: title,
-        chapterName: chapterName,
-        includeInPreview: includeInPreview,
-        content: content,
-      );
+    title: title,
+    chapterName: chapterName,
+    includeInPreview: includeInPreview,
+    content: content,
+  );
 }
 
 class UploadFileUseCase {
   const UploadFileUseCase(this._repository);
   final CoursesRepository _repository;
-  Future<ApiResult<void>> call({
+  Future<ApiResult<String>> call({
     required File file,
     required int isPrivate,
     required String doctype,
     required String docname,
     required String fieldname,
   }) => _repository.uploadFile(
-        file: file,
-        isPrivate: isPrivate,
-        doctype: doctype,
-        docname: docname,
-        fieldname: fieldname,
-      );
+    file: file,
+    isPrivate: isPrivate,
+    doctype: doctype,
+    docname: docname,
+    fieldname: fieldname,
+  );
 }
 
 class UpdateLessonUseCase {
@@ -161,11 +174,13 @@ class UpdateLessonUseCase {
     required String lessonName,
     required String title,
     required bool includeInPreview,
+    Map<String, dynamic>? content,
   }) => _repository.updateLesson(
-        lessonName: lessonName,
-        title: title,
-        includeInPreview: includeInPreview,
-      );
+    lessonName: lessonName,
+    title: title,
+    includeInPreview: includeInPreview,
+    content: content,
+  );
 }
 
 class DeleteLessonUseCase {

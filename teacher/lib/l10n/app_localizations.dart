@@ -535,6 +535,558 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Schedule tools will appear here.'**
   String get navSchedulePlaceholder;
+
+  /// No description provided for @coursesMyCoursesTab.
+  ///
+  /// In en, this message translates to:
+  /// **'My Courses'**
+  String get coursesMyCoursesTab;
+
+  /// No description provided for @coursesBrowseAllTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse All'**
+  String get coursesBrowseAllTab;
+
+  /// No description provided for @coursesSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search courses'**
+  String get coursesSearchHint;
+
+  /// No description provided for @coursesFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get coursesFilterAll;
+
+  /// No description provided for @coursesFilterPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Published'**
+  String get coursesFilterPublished;
+
+  /// No description provided for @coursesFilterUnpublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpublished'**
+  String get coursesFilterUnpublished;
+
+  /// No description provided for @coursesNoCoursesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No courses found'**
+  String get coursesNoCoursesTitle;
+
+  /// No description provided for @coursesNoMatchesMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search or filter.'**
+  String get coursesNoMatchesMessage;
+
+  /// No description provided for @coursesNoMyCoursesMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You are not enrolled in or teaching any courses yet.'**
+  String get coursesNoMyCoursesMessage;
+
+  /// No description provided for @coursesNoBrowseCoursesMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Check back later for new courses.'**
+  String get coursesNoBrowseCoursesMessage;
+
+  /// No description provided for @coursesDefaultStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get coursesDefaultStatusActive;
+
+  /// No description provided for @coursesLessonsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{0 lessons} =1{1 lesson} other{{count} lessons}}'**
+  String coursesLessonsCount(int count);
+
+  /// No description provided for @coursesEnrollmentsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{0 enrolled} =1{1 enrolled} other{{count} enrolled}}'**
+  String coursesEnrollmentsCount(int count);
+
+  /// No description provided for @courseDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Course Details'**
+  String get courseDetails;
+
+  /// No description provided for @courseOutline.
+  ///
+  /// In en, this message translates to:
+  /// **'Course Outline'**
+  String get courseOutline;
+
+  /// No description provided for @instructors.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructors'**
+  String get instructors;
+
+  /// No description provided for @createCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Course'**
+  String get createCourse;
+
+  /// No description provided for @editCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Course'**
+  String get editCourse;
+
+  /// No description provided for @deleteCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Course'**
+  String get deleteCourse;
+
+  /// No description provided for @deleteCourseConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Course'**
+  String get deleteCourseConfirmTitle;
+
+  /// No description provided for @deleteCourseConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this course?'**
+  String get deleteCourseConfirmBody;
+
+  /// No description provided for @courseCreatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Course created successfully'**
+  String get courseCreatedSuccess;
+
+  /// No description provided for @courseUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Course updated successfully'**
+  String get courseUpdatedSuccess;
+
+  /// No description provided for @courseDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Course deleted successfully'**
+  String get courseDeletedSuccess;
+
+  /// No description provided for @courseTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Course Title'**
+  String get courseTitleLabel;
+
+  /// No description provided for @courseDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get courseDescriptionLabel;
+
+  /// No description provided for @courseShortIntroLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Short Introduction'**
+  String get courseShortIntroLabel;
+
+  /// No description provided for @courseTagsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get courseTagsLabel;
+
+  /// No description provided for @courseVideoLinkLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Intro Video Link'**
+  String get courseVideoLinkLabel;
+
+  /// No description provided for @coursePublishedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Published'**
+  String get coursePublishedLabel;
+
+  /// No description provided for @courseEnableCertificationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Certification'**
+  String get courseEnableCertificationLabel;
+
+  /// No description provided for @courseTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get courseTitleRequired;
+
+  /// No description provided for @noChaptersOrLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'No chapters or lessons listed for this course yet.'**
+  String get noChaptersOrLessons;
+
+  /// No description provided for @createChapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Chapter'**
+  String get createChapter;
+
+  /// No description provided for @editChapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Chapter'**
+  String get editChapter;
+
+  /// No description provided for @deleteChapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Chapter'**
+  String get deleteChapter;
+
+  /// No description provided for @deleteChapterConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Chapter'**
+  String get deleteChapterConfirmTitle;
+
+  /// No description provided for @deleteChapterConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this chapter?'**
+  String get deleteChapterConfirmBody;
+
+  /// No description provided for @chapterCreatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter created successfully'**
+  String get chapterCreatedSuccess;
+
+  /// No description provided for @chapterUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter updated successfully'**
+  String get chapterUpdatedSuccess;
+
+  /// No description provided for @chapterDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter deleted successfully'**
+  String get chapterDeletedSuccess;
+
+  /// No description provided for @chapterTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter Title'**
+  String get chapterTitleLabel;
+
+  /// No description provided for @chapterTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get chapterTitleRequired;
+
+  /// No description provided for @isScormPackageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Is SCORM Package'**
+  String get isScormPackageLabel;
+
+  /// No description provided for @lessonMaterial.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Material'**
+  String get lessonMaterial;
+
+  /// No description provided for @createLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Lesson'**
+  String get createLesson;
+
+  /// No description provided for @editLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Lesson'**
+  String get editLesson;
+
+  /// No description provided for @deleteLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Lesson'**
+  String get deleteLesson;
+
+  /// No description provided for @deleteLessonConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Lesson'**
+  String get deleteLessonConfirmTitle;
+
+  /// No description provided for @deleteLessonConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this lesson?'**
+  String get deleteLessonConfirmBody;
+
+  /// No description provided for @lessonCreatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson created successfully'**
+  String get lessonCreatedSuccess;
+
+  /// No description provided for @lessonUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson updated successfully'**
+  String get lessonUpdatedSuccess;
+
+  /// No description provided for @lessonDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson deleted successfully'**
+  String get lessonDeletedSuccess;
+
+  /// No description provided for @lessonTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Title'**
+  String get lessonTitleLabel;
+
+  /// No description provided for @lessonTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get lessonTitleRequired;
+
+  /// No description provided for @includeInPreviewLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Include in Preview'**
+  String get includeInPreviewLabel;
+
+  /// No description provided for @contentTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Content Type'**
+  String get contentTypeLabel;
+
+  /// No description provided for @instructorNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructor Notes'**
+  String get instructorNotes;
+
+  /// No description provided for @contentTypeText.
+  ///
+  /// In en, this message translates to:
+  /// **'Text'**
+  String get contentTypeText;
+
+  /// No description provided for @contentTypeYouTube.
+  ///
+  /// In en, this message translates to:
+  /// **'YouTube Video'**
+  String get contentTypeYouTube;
+
+  /// No description provided for @contentTypeVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload Video'**
+  String get contentTypeVideo;
+
+  /// No description provided for @contentTypePdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload PDF'**
+  String get contentTypePdf;
+
+  /// No description provided for @contentTypeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get contentTypeQuiz;
+
+  /// No description provided for @contentTypeCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Code Box'**
+  String get contentTypeCode;
+
+  /// No description provided for @youtubeUrlLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'YouTube Video URL'**
+  String get youtubeUrlLabel;
+
+  /// No description provided for @youtubeUrlHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter YouTube link'**
+  String get youtubeUrlHint;
+
+  /// No description provided for @youtubeUrlInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid YouTube URL'**
+  String get youtubeUrlInvalid;
+
+  /// No description provided for @quizNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Name'**
+  String get quizNameLabel;
+
+  /// No description provided for @codeContentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Code Snippet'**
+  String get codeContentLabel;
+
+  /// No description provided for @codeLanguageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Programming Language'**
+  String get codeLanguageLabel;
+
+  /// No description provided for @selectFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select File'**
+  String get selectFile;
+
+  /// No description provided for @uploadingFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading File...'**
+  String get uploadingFile;
+
+  /// No description provided for @uploadSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'File uploaded successfully'**
+  String get uploadSuccess;
+
+  /// No description provided for @uploadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to upload file'**
+  String get uploadError;
+
+  /// No description provided for @youtubeVideoLink.
+  ///
+  /// In en, this message translates to:
+  /// **'YouTube Video Link'**
+  String get youtubeVideoLink;
+
+  /// No description provided for @copyVideoLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy Video Link'**
+  String get copyVideoLink;
+
+  /// No description provided for @linkCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Link copied to clipboard'**
+  String get linkCopied;
+
+  /// No description provided for @codeCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Code copied to clipboard'**
+  String get codeCopiedToClipboard;
+
+  /// No description provided for @interactiveAssessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Interactive Assessment'**
+  String get interactiveAssessment;
+
+  /// No description provided for @startQuizNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Quiz Now'**
+  String get startQuizNow;
+
+  /// No description provided for @openVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Video'**
+  String get openVideo;
+
+  /// No description provided for @downloadFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Download File'**
+  String get downloadFile;
+
+  /// No description provided for @unableToStreamPrivateFile.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a private school resource. Tap below to download or view it in an external app.'**
+  String get unableToStreamPrivateFile;
+
+  /// No description provided for @viewPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'View PDF'**
+  String get viewPdf;
+
+  /// No description provided for @openPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Open PDF'**
+  String get openPdf;
+
+  /// No description provided for @unsupportedBlockType.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsupported block type'**
+  String get unsupportedBlockType;
+
+  /// No description provided for @malformedContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Malformed content'**
+  String get malformedContent;
+
+  /// No description provided for @openLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Link'**
+  String get openLink;
+
+  /// No description provided for @quizPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Quizzes are currently read-only'**
+  String get quizPlaceholder;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 }
 
 class _AppLocalizationsDelegate

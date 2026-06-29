@@ -6,9 +6,16 @@ part 'courses_state.freezed.dart';
 @freezed
 abstract class CoursesState with _$CoursesState {
   const factory CoursesState({
-    @Default(false) bool isLoading,
+    @Default('') String searchText,
+    bool? publishedFilter,
+    @Default(false) bool isInitialLoading,
+    @Default(false) bool isRefreshing,
+    @Default(false) bool isFiltering,
+    @Default(false) bool isMutating,
     List<CourseModel>? allCourses,
     List<CourseModel>? myCourses,
     String? errorMessage,
+    String? mutationSuccess,
+    String? mutationError,
   }) = _CoursesState;
 }
