@@ -15,6 +15,7 @@ abstract class CoursesRepository {
     required String tags,
     required bool published,
     required String videoLink,
+    String? image,
     required bool enableCertification,
   });
   Future<ApiResult<CourseModel>> updateCourse({
@@ -25,6 +26,7 @@ abstract class CoursesRepository {
     String? tags,
     bool? published,
     String? videoLink,
+    String? image,
     bool? enableCertification,
   });
   Future<ApiResult<void>> deleteCourse(String courseName);

@@ -207,6 +207,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get createAccountButton => 'Create account';
 
   @override
+  String get registerSuccess => 'Account created successfully. Please log in.';
+
+  @override
   String get alreadyHaveAccountLink => 'Already have an account? Log in';
 
   @override
@@ -372,6 +375,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get courseTitleRequired => 'Title is required';
 
   @override
+  String get courseShortIntroRequired => 'Short introduction is required';
+
+  @override
+  String get courseDescriptionRequired => 'Description is required';
+
+  @override
+  String get courseImageLabel => 'Course Image';
+
+  @override
+  String get courseImageHint => 'Paste image URL or upload a file';
+
+  @override
+  String get selectCourseImage => 'Select Course Image';
+
+  @override
+  String get courseBasicInfoSection => 'Basic Info';
+
+  @override
+  String get courseMediaSection => 'Media';
+
+  @override
+  String get courseTagsSection => 'Tags';
+
+  @override
+  String get courseSettingsSection => 'Settings';
+
+  @override
+  String get courseTagsHint => 'Comma-separated, e.g. python, beginner';
+
+  @override
   String get noChaptersOrLessons =>
       'No chapters or lessons listed for this course yet.';
 
@@ -469,6 +502,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contentTypeCode => 'Code Box';
+
+  @override
+  String get lessonMarkdownLabel => 'Lesson Text';
+
+  @override
+  String get lessonMarkdownHint => 'Write lesson text. Markdown is supported.';
+
+  @override
+  String get lessonPartContentRequired => 'Every lesson part needs content.';
 
   @override
   String get youtubeUrlLabel => 'YouTube Video URL';

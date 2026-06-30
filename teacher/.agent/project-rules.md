@@ -458,6 +458,86 @@ To stay within this limit:
 - Do not duplicate widget code between screen files.
 
 
+## Cached Network Image
+
+* Use `cached_network_image` for all remote/network images across the app.
+* Do not use `Image.network` directly inside screens or feature widgets.
+* Create one shared custom image widget inside:
+
+```text
+lib/core/widgets/
+```
+
+* The shared widget should be reused across all app features and branches: `student`, `parent`, and `teacher`.
+* Suggested file name:
+
+```text
+lib/core/widgets/app_cached_network_image.dart
+```
+
+* Suggested widget name:
+
+```dart
+AppCachedNetworkImage
+```
+
+* This widget should handle common image states:
+
+  * loading
+  * error
+  * empty/null image URL
+  * border radius
+  * fit
+  * width and height
+  * placeholder behavior
+* Screens and feature widgets must call `AppCachedNetworkImage` instead of using `CachedNetworkImage` directly, unless there is a clear reason and it is documented.
+* Keep the widget generic and reusable. Do not add feature-specific styling or business logic inside it.
+
+## Shimmer And Skeleton Loading
+
+* Use `skeletonizer: ^2.1.3` for shimmer/skeleton loading UI.
+* When data is fetched for the first time, show a skeleton shimmer instead of empty space or a basic loading spinner, especially for lists and cards.
+* Shimmer widgets are feature-specific and must be created inside the feature presentation widgets folder:
+
+```text
+lib/features/feature_name/presentation/widgets/
+```
+
+* Do not place feature-specific shimmer widgets inside `core/widgets/`.
+* Name shimmer files based on the list or UI section they represent.
+
+Examples:
+
+```text
+courses_list_shimmer.dart
+teachers_list_shimmer.dart
+students_list_shimmer.dart
+assignments_list_shimmer.dart
+```
+
+* Name shimmer widgets clearly using PascalCase.
+
+Examples:
+
+```dart
+CoursesListShimmer
+TeachersListShimmer
+StudentsListShimmer
+AssignmentsListShimmer
+```
+
+* When the user says: “add shimmer”, “add a shimmer”, “add skeleton loading”, or “add loading skeleton”, the agent must understand that this means:
+
+  * use `skeletonizer: ^2.1.3`
+  * create a feature-specific shimmer widget
+  * place it inside the feature’s `presentation/widgets/`
+  * name it after the related list or section
+  * show it only during the first data loading state
+* Cubits should still emit clear loading, success, empty, and error states.
+* Screens should render the shimmer widget during the first loading state before real data is available.
+* Do not show shimmer over already-loaded data unless the user explicitly asks for refresh-loading behavior.
+* Keep shimmer widgets UI-only. They must not call APIs, Cubits, repositories, storage, or navigation.
+
 ## Branch Rules
 
 - `student`, `parent`, and `teacher` branches should share these base rules.

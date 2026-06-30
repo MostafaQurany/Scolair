@@ -13,6 +13,8 @@ class YouTubeIdExtractor {
     RegExp(r'(?:youtube\.com/watch\?.*v=)([a-zA-Z0-9_-]{11})'),
     RegExp(r'(?:youtu\.be/)([a-zA-Z0-9_-]{11})'),
     RegExp(r'(?:youtube\.com/embed/)([a-zA-Z0-9_-]{11})'),
+    RegExp(r'(?:youtube\.com/shorts/)([a-zA-Z0-9_-]{11})'),
+    RegExp(r'(?:youtube\.com/live/)([a-zA-Z0-9_-]{11})'),
     RegExp(r'^([a-zA-Z0-9_-]{11})$'),
   ];
 

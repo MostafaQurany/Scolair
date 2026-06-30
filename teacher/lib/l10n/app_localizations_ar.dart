@@ -206,6 +206,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createAccountButton => 'إنشاء حساب';
 
   @override
+  String get registerSuccess => 'تم إنشاء الحساب بنجاح. يرجى تسجيل الدخول.';
+
+  @override
   String get alreadyHaveAccountLink => 'لديك حساب بالفعل؟ تسجيل الدخول';
 
   @override
@@ -370,6 +373,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String get courseTitleRequired => 'العنوان مطلوب';
 
   @override
+  String get courseShortIntroRequired => 'المقدمة القصيرة مطلوبة';
+
+  @override
+  String get courseDescriptionRequired => 'الوصف مطلوب';
+
+  @override
+  String get courseImageLabel => 'صورة الدورة';
+
+  @override
+  String get courseImageHint => 'ألصق رابط صورة أو ارفع ملفا';
+
+  @override
+  String get selectCourseImage => 'اختر صورة الدورة';
+
+  @override
+  String get courseBasicInfoSection => 'المعلومات الأساسية';
+
+  @override
+  String get courseMediaSection => 'الوسائط';
+
+  @override
+  String get courseTagsSection => 'الوسوم';
+
+  @override
+  String get courseSettingsSection => 'الإعدادات';
+
+  @override
+  String get courseTagsHint => 'مفصولة بفواصل، مثل: python، مبتدئ';
+
+  @override
   String get noChaptersOrLessons =>
       'لا توجد فصول أو دروس مدرجة في هذه الدورة بعد.';
 
@@ -467,6 +500,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contentTypeCode => 'صندوق الكود';
+
+  @override
+  String get lessonMarkdownLabel => 'نص الدرس';
+
+  @override
+  String get lessonMarkdownHint => 'اكتب نص الدرس. يتم دعم Markdown.';
+
+  @override
+  String get lessonPartContentRequired => 'كل جزء من الدرس يحتاج إلى محتوى.';
 
   @override
   String get youtubeUrlLabel => 'رابط فيديو يوتيوب';

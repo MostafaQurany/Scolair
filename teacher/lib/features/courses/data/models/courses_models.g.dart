@@ -148,7 +148,7 @@ LessonSummaryModel _$LessonSummaryModelFromJson(Map<String, dynamic> json) =>
       quizId: json['quiz_id'] as String?,
       question: json['question'] as String?,
       fileType: json['file_type'] as String,
-      icon: json['icon'] as String,
+      icon: json['icon'] as String? ?? '',
       course: json['course'] as String?,
     );
 

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/extensions/adaptive_layout_extension.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/storage/app_shared_preferences.dart';
 import '../../data/models/courses_models.dart';
 import '../cubit/courses_cubit.dart';
 import '../cubit/courses_state.dart';
+import '../utils/course_permission_helper.dart';
 import 'course_card.dart';
 
 class BrowseCoursesTab extends StatelessWidget {
@@ -16,6 +19,7 @@ class BrowseCoursesTab extends StatelessWidget {
     required this.onSearchChanged,
     required this.onClearSearch,
     this.onCourseTapped,
+    this.onCourseChanged,
     super.key,
   });
 
@@ -24,6 +28,7 @@ class BrowseCoursesTab extends StatelessWidget {
   final ValueChanged<String> onSearchChanged;
   final VoidCallback onClearSearch;
   final ValueChanged<CourseModel>? onCourseTapped;
+  final VoidCallback? onCourseChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +52,7 @@ class BrowseCoursesTab extends StatelessWidget {
                 state.publishedFilter != null,
             onRefresh: context.read<CoursesCubit>().refreshCourses,
             onCourseTapped: onCourseTapped,
+            onCourseChanged: onCourseChanged,
           ),
         ),
       ],
@@ -159,6 +165,7 @@ class CoursesRefreshList extends StatelessWidget {
     required this.onRefresh,
     this.hasActiveBrowseFilters = false,
     this.onCourseTapped,
+    this.onCourseChanged,
     super.key,
   });
 
@@ -167,9 +174,12 @@ class CoursesRefreshList extends StatelessWidget {
   final bool hasActiveBrowseFilters;
   final Future<void> Function() onRefresh;
   final ValueChanged<CourseModel>? onCourseTapped;
+  final VoidCallback? onCourseChanged;
 
   @override
   Widget build(BuildContext context) {
+    final prefs = getIt<AppSharedPreferences>();
+
     return RefreshIndicator(
       onRefresh: onRefresh,
       child: courses.isEmpty
@@ -184,12 +194,22 @@ class CoursesRefreshList extends StatelessWidget {
                 vertical: 8.h,
               ),
               itemCount: courses.length,
-              itemBuilder: (context, index) => CourseCard(
-                course: courses[index],
-                onTap: onCourseTapped != null
-                    ? () => onCourseTapped!(courses[index])
-                    : null,
-              ),
+              itemBuilder: (context, index) {
+                final course = courses[index];
+                final canManage = CoursePermissionHelper.canManageCourse(
+                  course,
+                  prefs,
+                );
+                return CourseCard(
+                  course: course,
+                  canManage: canManage,
+                  onTap: onCourseTapped != null
+                      ? () => onCourseTapped!(course)
+                      : null,
+                  onDeleted: onCourseChanged,
+                  onEdited: onCourseChanged,
+                );
+              },
             ),
     );
   }

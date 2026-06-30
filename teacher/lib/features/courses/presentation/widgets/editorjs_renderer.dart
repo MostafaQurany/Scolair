@@ -11,6 +11,7 @@ import 'lesson_content/image_block_widget.dart';
 import 'lesson_content/lesson_content_helpers.dart';
 import 'lesson_content/link_tool_block_widget.dart';
 import 'lesson_content/list_block_widget.dart';
+import 'lesson_content/markdown_block_widget.dart';
 import 'lesson_content/paragraph_block_widget.dart';
 import 'lesson_content/quote_block_widget.dart';
 import 'lesson_content/quiz_block_widget.dart';
@@ -54,6 +55,8 @@ class EditorJsRenderer extends StatelessWidget {
             );
           case 'paragraph':
             return ParagraphBlockWidget(text: data['text'] as String? ?? '');
+          case 'markdown':
+            return MarkdownBlockWidget(text: data['text'] as String? ?? '');
           case 'list':
             return ListBlockWidget(
               style: data['style'] as String? ?? 'unordered',

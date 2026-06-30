@@ -17,11 +17,13 @@ class ChapterExpansionTile extends StatelessWidget {
   const ChapterExpansionTile({
     required this.chapter,
     required this.courseName,
+    required this.canManageCourse,
     super.key,
   });
 
   final ChapterDetailModel chapter;
   final String courseName;
+  final bool canManageCourse;
 
   Future<void> _deleteChapter(BuildContext context) async {
     final confirmed = await showDialog<bool>(
@@ -82,55 +84,54 @@ class ChapterExpansionTile extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                PopupMenuButton<String>(
-                  icon: const Icon(Icons.more_vert),
-                  onSelected: (value) async {
-                    if (value == 'edit') {
-                      final res = await Navigator.push<bool>(
-                        context,
-                        MaterialPageRoute(
+                if (canManageCourse)
+                  PopupMenuButton<String>(
+                    icon: const Icon(Icons.more_vert),
+                    onSelected: (value) async {
+                      if (value == 'edit') {
+                        final res = await showDialog<bool>(
+                          context: context,
                           builder: (_) => ChapterFormScreen(
                             courseName: courseName,
                             editingChapter: chapter,
                           ),
-                        ),
-                      );
-                      if (res == true && context.mounted) {
-                        cubit.loadCourseDetails(courseName);
+                        );
+                        if (res == true && context.mounted) {
+                          cubit.loadCourseDetails(courseName);
+                        }
+                      } else if (value == 'delete') {
+                        _deleteChapter(context);
+                      } else if (value == 'create_lesson') {
+                        final res = await Navigator.push<bool>(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                LessonFormScreen(chapterName: chapter.name),
+                          ),
+                        );
+                        if (res == true && context.mounted) {
+                          cubit.loadCourseDetails(courseName);
+                        }
                       }
-                    } else if (value == 'delete') {
-                      _deleteChapter(context);
-                    } else if (value == 'create_lesson') {
-                      final res = await Navigator.push<bool>(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) =>
-                              LessonFormScreen(chapterName: chapter.name),
-                        ),
-                      );
-                      if (res == true && context.mounted) {
-                        cubit.loadCourseDetails(courseName);
-                      }
-                    }
-                  },
-                  itemBuilder: (context) => [
-                    PopupMenuItem(
-                      value: 'create_lesson',
-                      child: Text(context.l10n.createLesson),
-                    ),
-                    PopupMenuItem(
-                      value: 'edit',
-                      child: Text(context.l10n.editChapter),
-                    ),
-                    PopupMenuItem(
-                      value: 'delete',
-                      child: Text(
-                        context.l10n.deleteChapter,
-                        style: TextStyle(color: colorScheme.error),
+                    },
+                    itemBuilder: (context) => [
+                      PopupMenuItem(
+                        value: 'create_lesson',
+                        child: Text(context.l10n.createLesson),
                       ),
-                    ),
-                  ],
-                ),
+                      PopupMenuItem(
+                        value: 'edit',
+                        child: Text(context.l10n.editChapter),
+                      ),
+                      PopupMenuItem(
+                        value: 'delete',
+                        child: Text(
+                          context.l10n.deleteChapter,
+                          style: TextStyle(color: colorScheme.error),
+                        ),
+                      ),
+                    ],
+                  ),
                 const Icon(Icons.expand_more),
               ],
             ),
@@ -144,7 +145,7 @@ class ChapterExpansionTile extends StatelessWidget {
                     horizontal: 16.w,
                   ),
                   child: Text(
-                    'No lessons in this chapter yet.',
+                    context.l10n.noChaptersOrLessons,
                     style: TextStyle(
                       color: colorScheme.onSurfaceVariant,
                       fontSize: 12.sp,
@@ -208,64 +209,65 @@ class ChapterExpansionTile extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            PopupMenuButton<String>(
-              icon: const Icon(Icons.more_vert, size: 20),
-              onSelected: (value) async {
-                if (value == 'edit') {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (_) =>
-                        const Center(child: CircularProgressIndicator()),
-                  );
-                  final lessonRes = await getIt<GetLessonUseCase>().call(
-                    lesson.name,
-                  );
-                  if (context.mounted) {
-                    Navigator.pop(context);
-                  }
+            if (canManageCourse)
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.more_vert, size: 20),
+                onSelected: (value) async {
+                  if (value == 'edit') {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) =>
+                          const Center(child: CircularProgressIndicator()),
+                    );
+                    final lessonRes = await getIt<GetLessonUseCase>().call(
+                      lesson.name,
+                    );
+                    if (context.mounted) {
+                      Navigator.pop(context);
+                    }
 
-                  lessonRes.when(
-                    success: (fullLesson) async {
-                      if (context.mounted) {
-                        final updated = await Navigator.push<bool>(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => LessonFormScreen(
-                              chapterName: chapterName,
-                              editingLesson: fullLesson,
+                    lessonRes.when(
+                      success: (fullLesson) async {
+                        if (context.mounted) {
+                          final updated = await Navigator.push<bool>(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => LessonFormScreen(
+                                chapterName: chapterName,
+                                editingLesson: fullLesson,
+                              ),
                             ),
-                          ),
-                        );
-                        if (updated == true && context.mounted) {
-                          cubit.loadCourseDetails(courseName);
+                          );
+                          if (updated == true && context.mounted) {
+                            cubit.loadCourseDetails(courseName);
+                          }
                         }
-                      }
-                    },
-                    failure: (fail) {
-                      if (context.mounted) {
-                        AppSnackBar.showError(context, fail.message);
-                      }
-                    },
-                  );
-                } else if (value == 'delete') {
-                  _deleteLesson(context, lesson.name);
-                }
-              },
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  value: 'edit',
-                  child: Text(context.l10n.editLesson),
-                ),
-                PopupMenuItem(
-                  value: 'delete',
-                  child: Text(
-                    context.l10n.deleteLesson,
-                    style: TextStyle(color: colorScheme.error),
+                      },
+                      failure: (fail) {
+                        if (context.mounted) {
+                          AppSnackBar.showError(context, fail.message);
+                        }
+                      },
+                    );
+                  } else if (value == 'delete') {
+                    _deleteLesson(context, lesson.name);
+                  }
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    value: 'edit',
+                    child: Text(context.l10n.editLesson),
                   ),
-                ),
-              ],
-            ),
+                  PopupMenuItem(
+                    value: 'delete',
+                    child: Text(
+                      context.l10n.deleteLesson,
+                      style: TextStyle(color: colorScheme.error),
+                    ),
+                  ),
+                ],
+              ),
             const Icon(Icons.arrow_forward_ios, size: 12),
           ],
         ),

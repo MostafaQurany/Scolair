@@ -1,6 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
@@ -11,6 +10,8 @@ import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/courses_models.dart';
 import '../cubit/lesson_form_cubit.dart';
 import '../cubit/lesson_form_state.dart';
+import '../widgets/lesson_form/lesson_part_data.dart';
+import '../widgets/lesson_form/lesson_parts_editor.dart';
 
 class LessonFormScreen extends StatefulWidget {
   const LessonFormScreen({
@@ -29,14 +30,9 @@ class LessonFormScreen extends StatefulWidget {
 class _LessonFormScreenState extends State<LessonFormScreen> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
-  late final TextEditingController _textController;
-  late final TextEditingController _youtubeController;
-  late final TextEditingController _quizController;
-  late final TextEditingController _codeController;
-  late final TextEditingController _codeLangController;
+  final List<LessonPartDraft> _parts = [];
   bool _includeInPreview = false;
-  String _contentType = 'text';
-  File? _selectedFile;
+  int _nextPartId = 0;
 
   @override
   void initState() {
@@ -44,104 +40,126 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
     final lesson = widget.editingLesson;
     _titleController = TextEditingController(text: lesson?.title ?? '');
     _includeInPreview = lesson?.includeInPreview == 1;
-
-    // Detect editing content type and fill fields if available.
-    _textController = TextEditingController();
-    _youtubeController = TextEditingController();
-    _quizController = TextEditingController();
-    _codeController = TextEditingController();
-    _codeLangController = TextEditingController(text: 'python');
-
-    if (lesson?.content != null && lesson!.content!.isNotEmpty) {
-      try {
-        final decoded = jsonDecode(lesson.content!);
-        if (decoded is Map<String, dynamic>) {
-          final List<dynamic> blocks = decoded['blocks'] ?? [];
-          if (blocks.isNotEmpty) {
-            final block = blocks.first as Map<String, dynamic>;
-            final type = block['type'] as String? ?? '';
-            final data = block['data'] as Map<String, dynamic>? ?? {};
-
-            if (type == 'paragraph') {
-              _contentType = 'text';
-              _textController.text = data['text'] as String? ?? '';
-            } else if (type == 'embed' && data['service'] == 'youtube') {
-              _contentType = 'youtube';
-              _youtubeController.text = data['source'] as String? ?? '';
-            } else if (type == 'quiz') {
-              _contentType = 'quiz';
-              _quizController.text = data['quiz'] as String? ?? '';
-            } else if (type == 'codeBox' || type == 'code') {
-              _contentType = 'code';
-              _codeController.text = data['code'] as String? ?? '';
-              _codeLangController.text =
-                  data['language'] as String? ?? 'python';
-            } else if (type == 'upload') {
-              final fileType = data['file_type'] as String? ?? '';
-              _contentType = fileType.toLowerCase() == 'pdf' ? 'pdf' : 'video';
-            }
-          }
-        }
-      } catch (_) {}
-    }
+    _loadExistingParts(lesson?.content);
+    if (_parts.isEmpty) _addPart(LessonPartType.markdown);
   }
 
   @override
   void dispose() {
     _titleController.dispose();
-    _textController.dispose();
-    _youtubeController.dispose();
-    _quizController.dispose();
-    _codeController.dispose();
-    _codeLangController.dispose();
+    for (final part in _parts) {
+      part.dispose();
+    }
     super.dispose();
   }
 
-  Future<void> _pickFile() async {
-    final isPdf = _contentType == 'pdf';
-    final result = await FilePicker.pickFiles(
-      type: isPdf ? FileType.custom : FileType.video,
-      allowedExtensions: isPdf ? ['pdf'] : null,
-    );
+  void _addPart(LessonPartType type) {
+    setState(() {
+      _parts.add(LessonPartDraft(id: '${_nextPartId++}', type: type));
+    });
+  }
 
-    if (result != null && result.files.single.path != null) {
-      setState(() {
-        _selectedFile = File(result.files.single.path!);
-      });
-    }
+  void _removePart(LessonPartDraft part) {
+    if (_parts.length == 1) return;
+    setState(() {
+      _parts.remove(part);
+      part.dispose();
+    });
+  }
+
+  void _reorderParts(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) newIndex -= 1;
+      final part = _parts.removeAt(oldIndex);
+      _parts.insert(newIndex, part);
+    });
   }
 
   void _submit(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
+    if (!_validateParts(context)) return;
 
     final cubit = context.read<LessonFormCubit>();
-    if (widget.editingLesson != null) {
-      cubit.updateLesson(
-        lessonName: widget.editingLesson!.name,
-        title: _titleController.text.trim(),
-        includeInPreview: _includeInPreview,
-        contentType: _contentType,
-        textContent: _textController.text.trim(),
-        youtubeUrl: _youtubeController.text.trim(),
-        quizName: _quizController.text.trim(),
-        codeContent: _codeController.text.trim(),
-        codeLanguage: _codeLangController.text.trim(),
-        uploadFile: _selectedFile,
-      );
-    } else {
+    final parts = _parts.map((part) => part.toData()).toList(growable: false);
+    final lesson = widget.editingLesson;
+    if (lesson == null) {
       cubit.createLesson(
         title: _titleController.text.trim(),
         chapterName: widget.chapterName,
         includeInPreview: _includeInPreview,
-        contentType: _contentType,
-        textContent: _textController.text.trim(),
-        youtubeUrl: _youtubeController.text.trim(),
-        quizName: _quizController.text.trim(),
-        codeContent: _codeController.text.trim(),
-        codeLanguage: _codeLangController.text.trim(),
-        uploadFile: _selectedFile,
+        parts: parts,
+      );
+      return;
+    }
+
+    cubit.updateLesson(
+      lessonName: lesson.name,
+      title: _titleController.text.trim(),
+      includeInPreview: _includeInPreview,
+      parts: parts,
+    );
+  }
+
+  bool _validateParts(BuildContext context) {
+    for (final part in _parts) {
+      final isTextPart =
+          part.type == LessonPartType.markdown ||
+          part.type == LessonPartType.youtube;
+      final hasText = part.controller.text.trim().isNotEmpty;
+      final hasFile = part.file != null || part.existingFileUrl != null;
+      if ((isTextPart && !hasText) || (!isTextPart && !hasFile)) {
+        AppSnackBar.showError(context, context.l10n.lessonPartContentRequired);
+        return false;
+      }
+    }
+    return true;
+  }
+
+  void _loadExistingParts(String? content) {
+    if (content == null || content.isEmpty) return;
+    try {
+      final decoded = jsonDecode(content);
+      if (decoded is! Map<String, dynamic>) return;
+      final blocks = decoded['blocks'];
+      if (blocks is! List) return;
+      for (final block in blocks.whereType<Map<String, dynamic>>()) {
+        _parts.add(_draftFromBlock(block));
+      }
+    } on Object {
+      _parts.add(
+        LessonPartDraft(
+          id: '${_nextPartId++}',
+          type: LessonPartType.markdown,
+          text: content,
+        ),
       );
     }
+  }
+
+  LessonPartDraft _draftFromBlock(Map<String, dynamic> block) {
+    final type = block['type'] as String? ?? '';
+    final data = block['data'] as Map<String, dynamic>? ?? {};
+    if (type == 'embed' && data['service'] == 'youtube') {
+      return LessonPartDraft(
+        id: '${_nextPartId++}',
+        type: LessonPartType.youtube,
+        text: data['source'] as String? ?? '',
+      );
+    }
+    if (type == 'upload') {
+      final fileType = (data['file_type'] as String? ?? '').toLowerCase();
+      return LessonPartDraft(
+        id: '${_nextPartId++}',
+        type: fileType == 'pdf' ? LessonPartType.pdf : LessonPartType.video,
+        existingFileUrl: data['file_url'] as String?,
+        existingFileType: fileType,
+      );
+    }
+    return LessonPartDraft(
+      id: '${_nextPartId++}',
+      type: LessonPartType.markdown,
+      text: data['text'] as String? ?? data['html'] as String? ?? '',
+    );
   }
 
   @override
@@ -151,9 +169,9 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.editingLesson != null
-                ? context.l10n.editLesson
-                : context.l10n.createLesson,
+            widget.editingLesson == null
+                ? context.l10n.createLesson
+                : context.l10n.editLesson,
           ),
         ),
         body: BlocConsumer<LessonFormCubit, LessonFormState>(
@@ -162,13 +180,13 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
               success: () {
                 AppSnackBar.showSuccess(
                   context,
-                  widget.editingLesson != null
-                      ? context.l10n.lessonUpdatedSuccess
-                      : context.l10n.lessonCreatedSuccess,
+                  widget.editingLesson == null
+                      ? context.l10n.lessonCreatedSuccess
+                      : context.l10n.lessonUpdatedSuccess,
                 );
                 Navigator.pop(context, true);
               },
-              error: (msg) => AppSnackBar.showError(context, msg),
+              error: (message) => AppSnackBar.showError(context, message),
             );
           },
           builder: (context, state) {
@@ -177,11 +195,6 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
               uploading: () => true,
               orElse: () => false,
             );
-            final isUploading = state.maybeWhen(
-              uploading: () => true,
-              orElse: () => false,
-            );
-
             return Form(
               key: _formKey,
               child: ListView(
@@ -193,73 +206,34 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
                       labelText: context.l10n.lessonTitleLabel,
                     ),
                     textCapitalization: TextCapitalization.sentences,
-                    validator: (v) => v == null || v.trim().isEmpty
+                    validator: (value) => value == null || value.trim().isEmpty
                         ? context.l10n.lessonTitleRequired
                         : null,
                   ),
                   SizedBox(height: 16.h),
-                  DropdownButtonFormField<String>(
-                    value: _contentType,
-                    decoration: InputDecoration(
-                      labelText: context.l10n.contentTypeLabel,
-                    ),
-                    items: [
-                      DropdownMenuItem(
-                        value: 'text',
-                        child: Text(context.l10n.contentTypeText),
-                      ),
-                      DropdownMenuItem(
-                        value: 'youtube',
-                        child: Text(context.l10n.contentTypeYouTube),
-                      ),
-                      DropdownMenuItem(
-                        value: 'video',
-                        child: Text(context.l10n.contentTypeVideo),
-                      ),
-                      DropdownMenuItem(
-                        value: 'pdf',
-                        child: Text(context.l10n.contentTypePdf),
-                      ),
-                      DropdownMenuItem(
-                        value: 'quiz',
-                        child: Text(context.l10n.contentTypeQuiz),
-                      ),
-                      DropdownMenuItem(
-                        value: 'code',
-                        child: Text(context.l10n.contentTypeCode),
-                      ),
-                    ],
-                    onChanged: (val) {
-                      if (val != null) {
-                        setState(() {
-                          _contentType = val;
-                          _selectedFile = null;
-                        });
-                      }
-                    },
-                  ),
-                  SizedBox(height: 16.h),
-                  _buildContentFields(),
-                  SizedBox(height: 16.h),
                   SwitchListTile(
                     title: Text(context.l10n.includeInPreviewLabel),
                     value: _includeInPreview,
-                    onChanged: (val) => setState(() => _includeInPreview = val),
+                    onChanged: (value) =>
+                        setState(() => _includeInPreview = value),
                     contentPadding: EdgeInsets.zero,
                   ),
-                  SizedBox(height: 32.h),
+                  SizedBox(height: 12.h),
+                  LessonPartsEditor(
+                    parts: _parts,
+                    onAdd: _addPart,
+                    onRemove: _removePart,
+                    onReorder: _reorderParts,
+                    onChanged: () => setState(() {}),
+                  ),
+                  SizedBox(height: 24.h),
                   FilledButton(
                     onPressed: isLoading ? null : () => _submit(context),
-                    style: FilledButton.styleFrom(
-                      minimumSize: Size(double.infinity, 48.h),
+                    child: Text(
+                      isLoading
+                          ? context.l10n.uploadingFile
+                          : context.l10n.save,
                     ),
-                    child: isLoading
-                        ? Text(
-                            isUploading
-                                ? context.l10n.uploadingFile
-                                : context.l10n.loading,
-                          )
-                        : Text(context.l10n.save),
                   ),
                 ],
               ),
@@ -268,90 +242,5 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
         ),
       ),
     );
-  }
-
-  Widget _buildContentFields() {
-    switch (_contentType) {
-      case 'text':
-        return TextFormField(
-          controller: _textController,
-          decoration: InputDecoration(
-            labelText: context.l10n.contentTypeText,
-            hintText: 'Enter lesson text...',
-          ),
-          maxLines: 8,
-          textCapitalization: TextCapitalization.sentences,
-          validator: (v) =>
-              v == null || v.trim().isEmpty ? 'Text content is required' : null,
-        );
-      case 'youtube':
-        return TextFormField(
-          controller: _youtubeController,
-          decoration: InputDecoration(
-            labelText: context.l10n.youtubeUrlLabel,
-            hintText: context.l10n.youtubeUrlHint,
-          ),
-          keyboardType: TextInputType.url,
-          validator: (v) =>
-              v == null || v.trim().isEmpty ? 'YouTube URL is required' : null,
-        );
-      case 'video':
-      case 'pdf':
-        final isPdf = _contentType == 'pdf';
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            OutlinedButton.icon(
-              onPressed: _pickFile,
-              icon: Icon(isPdf ? Icons.picture_as_pdf : Icons.video_file),
-              label: Text(context.l10n.selectFile),
-            ),
-            if (_selectedFile != null) ...[
-              SizedBox(height: 8.h),
-              Text(
-                _selectedFile!.path.split(Platform.pathSeparator).last,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ],
-        );
-      case 'quiz':
-        return TextFormField(
-          controller: _quizController,
-          decoration: InputDecoration(labelText: context.l10n.quizNameLabel),
-          validator: (v) =>
-              v == null || v.trim().isEmpty ? 'Quiz Name is required' : null,
-        );
-      case 'code':
-        return Column(
-          children: [
-            TextFormField(
-              controller: _codeLangController,
-              decoration: InputDecoration(
-                labelText: context.l10n.codeLanguageLabel,
-              ),
-              validator: (v) =>
-                  v == null || v.trim().isEmpty ? 'Language is required' : null,
-            ),
-            SizedBox(height: 16.h),
-            TextFormField(
-              controller: _codeController,
-              decoration: InputDecoration(
-                labelText: context.l10n.codeContentLabel,
-              ),
-              maxLines: 6,
-              style: const TextStyle(fontFamily: 'monospace'),
-              validator: (v) => v == null || v.trim().isEmpty
-                  ? 'Code content is required'
-                  : null,
-            ),
-          ],
-        );
-      default:
-        return const SizedBox.shrink();
-    }
   }
 }

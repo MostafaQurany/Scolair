@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/storage/app_shared_preferences.dart';
 import '../../data/models/courses_models.dart';
 import '../cubit/courses_cubit.dart';
 import '../cubit/courses_state.dart';
@@ -104,10 +105,12 @@ class _CoursesListViewState extends State<_CoursesListView>
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _createNewCourse,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: getIt<AppSharedPreferences>().isCourseCreator
+          ? FloatingActionButton(
+              onPressed: _createNewCourse,
+              child: const Icon(Icons.add),
+            )
+          : null,
       body: SafeArea(
         child: BlocBuilder<CoursesCubit, CoursesState>(
           builder: (context, state) {
@@ -128,6 +131,7 @@ class _CoursesListViewState extends State<_CoursesListView>
                   isMyCourses: true,
                   onRefresh: context.read<CoursesCubit>().refreshCourses,
                   onCourseTapped: _navigateToCourseDetails,
+                  onCourseChanged: () => context.read<CoursesCubit>().loadCourses(),
                 ),
                 BrowseCoursesTab(
                   state: state,
@@ -135,6 +139,7 @@ class _CoursesListViewState extends State<_CoursesListView>
                   onSearchChanged: _onSearchChanged,
                   onClearSearch: _clearSearch,
                   onCourseTapped: _navigateToCourseDetails,
+                  onCourseChanged: () => context.read<CoursesCubit>().loadCourses(),
                 ),
               ],
             );

@@ -440,6 +440,12 @@ abstract class AppLocalizations {
   /// **'Create account'**
   String get createAccountButton;
 
+  /// No description provided for @registerSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Account created successfully. Please log in.'**
+  String get registerSuccess;
+
   /// No description provided for @alreadyHaveAccountLink.
   ///
   /// In en, this message translates to:
@@ -728,6 +734,66 @@ abstract class AppLocalizations {
   /// **'Title is required'**
   String get courseTitleRequired;
 
+  /// No description provided for @courseShortIntroRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Short introduction is required'**
+  String get courseShortIntroRequired;
+
+  /// No description provided for @courseDescriptionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Description is required'**
+  String get courseDescriptionRequired;
+
+  /// No description provided for @courseImageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Course Image'**
+  String get courseImageLabel;
+
+  /// No description provided for @courseImageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste image URL or upload a file'**
+  String get courseImageHint;
+
+  /// No description provided for @selectCourseImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Course Image'**
+  String get selectCourseImage;
+
+  /// No description provided for @courseBasicInfoSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Info'**
+  String get courseBasicInfoSection;
+
+  /// No description provided for @courseMediaSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Media'**
+  String get courseMediaSection;
+
+  /// No description provided for @courseTagsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get courseTagsSection;
+
+  /// No description provided for @courseSettingsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get courseSettingsSection;
+
+  /// No description provided for @courseTagsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Comma-separated, e.g. python, beginner'**
+  String get courseTagsHint;
+
   /// No description provided for @noChaptersOrLessons.
   ///
   /// In en, this message translates to:
@@ -919,6 +985,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Code Box'**
   String get contentTypeCode;
+
+  /// No description provided for @lessonMarkdownLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson Text'**
+  String get lessonMarkdownLabel;
+
+  /// No description provided for @lessonMarkdownHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write lesson text. Markdown is supported.'**
+  String get lessonMarkdownHint;
+
+  /// No description provided for @lessonPartContentRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Every lesson part needs content.'**
+  String get lessonPartContentRequired;
 
   /// No description provided for @youtubeUrlLabel.
   ///

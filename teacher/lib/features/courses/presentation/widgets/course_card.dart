@@ -1,17 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/network/api_endpoints.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/courses_models.dart';
+import '../../domain/usecases/courses_usecases.dart';
 import '../screens/course_details_screen.dart';
+import '../screens/course_form_screen.dart';
+import 'forms/delete_confirmation_dialog.dart';
 
 class CourseCard extends StatelessWidget {
-  const CourseCard({required this.course, this.onTap, super.key});
+  const CourseCard({
+    required this.course,
+    this.canManage = false,
+    this.onTap,
+    this.onDeleted,
+    this.onEdited,
+    super.key,
+  });
 
   final CourseModel course;
+  final bool canManage;
   final VoidCallback? onTap;
+  final VoidCallback? onDeleted;
+  final VoidCallback? onEdited;
+
+  Future<void> _onEdit(BuildContext context) async {
+    final updated = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CourseFormScreen(editingCourse: course),
+      ),
+    );
+    if (updated == true) onEdited?.call();
+  }
+
+  Future<void> _onDelete(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (_) => DeleteConfirmationDialog(
+        title: context.l10n.deleteCourseConfirmTitle,
+        body: context.l10n.deleteCourseConfirmBody,
+      ),
+    );
+    if (confirmed != true || !context.mounted) return;
+
+    final result = await getIt<DeleteCourseUseCase>().call(course.name);
+    if (!context.mounted) return;
+
+    result.when(
+      success: (_) {
+        AppSnackBar.showSuccess(context, context.l10n.courseDeletedSuccess);
+        onDeleted?.call();
+      },
+      failure: (fail) => AppSnackBar.showError(context, fail.message),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +136,6 @@ class CourseCard extends StatelessWidget {
                   const Divider(),
                   SizedBox(height: 8.h),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       _InfoTile(
                         icon: Icons.list,
@@ -97,17 +143,26 @@ class CourseCard extends StatelessWidget {
                           course.lessons ?? 0,
                         ),
                       ),
+                      const Spacer(),
                       _InfoTile(
                         icon: Icons.people,
                         label: context.l10n.coursesEnrollmentsCount(
                           course.enrollments ?? 0,
                         ),
                       ),
+                      const Spacer(),
                       _InfoTile(
                         icon: Icons.star,
                         label: _formatRating(course.rating),
                         iconColor: AppColors.warning,
                       ),
+                      if (canManage) ...[
+                        const Spacer(),
+                        _CourseManageMenu(
+                          onEdit: () => _onEdit(context),
+                          onDelete: () => _onDelete(context),
+                        ),
+                      ],
                     ],
                   ),
                 ],
@@ -131,6 +186,39 @@ class CourseCard extends StatelessWidget {
   }
 }
 
+class _CourseManageMenu extends StatelessWidget {
+  const _CourseManageMenu({required this.onEdit, required this.onDelete});
+
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return PopupMenuButton<String>(
+      icon: Icon(Icons.more_vert, size: 20.r, color: colorScheme.onSurfaceVariant),
+      padding: EdgeInsets.zero,
+      onSelected: (value) {
+        if (value == 'edit') onEdit();
+        if (value == 'delete') onDelete();
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: 'edit',
+          child: Text(context.l10n.editCourse),
+        ),
+        PopupMenuItem(
+          value: 'delete',
+          child: Text(
+            context.l10n.deleteCourseConfirmTitle,
+            style: TextStyle(color: colorScheme.error),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _CourseBanner extends StatelessWidget {
   const _CourseBanner({required this.course, required this.gradient});
 
@@ -145,7 +233,12 @@ class _CourseBanner extends StatelessWidget {
         gradient: course.image == null ? gradient : null,
         image: course.image != null
             ? DecorationImage(
-                image: NetworkImage('${ApiEndpoints.baseUrl}${course.image!}'),
+                image: NetworkImage(
+                  (course.image!.contains('http') ||
+                          course.image!.contains('https'))
+                      ? course.image!
+                      : '${ApiEndpoints.baseUrl}${course.image!}',
+                ),
                 fit: BoxFit.cover,
               )
             : null,

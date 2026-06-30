@@ -4,6 +4,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/storage/app_shared_preferences.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../domain/usecases/courses_usecases.dart';
 import '../cubit/course_details_cubit.dart';
@@ -14,6 +15,7 @@ import '../widgets/course_details/course_header_card.dart';
 import '../widgets/course_details/instructors_row.dart';
 import '../widgets/course_details/chapter_expansion_tile.dart';
 import '../widgets/forms/delete_confirmation_dialog.dart';
+import '../utils/course_permission_helper.dart';
 
 class CourseDetailsScreen extends StatelessWidget {
   const CourseDetailsScreen({required this.courseName, super.key});
@@ -30,19 +32,11 @@ class CourseDetailsScreen extends StatelessWidget {
     );
 
     if (confirmed == true && context.mounted) {
-      context.read<CourseDetailsCubit>().deleteChapter(name);
-      // Wait, we call deleteCourse instead! Let's check how the cubit exposes deleting a course.
-      // Wait, the courses list has delete course, or we can use use case directly:
-      // final res = await getIt<DeleteCourseUseCase>().call(courseName);
-      // Let's implement deleteCourse directly in CourseDetailsCubit or call repository.
-      // Wait, CourseDetailsCubit can also have deleteCourse, or we use getIt.
-      // Let's use getIt<DeleteCourseUseCase>() to keep it simple!
       showDialog(
         context: context,
         barrierDismissible: false,
         builder: (_) => const Center(child: CircularProgressIndicator()),
       );
-      // Call DeleteCourseUseCase:
       final res = await getIt<DeleteCourseUseCase>().call(name);
       if (context.mounted) {
         Navigator.pop(context); // Pop loading.
@@ -72,6 +66,11 @@ class CourseDetailsScreen extends StatelessWidget {
               builder: (context, state) {
                 final course = state.course;
                 if (course == null) return const SizedBox.shrink();
+                final canManage = CoursePermissionHelper.canManageCourse(
+                  course,
+                  getIt<AppSharedPreferences>(),
+                );
+                if (!canManage) return const SizedBox.shrink();
 
                 return PopupMenuButton<String>(
                   onSelected: (value) async {
@@ -168,6 +167,10 @@ class _CourseDetailsView extends StatelessWidget {
         if (course == null) {
           return const SizedBox.shrink();
         }
+        final canManage = CoursePermissionHelper.canManageCourse(
+          course,
+          getIt<AppSharedPreferences>(),
+        );
 
         return ListView(
           padding: EdgeInsets.all(20.r),
@@ -185,24 +188,23 @@ class _CourseDetailsView extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                TextButton.icon(
-                  onPressed: () async {
-                    final res = await Navigator.push<bool>(
-                      context,
-                      MaterialPageRoute(
+                if (canManage)
+                  TextButton.icon(
+                    onPressed: () async {
+                      final res = await showDialog<bool>(
+                        context: context,
                         builder: (_) =>
                             ChapterFormScreen(courseName: course.name),
-                      ),
-                    );
-                    if (res == true && context.mounted) {
-                      context.read<CourseDetailsCubit>().loadCourseDetails(
-                        course.name,
                       );
-                    }
-                  },
-                  icon: const Icon(Icons.add, size: 16),
-                  label: Text(context.l10n.createChapter),
-                ),
+                      if (res == true && context.mounted) {
+                        context.read<CourseDetailsCubit>().loadCourseDetails(
+                          course.name,
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.add, size: 16),
+                    label: Text(context.l10n.createChapter),
+                  ),
               ],
             ),
             SizedBox(height: 12.h),
@@ -213,6 +215,7 @@ class _CourseDetailsView extends StatelessWidget {
                 (chapter) => ChapterExpansionTile(
                   chapter: chapter,
                   courseName: course.name,
+                  canManageCourse: canManage,
                 ),
               ),
           ],

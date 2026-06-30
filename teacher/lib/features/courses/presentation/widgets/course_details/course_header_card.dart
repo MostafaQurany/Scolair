@@ -54,7 +54,10 @@ class CourseHeaderCard extends StatelessWidget {
               image: course.image != null
                   ? DecorationImage(
                       image: NetworkImage(
-                        '${ApiEndpoints.baseUrl}${course.image!}',
+                        (course.image!.contains('http') ||
+                                course.image!.contains('https'))
+                            ? course.image!
+                            : '${ApiEndpoints.baseUrl}${course.image!}',
                       ),
                       fit: BoxFit.cover,
                     )

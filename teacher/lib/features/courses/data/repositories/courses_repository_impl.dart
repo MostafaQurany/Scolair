@@ -43,6 +43,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required String tags,
     required bool published,
     required String videoLink,
+    String? image,
     required bool enableCertification,
   }) => _getResult(() async {
     final body = {
@@ -52,6 +53,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
       'tags': tags,
       'published': published,
       'video_link': videoLink,
+      'image': ?image,
       'enable_certification': enableCertification,
     };
     final response = await _remoteDataSource.createCourse(body);
@@ -67,6 +69,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
     String? tags,
     bool? published,
     String? videoLink,
+    String? image,
     bool? enableCertification,
   }) => _getResult(() async {
     final body = <String, dynamic>{
@@ -77,6 +80,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
       'tags': ?tags,
       'published': ?published,
       'video_link': ?videoLink,
+      'image': ?image,
       'enable_certification': ?enableCertification,
     };
     final response = await _remoteDataSource.updateCourse(body);

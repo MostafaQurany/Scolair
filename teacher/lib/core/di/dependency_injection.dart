@@ -74,7 +74,7 @@ Future<void> setupDependencyInjection() async {
       () => AuthRemoteDataSourceImpl(getIt()),
     )
     ..registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(getIt(), getIt()),
+      () => AuthRepositoryImpl(getIt(), getIt(), getIt()),
     )
     // Auth — use cases
     ..registerLazySingleton<LoginUseCase>(() => LoginUseCase(getIt()))
@@ -177,7 +177,9 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<LessonDetailsCubit>(
       () => LessonDetailsCubit(getIt(), getIt()),
     )
-    ..registerFactory<CourseFormCubit>(() => CourseFormCubit(getIt(), getIt()))
+    ..registerFactory<CourseFormCubit>(
+      () => CourseFormCubit(getIt(), getIt(), getIt()),
+    )
     ..registerFactory<LessonFormCubit>(
       () => LessonFormCubit(getIt(), getIt(), getIt()),
     );

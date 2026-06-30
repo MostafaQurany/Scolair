@@ -53,6 +53,7 @@ This file helps future agents understand the current work state without relying 
 - Added `HomeLayout` as the authenticated app shell route and routed auth/splash success flows to `/home-layout` to avoid duplicate Home route stacking.
 - Implemented Courses Browse All server-side search by `name`, published filtering with Frappe encoded `filters`, pull-to-refresh, localized UI states, and `.agent/specs/002-courses-search-filter-refresh/`.
 - Completed the full Courses feature on `teacher`, including CRUD (Create, Edit, Delete) for Courses, Chapters, and Lessons, media file upload handling, and a modular Editor.js parser + 16 custom block widgets.
+- Implemented auth user caching and Course Creator ownership UI gating on `teacher`, including signup redirect to login, course image upload/manual path, name-only chapter dialog, ordered multi-part lesson creation, Markdown lesson rendering, and YouTube external fallback.
 
 ## In-Progress Tasks
 
@@ -88,6 +89,7 @@ This file helps future agents understand the current work state without relying 
 - 2026-06-28: Implemented Courses search/filter/refresh. `dart run build_runner build --delete-conflicting-outputs`, `flutter gen-l10n`, `dart format .`, and scoped `dart analyze` for changed implementation files passed. Full `flutter analyze` still fails on unrelated existing warnings and deprecated API infos.
 - 2026-06-28: Completed Frappe LMS Courses feature implementation on `teacher`. Added packages, generated code (`build_runner` and `gen-l10n`), refactored monolithic renderer to 16 clean widgets (<250 lines/file limit), built Course/Chapter/Lesson CRUD flows, and updated English/Arabic localization. `dart format .` and local code generation verified successfully.
 - 2026-06-28: Scanned all files in `features/courses/` for 100% compliance with `.agent/project-rules.md`. Fixed unscaled font family configurations (changed to `GoogleFonts.dmSans`), hardcoded directional properties (replaced with `BorderDirectional`, `EdgeInsetsDirectional`, `TextAlign.start` for RTL support), and replaced direct `ScaffoldMessenger` calls with the project's compliant `AppSnackBar` helper. Static analysis completed clean.
+- 2026-06-29: Implemented `.agent/specs/004-auth-cache-course-creator-lesson-editor/`. Ran `flutter pub add flutter_markdown_plus`, `flutter gen-l10n`, and scoped `dart format` on changed Dart/localization files. Skipped `build_runner`, `flutter analyze`, `flutter test`, and unit tests per user request.
 
 ## Notes For Future Agents
 

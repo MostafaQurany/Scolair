@@ -115,11 +115,14 @@ class _RegisterViewState extends State<_RegisterView>
 
   void _handleState(BuildContext context, RegisterState state) {
     state.whenOrNull(
-      success: () => Navigator.pushNamedAndRemoveUntil(
-        context,
-        AppRouteNames.homeLayout,
-        (_) => false,
-      ),
+      success: () {
+        AppSnackBar.showSuccess(context, context.l10n.registerSuccess);
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRouteNames.login,
+          (_) => false,
+        );
+      },
       error: (msg) => AppSnackBar.showError(context, msg),
     );
   }

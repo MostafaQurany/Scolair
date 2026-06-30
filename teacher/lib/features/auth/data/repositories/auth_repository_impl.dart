@@ -1,6 +1,7 @@
 import '../../../../core/errors/error_handler.dart';
 import '../../../../core/network/api_result.dart';
 import '../../../../core/storage/app_secure_storage.dart';
+import '../../../../core/storage/app_shared_preferences.dart';
 import '../../domain/entities/auth_token.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/remote/auth_remote_datasource.dart';
@@ -16,10 +17,15 @@ import '../models/register_request_data.dart';
 import '../models/reset_password_request_data.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  const AuthRepositoryImpl(this._remoteDataSource, this._secureStorage);
+  const AuthRepositoryImpl(
+    this._remoteDataSource,
+    this._secureStorage,
+    this._sharedPreferences,
+  );
 
   final AuthRemoteDataSource _remoteDataSource;
   final AppSecureStorage _secureStorage;
+  final AppSharedPreferences _sharedPreferences;
 
   @override
   Future<ApiResult<void>> register(
@@ -139,6 +145,9 @@ class AuthRepositoryImpl implements AuthRepository {
   ) async {
     try {
       final result = await call();
+      if (result is LoginResponseData) {
+        await _saveLoginUser(result.data.user);
+      }
       final token = map(result);
       await _secureStorage.saveAccessToken(token.accessToken);
       await _secureStorage.saveRefreshToken(token.refreshToken);
@@ -161,6 +170,19 @@ class AuthRepositoryImpl implements AuthRepository {
     accessToken: r.data.accessToken,
     refreshToken: r.data.refreshToken,
   );
+
+  Future<void> _saveLoginUser(LoginUserData? user) async {
+    if (user == null) return;
+
+    await _sharedPreferences.saveUserData(
+      name: user.name,
+      email: user.email,
+      username: user.username,
+      fullName: user.fullName,
+      roles: user.roles,
+      userImage: user.userImage,
+    );
+  }
 
   @override
   Future<ApiResult<void>> forgotPassword(String email) {

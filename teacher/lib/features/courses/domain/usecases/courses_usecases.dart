@@ -32,6 +32,7 @@ class CreateCourseUseCase {
     required String tags,
     required bool published,
     required String videoLink,
+    String? image,
     required bool enableCertification,
   }) => _repository.createCourse(
     title: title,
@@ -40,6 +41,7 @@ class CreateCourseUseCase {
     tags: tags,
     published: published,
     videoLink: videoLink,
+    image: image,
     enableCertification: enableCertification,
   );
 }
@@ -55,6 +57,7 @@ class UpdateCourseUseCase {
     String? tags,
     bool? published,
     String? videoLink,
+    String? image,
     bool? enableCertification,
   }) => _repository.updateCourse(
     courseName: courseName,
@@ -64,6 +67,7 @@ class UpdateCourseUseCase {
     tags: tags,
     published: published,
     videoLink: videoLink,
+    image: image,
     enableCertification: enableCertification,
   );
 }

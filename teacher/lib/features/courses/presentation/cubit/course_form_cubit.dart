@@ -1,14 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/courses_models.dart';
 import '../../domain/usecases/courses_usecases.dart';
 import 'course_form_state.dart';
 
 class CourseFormCubit extends Cubit<CourseFormState> {
-  CourseFormCubit(this._createCourseUseCase, this._updateCourseUseCase)
-    : super(const CourseFormState.initial());
+  CourseFormCubit(
+    this._createCourseUseCase,
+    this._updateCourseUseCase,
+    this._uploadFileUseCase,
+  ) : super(const CourseFormState.initial());
 
   final CreateCourseUseCase _createCourseUseCase;
   final UpdateCourseUseCase _updateCourseUseCase;
+  final UploadFileUseCase _uploadFileUseCase;
 
   Future<void> createCourse({
     required String title,
@@ -17,9 +22,17 @@ class CourseFormCubit extends Cubit<CourseFormState> {
     required String tags,
     required bool published,
     required String videoLink,
+    required String image,
+    File? imageFile,
     required bool enableCertification,
   }) async {
     emit(const CourseFormState.submitting());
+    final resolvedImage = await _resolveImage(
+      image: image,
+      imageFile: imageFile,
+      courseName: '',
+    );
+    if (resolvedImage == null) return;
 
     final result = await _createCourseUseCase(
       title: title,
@@ -28,6 +41,7 @@ class CourseFormCubit extends Cubit<CourseFormState> {
       tags: tags,
       published: published,
       videoLink: videoLink,
+      image: resolvedImage,
       enableCertification: enableCertification,
     );
 
@@ -45,9 +59,17 @@ class CourseFormCubit extends Cubit<CourseFormState> {
     String? tags,
     bool? published,
     String? videoLink,
+    String? image,
+    File? imageFile,
     bool? enableCertification,
   }) async {
     emit(const CourseFormState.submitting());
+    final resolvedImage = await _resolveImage(
+      image: image ?? '',
+      imageFile: imageFile,
+      courseName: courseName,
+    );
+    if (resolvedImage == null) return;
 
     final result = await _updateCourseUseCase(
       courseName: courseName,
@@ -57,6 +79,7 @@ class CourseFormCubit extends Cubit<CourseFormState> {
       tags: tags,
       published: published,
       videoLink: videoLink,
+      image: resolvedImage,
       enableCertification: enableCertification,
     );
 
@@ -66,10 +89,27 @@ class CourseFormCubit extends Cubit<CourseFormState> {
     );
   }
 
-  /// Convenience accessor for the existing course when editing.
-  CourseModel? editingCourse;
+  Future<String?> _resolveImage({
+    required String image,
+    required File? imageFile,
+    required String courseName,
+  }) async {
+    if (imageFile == null) return image.trim();
 
-  void setEditingCourse(CourseModel? course) {
-    editingCourse = course;
+    final result = await _uploadFileUseCase(
+      file: imageFile,
+      isPrivate: 0,
+      doctype: 'LMS Course',
+      docname: courseName,
+      fieldname: 'image',
+    );
+
+    return result.when(
+      success: (url) => url,
+      failure: (fail) {
+        emit(CourseFormState.error(fail.message));
+        return null;
+      },
+    );
   }
 }

@@ -1,7 +1,10 @@
 import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../domain/usecases/courses_usecases.dart';
 import '../widgets/lesson_content/editor_js_content_builder.dart';
+import '../widgets/lesson_form/lesson_part_data.dart';
 import 'lesson_form_state.dart';
 
 class LessonFormCubit extends Cubit<LessonFormState> {
@@ -19,68 +22,21 @@ class LessonFormCubit extends Cubit<LessonFormState> {
     required String title,
     required String chapterName,
     required bool includeInPreview,
-    required String contentType,
-    String? textContent,
-    String? youtubeUrl,
-    String? quizName,
-    String? codeContent,
-    String? codeLanguage,
-    File? uploadFile,
+    required List<LessonPartData> parts,
   }) async {
-    Map<String, dynamic>? content;
-
-    // Handle file upload first if needed.
-    if (uploadFile != null &&
-        (contentType == 'video' || contentType == 'pdf')) {
-      emit(const LessonFormState.uploading());
-
-      final uploadResult = await _uploadFileUseCase(
-        file: uploadFile,
-        isPrivate: 1,
-        doctype: 'Course Lesson',
-        docname: '',
-        fieldname: 'content',
-      );
-
-      final fileUrl = uploadResult.when(
-        success: (url) => url,
-        failure: (fail) {
-          emit(LessonFormState.error(fail.message));
-          return null;
-        },
-      );
-      if (fileUrl == null) return;
-
-      final fileType = contentType == 'pdf'
-          ? 'pdf'
-          : _detectFileType(uploadFile.path);
-      content = EditorJsContentBuilder.uploadBlock(
-        fileUrl: fileUrl,
-        fileType: fileType,
-      );
-    } else {
-      content = _buildContent(
-        contentType: contentType,
-        textContent: textContent,
-        youtubeUrl: youtubeUrl,
-        quizName: quizName,
-        codeContent: codeContent,
-        codeLanguage: codeLanguage,
-      );
-    }
+    final content = await _buildContent(parts: parts, lessonName: '');
+    if (content == null) return;
 
     emit(const LessonFormState.submitting());
-
     final result = await _createLessonUseCase(
       title: title,
       chapterName: chapterName,
       includeInPreview: includeInPreview,
       content: content,
     );
-
     result.when(
       success: (_) => emit(const LessonFormState.success()),
-      failure: (fail) => emit(LessonFormState.error(fail.message)),
+      failure: (failure) => emit(LessonFormState.error(failure.message)),
     );
   }
 
@@ -88,103 +44,85 @@ class LessonFormCubit extends Cubit<LessonFormState> {
     required String lessonName,
     required String title,
     required bool includeInPreview,
-    required String contentType,
-    String? textContent,
-    String? youtubeUrl,
-    String? quizName,
-    String? codeContent,
-    String? codeLanguage,
-    File? uploadFile,
+    required List<LessonPartData> parts,
   }) async {
-    Map<String, dynamic>? content;
-
-    if (uploadFile != null &&
-        (contentType == 'video' || contentType == 'pdf')) {
-      emit(const LessonFormState.uploading());
-
-      final uploadResult = await _uploadFileUseCase(
-        file: uploadFile,
-        isPrivate: 1,
-        doctype: 'Course Lesson',
-        docname: lessonName,
-        fieldname: 'content',
-      );
-
-      final fileUrl = uploadResult.when(
-        success: (url) => url,
-        failure: (fail) {
-          emit(LessonFormState.error(fail.message));
-          return null;
-        },
-      );
-      if (fileUrl == null) return;
-
-      final fileType = contentType == 'pdf'
-          ? 'pdf'
-          : _detectFileType(uploadFile.path);
-      content = EditorJsContentBuilder.uploadBlock(
-        fileUrl: fileUrl,
-        fileType: fileType,
-      );
-    } else {
-      content = _buildContent(
-        contentType: contentType,
-        textContent: textContent,
-        youtubeUrl: youtubeUrl,
-        quizName: quizName,
-        codeContent: codeContent,
-        codeLanguage: codeLanguage,
-      );
-    }
+    final content = await _buildContent(parts: parts, lessonName: lessonName);
+    if (content == null) return;
 
     emit(const LessonFormState.submitting());
-
     final result = await _updateLessonUseCase(
       lessonName: lessonName,
       title: title,
       includeInPreview: includeInPreview,
       content: content,
     );
-
     result.when(
       success: (_) => emit(const LessonFormState.success()),
-      failure: (fail) => emit(LessonFormState.error(fail.message)),
+      failure: (failure) => emit(LessonFormState.error(failure.message)),
     );
   }
 
-  Map<String, dynamic>? _buildContent({
-    required String contentType,
-    String? textContent,
-    String? youtubeUrl,
-    String? quizName,
-    String? codeContent,
-    String? codeLanguage,
-  }) {
-    switch (contentType) {
-      case 'text':
-        if (textContent == null || textContent.isEmpty) return null;
-        return EditorJsContentBuilder.textBlock(textContent);
-      case 'youtube':
-        if (youtubeUrl == null || youtubeUrl.isEmpty) return null;
-        return EditorJsContentBuilder.youtubeBlock(youtubeUrl);
-      case 'quiz':
-        if (quizName == null || quizName.isEmpty) return null;
-        return EditorJsContentBuilder.quizBlock(quizName);
-      case 'code':
-        if (codeContent == null || codeContent.isEmpty) return null;
-        return EditorJsContentBuilder.codeBlock(
-          codeContent,
-          language: codeLanguage ?? 'text',
-        );
-      default:
-        return null;
+  Future<Map<String, dynamic>?> _buildContent({
+    required List<LessonPartData> parts,
+    required String lessonName,
+  }) async {
+    final blocks = <Map<String, dynamic>>[];
+    for (final part in parts) {
+      switch (part.type) {
+        case LessonPartType.markdown:
+          blocks.add(EditorJsContentBuilder.markdownBlockData(part.text ?? ''));
+          break;
+        case LessonPartType.youtube:
+          blocks.add(EditorJsContentBuilder.youtubeBlockData(part.text ?? ''));
+          break;
+        case LessonPartType.video:
+        case LessonPartType.pdf:
+          final fileUrl = await _resolveUpload(part, lessonName);
+          if (fileUrl == null) return null;
+          blocks.add(
+            EditorJsContentBuilder.uploadBlockData(
+              fileUrl: fileUrl,
+              fileType: _fileTypeForPart(part),
+            ),
+          );
+          break;
+      }
     }
+
+    return EditorJsContentBuilder.fromBlocks(blocks);
   }
 
-  String _detectFileType(String filePath) {
-    final ext = filePath.split('.').last.toLowerCase();
-    return switch (ext) {
-      'mp4' || 'mov' || 'm4v' || 'webm' => ext,
+  Future<String?> _resolveUpload(LessonPartData part, String lessonName) async {
+    if (part.uploadFile == null) return part.existingFileUrl;
+
+    emit(const LessonFormState.uploading());
+    final result = await _uploadFileUseCase(
+      file: part.uploadFile!,
+      isPrivate: 1,
+      doctype: 'Course Lesson',
+      docname: lessonName,
+      fieldname: 'content',
+    );
+
+    return result.when(
+      success: (url) => url,
+      failure: (failure) {
+        emit(LessonFormState.error(failure.message));
+        return null;
+      },
+    );
+  }
+
+  String _fileTypeForPart(LessonPartData part) {
+    if (part.type == LessonPartType.pdf) return 'pdf';
+    return _detectFileType(part.uploadFile, part.existingFileType);
+  }
+
+  String _detectFileType(File? file, String? existingFileType) {
+    if (file == null) return existingFileType ?? 'mp4';
+    final extension = file.path.split('.').last.toLowerCase();
+    return switch (extension) {
+      'mp4' || 'mov' || 'm4v' || 'webm' => extension,
       _ => 'mp4',
     };
   }
