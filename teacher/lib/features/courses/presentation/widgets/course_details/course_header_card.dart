@@ -3,6 +3,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../../core/localization/localization_extension.dart';
 import '../../../../../core/network/api_endpoints.dart';
+import '../../../../../core/widgets/app_cached_network_image.dart';
 import '../../../data/models/courses_models.dart';
 
 class CourseHeaderCard extends StatelessWidget {
@@ -47,21 +48,24 @@ class CourseHeaderCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          SizedBox(
             height: 140.h,
-            decoration: BoxDecoration(
-              gradient: course.image == null ? headerGrad : null,
-              image: course.image != null
-                  ? DecorationImage(
-                      image: NetworkImage(
-                        (course.image!.contains('http') ||
-                                course.image!.contains('https'))
-                            ? course.image!
-                            : '${ApiEndpoints.baseUrl}${course.image!}',
-                      ),
-                      fit: BoxFit.cover,
-                    )
-                  : null,
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                Container(decoration: BoxDecoration(gradient: headerGrad)),
+                if (course.image != null)
+                  AppCachedNetworkImage(
+                    imageUrl: (course.image!.contains('http') ||
+                            course.image!.contains('https'))
+                        ? course.image!
+                        : '${ApiEndpoints.baseUrl}${course.image!}',
+                    width: double.infinity,
+                    height: 140.h,
+                    fit: BoxFit.cover,
+                    errorWidget: const SizedBox.shrink(),
+                  ),
+              ],
             ),
           ),
           Padding(

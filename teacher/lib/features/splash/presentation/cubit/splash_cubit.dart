@@ -32,7 +32,12 @@ class SplashCubit extends Cubit<SplashState> {
 
     final result = await _refreshTokenUseCase(refreshToken);
     result.when(
-      success: (_) => emit(SplashState.navigate(AppRouteNames.homeLayout)),
+      success: (_) {
+        final destination = _prefs.biometricEnabled
+            ? AppRouteNames.biometricUnlock
+            : AppRouteNames.homeLayout;
+        emit(SplashState.navigate(destination));
+      },
       failure: (_) {
         _secureStorage.clearAll();
         emit(SplashState.navigate(AppRouteNames.login));

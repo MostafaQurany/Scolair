@@ -10,6 +10,7 @@ import '../../data/models/courses_models.dart';
 import '../cubit/courses_cubit.dart';
 import '../cubit/courses_state.dart';
 import '../widgets/courses_browse_tab.dart';
+import '../widgets/courses_list_shimmer.dart';
 import 'course_details_screen.dart';
 import 'course_form_screen.dart';
 
@@ -114,8 +115,8 @@ class _CoursesListViewState extends State<_CoursesListView>
       body: SafeArea(
         child: BlocBuilder<CoursesCubit, CoursesState>(
           builder: (context, state) {
-            if (state.isInitialLoading) {
-              return const Center(child: CircularProgressIndicator());
+            if (state.isInitialLoading && state.allCourses == null) {
+              return const CoursesListShimmer();
             }
 
             if (state.errorMessage != null &&

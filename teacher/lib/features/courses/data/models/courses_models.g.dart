@@ -8,13 +8,13 @@ part of 'courses_models.dart';
 
 InstructorModel _$InstructorModelFromJson(Map<String, dynamic> json) =>
     InstructorModel(
-      name: json['name'] as String,
-      username: json['username'] as String?,
-      fullName: json['full_name'] as String?,
-      userImage: json['user_image'] as String?,
-      firstName: json['first_name'] as String?,
-      bio: json['bio'] as String?,
-      instructor: json['instructor'] as String?,
+      name: _stringFromJson(json['name']),
+      username: _nullableStringFromJson(json['username']),
+      fullName: _nullableStringFromJson(json['full_name']),
+      userImage: _nullableStringFromJson(json['user_image']),
+      firstName: _nullableStringFromJson(json['first_name']),
+      bio: _nullableStringFromJson(json['bio']),
+      instructor: _nullableStringFromJson(json['instructor']),
     );
 
 Map<String, dynamic> _$InstructorModelToJson(InstructorModel instance) =>
@@ -30,13 +30,13 @@ Map<String, dynamic> _$InstructorModelToJson(InstructorModel instance) =>
 
 MembershipModel _$MembershipModelFromJson(Map<String, dynamic> json) =>
     MembershipModel(
-      name: json['name'] as String,
-      currentLesson: json['current_lesson'] as String?,
-      progress: (json['progress'] as num).toDouble(),
-      member: json['member'] as String,
-      course: json['course'] as String,
-      purchasedCertificate: (json['purchased_certificate'] as num).toInt(),
-      certificate: json['certificate'] as String?,
+      name: _stringFromJson(json['name']),
+      currentLesson: _nullableStringFromJson(json['current_lesson']),
+      progress: _doubleFromJson(json['progress']),
+      member: _stringFromJson(json['member']),
+      course: _stringFromJson(json['course']),
+      purchasedCertificate: _intFromJson(json['purchased_certificate']),
+      certificate: _nullableStringFromJson(json['certificate']),
     );
 
 Map<String, dynamic> _$MembershipModelToJson(MembershipModel instance) =>
@@ -51,37 +51,35 @@ Map<String, dynamic> _$MembershipModelToJson(MembershipModel instance) =>
     };
 
 CourseModel _$CourseModelFromJson(Map<String, dynamic> json) => CourseModel(
-  name: json['name'] as String,
-  title: json['title'] as String,
-  tags: json['tags'] as String?,
-  image: json['image'] as String?,
-  videoLink: json['video_link'] as String?,
-  cardGradient: json['card_gradient'] as String?,
-  shortIntroduction: json['short_introduction'] as String?,
-  description: json['description'] as String?,
-  published: (json['published'] as num?)?.toInt(),
-  upcoming: (json['upcoming'] as num?)?.toInt(),
-  featured: (json['featured'] as num?)?.toInt(),
-  disableSelfLearning: (json['disable_self_learning'] as num?)?.toInt(),
-  publishedOn: json['published_on'] as String?,
-  category: json['category'] as String?,
-  status: json['status'] as String?,
-  paidCourse: (json['paid_course'] as num?)?.toInt(),
-  paidCertificate: (json['paid_certificate'] as num?)?.toInt(),
-  coursePrice: (json['course_price'] as num?)?.toDouble(),
-  currency: json['currency'] as String?,
-  amountUsd: (json['amount_usd'] as num?)?.toDouble(),
-  enableCertification: (json['enable_certification'] as num?)?.toInt(),
-  lessons: (json['lessons'] as num?)?.toInt(),
-  enrollments: (json['enrollments'] as num?)?.toInt(),
+  name: _stringFromJson(json['name']),
+  title: _stringFromJson(json['title']),
+  tags: _nullableStringFromJson(json['tags']),
+  image: _nullableStringFromJson(json['image']),
+  videoLink: _nullableStringFromJson(json['video_link']),
+  cardGradient: _nullableStringFromJson(json['card_gradient']),
+  shortIntroduction: _nullableStringFromJson(json['short_introduction']),
+  description: _nullableStringFromJson(json['description']),
+  published: _nullableIntFromJson(json['published']),
+  upcoming: _nullableIntFromJson(json['upcoming']),
+  featured: _nullableIntFromJson(json['featured']),
+  disableSelfLearning: _nullableIntFromJson(json['disable_self_learning']),
+  publishedOn: _nullableStringFromJson(json['published_on']),
+  category: _nullableStringFromJson(json['category']),
+  status: _nullableStringFromJson(json['status']),
+  paidCourse: _nullableIntFromJson(json['paid_course']),
+  paidCertificate: _nullableIntFromJson(json['paid_certificate']),
+  coursePrice: _nullableDoubleFromJson(json['course_price']),
+  currency: _nullableStringFromJson(json['currency']),
+  amountUsd: _nullableDoubleFromJson(json['amount_usd']),
+  enableCertification: _nullableIntFromJson(json['enable_certification']),
+  lessons: _nullableIntFromJson(json['lessons']),
+  enrollments: _nullableIntFromJson(json['enrollments']),
   rating: json['rating'],
-  instructors: (json['instructors'] as List<dynamic>?)
-      ?.map((e) => InstructorModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  instructors: _instructorsFromJson(json['instructors']),
   membership: _membershipFromJson(json['membership']),
-  ratingCount: (json['rating_count'] as num?)?.toInt(),
-  owner: json['owner'] as String?,
-  creation: json['creation'] as String?,
+  ratingCount: _nullableIntFromJson(json['rating_count']),
+  owner: _nullableStringFromJson(json['owner']),
+  creation: _nullableStringFromJson(json['creation']),
 );
 
 Map<String, dynamic> _$CourseModelToJson(CourseModel instance) =>
@@ -119,11 +117,11 @@ Map<String, dynamic> _$CourseModelToJson(CourseModel instance) =>
 
 ChapterSummaryModel _$ChapterSummaryModelFromJson(Map<String, dynamic> json) =>
     ChapterSummaryModel(
-      idx: (json['idx'] as num).toInt(),
-      name: json['name'] as String,
-      title: json['title'] as String,
-      isScormPackage: (json['is_scorm_package'] as num?)?.toInt() ?? 0,
-      lessonCount: (json['lesson_count'] as num?)?.toInt() ?? 0,
+      idx: _intFromJson(json['idx']),
+      name: _stringFromJson(json['name']),
+      title: _stringFromJson(json['title']),
+      isScormPackage: _intFromJson(json['is_scorm_package']),
+      lessonCount: _intFromJson(json['lesson_count']),
     );
 
 Map<String, dynamic> _$ChapterSummaryModelToJson(
@@ -138,18 +136,18 @@ Map<String, dynamic> _$ChapterSummaryModelToJson(
 
 LessonSummaryModel _$LessonSummaryModelFromJson(Map<String, dynamic> json) =>
     LessonSummaryModel(
-      idx: (json['idx'] as num).toInt(),
-      name: json['name'] as String,
-      title: json['title'] as String,
-      includeInPreview: (json['include_in_preview'] as num).toInt(),
-      body: json['body'] as String?,
-      content: json['content'] as String?,
-      youtube: json['youtube'] as String?,
-      quizId: json['quiz_id'] as String?,
-      question: json['question'] as String?,
-      fileType: json['file_type'] as String,
-      icon: json['icon'] as String? ?? '',
-      course: json['course'] as String?,
+      idx: _intFromJson(json['idx']),
+      name: _stringFromJson(json['name']),
+      title: _stringFromJson(json['title']),
+      includeInPreview: _intFromJson(json['include_in_preview']),
+      body: _nullableStringFromJson(json['body']),
+      content: _nullableStringFromJson(json['content']),
+      youtube: _nullableStringFromJson(json['youtube']),
+      quizId: _nullableStringFromJson(json['quiz_id']),
+      question: _nullableStringFromJson(json['question']),
+      fileType: _stringFromJson(json['file_type']),
+      icon: _stringFromJson(json['icon']),
+      course: _nullableStringFromJson(json['course']),
     );
 
 Map<String, dynamic> _$LessonSummaryModelToJson(LessonSummaryModel instance) =>
@@ -170,15 +168,13 @@ Map<String, dynamic> _$LessonSummaryModelToJson(LessonSummaryModel instance) =>
 
 ChapterDetailModel _$ChapterDetailModelFromJson(Map<String, dynamic> json) =>
     ChapterDetailModel(
-      name: json['name'] as String,
-      title: json['title'] as String,
-      course: json['course'] as String,
-      isScormPackage: (json['is_scorm_package'] as num).toInt(),
-      scormPackagePath: json['scorm_package_path'] as String?,
-      launchFile: json['launch_file'] as String?,
-      lessons: (json['lessons'] as List<dynamic>)
-          .map((e) => LessonSummaryModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      name: _stringFromJson(json['name']),
+      title: _stringFromJson(json['title']),
+      course: _stringFromJson(json['course']),
+      isScormPackage: _intFromJson(json['is_scorm_package']),
+      scormPackagePath: _nullableStringFromJson(json['scorm_package_path']),
+      launchFile: _nullableStringFromJson(json['launch_file']),
+      lessons: _lessonSummaryListFromJson(json['lessons']),
     );
 
 Map<String, dynamic> _$ChapterDetailModelToJson(ChapterDetailModel instance) =>
@@ -194,22 +190,22 @@ Map<String, dynamic> _$ChapterDetailModelToJson(ChapterDetailModel instance) =>
 
 LessonDetailModel _$LessonDetailModelFromJson(Map<String, dynamic> json) =>
     LessonDetailModel(
-      name: json['name'] as String,
-      title: json['title'] as String,
-      chapter: json['chapter'] as String,
-      course: json['course'] as String,
-      includeInPreview: (json['include_in_preview'] as num).toInt(),
-      body: json['body'] as String?,
-      content: json['content'] as String?,
-      instructorContent: json['instructor_content'] as String?,
-      instructorNotes: json['instructor_notes'] as String?,
-      youtube: json['youtube'] as String?,
-      quizId: json['quiz_id'] as String?,
-      question: json['question'] as String?,
-      fileType: json['file_type'] as String,
-      creation: json['creation'] as String,
-      icon: json['icon'] as String,
-      idx: (json['idx'] as num).toInt(),
+      name: _stringFromJson(json['name']),
+      title: _stringFromJson(json['title']),
+      chapter: _stringFromJson(json['chapter']),
+      course: _stringFromJson(json['course']),
+      includeInPreview: _intFromJson(json['include_in_preview']),
+      body: _nullableStringFromJson(json['body']),
+      content: _nullableStringFromJson(json['content']),
+      instructorContent: _nullableStringFromJson(json['instructor_content']),
+      instructorNotes: _nullableStringFromJson(json['instructor_notes']),
+      youtube: _nullableStringFromJson(json['youtube']),
+      quizId: _nullableStringFromJson(json['quiz_id']),
+      question: _nullableStringFromJson(json['question']),
+      fileType: _stringFromJson(json['file_type']),
+      creation: _stringFromJson(json['creation']),
+      icon: _stringFromJson(json['icon']),
+      idx: _intFromJson(json['idx']),
     );
 
 Map<String, dynamic> _$LessonDetailModelToJson(LessonDetailModel instance) =>
@@ -235,11 +231,9 @@ Map<String, dynamic> _$LessonDetailModelToJson(LessonDetailModel instance) =>
 ListCoursesResponseData _$ListCoursesResponseDataFromJson(
   Map<String, dynamic> json,
 ) => ListCoursesResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: (json['data'] as List<dynamic>)
-      .map((e) => CourseModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _courseListFromJson(json['data']),
 );
 
 Map<String, dynamic> _$ListCoursesResponseDataToJson(
@@ -253,9 +247,9 @@ Map<String, dynamic> _$ListCoursesResponseDataToJson(
 GetCourseResponseData _$GetCourseResponseDataFromJson(
   Map<String, dynamic> json,
 ) => GetCourseResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: CourseModel.fromJson(json['data'] as Map<String, dynamic>),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _courseFromJson(json['data']),
 );
 
 Map<String, dynamic> _$GetCourseResponseDataToJson(
@@ -269,9 +263,9 @@ Map<String, dynamic> _$GetCourseResponseDataToJson(
 CreateCourseResponseData _$CreateCourseResponseDataFromJson(
   Map<String, dynamic> json,
 ) => CreateCourseResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: CourseModel.fromJson(json['data'] as Map<String, dynamic>),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _courseFromJson(json['data']),
 );
 
 Map<String, dynamic> _$CreateCourseResponseDataToJson(
@@ -285,11 +279,9 @@ Map<String, dynamic> _$CreateCourseResponseDataToJson(
 GetChaptersResponseData _$GetChaptersResponseDataFromJson(
   Map<String, dynamic> json,
 ) => GetChaptersResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: (json['data'] as List<dynamic>)
-      .map((e) => ChapterSummaryModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _chapterSummaryListFromJson(json['data']),
 );
 
 Map<String, dynamic> _$GetChaptersResponseDataToJson(
@@ -303,9 +295,9 @@ Map<String, dynamic> _$GetChaptersResponseDataToJson(
 GetChapterResponseData _$GetChapterResponseDataFromJson(
   Map<String, dynamic> json,
 ) => GetChapterResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: ChapterDetailModel.fromJson(json['data'] as Map<String, dynamic>),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _chapterDetailFromJson(json['data']),
 );
 
 Map<String, dynamic> _$GetChapterResponseDataToJson(
@@ -319,9 +311,9 @@ Map<String, dynamic> _$GetChapterResponseDataToJson(
 CreateChapterResponseData _$CreateChapterResponseDataFromJson(
   Map<String, dynamic> json,
 ) => CreateChapterResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: ChapterSummaryModel.fromJson(json['data'] as Map<String, dynamic>),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _chapterSummaryFromJson(json['data']),
 );
 
 Map<String, dynamic> _$CreateChapterResponseDataToJson(
@@ -335,11 +327,9 @@ Map<String, dynamic> _$CreateChapterResponseDataToJson(
 GetLessonsResponseData _$GetLessonsResponseDataFromJson(
   Map<String, dynamic> json,
 ) => GetLessonsResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: (json['data'] as List<dynamic>)
-      .map((e) => LessonSummaryModel.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _lessonSummaryListFromJson(json['data']),
 );
 
 Map<String, dynamic> _$GetLessonsResponseDataToJson(
@@ -353,9 +343,9 @@ Map<String, dynamic> _$GetLessonsResponseDataToJson(
 GetLessonResponseData _$GetLessonResponseDataFromJson(
   Map<String, dynamic> json,
 ) => GetLessonResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: LessonDetailModel.fromJson(json['data'] as Map<String, dynamic>),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _lessonDetailFromJson(json['data']),
 );
 
 Map<String, dynamic> _$GetLessonResponseDataToJson(
@@ -369,9 +359,9 @@ Map<String, dynamic> _$GetLessonResponseDataToJson(
 CreateLessonResponseData _$CreateLessonResponseDataFromJson(
   Map<String, dynamic> json,
 ) => CreateLessonResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: LessonSummaryModel.fromJson(json['data'] as Map<String, dynamic>),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _lessonSummaryFromJson(json['data']),
 );
 
 Map<String, dynamic> _$CreateLessonResponseDataToJson(
@@ -384,10 +374,8 @@ Map<String, dynamic> _$CreateLessonResponseDataToJson(
 
 MyCoursesData _$MyCoursesDataFromJson(Map<String, dynamic> json) =>
     MyCoursesData(
-      role: json['role'] as String,
-      courses: (json['courses'] as List<dynamic>)
-          .map((e) => CourseModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      role: _stringFromJson(json['role']),
+      courses: _courseListFromJson(json['courses']),
     );
 
 Map<String, dynamic> _$MyCoursesDataToJson(MyCoursesData instance) =>
@@ -396,9 +384,9 @@ Map<String, dynamic> _$MyCoursesDataToJson(MyCoursesData instance) =>
 MyCoursesResponseData _$MyCoursesResponseDataFromJson(
   Map<String, dynamic> json,
 ) => MyCoursesResponseData(
-  state: json['state'] as String,
-  message: json['message'] as String,
-  data: MyCoursesData.fromJson(json['data'] as Map<String, dynamic>),
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _myCoursesDataFromJson(json['data']),
 );
 
 Map<String, dynamic> _$MyCoursesResponseDataToJson(
@@ -411,8 +399,8 @@ Map<String, dynamic> _$MyCoursesResponseDataToJson(
 
 UploadFileMessage _$UploadFileMessageFromJson(Map<String, dynamic> json) =>
     UploadFileMessage(
-      fileUrl: json['file_url'] as String,
-      name: json['name'] as String?,
+      fileUrl: _stringFromJson(json['file_url']),
+      name: _nullableStringFromJson(json['name']),
     );
 
 Map<String, dynamic> _$UploadFileMessageToJson(UploadFileMessage instance) =>
@@ -421,7 +409,7 @@ Map<String, dynamic> _$UploadFileMessageToJson(UploadFileMessage instance) =>
 UploadFileResponseData _$UploadFileResponseDataFromJson(
   Map<String, dynamic> json,
 ) => UploadFileResponseData(
-  message: UploadFileMessage.fromJson(json['message'] as Map<String, dynamic>),
+  message: _uploadFileMessageFromJson(json['message']),
 );
 
 Map<String, dynamic> _$UploadFileResponseDataToJson(

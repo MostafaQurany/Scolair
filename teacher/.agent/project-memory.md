@@ -54,6 +54,7 @@ This file helps future agents understand the current work state without relying 
 - Implemented Courses Browse All server-side search by `name`, published filtering with Frappe encoded `filters`, pull-to-refresh, localized UI states, and `.agent/specs/002-courses-search-filter-refresh/`.
 - Completed the full Courses feature on `teacher`, including CRUD (Create, Edit, Delete) for Courses, Chapters, and Lessons, media file upload handling, and a modular Editor.js parser + 16 custom block widgets.
 - Implemented auth user caching and Course Creator ownership UI gating on `teacher`, including signup redirect to login, course image upload/manual path, name-only chapter dialog, ordered multi-part lesson creation, Markdown lesson rendering, and YouTube external fallback.
+- Implemented biometric login opt-in flow (`BiometricRequestScreen` + `BiometricRequestCubit`), courses shimmer loading (`CoursesListShimmer` via `skeletonizer: ^2.1.3`), and cached network images (`AppCachedNetworkImage`) replacing bare `NetworkImage` in `CourseCard` and `CourseHeaderCard`.
 
 ## In-Progress Tasks
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import '../../../../../core/localization/localization_extension.dart';
-import '../../../../../core/widgets/app_snack_bar.dart';
+import '../../screens/pdf_viewer_screen.dart';
 import 'frappe_file_url_resolver.dart';
 
 class UploadPdfBlockWidget extends StatelessWidget {
@@ -14,21 +14,6 @@ class UploadPdfBlockWidget extends StatelessWidget {
 
   final String fileUrl;
   final String fileType;
-
-  Future<void> _launchPdf(BuildContext context, String url) async {
-    final uri = Uri.parse(url);
-    try {
-      if (await canLaunchUrl(uri)) {
-        await launchUrl(uri, mode: LaunchMode.externalApplication);
-      } else {
-        throw Exception('Could not launch $url');
-      }
-    } catch (_) {
-      if (context.mounted) {
-        AppSnackBar.showError(context, context.l10n.authErrorGeneric);
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,15 +54,20 @@ class UploadPdfBlockWidget extends StatelessWidget {
                   SizedBox(height: 4.h),
                   Text(
                     fileType.toUpperCase(),
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodySmall?.copyWith(color: colorScheme.outline),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: colorScheme.outline,
+                    ),
                   ),
                 ],
               ),
             ),
             ElevatedButton(
-              onPressed: () => _launchPdf(context, resolvedUrl),
+              onPressed: () => Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => PdfViewerScreen(fileUrl: resolvedUrl),
+                ),
+              ),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.r),

@@ -5,6 +5,7 @@ import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/network/api_endpoints.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_cached_network_image.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/courses_models.dart';
 import '../../domain/usecases/courses_usecases.dart';
@@ -227,24 +228,26 @@ class _CourseBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final imageUrl = course.image == null
+        ? null
+        : (course.image!.contains('http') || course.image!.contains('https'))
+            ? course.image!
+            : '${ApiEndpoints.baseUrl}${course.image!}';
+
+    return SizedBox(
       height: 120.h,
-      decoration: BoxDecoration(
-        gradient: course.image == null ? gradient : null,
-        image: course.image != null
-            ? DecorationImage(
-                image: NetworkImage(
-                  (course.image!.contains('http') ||
-                          course.image!.contains('https'))
-                      ? course.image!
-                      : '${ApiEndpoints.baseUrl}${course.image!}',
-                ),
-                fit: BoxFit.cover,
-              )
-            : null,
-      ),
       child: Stack(
+        fit: StackFit.expand,
         children: [
+          Container(decoration: BoxDecoration(gradient: gradient)),
+          if (imageUrl != null)
+            AppCachedNetworkImage(
+              imageUrl: imageUrl,
+              width: double.infinity,
+              height: 120.h,
+              fit: BoxFit.cover,
+              errorWidget: const SizedBox.shrink(),
+            ),
           Container(color: Colors.black.withValues(alpha: 0.15)),
           PositionedDirectional(
             top: 12.h,

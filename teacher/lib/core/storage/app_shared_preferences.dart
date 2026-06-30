@@ -12,6 +12,8 @@ class AppSharedPreferences {
   static const String _userImageKey = 'user_image';
   static const String _userRolesKey = 'user_roles';
   static const String _isCourseCreatorKey = 'is_course_creator';
+  static const String _biometricEnabledKey = 'biometric_enabled';
+  static const String _biometricDontShowKey = 'biometric_dont_show';
 
   final SharedPreferences _preferences;
 
@@ -98,4 +100,16 @@ class AppSharedPreferences {
 
   bool get isCourseCreator =>
       _preferences.getBool(_isCourseCreatorKey) ?? false;
+
+  bool get biometricEnabled =>
+      _preferences.getBool(_biometricEnabledKey) ?? false;
+
+  Future<void> setBiometricEnabled(bool value) =>
+      _preferences.setBool(_biometricEnabledKey, value);
+
+  bool get biometricDontShow =>
+      _preferences.getBool(_biometricDontShowKey) ?? false;
+
+  Future<void> setBiometricDontShow(bool value) =>
+      _preferences.setBool(_biometricDontShowKey, value);
 }

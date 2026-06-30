@@ -350,6 +350,42 @@ abstract class AppLocalizations {
   /// **'Use password instead'**
   String get usePasswordFallback;
 
+  /// No description provided for @biometricRequestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Biometric Login'**
+  String get biometricRequestTitle;
+
+  /// No description provided for @biometricRequestSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed up your sign-in with fingerprint or face recognition.'**
+  String get biometricRequestSubtitle;
+
+  /// No description provided for @biometricEnableButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Biometric'**
+  String get biometricEnableButton;
+
+  /// No description provided for @biometricNotNowButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get biometricNotNowButton;
+
+  /// No description provided for @biometricDontShowAgainLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t show this again'**
+  String get biometricDontShowAgainLabel;
+
+  /// No description provided for @biometricUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Biometric authentication is not available on this device.'**
+  String get biometricUnavailable;
+
   /// No description provided for @authErrorGeneric.
   ///
   /// In en, this message translates to:

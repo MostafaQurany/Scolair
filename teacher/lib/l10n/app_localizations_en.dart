@@ -159,6 +159,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get usePasswordFallback => 'Use password instead';
 
   @override
+  String get biometricRequestTitle => 'Enable Biometric Login';
+
+  @override
+  String get biometricRequestSubtitle =>
+      'Speed up your sign-in with fingerprint or face recognition.';
+
+  @override
+  String get biometricEnableButton => 'Enable Biometric';
+
+  @override
+  String get biometricNotNowButton => 'Not now';
+
+  @override
+  String get biometricDontShowAgainLabel => 'Don\'t show this again';
+
+  @override
+  String get biometricUnavailable =>
+      'Biometric authentication is not available on this device.';
+
+  @override
   String get authErrorGeneric => 'Something went wrong. Please try again.';
 
   @override

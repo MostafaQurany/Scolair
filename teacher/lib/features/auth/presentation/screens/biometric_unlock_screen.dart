@@ -6,6 +6,7 @@ import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
 import '../cubit/biometric/biometric_cubit.dart';
 import '../cubit/biometric/biometric_state.dart';
 import '../widgets/auth_primary_button.dart';
@@ -106,9 +107,7 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
   }
 
   void _showError(BuildContext context) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorGeneric)));
+    AppSnackBar.showError(context, context.l10n.authErrorGeneric);
   }
 }
 
@@ -132,11 +131,26 @@ class _BiometricBody extends StatelessWidget {
           width: 96.r,
           height: 96.r,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: AppColors.primarySoft,
             shape: BoxShape.circle,
-            border: Border.all(color: Theme.of(context).colorScheme.outline),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primary.withValues(alpha: 0.18),
+                blurRadius: 28.r,
+                spreadRadius: 4.r,
+              ),
+            ],
           ),
-          child: Icon(Icons.fingerprint, color: AppColors.primary, size: 56.r),
+          child: Center(
+            child: ShaderMask(
+              shaderCallback: (bounds) => const LinearGradient(
+                colors: [AppColors.primary, AppColors.secondary],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ).createShader(bounds),
+              child: Icon(Icons.fingerprint, size: 54.r, color: Colors.white),
+            ),
+          ),
         ),
         SizedBox(height: 24.h),
         AuthHeader(

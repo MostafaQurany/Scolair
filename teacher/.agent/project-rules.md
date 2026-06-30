@@ -538,6 +538,105 @@ AssignmentsListShimmer
 * Do not show shimmer over already-loaded data unless the user explicitly asks for refresh-loading behavior.
 * Keep shimmer widgets UI-only. They must not call APIs, Cubits, repositories, storage, or navigation.
 
+## Error Logger
+
+* Use `logger: ^2.7.0` for development error logging and terminal debugging.
+* The logger is strictly for developer debugging inside the terminal.
+* Do not use `print()`, `debugPrint()`, or raw console logs for errors, API issues, Cubit failures, or debugging output.
+* Create a shared logger helper inside:
+
+```text
+lib/core/errors/
+```
+
+* Suggested file name:
+
+```text
+lib/core/errors/app_logger.dart
+```
+
+* Suggested class name:
+
+```dart
+AppLogger
+```
+
+* `AppLogger` should centralize all debug logs and expose clear methods such as:
+
+```dart
+AppLogger.debug(message);
+AppLogger.info(message);
+AppLogger.warning(message);
+AppLogger.error(message, error, stackTrace);
+```
+
+* All logged messages must include full technical details for developers, including:
+
+  * full error message
+  * stack trace
+  * API response data (when safe)
+  * request details (when needed)
+
+* Logger output must be detailed and complete for debugging purposes inside the terminal.
+
+* These detailed messages must **never** be shown to the user.
+
+* `AppLogger` must be disabled by default for production/release builds.
+
+* There must be a clear trigger in `main.dart` to enable or disable development logging.
+
+* The trigger should control whether logs appear in the terminal during development.
+
+* Suggested pattern:
+
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  AppLogger.configure(
+    enabled: true, // development only
+  );
+
+  runApp(const App());
+}
+```
+
+* When preparing production or release builds, logging must be disabled:
+
+```dart
+AppLogger.configure(
+  enabled: false,
+);
+```
+
+* Do not expose sensitive data in logs, including:
+
+  * tokens
+  * passwords
+  * authorization headers
+  * personal user data
+  * private API response data (unless sanitized)
+
+* `ErrorHandler` may use `AppLogger` internally to log full technical details, but it must return clean and user-friendly `Failure` objects to repositories and Cubits.
+
+* Repositories, Cubits, and widgets must not create their own `Logger()` instances directly.
+
+* All logger usage must go through `AppLogger`.
+
+* User-facing errors must always be simplified and shown using:
+
+```dart
+AppSnackBar.showError(context, message);
+```
+
+* The message shown to the user must be clean, readable, and safe.
+
+* The detailed developer message must remain only in the terminal logs.
+
+* Logger messages are for developers only and must never replace proper UI error handling.
+
+
+
 ## Branch Rules
 
 - `student`, `parent`, and `teacher` branches should share these base rules.

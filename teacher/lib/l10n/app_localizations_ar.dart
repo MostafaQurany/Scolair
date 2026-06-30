@@ -158,6 +158,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get usePasswordFallback => 'استخدام كلمة المرور بدلاً من ذلك';
 
   @override
+  String get biometricRequestTitle => 'تفعيل تسجيل الدخول ببصمة الإصبع';
+
+  @override
+  String get biometricRequestSubtitle =>
+      'تسجيل الدخول بشكل أسرع عبر بصمة الإصبع أو التعرف على الوجه.';
+
+  @override
+  String get biometricEnableButton => 'تفعيل البصمة';
+
+  @override
+  String get biometricNotNowButton => 'ليس الآن';
+
+  @override
+  String get biometricDontShowAgainLabel => 'لا تُظهر هذا مجددًا';
+
+  @override
+  String get biometricUnavailable =>
+      'المصادقة البيومترية غير متاحة على هذا الجهاز.';
+
+  @override
   String get authErrorGeneric => 'حدث خطأ ما. حاول مجدداً.';
 
   @override
