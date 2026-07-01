@@ -53,6 +53,9 @@ class BrowseCoursesTab extends StatelessWidget {
             onRefresh: context.read<CoursesCubit>().refreshCourses,
             onCourseTapped: onCourseTapped,
             onCourseChanged: onCourseChanged,
+            hasNextPage: state.coursesHasNextPage,
+            isLoadingMore: state.isLoadingMoreCourses,
+            onLoadMore: context.read<CoursesCubit>().loadMoreCourses,
           ),
         ),
       ],
@@ -158,7 +161,7 @@ class PublishedFilterChip extends StatelessWidget {
   }
 }
 
-class CoursesRefreshList extends StatelessWidget {
+class CoursesRefreshList extends StatefulWidget {
   const CoursesRefreshList({
     required this.courses,
     required this.isMyCourses,
@@ -166,6 +169,9 @@ class CoursesRefreshList extends StatelessWidget {
     this.hasActiveBrowseFilters = false,
     this.onCourseTapped,
     this.onCourseChanged,
+    this.hasNextPage = false,
+    this.isLoadingMore = false,
+    this.onLoadMore,
     super.key,
   });
 
@@ -175,27 +181,72 @@ class CoursesRefreshList extends StatelessWidget {
   final Future<void> Function() onRefresh;
   final ValueChanged<CourseModel>? onCourseTapped;
   final VoidCallback? onCourseChanged;
+  final bool hasNextPage;
+  final bool isLoadingMore;
+  final VoidCallback? onLoadMore;
+
+  @override
+  State<CoursesRefreshList> createState() => _CoursesRefreshListState();
+}
+
+class _CoursesRefreshListState extends State<CoursesRefreshList> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (widget.onLoadMore == null) return;
+    final position = _scrollController.position;
+    if (position.pixels >= position.maxScrollExtent - 200) {
+      widget.onLoadMore!();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final prefs = getIt<AppSharedPreferences>();
+    final showLoadMoreFooter = widget.hasNextPage || widget.isLoadingMore;
 
     return RefreshIndicator(
-      onRefresh: onRefresh,
-      child: courses.isEmpty
+      onRefresh: widget.onRefresh,
+      child: widget.courses.isEmpty
           ? CoursesEmptyState(
-              isMyCourses: isMyCourses,
-              hasActiveBrowseFilters: hasActiveBrowseFilters,
+              isMyCourses: widget.isMyCourses,
+              hasActiveBrowseFilters: widget.hasActiveBrowseFilters,
             )
           : ListView.builder(
+              controller: _scrollController,
               physics: const AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(
                 horizontal: context.isTabletLayout ? 32.w : 20.w,
                 vertical: 8.h,
               ),
-              itemCount: courses.length,
+              itemCount: widget.courses.length + (showLoadMoreFooter ? 1 : 0),
               itemBuilder: (context, index) {
-                final course = courses[index];
+                if (index >= widget.courses.length) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16.h),
+                    child: const Center(
+                      child: SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                    ),
+                  );
+                }
+                final course = widget.courses[index];
                 final canManage = CoursePermissionHelper.canManageCourse(
                   course,
                   prefs,
@@ -203,11 +254,11 @@ class CoursesRefreshList extends StatelessWidget {
                 return CourseCard(
                   course: course,
                   canManage: canManage,
-                  onTap: onCourseTapped != null
-                      ? () => onCourseTapped!(course)
+                  onTap: widget.onCourseTapped != null
+                      ? () => widget.onCourseTapped!(course)
                       : null,
-                  onDeleted: onCourseChanged,
-                  onEdited: onCourseChanged,
+                  onDeleted: widget.onCourseChanged,
+                  onEdited: widget.onCourseChanged,
                 );
               },
             ),

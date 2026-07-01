@@ -233,7 +233,7 @@ ListCoursesResponseData _$ListCoursesResponseDataFromJson(
 ) => ListCoursesResponseData(
   state: _stringFromJson(json['state']),
   message: _stringFromJson(json['message']),
-  data: _courseListFromJson(json['data']),
+  data: _paginatedCoursesFromJson(json['data']),
 );
 
 Map<String, dynamic> _$ListCoursesResponseDataToJson(
@@ -241,7 +241,7 @@ Map<String, dynamic> _$ListCoursesResponseDataToJson(
 ) => <String, dynamic>{
   'state': instance.state,
   'message': instance.message,
-  'data': instance.data,
+  'data': _paginatedCoursesToJson(instance.data),
 };
 
 GetCourseResponseData _$GetCourseResponseDataFromJson(
@@ -281,7 +281,7 @@ GetChaptersResponseData _$GetChaptersResponseDataFromJson(
 ) => GetChaptersResponseData(
   state: _stringFromJson(json['state']),
   message: _stringFromJson(json['message']),
-  data: _chapterSummaryListFromJson(json['data']),
+  data: _paginatedChaptersFromJson(json['data']),
 );
 
 Map<String, dynamic> _$GetChaptersResponseDataToJson(
@@ -289,7 +289,7 @@ Map<String, dynamic> _$GetChaptersResponseDataToJson(
 ) => <String, dynamic>{
   'state': instance.state,
   'message': instance.message,
-  'data': instance.data,
+  'data': _paginatedChaptersToJson(instance.data),
 };
 
 GetChapterResponseData _$GetChapterResponseDataFromJson(
@@ -329,7 +329,7 @@ GetLessonsResponseData _$GetLessonsResponseDataFromJson(
 ) => GetLessonsResponseData(
   state: _stringFromJson(json['state']),
   message: _stringFromJson(json['message']),
-  data: _lessonSummaryListFromJson(json['data']),
+  data: _paginatedLessonsFromJson(json['data']),
 );
 
 Map<String, dynamic> _$GetLessonsResponseDataToJson(
@@ -337,7 +337,7 @@ Map<String, dynamic> _$GetLessonsResponseDataToJson(
 ) => <String, dynamic>{
   'state': instance.state,
   'message': instance.message,
-  'data': instance.data,
+  'data': _paginatedLessonsToJson(instance.data),
 };
 
 GetLessonResponseData _$GetLessonResponseDataFromJson(

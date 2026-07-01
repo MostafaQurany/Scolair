@@ -266,9 +266,17 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<ListCoursesResponseData> listCourses(String? filters) async {
+  Future<ListCoursesResponseData> listCourses(
+    String? filters,
+    int start,
+    int pageSize,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'filters': filters};
+    final queryParameters = <String, dynamic>{
+      r'filters': filters,
+      r'start': start,
+      r'page_size': pageSize,
+    };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
@@ -401,9 +409,17 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<GetChaptersResponseData> getChapters(String courseName) async {
+  Future<GetChaptersResponseData> getChapters(
+    String courseName,
+    int start,
+    int pageSize,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'course': courseName};
+    final queryParameters = <String, dynamic>{
+      r'course': courseName,
+      r'start': start,
+      r'page_size': pageSize,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetChaptersResponseData>(
@@ -525,9 +541,17 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<GetLessonsResponseData> getLessons(String chapterName) async {
+  Future<GetLessonsResponseData> getLessons(
+    String chapterName,
+    int start,
+    int pageSize,
+  ) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'chapter': chapterName};
+    final queryParameters = <String, dynamic>{
+      r'chapter': chapterName,
+      r'start': start,
+      r'page_size': pageSize,
+    };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GetLessonsResponseData>(

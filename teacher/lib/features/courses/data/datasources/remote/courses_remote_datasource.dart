@@ -10,17 +10,27 @@ abstract class CoursesRemoteDataSource {
   Future<ListCoursesResponseData> listCourses({
     String searchText = '',
     bool? publishedFilter,
+    int start = 0,
+    int pageSize = 30,
   });
   Future<GetCourseResponseData> getCourse(String courseName);
   Future<CreateCourseResponseData> createCourse(Map<String, dynamic> body);
   Future<CreateCourseResponseData> updateCourse(Map<String, dynamic> body);
   Future<void> deleteCourse(Map<String, dynamic> body);
-  Future<GetChaptersResponseData> getChapters(String courseName);
+  Future<GetChaptersResponseData> getChapters(
+    String courseName, {
+    int start = 0,
+    int pageSize = 30,
+  });
   Future<GetChapterResponseData> getChapter(String chapterName);
   Future<CreateChapterResponseData> createChapter(Map<String, dynamic> body);
   Future<void> updateChapter(Map<String, dynamic> body);
   Future<void> deleteChapter(Map<String, dynamic> body);
-  Future<GetLessonsResponseData> getLessons(String chapterName);
+  Future<GetLessonsResponseData> getLessons(
+    String chapterName, {
+    int start = 0,
+    int pageSize = 30,
+  });
   Future<GetLessonResponseData> getLesson(String lessonName);
   Future<CreateLessonResponseData> createLesson(Map<String, dynamic> body);
   Future<UploadFileResponseData> uploadFile({
@@ -44,6 +54,8 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   Future<ListCoursesResponseData> listCourses({
     String searchText = '',
     bool? publishedFilter,
+    int start = 0,
+    int pageSize = 30,
   }) {
     final trimmedSearch = searchText.trim();
     final filters = <String, dynamic>{
@@ -51,7 +63,11 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
       if (trimmedSearch.isNotEmpty) 'name': ['like', '%$trimmedSearch%'],
     };
 
-    return _apiClient.listCourses(filters.isEmpty ? null : jsonEncode(filters));
+    return _apiClient.listCourses(
+      filters.isEmpty ? null : jsonEncode(filters),
+      start,
+      pageSize,
+    );
   }
 
   @override
@@ -71,8 +87,11 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
       _apiClient.deleteCourse(body);
 
   @override
-  Future<GetChaptersResponseData> getChapters(String courseName) =>
-      _apiClient.getChapters(courseName);
+  Future<GetChaptersResponseData> getChapters(
+    String courseName, {
+    int start = 0,
+    int pageSize = 30,
+  }) => _apiClient.getChapters(courseName, start, pageSize);
 
   @override
   Future<GetChapterResponseData> getChapter(String chapterName) =>
@@ -91,8 +110,11 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
       _apiClient.deleteChapter(body);
 
   @override
-  Future<GetLessonsResponseData> getLessons(String chapterName) =>
-      _apiClient.getLessons(chapterName);
+  Future<GetLessonsResponseData> getLessons(
+    String chapterName, {
+    int start = 0,
+    int pageSize = 30,
+  }) => _apiClient.getLessons(chapterName, start, pageSize);
 
   @override
   Future<GetLessonResponseData> getLesson(String lessonName) =>

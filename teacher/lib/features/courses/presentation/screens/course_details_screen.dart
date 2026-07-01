@@ -117,8 +117,35 @@ class CourseDetailsScreen extends StatelessWidget {
   }
 }
 
-class _CourseDetailsView extends StatelessWidget {
+class _CourseDetailsView extends StatefulWidget {
   const _CourseDetailsView();
+
+  @override
+  State<_CourseDetailsView> createState() => _CourseDetailsViewState();
+}
+
+class _CourseDetailsViewState extends State<_CourseDetailsView> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    final position = _scrollController.position;
+    if (position.pixels >= position.maxScrollExtent - 200) {
+      context.read<CourseDetailsCubit>().loadMoreChapters();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,6 +200,7 @@ class _CourseDetailsView extends StatelessWidget {
         );
 
         return ListView(
+          controller: _scrollController,
           padding: EdgeInsets.all(20.r),
           children: [
             CourseHeaderCard(course: course),
@@ -216,6 +244,17 @@ class _CourseDetailsView extends StatelessWidget {
                   chapter: chapter,
                   courseName: course.name,
                   canManageCourse: canManage,
+                ),
+              ),
+            if (state.isLoadingMoreChapters || state.chaptersHasNextPage)
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.h),
+                child: const Center(
+                  child: SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
                 ),
               ),
           ],

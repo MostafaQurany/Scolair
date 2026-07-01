@@ -1,6 +1,7 @@
 import 'dart:io';
 import '../../../../core/errors/error_handler.dart';
 import '../../../../core/network/api_result.dart';
+import '../../../../core/network/paginated_list.dart';
 import '../../domain/repositories/courses_repository.dart';
 import '../datasources/remote/courses_remote_datasource.dart';
 import '../models/courses_models.dart';
@@ -20,13 +21,17 @@ class CoursesRepositoryImpl implements CoursesRepository {
   }
 
   @override
-  Future<ApiResult<List<CourseModel>>> listCourses({
+  Future<ApiResult<PaginatedList<CourseModel>>> listCourses({
     String searchText = '',
     bool? publishedFilter,
+    int start = 0,
+    int pageSize = 30,
   }) => _getResult(
     () async => (await _remoteDataSource.listCourses(
       searchText: searchText,
       publishedFilter: publishedFilter,
+      start: start,
+      pageSize: pageSize,
     )).data,
   );
 
@@ -92,11 +97,18 @@ class CoursesRepositoryImpl implements CoursesRepository {
       _getResult(() => _remoteDataSource.deleteCourse({'course': courseName}));
 
   @override
-  Future<ApiResult<List<ChapterSummaryModel>>> getChapters(String courseName) =>
-      _getResult(() async {
-        final response = await _remoteDataSource.getChapters(courseName);
-        return response.data;
-      });
+  Future<ApiResult<PaginatedList<ChapterSummaryModel>>> getChapters(
+    String courseName, {
+    int start = 0,
+    int pageSize = 30,
+  }) => _getResult(() async {
+    final response = await _remoteDataSource.getChapters(
+      courseName,
+      start: start,
+      pageSize: pageSize,
+    );
+    return response.data;
+  });
 
   @override
   Future<ApiResult<ChapterDetailModel>> getChapter(String chapterName) =>
@@ -136,11 +148,18 @@ class CoursesRepositoryImpl implements CoursesRepository {
   );
 
   @override
-  Future<ApiResult<List<LessonSummaryModel>>> getLessons(String chapterName) =>
-      _getResult(() async {
-        final response = await _remoteDataSource.getLessons(chapterName);
-        return response.data;
-      });
+  Future<ApiResult<PaginatedList<LessonSummaryModel>>> getLessons(
+    String chapterName, {
+    int start = 0,
+    int pageSize = 30,
+  }) => _getResult(() async {
+    final response = await _remoteDataSource.getLessons(
+      chapterName,
+      start: start,
+      pageSize: pageSize,
+    );
+    return response.data;
+  });
 
   @override
   Future<ApiResult<LessonDetailModel>> getLesson(String lessonName) =>

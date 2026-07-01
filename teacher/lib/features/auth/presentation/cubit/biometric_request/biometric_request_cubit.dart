@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:local_auth/local_auth.dart';
 
 import '../../../../../core/storage/app_shared_preferences.dart';
+import '../../../../../core/utils/biometric_availability.dart';
 import 'biometric_request_state.dart';
 
 class BiometricRequestCubit extends Cubit<BiometricRequestState> {
@@ -14,8 +15,7 @@ class BiometricRequestCubit extends Cubit<BiometricRequestState> {
   Future<void> enableBiometric({required bool dontShowAgain}) async {
     emit(const BiometricRequestState.loading());
 
-    final canAuth =
-        await _auth.canCheckBiometrics || await _auth.isDeviceSupported();
+    final canAuth = await isBiometricAvailable(_auth);
     if (!canAuth) {
       emit(const BiometricRequestState.unavailable());
       return;

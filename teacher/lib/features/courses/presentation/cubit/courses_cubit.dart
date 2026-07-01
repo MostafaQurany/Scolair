@@ -21,18 +21,22 @@ class CoursesCubit extends Cubit<CoursesState> {
     final allRes = await _listCoursesUseCase(
       searchText: state.searchText,
       publishedFilter: state.publishedFilter,
+      pageSize: 2
     );
     final myRes = await _getMyCoursesUseCase();
     if (requestId != _requestId) return;
 
     allRes.when(
-      success: (allCourses) {
+      success: (page) {
         myRes.when(
           success: (myCoursesData) {
             emit(
               state.copyWith(
                 isInitialLoading: false,
-                allCourses: allCourses,
+                allCourses: page.items,
+                coursesStart: page.start,
+                coursesPageSize: page.pageSize,
+                coursesHasNextPage: page.hasNextPage,
                 myCourses: myCoursesData.courses,
                 errorMessage: null,
               ),
@@ -42,9 +46,12 @@ class CoursesCubit extends Cubit<CoursesState> {
             emit(
               state.copyWith(
                 isInitialLoading: false,
-                allCourses: allCourses,
+                allCourses: page.items,
+                coursesStart: page.start,
+                coursesPageSize: page.pageSize,
+                coursesHasNextPage: page.hasNextPage,
                 myCourses: const [],
-                errorMessage: allCourses.isEmpty ? fail.message : null,
+                errorMessage: page.items.isEmpty ? fail.message : null,
               ),
             );
           },
@@ -58,6 +65,40 @@ class CoursesCubit extends Cubit<CoursesState> {
     );
   }
 
+  Future<void> loadMoreCourses() async {
+    if (state.isLoadingMoreCourses || !state.coursesHasNextPage) return;
+
+    final requestId = ++_requestId;
+    emit(state.copyWith(isLoadingMoreCourses: true));
+
+    final result = await _listCoursesUseCase(
+      searchText: state.searchText,
+      publishedFilter: state.publishedFilter,
+      start: state.coursesStart + state.coursesPageSize,
+      pageSize: state.coursesPageSize,
+    );
+    if (requestId != _requestId) return;
+
+    result.when(
+      success: (page) {
+        emit(
+          state.copyWith(
+            isLoadingMoreCourses: false,
+            allCourses: [...state.allCourses ?? const [], ...page.items],
+            coursesStart: page.start,
+            coursesPageSize: page.pageSize,
+            coursesHasNextPage: page.hasNextPage,
+          ),
+        );
+      },
+      failure: (fail) {
+        emit(
+          state.copyWith(isLoadingMoreCourses: false, errorMessage: fail.message),
+        );
+      },
+    );
+  }
+
   Future<void> refreshCourses() async {
     final requestId = ++_requestId;
     emit(state.copyWith(isRefreshing: true, errorMessage: null));
@@ -65,18 +106,22 @@ class CoursesCubit extends Cubit<CoursesState> {
     final allRes = await _listCoursesUseCase(
       searchText: state.searchText,
       publishedFilter: state.publishedFilter,
+      pageSize: 2
     );
     final myRes = await _getMyCoursesUseCase();
     if (requestId != _requestId) return;
 
     allRes.when(
-      success: (allCourses) {
+      success: (page) {
         myRes.when(
           success: (myCoursesData) {
             emit(
               state.copyWith(
                 isRefreshing: false,
-                allCourses: allCourses,
+                allCourses: page.items,
+                coursesStart: page.start,
+                coursesPageSize: page.pageSize,
+                coursesHasNextPage: page.hasNextPage,
                 myCourses: myCoursesData.courses,
                 errorMessage: null,
               ),
@@ -86,7 +131,10 @@ class CoursesCubit extends Cubit<CoursesState> {
             emit(
               state.copyWith(
                 isRefreshing: false,
-                allCourses: allCourses,
+                allCourses: page.items,
+                coursesStart: page.start,
+                coursesPageSize: page.pageSize,
+                coursesHasNextPage: page.hasNextPage,
                 errorMessage: fail.message,
               ),
             );
@@ -164,11 +212,14 @@ class CoursesCubit extends Cubit<CoursesState> {
     if (requestId != _requestId) return;
 
     result.when(
-      success: (courses) {
+      success: (page) {
         emit(
           state.copyWith(
             isFiltering: false,
-            allCourses: courses,
+            allCourses: page.items,
+            coursesStart: page.start,
+            coursesPageSize: page.pageSize,
+            coursesHasNextPage: page.hasNextPage,
             errorMessage: null,
           ),
         );

@@ -1,5 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../../core/network/paginated_list.dart';
+
 part 'courses_models.g.dart';
 
 @JsonSerializable()
@@ -348,8 +350,8 @@ class ListCoursesResponseData {
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
-  @JsonKey(fromJson: _courseListFromJson)
-  final List<CourseModel> data;
+  @JsonKey(fromJson: _paginatedCoursesFromJson, toJson: _paginatedCoursesToJson)
+  final PaginatedList<CourseModel> data;
 
   factory ListCoursesResponseData.fromJson(Map<String, dynamic> json) =>
       _$ListCoursesResponseDataFromJson(json);
@@ -411,8 +413,8 @@ class GetChaptersResponseData {
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
-  @JsonKey(fromJson: _chapterSummaryListFromJson)
-  final List<ChapterSummaryModel> data;
+  @JsonKey(fromJson: _paginatedChaptersFromJson, toJson: _paginatedChaptersToJson)
+  final PaginatedList<ChapterSummaryModel> data;
 
   factory GetChaptersResponseData.fromJson(Map<String, dynamic> json) =>
       _$GetChaptersResponseDataFromJson(json);
@@ -474,8 +476,8 @@ class GetLessonsResponseData {
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
-  @JsonKey(fromJson: _lessonSummaryListFromJson)
-  final List<LessonSummaryModel> data;
+  @JsonKey(fromJson: _paginatedLessonsFromJson, toJson: _paginatedLessonsToJson)
+  final PaginatedList<LessonSummaryModel> data;
 
   factory GetLessonsResponseData.fromJson(Map<String, dynamic> json) =>
       _$GetLessonsResponseDataFromJson(json);
@@ -687,14 +689,6 @@ List<CourseModel> _courseListFromJson(Object? json) {
       .toList();
 }
 
-List<ChapterSummaryModel> _chapterSummaryListFromJson(Object? json) {
-  if (json is! List) return <ChapterSummaryModel>[];
-  return json
-      .whereType<Map>()
-      .map((item) => ChapterSummaryModel.fromJson(_asStringMap(item)))
-      .toList();
-}
-
 List<LessonSummaryModel> _lessonSummaryListFromJson(Object? json) {
   if (json is! List) return <LessonSummaryModel>[];
   return json
@@ -702,3 +696,40 @@ List<LessonSummaryModel> _lessonSummaryListFromJson(Object? json) {
       .map((item) => LessonSummaryModel.fromJson(_asStringMap(item)))
       .toList();
 }
+
+PaginatedList<CourseModel> _paginatedCoursesFromJson(Object? json) =>
+    PaginatedList.fromJson(json, _courseFromJson);
+
+Map<String, dynamic> _paginatedCoursesToJson(PaginatedList<CourseModel> data) => {
+  'items': data.items.map((e) => e.toJson()).toList(),
+  'total': data.total,
+  'start': data.start,
+  'page_size': data.pageSize,
+  'has_next_page': data.hasNextPage,
+};
+
+PaginatedList<LessonSummaryModel> _paginatedLessonsFromJson(Object? json) =>
+    PaginatedList.fromJson(json, _lessonSummaryFromJson);
+
+Map<String, dynamic> _paginatedLessonsToJson(
+  PaginatedList<LessonSummaryModel> data,
+) => {
+  'items': data.items.map((e) => e.toJson()).toList(),
+  'total': data.total,
+  'start': data.start,
+  'page_size': data.pageSize,
+  'has_next_page': data.hasNextPage,
+};
+
+PaginatedList<ChapterSummaryModel> _paginatedChaptersFromJson(Object? json) =>
+    PaginatedList.fromJson(json, _chapterSummaryFromJson);
+
+Map<String, dynamic> _paginatedChaptersToJson(
+  PaginatedList<ChapterSummaryModel> data,
+) => {
+  'items': data.items.map((e) => e.toJson()).toList(),
+  'total': data.total,
+  'start': data.start,
+  'page_size': data.pageSize,
+  'has_next_page': data.hasNextPage,
+};

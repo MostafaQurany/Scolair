@@ -41,6 +41,7 @@ import '../../features/courses/domain/usecases/courses_usecases.dart';
 import '../../features/courses/presentation/cubit/courses_cubit.dart';
 import '../../features/courses/presentation/cubit/course_details_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_details_cubit.dart';
+import '../../features/courses/presentation/cubit/chapter_lessons_cubit.dart';
 import '../../features/courses/presentation/cubit/course_form_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_form_cubit.dart';
 
@@ -166,6 +167,9 @@ Future<void> setupDependencyInjection() async {
     // Cubits
     ..registerFactory<CoursesCubit>(
       () => CoursesCubit(getIt(), getIt(), getIt()),
+    )
+    ..registerFactory<ChapterLessonsCubit>(
+      () => ChapterLessonsCubit(getIt()),
     )
     ..registerFactory<CourseDetailsCubit>(
       () => CourseDetailsCubit(

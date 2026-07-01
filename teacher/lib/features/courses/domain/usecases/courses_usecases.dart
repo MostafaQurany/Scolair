@@ -1,17 +1,22 @@
 import 'dart:io';
 import '../../../../core/network/api_result.dart';
+import '../../../../core/network/paginated_list.dart';
 import '../../data/models/courses_models.dart';
 import '../repositories/courses_repository.dart';
 
 class ListCoursesUseCase {
   const ListCoursesUseCase(this._repository);
   final CoursesRepository _repository;
-  Future<ApiResult<List<CourseModel>>> call({
+  Future<ApiResult<PaginatedList<CourseModel>>> call({
     String searchText = '',
     bool? publishedFilter,
+    int start = 0,
+    int pageSize = 30,
   }) => _repository.listCourses(
     searchText: searchText,
     publishedFilter: publishedFilter,
+    start: start,
+    pageSize: pageSize,
   );
 }
 
@@ -82,8 +87,11 @@ class DeleteCourseUseCase {
 class GetChaptersUseCase {
   const GetChaptersUseCase(this._repository);
   final CoursesRepository _repository;
-  Future<ApiResult<List<ChapterSummaryModel>>> call(String courseName) =>
-      _repository.getChapters(courseName);
+  Future<ApiResult<PaginatedList<ChapterSummaryModel>>> call(
+    String courseName, {
+    int start = 0,
+    int pageSize = 30,
+  }) => _repository.getChapters(courseName, start: start, pageSize: pageSize);
 }
 
 class GetChapterUseCase {
@@ -126,8 +134,11 @@ class DeleteChapterUseCase {
 class GetLessonsUseCase {
   const GetLessonsUseCase(this._repository);
   final CoursesRepository _repository;
-  Future<ApiResult<List<LessonSummaryModel>>> call(String chapterName) =>
-      _repository.getLessons(chapterName);
+  Future<ApiResult<PaginatedList<LessonSummaryModel>>> call(
+    String chapterName, {
+    int start = 0,
+    int pageSize = 30,
+  }) => _repository.getLessons(chapterName, start: start, pageSize: pageSize);
 }
 
 class GetLessonUseCase {

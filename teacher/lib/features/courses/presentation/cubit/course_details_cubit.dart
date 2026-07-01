@@ -21,58 +21,42 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
   final UpdateChapterUseCase _updateChapterUseCase;
   final DeleteChapterUseCase _deleteChapterUseCase;
   final DeleteLessonUseCase _deleteLessonUseCase;
+  int _requestId = 0;
 
   Future<void> loadCourseDetails(String courseName) async {
+    final requestId = ++_requestId;
     emit(state.copyWith(isLoading: true, errorMessage: null));
 
     final courseRes = await _getCourseUseCase(courseName);
+    if (requestId != _requestId) return;
 
     courseRes.when(
       success: (course) async {
         final chaptersRes = await _getChaptersUseCase(courseName);
+        if (requestId != _requestId) return;
 
         chaptersRes.when(
-          success: (chapterSummaries) async {
-            final List<ChapterDetailModel> chapterDetails = [];
-            String? errorMsg;
+          success: (page) async {
+            final result = await _fetchChapterDetails(page.items);
+            if (requestId != _requestId) return;
 
-            for (final summary in chapterSummaries) {
-              final chapterDetailRes = await _getChapterUseCase(summary.name);
-              chapterDetailRes.when(
-                success: (detail) {
-                  chapterDetails.add(detail);
-                },
-                failure: (fail) {
-                  errorMsg = fail.message;
-                },
-              );
-              if (errorMsg != null) break;
-            }
-
-            if (errorMsg != null) {
+            if (result.errorMessage != null) {
               emit(
                 state.copyWith(
                   isLoading: false,
                   course: course,
-                  errorMessage: errorMsg,
+                  errorMessage: result.errorMessage,
                 ),
               );
             } else {
-              chapterDetails.sort((a, b) {
-                final aIdx = chapterSummaries
-                    .firstWhere((s) => s.name == a.name)
-                    .idx;
-                final bIdx = chapterSummaries
-                    .firstWhere((s) => s.name == b.name)
-                    .idx;
-                return aIdx.compareTo(bIdx);
-              });
-
               emit(
                 state.copyWith(
                   isLoading: false,
                   course: course,
-                  chapters: chapterDetails,
+                  chapters: result.details,
+                  chaptersStart: page.start,
+                  chaptersPageSize: page.pageSize,
+                  chaptersHasNextPage: page.hasNextPage,
                 ),
               );
             }
@@ -92,6 +76,91 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
         emit(state.copyWith(isLoading: false, errorMessage: fail.message));
       },
     );
+  }
+
+  Future<void> loadMoreChapters() async {
+    final courseName = state.course?.name;
+    if (courseName == null ||
+        state.isLoadingMoreChapters ||
+        !state.chaptersHasNextPage) {
+      return;
+    }
+
+    final requestId = ++_requestId;
+    emit(state.copyWith(isLoadingMoreChapters: true));
+
+    final chaptersRes = await _getChaptersUseCase(
+      courseName,
+      start: state.chaptersStart + state.chaptersPageSize,
+      pageSize: state.chaptersPageSize,
+    );
+    if (requestId != _requestId) return;
+
+    await chaptersRes.when(
+      success: (page) async {
+        final result = await _fetchChapterDetails(page.items);
+        if (requestId != _requestId) return;
+
+        if (result.errorMessage != null) {
+          emit(
+            state.copyWith(
+              isLoadingMoreChapters: false,
+              errorMessage: result.errorMessage,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              isLoadingMoreChapters: false,
+              chapters: [...state.chapters ?? const [], ...result.details],
+              chaptersStart: page.start,
+              chaptersPageSize: page.pageSize,
+              chaptersHasNextPage: page.hasNextPage,
+            ),
+          );
+        }
+      },
+      failure: (fail) async {
+        emit(
+          state.copyWith(
+            isLoadingMoreChapters: false,
+            errorMessage: fail.message,
+          ),
+        );
+      },
+    );
+  }
+
+  Future<
+    ({List<ChapterDetailModel> details, String? errorMessage})
+  > _fetchChapterDetails(List<ChapterSummaryModel> summaries) async {
+    final List<ChapterDetailModel> chapterDetails = [];
+    String? errorMsg;
+
+    for (final summary in summaries) {
+      final chapterDetailRes = await _getChapterUseCase(summary.name);
+      chapterDetailRes.when(
+        success: (detail) {
+          chapterDetails.add(detail);
+        },
+        failure: (fail) {
+          errorMsg = fail.message;
+        },
+      );
+      if (errorMsg != null) break;
+    }
+
+    if (errorMsg != null) {
+      return (details: <ChapterDetailModel>[], errorMessage: errorMsg);
+    }
+
+    chapterDetails.sort((a, b) {
+      final aIdx = summaries.firstWhere((s) => s.name == a.name).idx;
+      final bIdx = summaries.firstWhere((s) => s.name == b.name).idx;
+      return aIdx.compareTo(bIdx);
+    });
+
+    return (details: chapterDetails, errorMessage: null);
   }
 
   Future<void> createChapter({

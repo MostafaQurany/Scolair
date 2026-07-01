@@ -62,6 +62,8 @@ abstract class ApiClient {
   @GET(ApiEndpoints.listCourses)
   Future<ListCoursesResponseData> listCourses(
     @Query('filters') String? filters,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
   );
 
   @GET(ApiEndpoints.getCourse)
@@ -83,6 +85,8 @@ abstract class ApiClient {
   @GET(ApiEndpoints.getChapters)
   Future<GetChaptersResponseData> getChapters(
     @Query('course') String courseName,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
   );
 
   @GET(ApiEndpoints.getChapter)
@@ -104,6 +108,8 @@ abstract class ApiClient {
   @GET(ApiEndpoints.getLessons)
   Future<GetLessonsResponseData> getLessons(
     @Query('chapter') String chapterName,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
   );
 
   @GET(ApiEndpoints.getLesson)

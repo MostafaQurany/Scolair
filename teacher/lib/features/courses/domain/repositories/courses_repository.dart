@@ -1,11 +1,14 @@
 import 'dart:io';
 import '../../../../core/network/api_result.dart';
+import '../../../../core/network/paginated_list.dart';
 import '../../data/models/courses_models.dart';
 
 abstract class CoursesRepository {
-  Future<ApiResult<List<CourseModel>>> listCourses({
+  Future<ApiResult<PaginatedList<CourseModel>>> listCourses({
     String searchText = '',
     bool? publishedFilter,
+    int start = 0,
+    int pageSize = 30,
   });
   Future<ApiResult<CourseModel>> getCourse(String courseName);
   Future<ApiResult<CourseModel>> createCourse({
@@ -30,7 +33,11 @@ abstract class CoursesRepository {
     bool? enableCertification,
   });
   Future<ApiResult<void>> deleteCourse(String courseName);
-  Future<ApiResult<List<ChapterSummaryModel>>> getChapters(String courseName);
+  Future<ApiResult<PaginatedList<ChapterSummaryModel>>> getChapters(
+    String courseName, {
+    int start = 0,
+    int pageSize = 30,
+  });
   Future<ApiResult<ChapterDetailModel>> getChapter(String chapterName);
   Future<ApiResult<ChapterSummaryModel>> createChapter({
     required String title,
@@ -42,7 +49,11 @@ abstract class CoursesRepository {
     required String title,
   });
   Future<ApiResult<void>> deleteChapter(String chapterName);
-  Future<ApiResult<List<LessonSummaryModel>>> getLessons(String chapterName);
+  Future<ApiResult<PaginatedList<LessonSummaryModel>>> getLessons(
+    String chapterName, {
+    int start = 0,
+    int pageSize = 30,
+  });
   Future<ApiResult<LessonDetailModel>> getLesson(String lessonName);
   Future<ApiResult<LessonSummaryModel>> createLesson({
     required String title,
