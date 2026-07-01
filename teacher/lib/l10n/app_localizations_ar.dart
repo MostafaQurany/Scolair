@@ -158,6 +158,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get usePasswordFallback => 'استخدام كلمة المرور بدلاً من ذلك';
 
   @override
+  String get biometricRequestTitle => 'تفعيل تسجيل الدخول ببصمة الإصبع';
+
+  @override
+  String get biometricRequestSubtitle =>
+      'تسجيل الدخول بشكل أسرع عبر بصمة الإصبع أو التعرف على الوجه.';
+
+  @override
+  String get biometricEnableButton => 'تفعيل البصمة';
+
+  @override
+  String get biometricNotNowButton => 'ليس الآن';
+
+  @override
+  String get biometricDontShowAgainLabel => 'لا تُظهر هذا مجددًا';
+
+  @override
+  String get biometricUnavailable =>
+      'المصادقة البيومترية غير متاحة على هذا الجهاز.';
+
+  @override
   String get authErrorGeneric => 'حدث خطأ ما. حاول مجدداً.';
 
   @override
@@ -206,6 +226,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get createAccountButton => 'إنشاء حساب';
 
   @override
+  String get registerSuccess => 'تم إنشاء الحساب بنجاح. يرجى تسجيل الدخول.';
+
+  @override
   String get alreadyHaveAccountLink => 'لديك حساب بالفعل؟ تسجيل الدخول';
 
   @override
@@ -225,4 +248,370 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get logoutButton => 'تسجيل الخروج';
+
+  @override
+  String get navHome => 'الرئيسية';
+
+  @override
+  String get navClasses => 'الفصول';
+
+  @override
+  String get navStudents => 'الطلاب';
+
+  @override
+  String get navMessages => 'الرسائل';
+
+  @override
+  String get navSchedule => 'الجدول';
+
+  @override
+  String get navClassesPlaceholder => 'ستظهر أدوات الفصول هنا.';
+
+  @override
+  String get navStudentsPlaceholder => 'ستظهر سجلات الطلاب هنا.';
+
+  @override
+  String get navMessagesPlaceholder => 'ستظهر الرسائل هنا.';
+
+  @override
+  String get navSchedulePlaceholder => 'ستظهر أدوات الجدول هنا.';
+
+  @override
+  String get coursesMyCoursesTab => 'دوراتي';
+
+  @override
+  String get coursesBrowseAllTab => 'تصفح الكل';
+
+  @override
+  String get coursesSearchHint => 'ابحث عن الدورات';
+
+  @override
+  String get coursesFilterAll => 'الكل';
+
+  @override
+  String get coursesFilterPublished => 'منشورة';
+
+  @override
+  String get coursesFilterUnpublished => 'غير منشورة';
+
+  @override
+  String get coursesNoCoursesTitle => 'لا توجد دورات';
+
+  @override
+  String get coursesNoMatchesMessage => 'جرب بحثا أو فلترا مختلفا.';
+
+  @override
+  String get coursesNoMyCoursesMessage =>
+      'لست مسجلا أو معلما في أي دورات حاليا.';
+
+  @override
+  String get coursesNoBrowseCoursesMessage => 'تحقق لاحقا للدورات الجديدة.';
+
+  @override
+  String get coursesDefaultStatusActive => 'نشطة';
+
+  @override
+  String coursesLessonsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دروس',
+      one: 'درس واحد',
+      zero: '0 دروس',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String coursesEnrollmentsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count مسجلين',
+      one: 'مسجل واحد',
+      zero: '0 مسجلين',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get courseDetails => 'تفاصيل الدورة';
+
+  @override
+  String get courseOutline => 'مخطط الدورة';
+
+  @override
+  String get instructors => 'المعلمون';
+
+  @override
+  String get createCourse => 'إنشاء دورة';
+
+  @override
+  String get editCourse => 'تعديل الدورة';
+
+  @override
+  String get deleteCourse => 'حذف الدورة';
+
+  @override
+  String get deleteCourseConfirmTitle => 'حذف الدورة';
+
+  @override
+  String get deleteCourseConfirmBody =>
+      'هل أنت متأكد من رغبتك في حذف هذه الدورة؟';
+
+  @override
+  String get courseCreatedSuccess => 'تم إنشاء الدورة بنجاح';
+
+  @override
+  String get courseUpdatedSuccess => 'تم تحديث الدورة بنجاح';
+
+  @override
+  String get courseDeletedSuccess => 'تم حذف الدورة بنجاح';
+
+  @override
+  String get courseTitleLabel => 'عنوان الدورة';
+
+  @override
+  String get courseDescriptionLabel => 'الوصف';
+
+  @override
+  String get courseShortIntroLabel => 'مقدمة قصيرة';
+
+  @override
+  String get courseTagsLabel => 'الوسوم';
+
+  @override
+  String get courseVideoLinkLabel => 'رابط الفيديو التعريفي';
+
+  @override
+  String get coursePublishedLabel => 'منشورة';
+
+  @override
+  String get courseEnableCertificationLabel => 'تفعيل الشهادات';
+
+  @override
+  String get courseTitleRequired => 'العنوان مطلوب';
+
+  @override
+  String get courseShortIntroRequired => 'المقدمة القصيرة مطلوبة';
+
+  @override
+  String get courseDescriptionRequired => 'الوصف مطلوب';
+
+  @override
+  String get courseImageLabel => 'صورة الدورة';
+
+  @override
+  String get courseImageHint => 'ألصق رابط صورة أو ارفع ملفا';
+
+  @override
+  String get selectCourseImage => 'اختر صورة الدورة';
+
+  @override
+  String get courseBasicInfoSection => 'المعلومات الأساسية';
+
+  @override
+  String get courseMediaSection => 'الوسائط';
+
+  @override
+  String get courseTagsSection => 'الوسوم';
+
+  @override
+  String get courseSettingsSection => 'الإعدادات';
+
+  @override
+  String get courseTagsHint => 'مفصولة بفواصل، مثل: python، مبتدئ';
+
+  @override
+  String get noChaptersOrLessons =>
+      'لا توجد فصول أو دروس مدرجة في هذه الدورة بعد.';
+
+  @override
+  String get createChapter => 'إنشاء فصل';
+
+  @override
+  String get editChapter => 'تعديل الفصل';
+
+  @override
+  String get deleteChapter => 'حذف الفصل';
+
+  @override
+  String get deleteChapterConfirmTitle => 'حذف الفصل';
+
+  @override
+  String get deleteChapterConfirmBody =>
+      'هل أنت متأكد من رغبتك في حذف هذا الفصل؟';
+
+  @override
+  String get chapterCreatedSuccess => 'تم إنشاء الفصل بنجاح';
+
+  @override
+  String get chapterUpdatedSuccess => 'تم تحديث الفصل بنجاح';
+
+  @override
+  String get chapterDeletedSuccess => 'تم حذف الفصل بنجاح';
+
+  @override
+  String get chapterTitleLabel => 'عنوان الفصل';
+
+  @override
+  String get chapterTitleRequired => 'العنوان مطلوب';
+
+  @override
+  String get isScormPackageLabel => 'ملف SCORM تفاعلي';
+
+  @override
+  String get lessonMaterial => 'محتوى الدرس';
+
+  @override
+  String get createLesson => 'إنشاء درس';
+
+  @override
+  String get editLesson => 'تعديل الدرس';
+
+  @override
+  String get deleteLesson => 'حذف الدرس';
+
+  @override
+  String get deleteLessonConfirmTitle => 'حذف الدرس';
+
+  @override
+  String get deleteLessonConfirmBody =>
+      'هل أنت متأكد من رغبتك في حذف هذا الدرس؟';
+
+  @override
+  String get lessonCreatedSuccess => 'تم إنشاء الدرس بنجاح';
+
+  @override
+  String get lessonUpdatedSuccess => 'تم تحديث الدرس بنجاح';
+
+  @override
+  String get lessonDeletedSuccess => 'تم حذف الدرس بنجاح';
+
+  @override
+  String get lessonTitleLabel => 'عنوان الدرس';
+
+  @override
+  String get lessonTitleRequired => 'العنوان مطلوب';
+
+  @override
+  String get includeInPreviewLabel => 'تضمين في المعاينة';
+
+  @override
+  String get contentTypeLabel => 'نوع المحتوى';
+
+  @override
+  String get instructorNotes => 'ملاحظات المعلم';
+
+  @override
+  String get contentTypeText => 'نص';
+
+  @override
+  String get contentTypeYouTube => 'فيديو يوتيوب';
+
+  @override
+  String get contentTypeVideo => 'تحميل فيديو';
+
+  @override
+  String get contentTypePdf => 'تحميل PDF';
+
+  @override
+  String get contentTypeQuiz => 'اختبار قصير';
+
+  @override
+  String get contentTypeCode => 'صندوق الكود';
+
+  @override
+  String get lessonMarkdownLabel => 'نص الدرس';
+
+  @override
+  String get lessonMarkdownHint => 'اكتب نص الدرس. يتم دعم Markdown.';
+
+  @override
+  String get lessonPartContentRequired => 'كل جزء من الدرس يحتاج إلى محتوى.';
+
+  @override
+  String get youtubeUrlLabel => 'رابط فيديو يوتيوب';
+
+  @override
+  String get youtubeUrlHint => 'أدخل رابط يوتيوب';
+
+  @override
+  String get youtubeUrlInvalid => 'رابط يوتيوب غير صالح';
+
+  @override
+  String get quizNameLabel => 'اسم الاختبار';
+
+  @override
+  String get codeContentLabel => 'قصاصة الكود';
+
+  @override
+  String get codeLanguageLabel => 'لغة البرمجة';
+
+  @override
+  String get selectFile => 'اختر ملفاً';
+
+  @override
+  String get uploadingFile => 'جاري رفع الملف...';
+
+  @override
+  String get uploadSuccess => 'تم رفع الملف بنجاح';
+
+  @override
+  String get uploadError => 'فشل رفع الملف';
+
+  @override
+  String get youtubeVideoLink => 'رابط فيديو يوتيوب';
+
+  @override
+  String get copyVideoLink => 'نسخ رابط الفيديو';
+
+  @override
+  String get linkCopied => 'تم نسخ الرابط إلى الحافظة';
+
+  @override
+  String get codeCopiedToClipboard => 'تم نسخ الكود إلى الحافظة';
+
+  @override
+  String get interactiveAssessment => 'تقييم تفاعلي';
+
+  @override
+  String get startQuizNow => 'ابدأ الاختبار الآن';
+
+  @override
+  String get openVideo => 'فتح الفيديو';
+
+  @override
+  String get downloadFile => 'تحميل الملف';
+
+  @override
+  String get unableToStreamPrivateFile =>
+      'هذا ملف مدرسي خاص. اضغط أدناه لتحميله أو عرضه في تطبيق خارجي.';
+
+  @override
+  String get viewPdf => 'عرض PDF';
+
+  @override
+  String get openPdf => 'فتح PDF';
+
+  @override
+  String get unsupportedBlockType => 'نوع كتلة غير مدعوم';
+
+  @override
+  String get malformedContent => 'محتوى تالف';
+
+  @override
+  String get openLink => 'فتح الرابط';
+
+  @override
+  String get quizPlaceholder => 'الاختبارات للقراءة فقط حالياً';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get delete => 'حذف';
 }

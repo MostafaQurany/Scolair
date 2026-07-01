@@ -1,0 +1,22 @@
+# Courses Search, Filter, And Refresh Acceptance
+
+- [x] Courses screen has pull-to-refresh.
+- [x] Courses screen has server-side search by name.
+- [x] Courses screen has server-side published filter.
+- [x] Published filter supports All, Published, Unpublished.
+- [x] Search uses name like `%query%`.
+- [x] Published uses 0 or 1.
+- [x] Search and filter work together in the same API request.
+- [x] Empty search removes the name filter.
+- [x] All filter removes the published filter.
+- [x] Request uses encoded filters query parameter.
+- [x] Uses existing ApiClient and CoursesRemoteDataSource.
+- [x] UI supports mobile layout.
+- [x] UI supports tablet layout.
+- [x] UI supports dark mode.
+- [x] UI supports light mode.
+- [x] Loading, empty, error, and success states are handled.
+- [x] Existing architecture is followed.
+- [x] Scoped analyzer passes for changed implementation files.
+- [ ] Full project analyzer passes.
+- [x] Formatting passes.

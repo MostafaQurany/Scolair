@@ -1,14 +1,18 @@
+// add the unfouce even when navigation should be unfouce too
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import '../core/utils/unfocus_navigatio_observer.dart';
 
 import '../core/constants/app_route_names.dart';
 import '../core/theme/app_theme.dart';
+import '../features/auth/presentation/screens/biometric_request_screen.dart';
 import '../features/auth/presentation/screens/biometric_unlock_screen.dart';
 import '../features/auth/presentation/screens/forgot_password_screen.dart';
 import '../features/auth/presentation/screens/login_screen.dart';
 import '../features/auth/presentation/screens/org_email_login_screen.dart';
 import '../features/auth/presentation/screens/otp_verification_screen.dart';
 import '../features/auth/presentation/screens/reset_password_screen.dart';
+import '../features/home/presentation/screens/home_layout.dart';
 import '../features/home/presentation/screens/home_screen.dart';
 import '../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../features/splash/presentation/screens/splash_screen.dart';
@@ -29,21 +33,43 @@ class App extends StatelessWidget {
           title: 'Scolair',
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.system,
+          themeMode: ThemeMode.light,
           initialRoute: AppRouteNames.splash,
+
+          navigatorObservers: [UnfocusNavigationObserver()],
+
+          onGenerateInitialRoutes: (_) => [
+            MaterialPageRoute(
+              settings: const RouteSettings(name: AppRouteNames.splash),
+              builder: (_) => const SplashScreen(),
+            ),
+          ],
           routes: {
             AppRouteNames.splash: (_) => const SplashScreen(),
             AppRouteNames.onboarding: (_) => const OnboardingScreen(),
             AppRouteNames.home: (_) => const HomeScreen(),
+            AppRouteNames.homeLayout: (_) => const HomeLayout(),
             AppRouteNames.login: (_) => const LoginScreen(),
             AppRouteNames.orgEmailLogin: (_) => const OrgEmailLoginScreen(),
             AppRouteNames.otpVerification: (_) => const OtpVerificationScreen(),
             AppRouteNames.forgotPassword: (_) => const ForgotPasswordScreen(),
             AppRouteNames.resetPassword: (_) => const ResetPasswordScreen(),
             AppRouteNames.biometricUnlock: (_) => const BiometricUnlockScreen(),
+            AppRouteNames.biometricRequest: (_) => const BiometricRequestScreen(),
           },
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
+
+          builder: (context, child) {
+            return GestureDetector(
+              onTap: () {
+                // Using FocusManager inside the global builder context to guarantee
+                // it hits the correct scope regardless of the current context state.
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              child: child!,
+            );
+          },
         );
       },
     );

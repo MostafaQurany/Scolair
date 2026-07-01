@@ -28,7 +28,8 @@ class _SplashView extends StatelessWidget {
     return BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
         state.whenOrNull(
-          navigate: (route) => Navigator.pushReplacementNamed(context, route),
+          navigate: (route) =>
+              Navigator.pushNamedAndRemoveUntil(context, route, (_) => false),
         );
       },
       child: Scaffold(

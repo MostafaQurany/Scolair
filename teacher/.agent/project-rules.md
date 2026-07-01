@@ -56,6 +56,8 @@ lib/
       app_secure_storage.dart
     constants/
       app_route_names.dart
+    extensions/
+      adaptive_layout_extension.dart
     localization/
       localization_extension.dart
     utils/
@@ -125,6 +127,7 @@ lib/
 - `core/theme/` owns colors, text styles, and app theme.
 - `core/storage/` owns shared preferences and secure storage wrappers.
 - `core/constants/app_route_names.dart` owns route name constants.
+- `core/extensions/` owns reusable BuildContext and app-wide Dart extensions.
 - `core/localization/` owns simple localization helpers.
 - `core/widgets/` is only for widgets reused across multiple features.
 - `core/errors/` is for shared failure and exception handling.
@@ -373,6 +376,9 @@ Text(context.l10n.itemCount(count));
 - Do not hardcode large fixed sizes when the UI should adapt across devices.
 - Keep layouts flexible with `Expanded`, `Flexible`, `Wrap`, `LayoutBuilder`, and scroll views where needed.
 - Test important screens on small and large devices.
+- Use `core/extensions/adaptive_layout_extension.dart` for reusable width-based layout detection.
+- Standard breakpoints are compact `< 600`, medium `>= 600 && < 840`, and expanded `>= 840`.
+- Do not use device-name or platform checks to decide mobile/tablet layouts.
 
 ## Typography
 
@@ -414,6 +420,7 @@ Text(context.l10n.itemCount(count));
 - Convert data models to domain entities before exposing them to presentation when useful.
 - Use Dio for HTTP client configuration.
 - Use Retrofit for API declarations and generated API client code.
+- For Frappe list filters, build a Dart filter map, encode it with `jsonEncode`, and pass it as a query parameter; do not concatenate filter JSON into URLs manually.
 - Keep Retrofit annotations inside API service files, not inside Cubits or widgets.
 - Keep base URL, headers, timeouts, and interceptors inside `core/network/`.
 - Never expose raw Dio, Retrofit, HTTP, or storage calls directly to UI code.
@@ -449,6 +456,185 @@ To stay within this limit:
 - Keep the `build` method of `_XxxView` under ~30 lines by delegating to extracted widgets.
 - Shared elements (logo header, form footer links, error banners) must be extracted into `presentation/widgets/` and reused across screens.
 - Do not duplicate widget code between screen files.
+
+
+## Cached Network Image
+
+* Use `cached_network_image` for all remote/network images across the app.
+* Do not use `Image.network` directly inside screens or feature widgets.
+* Create one shared custom image widget inside:
+
+```text
+lib/core/widgets/
+```
+
+* The shared widget should be reused across all app features and branches: `student`, `parent`, and `teacher`.
+* Suggested file name:
+
+```text
+lib/core/widgets/app_cached_network_image.dart
+```
+
+* Suggested widget name:
+
+```dart
+AppCachedNetworkImage
+```
+
+* This widget should handle common image states:
+
+  * loading
+  * error
+  * empty/null image URL
+  * border radius
+  * fit
+  * width and height
+  * placeholder behavior
+* Screens and feature widgets must call `AppCachedNetworkImage` instead of using `CachedNetworkImage` directly, unless there is a clear reason and it is documented.
+* Keep the widget generic and reusable. Do not add feature-specific styling or business logic inside it.
+
+## Shimmer And Skeleton Loading
+
+* Use `skeletonizer: ^2.1.3` for shimmer/skeleton loading UI.
+* When data is fetched for the first time, show a skeleton shimmer instead of empty space or a basic loading spinner, especially for lists and cards.
+* Shimmer widgets are feature-specific and must be created inside the feature presentation widgets folder:
+
+```text
+lib/features/feature_name/presentation/widgets/
+```
+
+* Do not place feature-specific shimmer widgets inside `core/widgets/`.
+* Name shimmer files based on the list or UI section they represent.
+
+Examples:
+
+```text
+courses_list_shimmer.dart
+teachers_list_shimmer.dart
+students_list_shimmer.dart
+assignments_list_shimmer.dart
+```
+
+* Name shimmer widgets clearly using PascalCase.
+
+Examples:
+
+```dart
+CoursesListShimmer
+TeachersListShimmer
+StudentsListShimmer
+AssignmentsListShimmer
+```
+
+* When the user says: “add shimmer”, “add a shimmer”, “add skeleton loading”, or “add loading skeleton”, the agent must understand that this means:
+
+  * use `skeletonizer: ^2.1.3`
+  * create a feature-specific shimmer widget
+  * place it inside the feature’s `presentation/widgets/`
+  * name it after the related list or section
+  * show it only during the first data loading state
+* Cubits should still emit clear loading, success, empty, and error states.
+* Screens should render the shimmer widget during the first loading state before real data is available.
+* Do not show shimmer over already-loaded data unless the user explicitly asks for refresh-loading behavior.
+* Keep shimmer widgets UI-only. They must not call APIs, Cubits, repositories, storage, or navigation.
+
+## Error Logger
+
+* Use `logger: ^2.7.0` for development error logging and terminal debugging.
+* The logger is strictly for developer debugging inside the terminal.
+* Do not use `print()`, `debugPrint()`, or raw console logs for errors, API issues, Cubit failures, or debugging output.
+* Create a shared logger helper inside:
+
+```text
+lib/core/errors/
+```
+
+* Suggested file name:
+
+```text
+lib/core/errors/app_logger.dart
+```
+
+* Suggested class name:
+
+```dart
+AppLogger
+```
+
+* `AppLogger` should centralize all debug logs and expose clear methods such as:
+
+```dart
+AppLogger.debug(message);
+AppLogger.info(message);
+AppLogger.warning(message);
+AppLogger.error(message, error, stackTrace);
+```
+
+* All logged messages must include full technical details for developers, including:
+
+  * full error message
+  * stack trace
+  * API response data (when safe)
+  * request details (when needed)
+
+* Logger output must be detailed and complete for debugging purposes inside the terminal.
+
+* These detailed messages must **never** be shown to the user.
+
+* `AppLogger` must be disabled by default for production/release builds.
+
+* There must be a clear trigger in `main.dart` to enable or disable development logging.
+
+* The trigger should control whether logs appear in the terminal during development.
+
+* Suggested pattern:
+
+```dart
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  AppLogger.configure(
+    enabled: true, // development only
+  );
+
+  runApp(const App());
+}
+```
+
+* When preparing production or release builds, logging must be disabled:
+
+```dart
+AppLogger.configure(
+  enabled: false,
+);
+```
+
+* Do not expose sensitive data in logs, including:
+
+  * tokens
+  * passwords
+  * authorization headers
+  * personal user data
+  * private API response data (unless sanitized)
+
+* `ErrorHandler` may use `AppLogger` internally to log full technical details, but it must return clean and user-friendly `Failure` objects to repositories and Cubits.
+
+* Repositories, Cubits, and widgets must not create their own `Logger()` instances directly.
+
+* All logger usage must go through `AppLogger`.
+
+* User-facing errors must always be simplified and shown using:
+
+```dart
+AppSnackBar.showError(context, message);
+```
+
+* The message shown to the user must be clean, readable, and safe.
+
+* The detailed developer message must remain only in the terminal logs.
+
+* Logger messages are for developers only and must never replace proper UI error handling.
+
 
 
 ## Branch Rules

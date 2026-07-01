@@ -15,6 +15,7 @@ import '../../features/auth/data/models/refresh_token_response_data.dart';
 import '../../features/auth/data/models/register_request_data.dart';
 import '../../features/auth/data/models/register_response_data.dart';
 import '../../features/auth/data/models/reset_password_request_data.dart';
+import '../../features/courses/data/models/courses_models.dart';
 import 'api_endpoints.dart';
 
 part 'api_client.g.dart';
@@ -57,4 +58,84 @@ abstract class ApiClient {
 
   @POST(ApiEndpoints.changePassword)
   Future<void> changePassword(@Body() ChangePasswordRequestData request);
+
+  @GET(ApiEndpoints.listCourses)
+  Future<ListCoursesResponseData> listCourses(
+    @Query('filters') String? filters,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET(ApiEndpoints.getCourse)
+  Future<GetCourseResponseData> getCourse(@Query('course') String courseName);
+
+  @POST(ApiEndpoints.createCourse)
+  Future<CreateCourseResponseData> createCourse(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @PUT(ApiEndpoints.updateCourse)
+  Future<CreateCourseResponseData> updateCourse(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @DELETE(ApiEndpoints.deleteCourse)
+  Future<void> deleteCourse(@Body() Map<String, dynamic> body);
+
+  @GET(ApiEndpoints.getChapters)
+  Future<GetChaptersResponseData> getChapters(
+    @Query('course') String courseName,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET(ApiEndpoints.getChapter)
+  Future<GetChapterResponseData> getChapter(
+    @Query('chapter') String chapterName,
+  );
+
+  @POST(ApiEndpoints.createChapter)
+  Future<CreateChapterResponseData> createChapter(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @PUT(ApiEndpoints.updateChapter)
+  Future<void> updateChapter(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApiEndpoints.deleteChapter)
+  Future<void> deleteChapter(@Body() Map<String, dynamic> body);
+
+  @GET(ApiEndpoints.getLessons)
+  Future<GetLessonsResponseData> getLessons(
+    @Query('chapter') String chapterName,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET(ApiEndpoints.getLesson)
+  Future<GetLessonResponseData> getLesson(@Query('lesson') String lessonName);
+
+  @POST(ApiEndpoints.createLesson)
+  Future<CreateLessonResponseData> createLesson(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(ApiEndpoints.uploadFile)
+  @MultiPart()
+  Future<UploadFileResponseData> uploadFile({
+    @Part(name: 'file') required MultipartFile file,
+    @Part(name: 'is_private') required int isPrivate,
+    @Part(name: 'doctype') required String doctype,
+    @Part(name: 'docname') required String docname,
+    @Part(name: 'fieldname') required String fieldname,
+  });
+
+  @PUT(ApiEndpoints.updateLesson)
+  Future<void> updateLesson(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApiEndpoints.deleteLesson)
+  Future<void> deleteLesson(@Body() Map<String, dynamic> body);
+
+  @GET(ApiEndpoints.myCourses)
+  Future<MyCoursesResponseData> myCourses();
 }

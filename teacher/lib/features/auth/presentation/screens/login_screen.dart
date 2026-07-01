@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:local_auth/local_auth.dart';
 
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/storage/app_shared_preferences.dart';
+import '../../../../core/utils/biometric_availability.dart';
 import '../cubit/login/login_cubit.dart';
 import '../cubit/login/login_state.dart';
 import '../widgets/auth_primary_button.dart';
@@ -46,8 +49,10 @@ class _LoginViewState extends State<_LoginView>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    _slide = Tween<Offset>(begin: const Offset(0, 0.06), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
+    _slide = Tween<Offset>(
+      begin: const Offset(0, 0.06),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _entryCtrl, curve: Curves.easeOutCubic));
     _fade = CurvedAnimation(parent: _entryCtrl, curve: Curves.easeIn);
     _entryCtrl.forward();
   }
@@ -105,11 +110,25 @@ class _LoginViewState extends State<_LoginView>
 
   void _handleState(BuildContext context, LoginState state) {
     state.whenOrNull(
-      success: (_) =>
-          Navigator.pushReplacementNamed(context, AppRouteNames.home),
-      error: (_) => ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.authErrorGeneric)),
-      ),
+      success: (_) async {
+        final prefs = getIt<AppSharedPreferences>();
+        final canUseBiometrics = await isBiometricAvailable(
+          LocalAuthentication(),
+        );
+        if (!context.mounted) return;
+
+        final destination = prefs.biometricDontShow || !canUseBiometrics
+            ? AppRouteNames.homeLayout
+            : AppRouteNames.biometricRequest;
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          destination,
+          (_) => false,
+        );
+      },
+      error: (_) => ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(context.l10n.authErrorGeneric))),
     );
   }
 }

@@ -64,8 +64,9 @@ class _OnboardingViewState extends State<_OnboardingView>
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OnboardingCubit, OnboardingState>(
-      listener: (context, state) =>
-          state.whenOrNull(navigate: (r) => Navigator.pushReplacementNamed(context, r)),
+      listener: (context, state) => state.whenOrNull(
+        navigate: (r) => Navigator.pushReplacementNamed(context, r),
+      ),
       builder: (context, state) {
         final pageIndex = state.whenOrNull(initial: (i) => i) ?? 0;
         final cubit = context.read<OnboardingCubit>();
@@ -76,11 +77,25 @@ class _OnboardingViewState extends State<_OnboardingView>
             : Tween<Offset>(
                 begin: Offset(isRtl ? 0.3 : -0.3, 0),
                 end: Offset.zero,
-              ).animate(CurvedAnimation(parent: _entranceCtrl, curve: Curves.easeOut));
+              ).animate(
+                CurvedAnimation(parent: _entranceCtrl, curve: Curves.easeOut),
+              );
         final (asset, title, body) = switch (pageIndex) {
-          0 => (AppAssets.onboarding1, context.l10n.onboardingPage1Title, context.l10n.onboardingPage1Body),
-          1 => (AppAssets.onboarding2, context.l10n.onboardingPage2Title, context.l10n.onboardingPage2Body),
-          _ => (AppAssets.onboarding3, context.l10n.onboardingPage3Title, context.l10n.onboardingPage3Body),
+          0 => (
+            AppAssets.onboarding1,
+            context.l10n.onboardingPage1Title,
+            context.l10n.onboardingPage1Body,
+          ),
+          1 => (
+            AppAssets.onboarding2,
+            context.l10n.onboardingPage2Title,
+            context.l10n.onboardingPage2Body,
+          ),
+          _ => (
+            AppAssets.onboarding3,
+            context.l10n.onboardingPage3Title,
+            context.l10n.onboardingPage3Body,
+          ),
         };
 
         return Scaffold(
@@ -252,7 +267,9 @@ class _DotIndicator extends StatelessWidget {
           width: isActive ? 24.w : 8.w,
           height: 8.h,
           decoration: BoxDecoration(
-            color: isActive ? AppColors.primary : Theme.of(context).colorScheme.outlineVariant,
+            color: isActive
+                ? AppColors.primary
+                : Theme.of(context).colorScheme.outlineVariant,
             borderRadius: BorderRadius.circular(4.r),
           ),
         );

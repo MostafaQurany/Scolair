@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 
+import '../../errors/app_logger.dart';
 import '../../storage/app_secure_storage.dart';
 import '../api_endpoints.dart';
 
@@ -82,7 +83,8 @@ class AuthInterceptor extends Interceptor {
       _refreshLock = null;
 
       handler.resolve(await _retry(err.requestOptions, newAccess));
-    } catch (_) {
+    } catch (e, st) {
+      AppLogger.error('Token refresh failed — clearing session', e, st);
       await _secureStorage.clearAll();
       _refreshLock?.completeError('refresh_failed');
       _refreshLock = null;

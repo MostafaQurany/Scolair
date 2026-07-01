@@ -1,0 +1,27 @@
+# LMS Adaptive Navigation Acceptance
+
+- [x] Mobile compact layout shows a custom bottom nav.
+- [x] Tablet medium layout shows a compact navigation rail.
+- [x] Tablet expanded layout shows a wider rail/sidebar.
+- [x] Five destinations are available.
+- [x] Selected item uses a rounded primary pill.
+- [x] Inactive items use theme-aware muted color.
+- [x] Pink/tertiary accent dot appears for inactive icons.
+- [x] Supports light mode through `Theme.of(context)`.
+- [x] Supports dark mode through `Theme.of(context)`.
+- [x] Uses `flutter_screenutil_plus` responsive sizing.
+- [x] Uses reusable extensions for width-based layout detection.
+- [x] Extension is documented in `.agent/project-rules.md`.
+- [x] Uses the existing `AppTheme`, `AppColors`, and `AppTextStyles` system indirectly through `ThemeData`.
+- [x] Parent controls current index.
+- [x] No routing logic inside navigation components.
+- [x] Compatible with Flutter native routing and `AppRouteNames`.
+- [x] Authenticated users land on `/home-layout`.
+- [x] Login success clears splash/auth route history.
+- [x] Initial app stack does not build `/` Home under splash.
+- [x] Non-Home destinations render localized placeholder content.
+- [x] No third-party navigation package.
+- [x] Formatting passes.
+- [x] Task-scoped analyzer passes.
+- [ ] Full analyzer passes. Existing unrelated warnings remain outside this task.
+- [ ] Existing tests pass. Existing starter widget test fails because the app starts on splash.

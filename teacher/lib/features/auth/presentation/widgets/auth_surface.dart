@@ -5,9 +5,12 @@ import '../../../../core/constants/app_assets.dart';
 import '../../../../core/theme/app_colors.dart';
 
 class AuthSurface extends StatelessWidget {
-  const AuthSurface({required this.child,
+  const AuthSurface({
+    required this.child,
     this.isBack = false,
-    this.centered = false, super.key});
+    this.centered = false,
+    super.key,
+  });
 
   final Widget child;
   final bool centered;
@@ -17,8 +20,7 @@ class AuthSurface extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
     final padding = MediaQuery.paddingOf(context);
-    final minHeight =
-        screenHeight - padding.top - padding.bottom - 48.h - 24.h;
+    final minHeight = screenHeight - padding.top - padding.bottom - 48.h - 24.h;
 
     final content = SingleChildScrollView(
       padding: EdgeInsetsDirectional.fromSTEB(
@@ -95,11 +97,7 @@ class AuthBrandMark extends StatelessWidget {
       width: 24.r,
       height: 24.r,
       decoration: const BoxDecoration(color: Colors.transparent),
-      child: Icon(
-        Icons.school_outlined,
-        color: AppColors.primary,
-        size: 22.r,
-      ),
+      child: Icon(Icons.school_outlined, color: AppColors.primary, size: 22.r),
     );
   }
 }

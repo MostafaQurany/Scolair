@@ -9,33 +9,41 @@ import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+  const HomeView({this.embedded = false, super.key});
+
+  final bool embedded;
 
   @override
   Widget build(BuildContext context) {
+    final body = SafeArea(
+      child: BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          if (state.isLoading) {
+            return Center(child: Text(context.l10n.loading));
+          }
+
+          final errorMessage = state.errorMessage;
+          if (errorMessage != null) {
+            return _HomeError(message: errorMessage);
+          }
+
+          final summary = state.summary;
+          if (summary == null) {
+            return const SizedBox.shrink();
+          }
+
+          return _HomeContent(summary: summary);
+        },
+      ),
+    );
+
+    if (embedded) {
+      return body;
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text(context.l10n.appName)),
-      body: SafeArea(
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return Center(child: Text(context.l10n.loading));
-            }
-
-            final errorMessage = state.errorMessage;
-            if (errorMessage != null) {
-              return _HomeError(message: errorMessage);
-            }
-
-            final summary = state.summary;
-            if (summary == null) {
-              return const SizedBox.shrink();
-            }
-
-            return _HomeContent(summary: summary);
-          },
-        ),
-      ),
+      body: body,
     );
   }
 }
