@@ -1207,6 +1207,780 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete'**
   String get delete;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @duplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate'**
+  String get duplicate;
+
+  /// No description provided for @homeQuizzesAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Quizzes'**
+  String get homeQuizzesAction;
+
+  /// No description provided for @homeHomeworkAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Homework'**
+  String get homeHomeworkAction;
+
+  /// No description provided for @quizzesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessments'**
+  String get quizzesTitle;
+
+  /// No description provided for @quizzesMockClassLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'CLASS MATH-10A'**
+  String get quizzesMockClassLabel;
+
+  /// No description provided for @quizCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Exam'**
+  String get quizCreateButton;
+
+  /// No description provided for @quizFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All Assessments'**
+  String get quizFilterAll;
+
+  /// No description provided for @quizTypeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get quizTypeQuiz;
+
+  /// No description provided for @quizTypeMidterm.
+  ///
+  /// In en, this message translates to:
+  /// **'Midterm'**
+  String get quizTypeMidterm;
+
+  /// No description provided for @quizTypeFinal.
+  ///
+  /// In en, this message translates to:
+  /// **'Final'**
+  String get quizTypeFinal;
+
+  /// No description provided for @quizTimelineUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get quizTimelineUpcoming;
+
+  /// No description provided for @quizTimelinePast.
+  ///
+  /// In en, this message translates to:
+  /// **'Past'**
+  String get quizTimelinePast;
+
+  /// No description provided for @quizTimelineStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Timeline Status'**
+  String get quizTimelineStatusLabel;
+
+  /// No description provided for @quizResultStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Result Status'**
+  String get quizResultStatusLabel;
+
+  /// No description provided for @quizResultPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get quizResultPending;
+
+  /// No description provided for @quizResultGraded.
+  ///
+  /// In en, this message translates to:
+  /// **'Graded {graded}/{submitted}'**
+  String quizResultGraded(int graded, int submitted);
+
+  /// No description provided for @quizResultNeedsGrading.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Grading {graded}/{submitted}'**
+  String quizResultNeedsGrading(int graded, int submitted);
+
+  /// No description provided for @quizSubmittedProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted {submitted}/{total}'**
+  String quizSubmittedProgress(int submitted, int total);
+
+  /// No description provided for @quizGradedProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Graded {graded}/{submitted}'**
+  String quizGradedProgress(int graded, int submitted);
+
+  /// No description provided for @quizzesEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No assessments found.'**
+  String get quizzesEmptyMessage;
+
+  /// No description provided for @quizCreateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Assessment'**
+  String get quizCreateTitle;
+
+  /// No description provided for @quizSaveDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'SAVE DRAFT'**
+  String get quizSaveDraft;
+
+  /// No description provided for @quizSavedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment saved successfully'**
+  String get quizSavedSuccess;
+
+  /// No description provided for @quizAssessmentTypeSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Type'**
+  String get quizAssessmentTypeSection;
+
+  /// No description provided for @quizBasicInfoSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Info'**
+  String get quizBasicInfoSection;
+
+  /// No description provided for @quizTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get quizTitleLabel;
+
+  /// No description provided for @quizTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Chapter 4 Functions'**
+  String get quizTitleHint;
+
+  /// No description provided for @quizTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get quizTitleRequired;
+
+  /// No description provided for @quizDescriptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Description (Optional)'**
+  String get quizDescriptionLabel;
+
+  /// No description provided for @quizDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add instructions or context...'**
+  String get quizDescriptionHint;
+
+  /// No description provided for @quizFormatOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Online'**
+  String get quizFormatOnline;
+
+  /// No description provided for @quizFormatOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline'**
+  String get quizFormatOffline;
+
+  /// No description provided for @quizTimingSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Timing'**
+  String get quizTimingSection;
+
+  /// No description provided for @quizStartDateTimeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date & Time'**
+  String get quizStartDateTimeLabel;
+
+  /// No description provided for @quizStartDateTimeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'mm/dd/yyyy, --:-- --'**
+  String get quizStartDateTimeHint;
+
+  /// No description provided for @quizDurationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get quizDurationLabel;
+
+  /// No description provided for @quizMinutesSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'mins'**
+  String get quizMinutesSuffix;
+
+  /// No description provided for @quizGradingSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Grading'**
+  String get quizGradingSection;
+
+  /// No description provided for @quizMaxGradeFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Grade'**
+  String get quizMaxGradeFieldLabel;
+
+  /// No description provided for @quizMinPassingFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Min Passing'**
+  String get quizMinPassingFieldLabel;
+
+  /// No description provided for @quizSecurityResultsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Security & Results'**
+  String get quizSecurityResultsSection;
+
+  /// No description provided for @quizRandomizeQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Randomize Questions'**
+  String get quizRandomizeQuestions;
+
+  /// No description provided for @quizRandomizeAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Randomize Answers'**
+  String get quizRandomizeAnswers;
+
+  /// No description provided for @quizShowResultImmediately.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Result Immediately'**
+  String get quizShowResultImmediately;
+
+  /// No description provided for @quizShowCorrectAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Correct Answers'**
+  String get quizShowCorrectAnswers;
+
+  /// No description provided for @quizAllowRetake.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Retake'**
+  String get quizAllowRetake;
+
+  /// No description provided for @quizPreventLateSubmission.
+  ///
+  /// In en, this message translates to:
+  /// **'Prevent Late Submission'**
+  String get quizPreventLateSubmission;
+
+  /// No description provided for @quizMaxAttemptsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Attempts'**
+  String get quizMaxAttemptsLabel;
+
+  /// No description provided for @quizScheduleButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get quizScheduleButton;
+
+  /// No description provided for @quizPublishButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Assessment'**
+  String get quizPublishButton;
+
+  /// No description provided for @quizDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Details'**
+  String get quizDetailsTitle;
+
+  /// No description provided for @quizPreviewAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get quizPreviewAction;
+
+  /// No description provided for @quizTabDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Details'**
+  String get quizTabDetails;
+
+  /// No description provided for @quizTabQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions'**
+  String get quizTabQuestions;
+
+  /// No description provided for @quizTabSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get quizTabSettings;
+
+  /// No description provided for @quizTabResults.
+  ///
+  /// In en, this message translates to:
+  /// **'Results'**
+  String get quizTabResults;
+
+  /// No description provided for @quizDurationMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} mins'**
+  String quizDurationMinutes(int minutes);
+
+  /// No description provided for @quizMaxGradeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Grade: {grade}'**
+  String quizMaxGradeLabel(int grade);
+
+  /// No description provided for @quizPassingGradeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Passing: {grade}'**
+  String quizPassingGradeLabel(int grade);
+
+  /// No description provided for @quizQuestionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{0 questions} =1{1 question} other{{count} questions}}'**
+  String quizQuestionsCount(int count);
+
+  /// No description provided for @quizTotalPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Points: {points}'**
+  String quizTotalPoints(int points);
+
+  /// No description provided for @quizPointsSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'pts total'**
+  String get quizPointsSuffix;
+
+  /// No description provided for @quizImportFromBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from Bank'**
+  String get quizImportFromBank;
+
+  /// No description provided for @quizAddQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Question'**
+  String get quizAddQuestion;
+
+  /// No description provided for @quizNoQuestionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions yet'**
+  String get quizNoQuestionsTitle;
+
+  /// No description provided for @quizNoQuestionsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Add questions to make this quiz ready for students.'**
+  String get quizNoQuestionsMessage;
+
+  /// No description provided for @questionNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Q{number}'**
+  String questionNumberLabel(int number);
+
+  /// No description provided for @questionPointsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{points} pts'**
+  String questionPointsLabel(int points);
+
+  /// No description provided for @questionRequiredLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get questionRequiredLabel;
+
+  /// No description provided for @questionDifficultyEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get questionDifficultyEasy;
+
+  /// No description provided for @questionDifficultyMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get questionDifficultyMedium;
+
+  /// No description provided for @questionDifficultyHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get questionDifficultyHard;
+
+  /// No description provided for @questionTypeMultipleChoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple Choice'**
+  String get questionTypeMultipleChoice;
+
+  /// No description provided for @questionTypeTrueFalse.
+  ///
+  /// In en, this message translates to:
+  /// **'True / False'**
+  String get questionTypeTrueFalse;
+
+  /// No description provided for @questionTypeShortAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Short Answer'**
+  String get questionTypeShortAnswer;
+
+  /// No description provided for @questionTypeEssay.
+  ///
+  /// In en, this message translates to:
+  /// **'Essay'**
+  String get questionTypeEssay;
+
+  /// No description provided for @questionTypeFillBlank.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill Blank'**
+  String get questionTypeFillBlank;
+
+  /// No description provided for @questionTypeMatching.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching'**
+  String get questionTypeMatching;
+
+  /// No description provided for @questionTrue.
+  ///
+  /// In en, this message translates to:
+  /// **'True'**
+  String get questionTrue;
+
+  /// No description provided for @questionFalse.
+  ///
+  /// In en, this message translates to:
+  /// **'False'**
+  String get questionFalse;
+
+  /// No description provided for @questionAcceptedAnswerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted answer'**
+  String get questionAcceptedAnswerLabel;
+
+  /// No description provided for @questionAddTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Question'**
+  String get questionAddTitle;
+
+  /// No description provided for @questionEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Question'**
+  String get questionEditTitle;
+
+  /// No description provided for @questionSavedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Question saved successfully'**
+  String get questionSavedSuccess;
+
+  /// No description provided for @questionTypeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Question Type'**
+  String get questionTypeLabel;
+
+  /// No description provided for @questionTextLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Question Text'**
+  String get questionTextLabel;
+
+  /// No description provided for @questionTextHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your question here...'**
+  String get questionTextHint;
+
+  /// No description provided for @questionTextRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Question text is required'**
+  String get questionTextRequired;
+
+  /// No description provided for @questionPointsFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get questionPointsFieldLabel;
+
+  /// No description provided for @questionDifficultyFieldLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get questionDifficultyFieldLabel;
+
+  /// No description provided for @questionOptionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Option {letter}'**
+  String questionOptionLabel(String letter);
+
+  /// No description provided for @questionAddOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Option'**
+  String get questionAddOption;
+
+  /// No description provided for @questionCorrectAnswerLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct Answer'**
+  String get questionCorrectAnswerLabel;
+
+  /// No description provided for @questionAcceptedAnswerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 6x + 2'**
+  String get questionAcceptedAnswerHint;
+
+  /// No description provided for @questionEssayInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Essay questions require manual grading.'**
+  String get questionEssayInfo;
+
+  /// No description provided for @questionExplanationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation (Optional)'**
+  String get questionExplanationLabel;
+
+  /// No description provided for @questionExplanationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain the correct answer...'**
+  String get questionExplanationHint;
+
+  /// No description provided for @questionSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Question'**
+  String get questionSaveButton;
+
+  /// No description provided for @homeworkManagementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Homework Management'**
+  String get homeworkManagementTitle;
+
+  /// No description provided for @homeworkMockBreadcrumb.
+  ///
+  /// In en, this message translates to:
+  /// **'MATH-10A > Homework'**
+  String get homeworkMockBreadcrumb;
+
+  /// No description provided for @homeworkCreateButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Homework'**
+  String get homeworkCreateButton;
+
+  /// No description provided for @homeworkTabPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Published ({count})'**
+  String homeworkTabPublished(int count);
+
+  /// No description provided for @homeworkTabDrafts.
+  ///
+  /// In en, this message translates to:
+  /// **'Drafts ({count})'**
+  String homeworkTabDrafts(int count);
+
+  /// No description provided for @homeworkTabScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Scheduled ({count})'**
+  String homeworkTabScheduled(int count);
+
+  /// No description provided for @homeworkEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No homework found.'**
+  String get homeworkEmptyMessage;
+
+  /// No description provided for @homeworkDueToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Today, {time}'**
+  String homeworkDueToday(String time);
+
+  /// No description provided for @homeworkDueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {dateTime}'**
+  String homeworkDueOn(String dateTime);
+
+  /// No description provided for @homeworkSubmissionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Submission Progress: {submitted}/{total}'**
+  String homeworkSubmissionProgress(int submitted, int total);
+
+  /// No description provided for @homeworkDuplicatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Homework duplicated successfully'**
+  String get homeworkDuplicatedSuccess;
+
+  /// No description provided for @homeworkAddFileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Assessment File'**
+  String get homeworkAddFileTitle;
+
+  /// No description provided for @homeworkEditFileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Assessment File'**
+  String get homeworkEditFileTitle;
+
+  /// No description provided for @homeworkSavedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Homework saved successfully'**
+  String get homeworkSavedSuccess;
+
+  /// No description provided for @homeworkFileDetailsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'File Details'**
+  String get homeworkFileDetailsSection;
+
+  /// No description provided for @homeworkTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get homeworkTitleLabel;
+
+  /// No description provided for @homeworkTitleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Midterm Review Worksheet'**
+  String get homeworkTitleHint;
+
+  /// No description provided for @homeworkTitleRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Title is required'**
+  String get homeworkTitleRequired;
+
+  /// No description provided for @homeworkCategoryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get homeworkCategoryLabel;
+
+  /// No description provided for @homeworkUploadSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get homeworkUploadSection;
+
+  /// No description provided for @homeworkUploadHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Click to Upload or Drag & Drop'**
+  String get homeworkUploadHint;
+
+  /// No description provided for @homeworkUploadSupportedTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Supports PDF, DOCX, XLSX'**
+  String get homeworkUploadSupportedTypes;
+
+  /// No description provided for @homeworkTargetSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get homeworkTargetSection;
+
+  /// No description provided for @homeworkTargetExamQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach to Exam/Quiz'**
+  String get homeworkTargetExamQuiz;
+
+  /// No description provided for @homeworkTargetLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach to Lesson'**
+  String get homeworkTargetLesson;
+
+  /// No description provided for @homeworkSearchExamLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search or Select Exam'**
+  String get homeworkSearchExamLabel;
+
+  /// No description provided for @homeworkSearchLessonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Search or Select Lesson'**
+  String get homeworkSearchLessonLabel;
+
+  /// No description provided for @homeworkSearchTargetHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Midterm Math 101'**
+  String get homeworkSearchTargetHint;
+
+  /// No description provided for @homeworkTargetRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a target'**
+  String get homeworkTargetRequired;
+
+  /// No description provided for @homeworkUploadAndAttach.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload and Attach'**
+  String get homeworkUploadAndAttach;
 }
 
 class _AppLocalizationsDelegate

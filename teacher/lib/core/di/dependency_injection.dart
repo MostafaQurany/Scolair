@@ -44,6 +44,20 @@ import '../../features/courses/presentation/cubit/lesson_details_cubit.dart';
 import '../../features/courses/presentation/cubit/chapter_lessons_cubit.dart';
 import '../../features/courses/presentation/cubit/course_form_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_form_cubit.dart';
+import '../../features/quiz/data/datasources/local/quiz_mock_datasource.dart';
+import '../../features/quiz/data/repositories/quiz_repository_impl.dart';
+import '../../features/quiz/domain/repositories/quiz_repository.dart';
+import '../../features/quiz/domain/usecases/quiz_usecases.dart';
+import '../../features/quiz/presentation/cubit/quizzes_cubit.dart';
+import '../../features/quiz/presentation/cubit/quiz_form_cubit.dart';
+import '../../features/quiz/presentation/cubit/quiz_details_cubit.dart';
+import '../../features/quiz/presentation/cubit/question_form_cubit.dart';
+import '../../features/homework/data/datasources/local/homework_mock_datasource.dart';
+import '../../features/homework/data/repositories/homework_repository_impl.dart';
+import '../../features/homework/domain/repositories/homework_repository.dart';
+import '../../features/homework/domain/usecases/homework_usecases.dart';
+import '../../features/homework/presentation/cubit/homework_list_cubit.dart';
+import '../../features/homework/presentation/cubit/homework_form_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -168,9 +182,7 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<CoursesCubit>(
       () => CoursesCubit(getIt(), getIt(), getIt()),
     )
-    ..registerFactory<ChapterLessonsCubit>(
-      () => ChapterLessonsCubit(getIt()),
-    )
+    ..registerFactory<ChapterLessonsCubit>(() => ChapterLessonsCubit(getIt()))
     ..registerFactory<CourseDetailsCubit>(
       () => CourseDetailsCubit(
         getIt(),
@@ -190,5 +202,60 @@ Future<void> setupDependencyInjection() async {
     )
     ..registerFactory<LessonFormCubit>(
       () => LessonFormCubit(getIt(), getIt(), getIt()),
+    )
+    // Quiz Feature
+    ..registerLazySingleton<QuizMockDataSource>(QuizMockDataSourceImpl.new)
+    ..registerLazySingleton<QuizRepository>(() => QuizRepositoryImpl(getIt()))
+    ..registerLazySingleton<ListQuizzesUseCase>(
+      () => ListQuizzesUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetQuizUseCase>(() => GetQuizUseCase(getIt()))
+    ..registerLazySingleton<CreateQuizUseCase>(() => CreateQuizUseCase(getIt()))
+    ..registerLazySingleton<UpdateQuizUseCase>(() => UpdateQuizUseCase(getIt()))
+    ..registerLazySingleton<DeleteQuizUseCase>(() => DeleteQuizUseCase(getIt()))
+    ..registerLazySingleton<CreateQuestionUseCase>(
+      () => CreateQuestionUseCase(getIt()),
+    )
+    ..registerLazySingleton<UpdateQuestionUseCase>(
+      () => UpdateQuestionUseCase(getIt()),
+    )
+    ..registerLazySingleton<DeleteQuestionUseCase>(
+      () => DeleteQuestionUseCase(getIt()),
+    )
+    ..registerFactory<QuizzesCubit>(() => QuizzesCubit(getIt()))
+    ..registerFactory<QuizFormCubit>(() => QuizFormCubit(getIt(), getIt()))
+    ..registerFactory<QuizDetailsCubit>(
+      () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt()),
+    )
+    ..registerFactory<QuestionFormCubit>(
+      () => QuestionFormCubit(getIt(), getIt()),
+    )
+    // Homework Feature
+    ..registerLazySingleton<HomeworkMockDataSource>(
+      HomeworkMockDataSourceImpl.new,
+    )
+    ..registerLazySingleton<HomeworkRepository>(
+      () => HomeworkRepositoryImpl(getIt()),
+    )
+    ..registerLazySingleton<ListHomeworkUseCase>(
+      () => ListHomeworkUseCase(getIt()),
+    )
+    ..registerLazySingleton<CreateHomeworkUseCase>(
+      () => CreateHomeworkUseCase(getIt()),
+    )
+    ..registerLazySingleton<UpdateHomeworkUseCase>(
+      () => UpdateHomeworkUseCase(getIt()),
+    )
+    ..registerLazySingleton<DeleteHomeworkUseCase>(
+      () => DeleteHomeworkUseCase(getIt()),
+    )
+    ..registerLazySingleton<DuplicateHomeworkUseCase>(
+      () => DuplicateHomeworkUseCase(getIt()),
+    )
+    ..registerFactory<HomeworkListCubit>(
+      () => HomeworkListCubit(getIt(), getIt(), getIt()),
+    )
+    ..registerFactory<HomeworkFormCubit>(
+      () => HomeworkFormCubit(getIt(), getIt()),
     );
 }

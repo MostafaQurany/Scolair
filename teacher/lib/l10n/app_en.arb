@@ -219,5 +219,232 @@
   "quizPlaceholder": "Quizzes are currently read-only",
   "save": "Save",
   "cancel": "Cancel",
-  "delete": "Delete"
+  "delete": "Delete",
+  "edit": "Edit",
+  "duplicate": "Duplicate",
+  "homeQuizzesAction": "Quizzes",
+  "homeHomeworkAction": "Homework",
+
+  "quizzesTitle": "Assessments",
+  "quizzesMockClassLabel": "CLASS MATH-10A",
+  "quizCreateButton": "Create Exam",
+  "quizFilterAll": "All Assessments",
+  "quizTypeQuiz": "Quiz",
+  "quizTypeMidterm": "Midterm",
+  "quizTypeFinal": "Final",
+  "quizTimelineUpcoming": "Upcoming",
+  "quizTimelinePast": "Past",
+  "quizTimelineStatusLabel": "Timeline Status",
+  "quizResultStatusLabel": "Result Status",
+  "quizResultPending": "Pending",
+  "quizResultGraded": "Graded {graded}/{submitted}",
+  "@quizResultGraded": {
+    "placeholders": {
+      "graded": {"type": "int"},
+      "submitted": {"type": "int"}
+    }
+  },
+  "quizResultNeedsGrading": "Needs Grading {graded}/{submitted}",
+  "@quizResultNeedsGrading": {
+    "placeholders": {
+      "graded": {"type": "int"},
+      "submitted": {"type": "int"}
+    }
+  },
+  "quizSubmittedProgress": "Submitted {submitted}/{total}",
+  "@quizSubmittedProgress": {
+    "placeholders": {
+      "submitted": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "quizGradedProgress": "Graded {graded}/{submitted}",
+  "@quizGradedProgress": {
+    "placeholders": {
+      "graded": {"type": "int"},
+      "submitted": {"type": "int"}
+    }
+  },
+  "quizzesEmptyMessage": "No assessments found.",
+  "quizCreateTitle": "Create Assessment",
+  "quizSaveDraft": "SAVE DRAFT",
+  "quizSavedSuccess": "Assessment saved successfully",
+  "quizAssessmentTypeSection": "Assessment Type",
+  "quizBasicInfoSection": "Basic Info",
+  "quizTitleLabel": "Title",
+  "quizTitleHint": "e.g. Chapter 4 Functions",
+  "quizTitleRequired": "Title is required",
+  "quizDescriptionLabel": "Description (Optional)",
+  "quizDescriptionHint": "Add instructions or context...",
+  "quizFormatOnline": "Online",
+  "quizFormatOffline": "Offline",
+  "quizTimingSection": "Timing",
+  "quizStartDateTimeLabel": "Start Date & Time",
+  "quizStartDateTimeHint": "mm/dd/yyyy, --:-- --",
+  "quizDurationLabel": "Duration",
+  "quizMinutesSuffix": "mins",
+  "quizGradingSection": "Grading",
+  "quizMaxGradeFieldLabel": "Max Grade",
+  "quizMinPassingFieldLabel": "Min Passing",
+  "quizSecurityResultsSection": "Security & Results",
+  "quizRandomizeQuestions": "Randomize Questions",
+  "quizRandomizeAnswers": "Randomize Answers",
+  "quizShowResultImmediately": "Show Result Immediately",
+  "quizShowCorrectAnswers": "Show Correct Answers",
+  "quizAllowRetake": "Allow Retake",
+  "quizPreventLateSubmission": "Prevent Late Submission",
+  "quizMaxAttemptsLabel": "Max Attempts",
+  "quizScheduleButton": "Schedule",
+  "quizPublishButton": "Publish Assessment",
+  "quizDetailsTitle": "Quiz Details",
+  "quizPreviewAction": "Preview",
+  "quizTabDetails": "Details",
+  "quizTabQuestions": "Questions",
+  "quizTabSettings": "Settings",
+  "quizTabResults": "Results",
+  "quizDurationMinutes": "{minutes} mins",
+  "@quizDurationMinutes": {
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
+  "quizMaxGradeLabel": "Max Grade: {grade}",
+  "@quizMaxGradeLabel": {
+    "placeholders": {
+      "grade": {"type": "int"}
+    }
+  },
+  "quizPassingGradeLabel": "Passing: {grade}",
+  "@quizPassingGradeLabel": {
+    "placeholders": {
+      "grade": {"type": "int"}
+    }
+  },
+  "quizQuestionsCount": "{count, plural, =0{0 questions} =1{1 question} other{{count} questions}}",
+  "@quizQuestionsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "quizTotalPoints": "Total Points: {points}",
+  "@quizTotalPoints": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "quizPointsSuffix": "pts total",
+  "quizImportFromBank": "Import from Bank",
+  "quizAddQuestion": "Add Question",
+  "quizNoQuestionsTitle": "No questions yet",
+  "quizNoQuestionsMessage": "Add questions to make this quiz ready for students.",
+
+  "questionNumberLabel": "Q{number}",
+  "@questionNumberLabel": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+  "questionPointsLabel": "{points} pts",
+  "@questionPointsLabel": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "questionRequiredLabel": "Required",
+  "questionDifficultyEasy": "Easy",
+  "questionDifficultyMedium": "Medium",
+  "questionDifficultyHard": "Hard",
+  "questionTypeMultipleChoice": "Multiple Choice",
+  "questionTypeTrueFalse": "True / False",
+  "questionTypeShortAnswer": "Short Answer",
+  "questionTypeEssay": "Essay",
+  "questionTypeFillBlank": "Fill Blank",
+  "questionTypeMatching": "Matching",
+  "questionTrue": "True",
+  "questionFalse": "False",
+  "questionAcceptedAnswerLabel": "Accepted answer",
+  "questionAddTitle": "Add Question",
+  "questionEditTitle": "Edit Question",
+  "questionSavedSuccess": "Question saved successfully",
+  "questionTypeLabel": "Question Type",
+  "questionTextLabel": "Question Text",
+  "questionTextHint": "Write your question here...",
+  "questionTextRequired": "Question text is required",
+  "questionPointsFieldLabel": "Points",
+  "questionDifficultyFieldLabel": "Difficulty",
+  "questionOptionLabel": "Option {letter}",
+  "@questionOptionLabel": {
+    "placeholders": {
+      "letter": {"type": "String"}
+    }
+  },
+  "questionAddOption": "Add Option",
+  "questionCorrectAnswerLabel": "Correct Answer",
+  "questionAcceptedAnswerHint": "e.g. 6x + 2",
+  "questionEssayInfo": "Essay questions require manual grading.",
+  "questionExplanationLabel": "Explanation (Optional)",
+  "questionExplanationHint": "Explain the correct answer...",
+  "questionSaveButton": "Save Question",
+
+  "homeworkManagementTitle": "Homework Management",
+  "homeworkMockBreadcrumb": "MATH-10A > Homework",
+  "homeworkCreateButton": "Create Homework",
+  "homeworkTabPublished": "Published ({count})",
+  "@homeworkTabPublished": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeworkTabDrafts": "Drafts ({count})",
+  "@homeworkTabDrafts": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeworkTabScheduled": "Scheduled ({count})",
+  "@homeworkTabScheduled": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeworkEmptyMessage": "No homework found.",
+  "homeworkDueToday": "Due Today, {time}",
+  "@homeworkDueToday": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "homeworkDueOn": "Due {dateTime}",
+  "@homeworkDueOn": {
+    "placeholders": {
+      "dateTime": {"type": "String"}
+    }
+  },
+  "homeworkSubmissionProgress": "Submission Progress: {submitted}/{total}",
+  "@homeworkSubmissionProgress": {
+    "placeholders": {
+      "submitted": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "homeworkDuplicatedSuccess": "Homework duplicated successfully",
+  "homeworkAddFileTitle": "Add Assessment File",
+  "homeworkEditFileTitle": "Edit Assessment File",
+  "homeworkSavedSuccess": "Homework saved successfully",
+  "homeworkFileDetailsSection": "File Details",
+  "homeworkTitleLabel": "Title",
+  "homeworkTitleHint": "e.g. Midterm Review Worksheet",
+  "homeworkTitleRequired": "Title is required",
+  "homeworkCategoryLabel": "Category",
+  "homeworkUploadSection": "Upload",
+  "homeworkUploadHint": "Click to Upload or Drag & Drop",
+  "homeworkUploadSupportedTypes": "Supports PDF, DOCX, XLSX",
+  "homeworkTargetSection": "Target",
+  "homeworkTargetExamQuiz": "Attach to Exam/Quiz",
+  "homeworkTargetLesson": "Attach to Lesson",
+  "homeworkSearchExamLabel": "Search or Select Exam",
+  "homeworkSearchLessonLabel": "Search or Select Lesson",
+  "homeworkSearchTargetHint": "e.g. Midterm Math 101",
+  "homeworkTargetRequired": "Please select a target",
+  "homeworkUploadAndAttach": "Upload and Attach"
 }

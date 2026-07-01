@@ -219,5 +219,232 @@
   "quizPlaceholder": "الاختبارات للقراءة فقط حالياً",
   "save": "حفظ",
   "cancel": "إلغاء",
-  "delete": "حذف"
+  "delete": "حذف",
+  "edit": "تعديل",
+  "duplicate": "نسخ",
+  "homeQuizzesAction": "الاختبارات",
+  "homeHomeworkAction": "الواجبات",
+
+  "quizzesTitle": "التقييمات",
+  "quizzesMockClassLabel": "الفصل رياضيات-10أ",
+  "quizCreateButton": "إنشاء اختبار",
+  "quizFilterAll": "كل التقييمات",
+  "quizTypeQuiz": "اختبار قصير",
+  "quizTypeMidterm": "اختبار منتصف الفصل",
+  "quizTypeFinal": "اختبار نهائي",
+  "quizTimelineUpcoming": "قادم",
+  "quizTimelinePast": "سابق",
+  "quizTimelineStatusLabel": "حالة الجدول الزمني",
+  "quizResultStatusLabel": "حالة النتيجة",
+  "quizResultPending": "قيد الانتظار",
+  "quizResultGraded": "تم تصحيح {graded}/{submitted}",
+  "@quizResultGraded": {
+    "placeholders": {
+      "graded": {"type": "int"},
+      "submitted": {"type": "int"}
+    }
+  },
+  "quizResultNeedsGrading": "بحاجة إلى تصحيح {graded}/{submitted}",
+  "@quizResultNeedsGrading": {
+    "placeholders": {
+      "graded": {"type": "int"},
+      "submitted": {"type": "int"}
+    }
+  },
+  "quizSubmittedProgress": "تم التسليم {submitted}/{total}",
+  "@quizSubmittedProgress": {
+    "placeholders": {
+      "submitted": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "quizGradedProgress": "تم تصحيح {graded}/{submitted}",
+  "@quizGradedProgress": {
+    "placeholders": {
+      "graded": {"type": "int"},
+      "submitted": {"type": "int"}
+    }
+  },
+  "quizzesEmptyMessage": "لا توجد تقييمات.",
+  "quizCreateTitle": "إنشاء تقييم",
+  "quizSaveDraft": "حفظ كمسودة",
+  "quizSavedSuccess": "تم حفظ التقييم بنجاح",
+  "quizAssessmentTypeSection": "نوع التقييم",
+  "quizBasicInfoSection": "معلومات أساسية",
+  "quizTitleLabel": "العنوان",
+  "quizTitleHint": "مثال: الفصل 4 الدوال",
+  "quizTitleRequired": "العنوان مطلوب",
+  "quizDescriptionLabel": "الوصف (اختياري)",
+  "quizDescriptionHint": "أضف تعليمات أو سياقاً...",
+  "quizFormatOnline": "عبر الإنترنت",
+  "quizFormatOffline": "دون اتصال",
+  "quizTimingSection": "التوقيت",
+  "quizStartDateTimeLabel": "تاريخ ووقت البدء",
+  "quizStartDateTimeHint": "يوم/شهر/سنة، --:--",
+  "quizDurationLabel": "المدة",
+  "quizMinutesSuffix": "دقيقة",
+  "quizGradingSection": "الدرجات",
+  "quizMaxGradeFieldLabel": "الدرجة القصوى",
+  "quizMinPassingFieldLabel": "درجة النجاح",
+  "quizSecurityResultsSection": "الأمان والنتائج",
+  "quizRandomizeQuestions": "ترتيب عشوائي للأسئلة",
+  "quizRandomizeAnswers": "ترتيب عشوائي للإجابات",
+  "quizShowResultImmediately": "إظهار النتيجة فوراً",
+  "quizShowCorrectAnswers": "إظهار الإجابات الصحيحة",
+  "quizAllowRetake": "السماح بإعادة المحاولة",
+  "quizPreventLateSubmission": "منع التسليم المتأخر",
+  "quizMaxAttemptsLabel": "الحد الأقصى للمحاولات",
+  "quizScheduleButton": "جدولة",
+  "quizPublishButton": "نشر التقييم",
+  "quizDetailsTitle": "تفاصيل الاختبار",
+  "quizPreviewAction": "معاينة",
+  "quizTabDetails": "التفاصيل",
+  "quizTabQuestions": "الأسئلة",
+  "quizTabSettings": "الإعدادات",
+  "quizTabResults": "النتائج",
+  "quizDurationMinutes": "{minutes} دقيقة",
+  "@quizDurationMinutes": {
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
+  "quizMaxGradeLabel": "الدرجة القصوى: {grade}",
+  "@quizMaxGradeLabel": {
+    "placeholders": {
+      "grade": {"type": "int"}
+    }
+  },
+  "quizPassingGradeLabel": "درجة النجاح: {grade}",
+  "@quizPassingGradeLabel": {
+    "placeholders": {
+      "grade": {"type": "int"}
+    }
+  },
+  "quizQuestionsCount": "{count, plural, =0{0 سؤال} =1{سؤال واحد} other{{count} سؤال}}",
+  "@quizQuestionsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "quizTotalPoints": "مجموع الدرجات: {points}",
+  "@quizTotalPoints": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "quizPointsSuffix": "نقطة إجمالية",
+  "quizImportFromBank": "استيراد من البنك",
+  "quizAddQuestion": "إضافة سؤال",
+  "quizNoQuestionsTitle": "لا توجد أسئلة بعد",
+  "quizNoQuestionsMessage": "أضف أسئلة لجعل هذا الاختبار جاهزاً للطلاب.",
+
+  "questionNumberLabel": "س{number}",
+  "@questionNumberLabel": {
+    "placeholders": {
+      "number": {"type": "int"}
+    }
+  },
+  "questionPointsLabel": "{points} نقاط",
+  "@questionPointsLabel": {
+    "placeholders": {
+      "points": {"type": "int"}
+    }
+  },
+  "questionRequiredLabel": "مطلوب",
+  "questionDifficultyEasy": "سهل",
+  "questionDifficultyMedium": "متوسط",
+  "questionDifficultyHard": "صعب",
+  "questionTypeMultipleChoice": "اختيار من متعدد",
+  "questionTypeTrueFalse": "صح / خطأ",
+  "questionTypeShortAnswer": "إجابة قصيرة",
+  "questionTypeEssay": "مقالي",
+  "questionTypeFillBlank": "أكمل الفراغ",
+  "questionTypeMatching": "مطابقة",
+  "questionTrue": "صح",
+  "questionFalse": "خطأ",
+  "questionAcceptedAnswerLabel": "الإجابة المقبولة",
+  "questionAddTitle": "إضافة سؤال",
+  "questionEditTitle": "تعديل سؤال",
+  "questionSavedSuccess": "تم حفظ السؤال بنجاح",
+  "questionTypeLabel": "نوع السؤال",
+  "questionTextLabel": "نص السؤال",
+  "questionTextHint": "اكتب سؤالك هنا...",
+  "questionTextRequired": "نص السؤال مطلوب",
+  "questionPointsFieldLabel": "النقاط",
+  "questionDifficultyFieldLabel": "الصعوبة",
+  "questionOptionLabel": "الخيار {letter}",
+  "@questionOptionLabel": {
+    "placeholders": {
+      "letter": {"type": "String"}
+    }
+  },
+  "questionAddOption": "إضافة خيار",
+  "questionCorrectAnswerLabel": "الإجابة الصحيحة",
+  "questionAcceptedAnswerHint": "مثال: 6x + 2",
+  "questionEssayInfo": "الأسئلة المقالية تتطلب تصحيحاً يدوياً.",
+  "questionExplanationLabel": "الشرح (اختياري)",
+  "questionExplanationHint": "اشرح الإجابة الصحيحة...",
+  "questionSaveButton": "حفظ السؤال",
+
+  "homeworkManagementTitle": "إدارة الواجبات",
+  "homeworkMockBreadcrumb": "رياضيات-10أ > الواجبات",
+  "homeworkCreateButton": "إنشاء واجب",
+  "homeworkTabPublished": "منشور ({count})",
+  "@homeworkTabPublished": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeworkTabDrafts": "مسودات ({count})",
+  "@homeworkTabDrafts": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeworkTabScheduled": "مجدول ({count})",
+  "@homeworkTabScheduled": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "homeworkEmptyMessage": "لا توجد واجبات.",
+  "homeworkDueToday": "يستحق اليوم، {time}",
+  "@homeworkDueToday": {
+    "placeholders": {
+      "time": {"type": "String"}
+    }
+  },
+  "homeworkDueOn": "يستحق في {dateTime}",
+  "@homeworkDueOn": {
+    "placeholders": {
+      "dateTime": {"type": "String"}
+    }
+  },
+  "homeworkSubmissionProgress": "تقدم التسليم: {submitted}/{total}",
+  "@homeworkSubmissionProgress": {
+    "placeholders": {
+      "submitted": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "homeworkDuplicatedSuccess": "تم نسخ الواجب بنجاح",
+  "homeworkAddFileTitle": "إضافة ملف تقييم",
+  "homeworkEditFileTitle": "تعديل ملف تقييم",
+  "homeworkSavedSuccess": "تم حفظ الواجب بنجاح",
+  "homeworkFileDetailsSection": "تفاصيل الملف",
+  "homeworkTitleLabel": "العنوان",
+  "homeworkTitleHint": "مثال: ورقة عمل مراجعة منتصف الفصل",
+  "homeworkTitleRequired": "العنوان مطلوب",
+  "homeworkCategoryLabel": "الفئة",
+  "homeworkUploadSection": "رفع الملف",
+  "homeworkUploadHint": "اضغط للرفع أو اسحب وأفلت",
+  "homeworkUploadSupportedTypes": "يدعم PDF وDOCX وXLSX",
+  "homeworkTargetSection": "الوجهة",
+  "homeworkTargetExamQuiz": "إرفاق إلى اختبار",
+  "homeworkTargetLesson": "إرفاق إلى درس",
+  "homeworkSearchExamLabel": "ابحث عن اختبار أو اختره",
+  "homeworkSearchLessonLabel": "ابحث عن درس أو اختره",
+  "homeworkSearchTargetHint": "مثال: اختبار منتصف الفصل رياضيات 101",
+  "homeworkTargetRequired": "يرجى اختيار وجهة",
+  "homeworkUploadAndAttach": "رفع وإرفاق"
 }
