@@ -4,7 +4,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../data/models/quiz_models.dart';
 import 'question_card.dart';
-import 'quiz_viewer_role.dart';
+
 
 class QuestionsTabView extends StatelessWidget {
   const QuestionsTabView({
@@ -13,7 +13,6 @@ class QuestionsTabView extends StatelessWidget {
     required this.onEditQuestion,
     required this.onDuplicateQuestion,
     required this.onDeleteQuestion,
-    this.viewerRole = QuizViewerRole.teacher,
     super.key,
   });
 
@@ -22,17 +21,13 @@ class QuestionsTabView extends StatelessWidget {
   final ValueChanged<QuestionModel> onEditQuestion;
   final ValueChanged<QuestionModel> onDuplicateQuestion;
   final ValueChanged<QuestionModel> onDeleteQuestion;
-  final QuizViewerRole viewerRole;
-
-  bool get _isTeacher => viewerRole == QuizViewerRole.teacher;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (_isTeacher)
-          Padding(
-            padding: EdgeInsets.all(16.r),
+        Padding(
+          padding: EdgeInsets.all(16.r),
             child: Row(
               children: [
                 Text(
@@ -72,12 +67,12 @@ class QuestionsTabView extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
           ),
+        ),
         Expanded(
           child: quiz.questions.isEmpty
               ? _EmptyQuestions(
-                  onAddQuestion: _isTeacher ? onAddQuestion : null,
+                  onAddQuestion: onAddQuestion,
                 )
               : ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -87,7 +82,6 @@ class QuestionsTabView extends StatelessWidget {
                     return QuestionCard(
                       index: index + 1,
                       question: question,
-                      viewerRole: viewerRole,
                       onEdit: () => onEditQuestion(question),
                       onDuplicate: () => onDuplicateQuestion(question),
                       onDelete: () => onDeleteQuestion(question),
@@ -103,7 +97,7 @@ class QuestionsTabView extends StatelessWidget {
 class _EmptyQuestions extends StatelessWidget {
   const _EmptyQuestions({required this.onAddQuestion});
 
-  final VoidCallback? onAddQuestion;
+  final VoidCallback onAddQuestion;
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +126,7 @@ class _EmptyQuestions extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            if (onAddQuestion != null) ...[
+            ...[
               SizedBox(height: 16.h),
               FilledButton.icon(
                 onPressed: onAddQuestion,

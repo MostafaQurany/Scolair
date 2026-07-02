@@ -1045,4 +1045,120 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeworkUploadAndAttach => 'رفع وإرفاق';
+
+  @override
+  String get classesTitle => 'فصولي';
+
+  @override
+  String get classesSubtitle => 'إدارة الدورات والواجبات النشطة.';
+
+  @override
+  String get classesSearchHint => 'ابحث عن فصول...';
+
+  @override
+  String get classFilterAll => 'جميع الفصول';
+
+  @override
+  String get classFilterMathematics => 'الرياضيات';
+
+  @override
+  String get classFilterScience => 'العلوم';
+
+  @override
+  String get classFilterNetworking => 'الشبكات';
+
+  @override
+  String get classFilterLiterature => 'الأدب';
+
+  @override
+  String classStudentsCount(int count) {
+    return '$count طالب';
+  }
+
+  @override
+  String get classNextLesson => 'الدرس التالي';
+
+  @override
+  String get classSubmissions => 'التسليمات';
+
+  @override
+  String classPendingReview(int count) {
+    return '$count بانتظار المراجعة';
+  }
+
+  @override
+  String get classAllCaughtUp => 'تم الانتهاء من الكل';
+
+  @override
+  String get classUrgentAlert => 'تنبيه عاجل';
+
+  @override
+  String get classDetailViewStudents => 'عرض الطلاب';
+
+  @override
+  String get classDetailExamsQuizzes => 'الاختبارات والمسابقات';
+
+  @override
+  String get classCurriculum => 'المنهج';
+
+  @override
+  String classCurriculumWeek(int current, int total) {
+    return 'الأسبوع $current من $total';
+  }
+
+  @override
+  String get classActivity => 'نشاط الفصل';
+
+  @override
+  String get classAttendance => 'الحضور';
+
+  @override
+  String get classPresentToday => 'حاضر اليوم';
+
+  @override
+  String get classAbsentToday => 'غائب اليوم';
+
+  @override
+  String get classTakeAttendance => 'تسجيل الحضور';
+
+  @override
+  String get classPerformance => 'أداء الفصل';
+
+  @override
+  String get classAverage => 'متوسط الفصل';
+
+  @override
+  String get classAssignmentCompletion => 'إتمام الواجبات';
+
+  @override
+  String get classGradeNow => 'تصحيح الآن';
+
+  @override
+  String get classSubmitted => 'تم التسليم';
+
+  @override
+  String get myCoursesTitle => 'دوراتي';
+
+  @override
+  String get myCoursesEmpty => 'لا توجد دورات بعد.';
+
+  @override
+  String get myCoursesButton => 'دوراتي';
+
+  @override
+  String get classStudents => 'طالب';
+
+  @override
+  String get coursesLessonsLabel => 'الدروس';
+
+  @override
+  String get coursesStudentsLabel => 'الطلاب';
+
+  @override
+  String get coursesRatingLabel => 'التقييم';
+
+  @override
+  String myCoursesCoTaughtBy(String names) {
+    return 'بالاشتراك مع $names';
+  }
 }

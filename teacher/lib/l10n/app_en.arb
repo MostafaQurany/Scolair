@@ -446,5 +446,70 @@
   "homeworkSearchLessonLabel": "Search or Select Lesson",
   "homeworkSearchTargetHint": "e.g. Midterm Math 101",
   "homeworkTargetRequired": "Please select a target",
-  "homeworkUploadAndAttach": "Upload and Attach"
+  "homeworkUploadAndAttach": "Upload and Attach",
+
+  "classesTitle": "My Classes",
+  "classesSubtitle": "Manage your active courses and assignments.",
+  "classesSearchHint": "Search classes...",
+  "classFilterAll": "All Classes",
+  "classFilterMathematics": "Mathematics",
+  "classFilterScience": "Science",
+  "classFilterNetworking": "Networking",
+  "classFilterLiterature": "Literature",
+  "classStudentsCount": "{count} Students",
+  "@classStudentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "classNextLesson": "NEXT LESSON",
+  "classSubmissions": "SUBMISSIONS",
+  "classPendingReview": "{count} Pending Review",
+  "@classPendingReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "classAllCaughtUp": "All Caught Up",
+  "classUrgentAlert": "URGENT ALERT",
+  "classDetailViewStudents": "View Students",
+  "classDetailExamsQuizzes": "Exams & Quizzes",
+  "classCurriculum": "Curriculum",
+  "classCurriculumWeek": "Week {current} of {total}",
+  "@classCurriculumWeek": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "classActivity": "Class Activity",
+  "classAttendance": "Attendance",
+  "classPresentToday": "PRESENT TODAY",
+  "classAbsentToday": "ABSENT TODAY",
+  "classTakeAttendance": "Take Attendance",
+  "classPerformance": "Class Performance",
+  "classAverage": "Class Average",
+  "classAssignmentCompletion": "Assignment Completion",
+  "classGradeNow": "Grade Now",
+  "classSubmitted": "SUBMITTED",
+  "myCoursesTitle": "My Courses",
+  "myCoursesEmpty": "You have no courses yet.",
+  "myCoursesButton": "My Courses",
+  "classStudents": "students",
+  "coursesLessonsLabel": "Lessons",
+  "coursesStudentsLabel": "Students",
+  "coursesRatingLabel": "Rating",
+  "myCoursesCoTaughtBy": "Co-taught w/ {names}",
+  "@myCoursesCoTaughtBy": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  }
 }
+

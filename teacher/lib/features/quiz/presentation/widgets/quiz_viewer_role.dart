@@ -1,1 +1,0 @@
-enum QuizViewerRole { teacher, student }

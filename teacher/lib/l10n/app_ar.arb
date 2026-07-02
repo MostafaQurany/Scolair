@@ -446,5 +446,70 @@
   "homeworkSearchLessonLabel": "ابحث عن درس أو اختره",
   "homeworkSearchTargetHint": "مثال: اختبار منتصف الفصل رياضيات 101",
   "homeworkTargetRequired": "يرجى اختيار وجهة",
-  "homeworkUploadAndAttach": "رفع وإرفاق"
+  "homeworkUploadAndAttach": "رفع وإرفاق",
+
+  "classesTitle": "فصولي",
+  "classesSubtitle": "إدارة الدورات والواجبات النشطة.",
+  "classesSearchHint": "ابحث عن فصول...",
+  "classFilterAll": "جميع الفصول",
+  "classFilterMathematics": "الرياضيات",
+  "classFilterScience": "العلوم",
+  "classFilterNetworking": "الشبكات",
+  "classFilterLiterature": "الأدب",
+  "classStudentsCount": "{count} طالب",
+  "@classStudentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "classNextLesson": "الدرس التالي",
+  "classSubmissions": "التسليمات",
+  "classPendingReview": "{count} بانتظار المراجعة",
+  "@classPendingReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "classAllCaughtUp": "تم الانتهاء من الكل",
+  "classUrgentAlert": "تنبيه عاجل",
+  "classDetailViewStudents": "عرض الطلاب",
+  "classDetailExamsQuizzes": "الاختبارات والمسابقات",
+  "classCurriculum": "المنهج",
+  "classCurriculumWeek": "الأسبوع {current} من {total}",
+  "@classCurriculumWeek": {
+    "placeholders": {
+      "current": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "classActivity": "نشاط الفصل",
+  "classAttendance": "الحضور",
+  "classPresentToday": "حاضر اليوم",
+  "classAbsentToday": "غائب اليوم",
+  "classTakeAttendance": "تسجيل الحضور",
+  "classPerformance": "أداء الفصل",
+  "classAverage": "متوسط الفصل",
+  "classAssignmentCompletion": "إتمام الواجبات",
+  "classGradeNow": "تصحيح الآن",
+  "classSubmitted": "تم التسليم",
+  "myCoursesTitle": "دوراتي",
+  "myCoursesEmpty": "لا توجد دورات بعد.",
+  "myCoursesButton": "دوراتي",
+  "classStudents": "طالب",
+  "coursesLessonsLabel": "الدروس",
+  "coursesStudentsLabel": "الطلاب",
+  "coursesRatingLabel": "التقييم",
+  "myCoursesCoTaughtBy": "بالاشتراك مع {names}",
+  "@myCoursesCoTaughtBy": {
+    "placeholders": {
+      "names": {
+        "type": "String"
+      }
+    }
+  }
 }
+

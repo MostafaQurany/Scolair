@@ -1981,6 +1981,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upload and Attach'**
   String get homeworkUploadAndAttach;
+
+  /// No description provided for @classesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Classes'**
+  String get classesTitle;
+
+  /// No description provided for @classesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage your active courses and assignments.'**
+  String get classesSubtitle;
+
+  /// No description provided for @classesSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search classes...'**
+  String get classesSearchHint;
+
+  /// No description provided for @classFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All Classes'**
+  String get classFilterAll;
+
+  /// No description provided for @classFilterMathematics.
+  ///
+  /// In en, this message translates to:
+  /// **'Mathematics'**
+  String get classFilterMathematics;
+
+  /// No description provided for @classFilterScience.
+  ///
+  /// In en, this message translates to:
+  /// **'Science'**
+  String get classFilterScience;
+
+  /// No description provided for @classFilterNetworking.
+  ///
+  /// In en, this message translates to:
+  /// **'Networking'**
+  String get classFilterNetworking;
+
+  /// No description provided for @classFilterLiterature.
+  ///
+  /// In en, this message translates to:
+  /// **'Literature'**
+  String get classFilterLiterature;
+
+  /// No description provided for @classStudentsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Students'**
+  String classStudentsCount(int count);
+
+  /// No description provided for @classNextLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'NEXT LESSON'**
+  String get classNextLesson;
+
+  /// No description provided for @classSubmissions.
+  ///
+  /// In en, this message translates to:
+  /// **'SUBMISSIONS'**
+  String get classSubmissions;
+
+  /// No description provided for @classPendingReview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Pending Review'**
+  String classPendingReview(int count);
+
+  /// No description provided for @classAllCaughtUp.
+  ///
+  /// In en, this message translates to:
+  /// **'All Caught Up'**
+  String get classAllCaughtUp;
+
+  /// No description provided for @classUrgentAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'URGENT ALERT'**
+  String get classUrgentAlert;
+
+  /// No description provided for @classDetailViewStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'View Students'**
+  String get classDetailViewStudents;
+
+  /// No description provided for @classDetailExamsQuizzes.
+  ///
+  /// In en, this message translates to:
+  /// **'Exams & Quizzes'**
+  String get classDetailExamsQuizzes;
+
+  /// No description provided for @classCurriculum.
+  ///
+  /// In en, this message translates to:
+  /// **'Curriculum'**
+  String get classCurriculum;
+
+  /// No description provided for @classCurriculumWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {current} of {total}'**
+  String classCurriculumWeek(int current, int total);
+
+  /// No description provided for @classActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Class Activity'**
+  String get classActivity;
+
+  /// No description provided for @classAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance'**
+  String get classAttendance;
+
+  /// No description provided for @classPresentToday.
+  ///
+  /// In en, this message translates to:
+  /// **'PRESENT TODAY'**
+  String get classPresentToday;
+
+  /// No description provided for @classAbsentToday.
+  ///
+  /// In en, this message translates to:
+  /// **'ABSENT TODAY'**
+  String get classAbsentToday;
+
+  /// No description provided for @classTakeAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'Take Attendance'**
+  String get classTakeAttendance;
+
+  /// No description provided for @classPerformance.
+  ///
+  /// In en, this message translates to:
+  /// **'Class Performance'**
+  String get classPerformance;
+
+  /// No description provided for @classAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Class Average'**
+  String get classAverage;
+
+  /// No description provided for @classAssignmentCompletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignment Completion'**
+  String get classAssignmentCompletion;
+
+  /// No description provided for @classGradeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Grade Now'**
+  String get classGradeNow;
+
+  /// No description provided for @classSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'SUBMITTED'**
+  String get classSubmitted;
+
+  /// No description provided for @myCoursesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Courses'**
+  String get myCoursesTitle;
+
+  /// No description provided for @myCoursesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no courses yet.'**
+  String get myCoursesEmpty;
+
+  /// No description provided for @myCoursesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'My Courses'**
+  String get myCoursesButton;
+
+  /// No description provided for @classStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'students'**
+  String get classStudents;
+
+  /// No description provided for @coursesLessonsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get coursesLessonsLabel;
+
+  /// No description provided for @coursesStudentsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Students'**
+  String get coursesStudentsLabel;
+
+  /// No description provided for @coursesRatingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get coursesRatingLabel;
+
+  /// No description provided for @myCoursesCoTaughtBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Co-taught w/ {names}'**
+  String myCoursesCoTaughtBy(String names);
 }
 
 class _AppLocalizationsDelegate

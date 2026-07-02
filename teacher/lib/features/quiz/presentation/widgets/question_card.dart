@@ -5,13 +5,12 @@ import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../data/models/quiz_models.dart';
 import 'question_type_badge.dart';
-import 'quiz_viewer_role.dart';
+
 
 class QuestionCard extends StatelessWidget {
   const QuestionCard({
     required this.index,
     required this.question,
-    this.viewerRole = QuizViewerRole.teacher,
     this.onEdit,
     this.onDuplicate,
     this.onDelete,
@@ -20,12 +19,9 @@ class QuestionCard extends StatelessWidget {
 
   final int index;
   final QuestionModel question;
-  final QuizViewerRole viewerRole;
   final VoidCallback? onEdit;
   final VoidCallback? onDuplicate;
   final VoidCallback? onDelete;
-
-  bool get _isTeacher => viewerRole == QuizViewerRole.teacher;
 
   String _difficultyLabel(BuildContext context) =>
       switch (question.difficulty) {
@@ -73,8 +69,8 @@ class QuestionCard extends StatelessWidget {
           SizedBox(height: 10.h),
           Text(question.text, style: textTheme.bodyMedium),
           SizedBox(height: 10.h),
-          _QuestionPreview(question: question, showAnswers: _isTeacher),
-          if (_isTeacher) ...[
+          _QuestionPreview(question: question, showAnswers: true),
+          ...[
             SizedBox(height: 10.h),
             const Divider(),
             Row(

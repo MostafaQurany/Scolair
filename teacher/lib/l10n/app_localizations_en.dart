@@ -1047,4 +1047,120 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeworkUploadAndAttach => 'Upload and Attach';
+
+  @override
+  String get classesTitle => 'My Classes';
+
+  @override
+  String get classesSubtitle => 'Manage your active courses and assignments.';
+
+  @override
+  String get classesSearchHint => 'Search classes...';
+
+  @override
+  String get classFilterAll => 'All Classes';
+
+  @override
+  String get classFilterMathematics => 'Mathematics';
+
+  @override
+  String get classFilterScience => 'Science';
+
+  @override
+  String get classFilterNetworking => 'Networking';
+
+  @override
+  String get classFilterLiterature => 'Literature';
+
+  @override
+  String classStudentsCount(int count) {
+    return '$count Students';
+  }
+
+  @override
+  String get classNextLesson => 'NEXT LESSON';
+
+  @override
+  String get classSubmissions => 'SUBMISSIONS';
+
+  @override
+  String classPendingReview(int count) {
+    return '$count Pending Review';
+  }
+
+  @override
+  String get classAllCaughtUp => 'All Caught Up';
+
+  @override
+  String get classUrgentAlert => 'URGENT ALERT';
+
+  @override
+  String get classDetailViewStudents => 'View Students';
+
+  @override
+  String get classDetailExamsQuizzes => 'Exams & Quizzes';
+
+  @override
+  String get classCurriculum => 'Curriculum';
+
+  @override
+  String classCurriculumWeek(int current, int total) {
+    return 'Week $current of $total';
+  }
+
+  @override
+  String get classActivity => 'Class Activity';
+
+  @override
+  String get classAttendance => 'Attendance';
+
+  @override
+  String get classPresentToday => 'PRESENT TODAY';
+
+  @override
+  String get classAbsentToday => 'ABSENT TODAY';
+
+  @override
+  String get classTakeAttendance => 'Take Attendance';
+
+  @override
+  String get classPerformance => 'Class Performance';
+
+  @override
+  String get classAverage => 'Class Average';
+
+  @override
+  String get classAssignmentCompletion => 'Assignment Completion';
+
+  @override
+  String get classGradeNow => 'Grade Now';
+
+  @override
+  String get classSubmitted => 'SUBMITTED';
+
+  @override
+  String get myCoursesTitle => 'My Courses';
+
+  @override
+  String get myCoursesEmpty => 'You have no courses yet.';
+
+  @override
+  String get myCoursesButton => 'My Courses';
+
+  @override
+  String get classStudents => 'students';
+
+  @override
+  String get coursesLessonsLabel => 'Lessons';
+
+  @override
+  String get coursesStudentsLabel => 'Students';
+
+  @override
+  String get coursesRatingLabel => 'Rating';
+
+  @override
+  String myCoursesCoTaughtBy(String names) {
+    return 'Co-taught w/ $names';
+  }
 }
