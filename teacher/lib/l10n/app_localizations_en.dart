@@ -1174,6 +1174,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get questionTypeOpenEnded => 'Open Ended';
 
   @override
+  String get questionTypeFileUpload => 'File Upload';
+
+  @override
   String get quizPassingPercentage => 'Passing Percentage';
 
   @override
@@ -1211,6 +1214,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Open-ended questions require manual grading by the teacher.';
 
   @override
+  String get questionFileUploadHint =>
+      'Students answer this question by uploading a file. It requires manual grading.';
+
+  @override
   String get quizMaxAttemptsHelper => 'Enter 0 for unlimited attempts';
 
   @override
@@ -1222,6 +1229,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get questionBankTitle => 'Question Bank';
+
+  @override
+  String get questionCenterTitle => 'Question Center';
 
   @override
   String get search => 'Search...';
@@ -1255,6 +1265,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get questionBankFilterType => 'Type';
 
   @override
+  String get questionBankFilterAll => 'All';
+
+  @override
   String get questionBankFilterDifficulty => 'Difficulty';
 
   @override
@@ -1262,6 +1275,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get questionBankFilterTopic => 'Topic';
+
+  @override
+  String get questionBankClearFilters => 'Clear filters';
+
+  @override
+  String get questionBankEmptyTitle => 'No questions found';
+
+  @override
+  String get questionBankEmptyMessage =>
+      'Create questions or check back later.';
+
+  @override
+  String get questionBankNoMatches => 'Try a different search or filter.';
+
+  @override
+  String get questionBankManualTypeBlocked =>
+      'This quiz already has auto-graded questions, so manual question types cannot be mixed in.';
+
+  @override
+  String get questionBankAutoTypeBlocked =>
+      'This quiz already has manual question types, so auto-graded questions cannot be mixed in.';
+
+  @override
+  String get questionDeletedSuccess => 'Question deleted successfully';
 
   @override
   String questionBankSelectedCount(int count) {

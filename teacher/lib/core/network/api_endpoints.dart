@@ -49,15 +49,15 @@ abstract final class ApiEndpoints {
 
   // === Quiz Endpoints ===
   static const String listQuestions =
-      '/api/method/lms.quiz.controllers.list_questions';
+      '/api/method/lms.question.controllers.list_questions';
   static const String getQuestion =
-      '/api/method/lms.quiz.controllers.get_question';
+      '/api/method/lms.question.controllers.get_question';
   static const String createQuestion =
-      '/api/method/lms.quiz.controllers.create_question';
+      '/api/method/lms.question.controllers.create_question';
   static const String updateQuestion =
-      '/api/method/lms.quiz.controllers.update_question';
+      '/api/method/lms.question.controllers.update_question';
   static const String deleteQuestion =
-      '/api/method/lms.quiz.controllers.delete_question';
+      '/api/method/lms.question.controllers.delete_question';
   static const String listQuizzes =
       '/api/method/lms.quiz.controllers.list_quizzes';
   static const String getQuiz = '/api/method/lms.quiz.controllers.get_quiz';

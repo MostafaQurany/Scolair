@@ -4,7 +4,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../data/models/quiz_models.dart';
 import 'question_form_sections.dart';
-import 'quiz_section_card.dart';
 
 class QuestionFormBody extends StatefulWidget {
   const QuestionFormBody({
@@ -142,11 +141,12 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
 
     final body = <String, dynamic>{
       'question': _questionController.text.trim(),
-      'type': _type == ApiQuestionType.choices
-          ? 'Choices'
-          : _type == ApiQuestionType.userInput
-          ? 'User Input'
-          : 'Open Ended',
+      'type': switch (_type) {
+        ApiQuestionType.choices => 'Choices',
+        ApiQuestionType.userInput => 'User Input',
+        ApiQuestionType.openEnded => 'Open Ended',
+        ApiQuestionType.fileUpload => 'File Upload',
+      },
     };
 
     if (isEditing) {
@@ -195,99 +195,259 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Form(
       key: _formKey,
-      child: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 3,
-                child: QuestionTypeSelector(
-                  value: _type,
-                  onChanged: (type) => setState(() => _type = type),
-                ),
-              ),
-              SizedBox(width: 16.w),
-              Expanded(
-                flex: 1,
-                child: TextFormField(
-                  controller: _marksController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: context.l10n
-                        .questionPointsLabel(0)
-                        .split(' ')[1], // Quick hack for "Points"
+      child: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            sliver: SliverToBoxAdapter(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: QuestionTypeSelector(
+                      value: _type,
+                      onChanged: (type) => setState(() => _type = type),
+                    ),
                   ),
-                  validator: (value) {
-                  if (value == null || value.trim().isEmpty) { return 'Required'; }
-                  if (int.tryParse(value.trim()) == null) { return 'Invalid'; }
-                    return null;
-                  },
-                ),
+                  SizedBox(width: 16.w),
+                  SizedBox(
+                    width: 80.w,
+                    child: TextFormField(
+                      controller: _marksController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: 'pts',
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: BorderSide(color: colorScheme.primary),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                          borderSide: BorderSide(color: colorScheme.primary),
+                        ),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 12.h,
+                        ),
+                        filled: true,
+                        fillColor: colorScheme.surfaceContainerLow,
+                      ),
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return 'Required';
+                        }
+                        if (int.tryParse(value.trim()) == null) {
+                          return 'Invalid';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          SizedBox(height: 16.h),
-          QuizSectionCard(
-            title: context.l10n.questionTextLabel,
-            children: [
-              TextFormField(
-                controller: _questionController,
-                maxLines: 4,
-                decoration: InputDecoration(
-                  hintText: context.l10n.questionTextLabel,
-                  border: InputBorder.none,
-                ),
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return context.l10n.questionTextRequired;
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 8.h),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(Icons.image_outlined),
-                  label: Text(context.l10n.questionAttachMedia),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16.h),
-          if (_type == ApiQuestionType.choices) ...[
-            ChoicesSection(
-              option1: _option1Controller,
-              option2: _option2Controller,
-              option3: _option3Controller,
-              option4: _option4Controller,
-              option5: _option5Controller,
-              explanation1: _explanation1Controller,
-              explanation2: _explanation2Controller,
-              explanation3: _explanation3Controller,
-              explanation4: _explanation4Controller,
-              explanation5: _explanation5Controller,
-              correctOptions: _correctOptions,
-              multiple: _multiple,
-              onToggleCorrect: _toggleCorrect,
-              onMultipleChanged: (v) => setState(() => _multiple = v),
             ),
-          ] else if (_type == ApiQuestionType.userInput) ...[
-            UserInputSection(
-              possibility1: _possibility1Controller,
-              possibility2: _possibility2Controller,
-              possibility3: _possibility3Controller,
-              possibility4: _possibility4Controller,
-              possibility5: _possibility5Controller,
+          ),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            sliver: SliverToBoxAdapter(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.02),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(16.r),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        context.l10n.questionTextLabel,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: colorScheme.onSurface,
+                            ),
+                      ),
+                      SizedBox(height: 12.h),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: colorScheme.surfaceContainerLow,
+                          borderRadius: BorderRadius.circular(8.r),
+                          border: Border.all(
+                            color: colorScheme.outlineVariant.withValues(
+                              alpha: 0.4,
+                            ),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 4.h,
+                              ),
+                              child: TextFormField(
+                                controller: _questionController,
+                                maxLines: 4,
+                                decoration: InputDecoration(
+                                  hintText: context.l10n.questionTextLabel,
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return context.l10n.questionTextRequired;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            Divider(
+                              height: 1,
+                              color: colorScheme.outlineVariant.withValues(
+                                alpha: 0.4,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 4.w,
+                                vertical: 2.h,
+                              ),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: TextButton.icon(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.image_outlined),
+                                  label: Text(context.l10n.questionAttachMedia),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ] else ...[
-            const OpenEndedHint(),
-          ],
+          ),
+          SliverPadding(
+            padding: EdgeInsets.all(16.r),
+            sliver: SliverMainAxisGroup(
+              slivers: [
+                if (_type == ApiQuestionType.choices) ...[
+                  SliverToBoxAdapter(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SwitchListTile(
+                          contentPadding: EdgeInsets.zero,
+                          title: Text(
+                            context.l10n.questionMultipleCorrect,
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            'Allows multiple selections from the choices below',
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(color: colorScheme.onSurfaceVariant),
+                          ),
+                          value: _multiple,
+                          onChanged: (v) => setState(() => _multiple = v),
+                        ),
+                        SizedBox(height: 12.h),
+                      ],
+                    ),
+                  ),
+                  SliverList.builder(
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      final optionIndex = index + 1;
+                      final controller = switch (optionIndex) {
+                        1 => _option1Controller,
+                        2 => _option2Controller,
+                        3 => _option3Controller,
+                        4 => _option4Controller,
+                        _ => _option5Controller,
+                      };
+                      final explanationController = switch (optionIndex) {
+                        1 => _explanation1Controller,
+                        2 => _explanation2Controller,
+                        3 => _explanation3Controller,
+                        4 => _explanation4Controller,
+                        _ => _explanation5Controller,
+                      };
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: 12.h),
+                        child: OptionTile(
+                          index: optionIndex,
+                          controller: controller,
+                          explanationController: explanationController,
+                          isCorrect: _correctOptions.contains(optionIndex),
+                          onToggle: () => _toggleCorrect(optionIndex),
+                        ),
+                      );
+                    },
+                  ),
+                  //   SliverToBoxAdapter(
+                  //     child: Padding(
+                  //       padding: EdgeInsets.only(top: 4.h, bottom: 16.h),
+                  //       child: SizedBox(
+                  //         width: double.infinity,
+                  //         height: 48.h,
+                  //         child: OutlinedButton(
+                  //           onPressed:
+                  //               null, // Visually disabled to preserve 5 controllers logic
+                  //           style: OutlinedButton.styleFrom(
+                  //             side: BorderSide(color: colorScheme.outlineVariant),
+                  //             shape: RoundedRectangleBorder(
+                  //               borderRadius: BorderRadius.circular(8.r),
+                  //             ),
+                  //           ),
+                  //           child: Row(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: [
+                  //               const Icon(Icons.add),
+                  //               SizedBox(width: 8.w),
+                  //               const Text('Add another choice'),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ),
+                ] else if (_type == ApiQuestionType.userInput) ...[
+                  SliverToBoxAdapter(
+                    child: UserInputSection(
+                      possibility1: _possibility1Controller,
+                      possibility2: _possibility2Controller,
+                      possibility3: _possibility3Controller,
+                      possibility4: _possibility4Controller,
+                      possibility5: _possibility5Controller,
+                    ),
+                  ),
+                ] else if (_type == ApiQuestionType.openEnded) ...[
+                  const SliverToBoxAdapter(child: OpenEndedHint()),
+                ] else ...[
+                  const SliverToBoxAdapter(child: FileUploadHint()),
+                ],
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -2216,6 +2216,12 @@ abstract class AppLocalizations {
   /// **'Open Ended'**
   String get questionTypeOpenEnded;
 
+  /// No description provided for @questionTypeFileUpload.
+  ///
+  /// In en, this message translates to:
+  /// **'File Upload'**
+  String get questionTypeFileUpload;
+
   /// No description provided for @quizPassingPercentage.
   ///
   /// In en, this message translates to:
@@ -2288,6 +2294,12 @@ abstract class AppLocalizations {
   /// **'Open-ended questions require manual grading by the teacher.'**
   String get questionOpenEndedHint;
 
+  /// No description provided for @questionFileUploadHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Students answer this question by uploading a file. It requires manual grading.'**
+  String get questionFileUploadHint;
+
   /// No description provided for @quizMaxAttemptsHelper.
   ///
   /// In en, this message translates to:
@@ -2311,6 +2323,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Question Bank'**
   String get questionBankTitle;
+
+  /// No description provided for @questionCenterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Question Center'**
+  String get questionCenterTitle;
 
   /// No description provided for @search.
   ///
@@ -2372,6 +2390,12 @@ abstract class AppLocalizations {
   /// **'Type'**
   String get questionBankFilterType;
 
+  /// No description provided for @questionBankFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get questionBankFilterAll;
+
   /// No description provided for @questionBankFilterDifficulty.
   ///
   /// In en, this message translates to:
@@ -2389,6 +2413,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Topic'**
   String get questionBankFilterTopic;
+
+  /// No description provided for @questionBankClearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filters'**
+  String get questionBankClearFilters;
+
+  /// No description provided for @questionBankEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions found'**
+  String get questionBankEmptyTitle;
+
+  /// No description provided for @questionBankEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Create questions or check back later.'**
+  String get questionBankEmptyMessage;
+
+  /// No description provided for @questionBankNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search or filter.'**
+  String get questionBankNoMatches;
+
+  /// No description provided for @questionBankManualTypeBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'This quiz already has auto-graded questions, so manual question types cannot be mixed in.'**
+  String get questionBankManualTypeBlocked;
+
+  /// No description provided for @questionBankAutoTypeBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'This quiz already has manual question types, so auto-graded questions cannot be mixed in.'**
+  String get questionBankAutoTypeBlocked;
+
+  /// No description provided for @questionDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Question deleted successfully'**
+  String get questionDeletedSuccess;
 
   /// No description provided for @questionBankSelectedCount.
   ///

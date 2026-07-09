@@ -57,8 +57,7 @@ class ListQuizzesUseCase {
   Future<ApiResult<PaginatedList<QuizSummaryModel>>> call({
     int start = 0,
     int pageSize = 30,
-  }) =>
-      _repository.listQuizzes(start: start, pageSize: pageSize);
+  }) => _repository.listQuizzes(start: start, pageSize: pageSize);
 }
 
 class GetQuizUseCase {

@@ -9,7 +9,8 @@ import '../../data/models/quiz_models.dart';
 import '../cubit/quiz_details_cubit.dart';
 import '../cubit/quiz_details_state.dart';
 import '../widgets/question_form_body.dart';
-import 'question_bank_screen.dart';
+import '../../../question/presentation/screens/question_bank_screen.dart';
+import '../../../question/presentation/widgets/question_type_label.dart';
 
 class _DraftQuestion {
   final String? existingQuestionId;
@@ -22,7 +23,6 @@ class _DraftQuestion {
     this.existingQuestionId,
     this.originalData,
     this.bankData,
-    this.inlineData,
     this.marks = 1,
   });
 
@@ -99,7 +99,9 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   void _goToBank() async {
     final selected = await Navigator.push<List<QuestionModel>>(
       context,
-      MaterialPageRoute(builder: (_) => const QuestionBankScreen()),
+      MaterialPageRoute(
+        builder: (_) => QuestionBankScreen(blockedTypes: _blockedBankTypes()),
+      ),
     );
 
     if (selected != null && selected.isNotEmpty && mounted) {
@@ -212,11 +214,12 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   QuestionModel _questionFromInline(_DraftQuestion draft) {
     final data = draft.inlineData!;
     final typeStr = data['type'] as String?;
-    final type = typeStr == 'User Input'
-        ? ApiQuestionType.userInput
-        : typeStr == 'Open Ended'
-        ? ApiQuestionType.openEnded
-        : ApiQuestionType.choices;
+    final type = switch (typeStr) {
+      'User Input' => ApiQuestionType.userInput,
+      'Open Ended' => ApiQuestionType.openEnded,
+      'File Upload' => ApiQuestionType.fileUpload,
+      _ => ApiQuestionType.choices,
+    };
 
     return QuestionModel(
       name: draft.existingQuestionId ?? '',
@@ -244,6 +247,21 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
       possibility4: data['possibility_4'],
       possibility5: data['possibility_5'],
     );
+  }
+
+  Set<ApiQuestionType> _blockedBankTypes() {
+    final existingTypes = widget.quiz.questions
+        .map((question) => question.type ?? ApiQuestionType.choices)
+        .toSet();
+    final hasManual = existingTypes.any((type) => type.isManualGraded);
+    final hasAuto = existingTypes.any((type) => !type.isManualGraded);
+    if (hasManual) {
+      return {ApiQuestionType.choices, ApiQuestionType.userInput};
+    }
+    if (hasAuto) {
+      return {ApiQuestionType.openEnded, ApiQuestionType.fileUpload};
+    }
+    return const {};
   }
 
   QuestionModel _questionFromOriginal(QuizQuestionModel q) {
@@ -346,7 +364,13 @@ class _SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
         icon: const Icon(Icons.close),
         onPressed: () => Navigator.pop(context),
       ),
-      title: Text(context.l10n.questionOfTotal(currentIndex + 1, total)),
+      leadingWidth: 20.w,
+      title: Text(
+        context.l10n.questionOfTotal(currentIndex + 1, total),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
+      actionsPadding: EdgeInsets.symmetric(horizontal: 1.w),
       actions: [
         if (onBank != null)
           TextButton.icon(

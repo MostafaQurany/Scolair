@@ -26,28 +26,38 @@ class QuizSectionCard extends StatelessWidget {
         borderRadius: radius,
         side: BorderSide(color: AppColors.border.withValues(alpha: 0.4)),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 4.h),
-            child: Text(
-              title,
-              style: textTheme.titleSmall?.copyWith(
-                color: AppColors.textPrimary,
-                fontWeight: FontWeight.w600,
+      child: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: radius,
+          border: BorderDirectional(
+            end: BorderSide(color: AppColors.primary.withValues(alpha: 0.4)),
+            bottom: BorderSide(color: AppColors.primary.withValues(alpha: 0.4)),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 4.h),
+              child: Text(
+                title,
+                style: textTheme.titleSmall?.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
             ),
-          ),
-          Divider(height: 1, color: AppColors.border.withValues(alpha: 0.3)),
-          Padding(
-            padding: EdgeInsets.all(16.r),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: children,
+            Divider(height: 1, color: AppColors.border.withValues(alpha: 0.3)),
+            Padding(
+              padding: EdgeInsets.all(16.r),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: children,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -160,7 +160,7 @@ class _QuizDetailsBody extends StatelessWidget {
 
     final cubit = context.read<QuizDetailsCubit>();
     final questionNames = quiz.questions
-        .map((question) => question.question)
+        .map((question) => question.name)
         .toList(growable: false);
 
     for (final questionName in questionNames) {

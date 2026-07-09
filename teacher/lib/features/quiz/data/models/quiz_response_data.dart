@@ -117,10 +117,7 @@ class ListQuizzesResponseData {
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
-  @JsonKey(
-    fromJson: _paginatedQuizzesFromJson,
-    toJson: _paginatedQuizzesToJson,
-  )
+  @JsonKey(fromJson: _paginatedQuizzesFromJson, toJson: _paginatedQuizzesToJson)
   final PaginatedList<QuizSummaryModel> data;
 
   factory ListQuizzesResponseData.fromJson(Map<String, dynamic> json) =>

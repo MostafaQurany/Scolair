@@ -7,4 +7,6 @@ enum ApiQuestionType {
   userInput,
   @JsonValue('Open Ended')
   openEnded,
+  @JsonValue('File Upload')
+  fileUpload,
 }

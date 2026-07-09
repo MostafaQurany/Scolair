@@ -745,12 +745,22 @@ class _ApiClient implements ApiClient {
   @override
   Future<ListQuestionsResponseData> listQuestions(
     String? type,
+    String? quiz,
+    String? homework,
+    String? lesson,
+    String? chapter,
+    String? course,
     int start,
     int pageSize,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'type': type,
+      r'quiz': quiz,
+      r'homework': homework,
+      r'lesson': lesson,
+      r'chapter': chapter,
+      r'course': course,
       r'start': start,
       r'page_size': pageSize,
     };
@@ -761,7 +771,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/method/lms.quiz.controllers.list_questions',
+            '/api/method/lms.question.controllers.list_questions',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -788,7 +798,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/method/lms.quiz.controllers.get_question',
+            '/api/method/lms.question.controllers.get_question',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -818,7 +828,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/method/lms.quiz.controllers.create_question',
+            '/api/method/lms.question.controllers.create_question',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -848,7 +858,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/method/lms.quiz.controllers.update_question',
+            '/api/method/lms.question.controllers.update_question',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -866,19 +876,16 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<DeleteQuestionResponseData> deleteQuestion(
-    Map<String, dynamic> body,
-  ) async {
+  Future<DeleteQuestionResponseData> deleteQuestion(String questionName) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'question': questionName};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(body);
+    const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<DeleteQuestionResponseData>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/api/method/lms.quiz.controllers.delete_question',
+            '/api/method/lms.question.controllers.delete_question',
             queryParameters: queryParameters,
             data: _data,
           )

@@ -14,12 +14,14 @@ class QuestionTypeBadge extends StatelessWidget {
     ApiQuestionType.choices => AppColors.success,
     ApiQuestionType.userInput => AppColors.info,
     ApiQuestionType.openEnded => AppColors.warning,
+    ApiQuestionType.fileUpload => AppColors.error,
   };
 
   String _typeLabel(BuildContext context) => switch (type) {
     ApiQuestionType.choices => context.l10n.questionTypeChoices,
     ApiQuestionType.userInput => context.l10n.questionTypeUserInput,
     ApiQuestionType.openEnded => context.l10n.questionTypeOpenEnded,
+    ApiQuestionType.fileUpload => context.l10n.questionTypeFileUpload,
   };
 
   @override

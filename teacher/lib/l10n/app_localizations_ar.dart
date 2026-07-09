@@ -1172,6 +1172,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get questionTypeOpenEnded => 'سؤال مفتوح';
 
   @override
+  String get questionTypeFileUpload => 'رفع ملف';
+
+  @override
   String get quizPassingPercentage => 'نسبة النجاح';
 
   @override
@@ -1209,6 +1212,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'الأسئلة المقالية تتطلب تصحيحاً يدوياً من قبل المعلم.';
 
   @override
+  String get questionFileUploadHint =>
+      'يجيب الطلاب على هذا السؤال برفع ملف، ويحتاج إلى تصحيح يدوي.';
+
+  @override
   String get quizMaxAttemptsHelper => 'أدخل 0 لمحاولات غير محدودة';
 
   @override
@@ -1219,6 +1226,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get questionBankTitle => 'بنك الأسئلة';
+
+  @override
+  String get questionCenterTitle => 'مركز الأسئلة';
 
   @override
   String get search => 'بحث...';
@@ -1252,6 +1262,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get questionBankFilterType => 'النوع';
 
   @override
+  String get questionBankFilterAll => 'الكل';
+
+  @override
   String get questionBankFilterDifficulty => 'الصعوبة';
 
   @override
@@ -1259,6 +1272,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get questionBankFilterTopic => 'الموضوع';
+
+  @override
+  String get questionBankClearFilters => 'مسح الفلاتر';
+
+  @override
+  String get questionBankEmptyTitle => 'لا توجد أسئلة';
+
+  @override
+  String get questionBankEmptyMessage => 'أنشئ أسئلة أو تحقق لاحقاً.';
+
+  @override
+  String get questionBankNoMatches => 'جرّب بحثاً أو فلترًا مختلفاً.';
+
+  @override
+  String get questionBankManualTypeBlocked =>
+      'يحتوي هذا الاختبار بالفعل على أسئلة تُصحح تلقائياً، لذلك لا يمكن إضافة أسئلة التصحيح اليدوي.';
+
+  @override
+  String get questionBankAutoTypeBlocked =>
+      'يحتوي هذا الاختبار بالفعل على أسئلة تصحيح يدوي، لذلك لا يمكن إضافة أسئلة تُصحح تلقائياً.';
+
+  @override
+  String get questionDeletedSuccess => 'تم حذف السؤال بنجاح';
 
   @override
   String questionBankSelectedCount(int count) {

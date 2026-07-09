@@ -76,6 +76,7 @@ const _$ApiQuestionTypeEnumMap = {
   ApiQuestionType.choices: 'Choices',
   ApiQuestionType.userInput: 'User Input',
   ApiQuestionType.openEnded: 'Open Ended',
+  ApiQuestionType.fileUpload: 'File Upload',
 };
 
 QuizQuestionModel _$QuizQuestionModelFromJson(Map<String, dynamic> json) =>

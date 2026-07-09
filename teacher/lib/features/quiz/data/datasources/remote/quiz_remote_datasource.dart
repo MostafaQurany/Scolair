@@ -45,7 +45,16 @@ class QuizRemoteDataSourceImpl implements QuizRemoteDataSource {
     String? type,
     int start = 0,
     int pageSize = 30,
-  }) => _apiClient.listQuestions(type, start, pageSize);
+  }) => _apiClient.listQuestions(
+    type,
+    null,
+    null,
+    null,
+    null,
+    null,
+    start,
+    pageSize,
+  );
 
   @override
   Future<GetQuestionResponseData> getQuestion(String questionName) =>
@@ -64,7 +73,7 @@ class QuizRemoteDataSourceImpl implements QuizRemoteDataSource {
   @override
   Future<DeleteQuestionResponseData> deleteQuestion(
     Map<String, dynamic> body,
-  ) => _apiClient.deleteQuestion(body);
+  ) => _apiClient.deleteQuestion(body['question'] as String);
 
   // --- Quizzes ---
 

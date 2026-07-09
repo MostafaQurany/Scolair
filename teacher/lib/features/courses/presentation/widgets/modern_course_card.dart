@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:scolair_teacher/core/widgets/app_cached_network_image.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
@@ -147,10 +148,19 @@ class _Header extends StatelessWidget {
             color: accent.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(12.r),
           ),
-          child: Icon(
-            _CourseVisuals.icon(course.category),
-            size: 24.r,
-            color: accent,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.r),
+            child: AppCachedNetworkImage(
+              imageUrl: course.image?.trim() ?? '',
+              fit: BoxFit.fill,
+              height: double.infinity,
+              width: double.infinity,
+              errorWidget: Icon(
+                _CourseVisuals.icon(course.category),
+                size: 24.r,
+                color: accent,
+              ),
+            ),
           ),
         ),
         SizedBox(width: 14.w),

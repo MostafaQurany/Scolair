@@ -145,6 +145,11 @@ abstract class ApiClient {
   @GET(ApiEndpoints.listQuestions)
   Future<ListQuestionsResponseData> listQuestions(
     @Query('type') String? type,
+    @Query('quiz') String? quiz,
+    @Query('homework') String? homework,
+    @Query('lesson') String? lesson,
+    @Query('chapter') String? chapter,
+    @Query('course') String? course,
     @Query('start') int start,
     @Query('page_size') int pageSize,
   );
@@ -166,7 +171,7 @@ abstract class ApiClient {
 
   @DELETE(ApiEndpoints.deleteQuestion)
   Future<DeleteQuestionResponseData> deleteQuestion(
-    @Body() Map<String, dynamic> body,
+    @Query('question') String questionName,
   );
 
   // === Quiz — Quizzes ===

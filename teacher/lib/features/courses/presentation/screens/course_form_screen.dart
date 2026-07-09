@@ -150,7 +150,7 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
               Image.network(
                 resolvedUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const SizedBox.shrink(),
+                errorBuilder: (_, _, _) => const SizedBox.shrink(),
               ),
 
             // Dark scrim when image present

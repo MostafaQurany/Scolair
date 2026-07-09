@@ -51,8 +51,18 @@ import '../../features/quiz/domain/usecases/quiz_usecases.dart';
 import '../../features/quiz/presentation/cubit/quizzes_cubit.dart';
 import '../../features/quiz/presentation/cubit/quiz_form_cubit.dart';
 import '../../features/quiz/presentation/cubit/quiz_details_cubit.dart';
-import '../../features/quiz/presentation/cubit/question_form_cubit.dart';
-import '../../features/quiz/presentation/cubit/question_bank_cubit.dart';
+import '../../features/question/data/datasources/remote/question_remote_datasource.dart'
+    as question_data;
+import '../../features/question/data/repositories/question_repository_impl.dart'
+    as question_data;
+import '../../features/question/domain/repositories/question_repository.dart'
+    as question_domain;
+import '../../features/question/domain/usecases/question_usecases.dart'
+    as question_domain;
+import '../../features/question/presentation/cubit/question_form_cubit.dart'
+    as question_presentation;
+import '../../features/question/presentation/cubit/question_bank_cubit.dart'
+    as question_presentation;
 import '../../features/homework/data/datasources/local/homework_mock_datasource.dart';
 import '../../features/homework/data/repositories/homework_repository_impl.dart';
 import '../../features/homework/domain/repositories/homework_repository.dart';
@@ -216,21 +226,6 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<CreateQuizUseCase>(() => CreateQuizUseCase(getIt()))
     ..registerLazySingleton<UpdateQuizUseCase>(() => UpdateQuizUseCase(getIt()))
     ..registerLazySingleton<DeleteQuizUseCase>(() => DeleteQuizUseCase(getIt()))
-    ..registerLazySingleton<ListQuestionsUseCase>(
-      () => ListQuestionsUseCase(getIt()),
-    )
-    ..registerLazySingleton<GetQuestionUseCase>(
-      () => GetQuestionUseCase(getIt()),
-    )
-    ..registerLazySingleton<CreateQuestionUseCase>(
-      () => CreateQuestionUseCase(getIt()),
-    )
-    ..registerLazySingleton<UpdateQuestionUseCase>(
-      () => UpdateQuestionUseCase(getIt()),
-    )
-    ..registerLazySingleton<DeleteQuestionUseCase>(
-      () => DeleteQuestionUseCase(getIt()),
-    )
     ..registerLazySingleton<AddQuestionToQuizUseCase>(
       () => AddQuestionToQuizUseCase(getIt()),
     )
@@ -242,10 +237,42 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<QuizDetailsCubit>(
       () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt()),
     )
-    ..registerFactory<QuestionFormCubit>(
-      () => QuestionFormCubit(getIt(), getIt()),
+    // Question Feature
+    ..registerLazySingleton<question_data.QuestionRemoteDataSource>(
+      () => question_data.QuestionRemoteDataSourceImpl(getIt()),
     )
-    ..registerFactory<QuestionBankCubit>(() => QuestionBankCubit(getIt()))
+    ..registerLazySingleton<question_domain.QuestionRepository>(
+      () => question_data.QuestionRepositoryImpl(getIt()),
+    )
+    ..registerLazySingleton<question_domain.ListQuestionsUseCase>(
+      () => question_domain.ListQuestionsUseCase(getIt()),
+    )
+    ..registerLazySingleton<question_domain.GetQuestionUseCase>(
+      () => question_domain.GetQuestionUseCase(getIt()),
+    )
+    ..registerLazySingleton<question_domain.CreateQuestionUseCase>(
+      () => question_domain.CreateQuestionUseCase(getIt()),
+    )
+    ..registerLazySingleton<question_domain.UpdateQuestionUseCase>(
+      () => question_domain.UpdateQuestionUseCase(getIt()),
+    )
+    ..registerLazySingleton<question_domain.DeleteQuestionUseCase>(
+      () => question_domain.DeleteQuestionUseCase(getIt()),
+    )
+    ..registerFactory<question_presentation.QuestionFormCubit>(
+      () => question_presentation.QuestionFormCubit(getIt(), getIt()),
+    )
+    ..registerFactory<question_presentation.QuestionBankCubit>(
+      () => question_presentation.QuestionBankCubit(
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+      ),
+    )
     // Homework Feature
     ..registerLazySingleton<HomeworkMockDataSource>(
       HomeworkMockDataSourceImpl.new,

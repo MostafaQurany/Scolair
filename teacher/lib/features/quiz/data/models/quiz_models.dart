@@ -46,14 +46,6 @@ QuestionModel _questionFromJson(Object? json) =>
 
 QuizModel _quizFromJson(Object? json) => QuizModel.fromJson(_asStringMap(json));
 
-List<QuizSummaryModel> _quizSummaryListFromJson(Object? json) {
-  if (json is! List) return <QuizSummaryModel>[];
-  return json
-      .whereType<Map>()
-      .map((item) => QuizSummaryModel.fromJson(_asStringMap(item)))
-      .toList();
-}
-
 List<QuizQuestionModel> _quizQuestionsFromJson(Object? json) {
   if (json is! List) return <QuizQuestionModel>[];
   return json
@@ -76,7 +68,6 @@ Map<String, dynamic> _paginatedQuestionsToJson(
 };
 
 //----- Model-specific Quize converters ---
-
 
 PaginatedList<QuizSummaryModel> _paginatedQuizzesFromJson(Object? json) =>
     PaginatedList.fromJson(json, _quizessFromJson);
