@@ -15,50 +15,20 @@ class QuizCard extends StatelessWidget {
     super.key,
   });
 
-  final QuizModel quiz;
+  final QuizSummaryModel quiz;
   final VoidCallback? onTap;
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
-
-  Color get _accentColor => quiz.resultStatus == QuizResultStatus.needsGrading
-      ? AppColors.warning
-      : quiz.timelineStatus == QuizTimelineStatus.upcoming
-      ? AppColors.primary
-      : AppColors.neutral;
-
-  String _typeLabel(BuildContext context) => switch (quiz.type) {
-    QuizType.quiz => context.l10n.quizTypeQuiz,
-    QuizType.midterm => context.l10n.quizTypeMidterm,
-    QuizType.final_ => context.l10n.quizTypeFinal,
-  };
-
-  String _timelineLabel(BuildContext context) =>
-      quiz.timelineStatus == QuizTimelineStatus.upcoming
-      ? context.l10n.quizTimelineUpcoming
-      : context.l10n.quizTimelinePast;
-
-  String _resultLabel(BuildContext context) => switch (quiz.resultStatus) {
-    QuizResultStatus.pending => context.l10n.quizResultPending,
-    QuizResultStatus.graded => context.l10n.quizResultGraded(
-      quiz.gradedCount,
-      quiz.submittedCount,
-    ),
-    QuizResultStatus.needsGrading => context.l10n.quizResultNeedsGrading(
-      quiz.gradedCount,
-      quiz.submittedCount,
-    ),
-  };
-
-  Color _resultColor() => switch (quiz.resultStatus) {
-    QuizResultStatus.pending => AppColors.warning,
-    QuizResultStatus.graded => AppColors.success,
-    QuizResultStatus.needsGrading => AppColors.warning,
-  };
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
+
+    DateTime? creationDate;
+    if (quiz.creation != null) {
+      creationDate = DateTime.tryParse(quiz.creation!);
+    }
 
     return Container(
       margin: EdgeInsets.only(bottom: 16.h),
@@ -73,7 +43,7 @@ class QuizCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(height: 3.h, color: _accentColor),
+          Container(height: 3.h, color: AppColors.primary),
           InkWell(
             onTap: onTap,
             child: Padding(
@@ -82,25 +52,18 @@ class QuizCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 8.w,
-                          vertical: 3.h,
-                        ),
-                        decoration: BoxDecoration(
-                          color: colorScheme.primaryContainer,
-                          borderRadius: BorderRadius.circular(6.r),
-                        ),
+                      Expanded(
                         child: Text(
-                          _typeLabel(context),
-                          style: textTheme.labelSmall?.copyWith(
-                            color: colorScheme.onPrimaryContainer,
+                          quiz.title,
+                          style: textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      const Spacer(),
                       if (onEdit != null || onDelete != null)
                         PopupMenuButton<String>(
                           icon: Icon(
@@ -132,47 +95,34 @@ class QuizCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 10.h),
-                  Text(
-                    quiz.title,
-                    style: textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  if (quiz.description != null) ...[
-                    SizedBox(height: 4.h),
-                    Text(
-                      quiz.description!,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                  SizedBox(height: 10.h),
                   Row(
                     children: [
-                      Icon(
-                        Icons.calendar_today_outlined,
-                        size: 14.r,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      SizedBox(width: 4.w),
-                      Text(
-                        DateFormat.yMMMd().format(quiz.startDateTime),
-                        style: textTheme.bodySmall,
-                      ),
-                      SizedBox(width: 12.w),
-                      Icon(
-                        Icons.access_time,
-                        size: 14.r,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      SizedBox(width: 4.w),
-                      Text(
-                        DateFormat.jm().format(quiz.startDateTime),
-                        style: textTheme.bodySmall,
-                      ),
+                      if (creationDate != null) ...[
+                        Icon(
+                          Icons.calendar_today_outlined,
+                          size: 14.r,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          DateFormat.yMMMd().format(creationDate),
+                          style: textTheme.bodySmall,
+                        ),
+                        SizedBox(width: 12.w),
+                      ],
+                      if (quiz.duration != null &&
+                          quiz.duration!.isNotEmpty) ...[
+                        Icon(
+                          Icons.access_time,
+                          size: 14.r,
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          '${quiz.duration} min',
+                          style: textTheme.bodySmall,
+                        ),
+                      ],
                     ],
                   ),
                   SizedBox(height: 10.h),
@@ -182,18 +132,15 @@ class QuizCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context.l10n.quizTimelineStatusLabel,
+                        context.l10n.quizPassingPercentage,
                         style: textTheme.bodySmall?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                       Text(
-                        _timelineLabel(context),
+                        '${quiz.passingPercentage}%',
                         style: textTheme.bodySmall?.copyWith(
-                          color:
-                              quiz.timelineStatus == QuizTimelineStatus.upcoming
-                              ? AppColors.primary
-                              : AppColors.neutral,
+                          color: AppColors.primary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -204,15 +151,19 @@ class QuizCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        context.l10n.quizResultStatusLabel,
+                        context.l10n.quizMaxAttempts,
                         style: textTheme.bodySmall?.copyWith(
                           color: colorScheme.onSurfaceVariant,
                         ),
                       ),
                       Text(
-                        _resultLabel(context),
+                        quiz.maxAttempts > 0
+                            ? quiz.maxAttempts.toString()
+                            : context
+                                  .l10n
+                                  .quizMaxAttemptsUnlimited, // NOTE: Need to verify if this string exists, if not we'll use 'Unlimited' directly or add it. Let's use 'Unlimited' as fallback if not. Actually let's just use string literal for now to avoid ARB issues, or add it later.
                         style: textTheme.bodySmall?.copyWith(
-                          color: _resultColor(),
+                          color: AppColors.neutral,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

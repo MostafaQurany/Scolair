@@ -1247,7 +1247,7 @@ abstract class AppLocalizations {
   /// No description provided for @quizCreateButton.
   ///
   /// In en, this message translates to:
-  /// **'Create Exam'**
+  /// **'Create Quiz'**
   String get quizCreateButton;
 
   /// No description provided for @quizFilterAll.
@@ -1427,7 +1427,7 @@ abstract class AppLocalizations {
   /// No description provided for @quizDurationLabel.
   ///
   /// In en, this message translates to:
-  /// **'Duration'**
+  /// **'Duration (minutes)'**
   String get quizDurationLabel;
 
   /// No description provided for @quizMinutesSuffix.
@@ -2197,6 +2197,360 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Co-taught w/ {names}'**
   String myCoursesCoTaughtBy(String names);
+
+  /// No description provided for @questionTypeChoices.
+  ///
+  /// In en, this message translates to:
+  /// **'Choices'**
+  String get questionTypeChoices;
+
+  /// No description provided for @questionTypeUserInput.
+  ///
+  /// In en, this message translates to:
+  /// **'User Input'**
+  String get questionTypeUserInput;
+
+  /// No description provided for @questionTypeOpenEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Ended'**
+  String get questionTypeOpenEnded;
+
+  /// No description provided for @quizPassingPercentage.
+  ///
+  /// In en, this message translates to:
+  /// **'Passing Percentage'**
+  String get quizPassingPercentage;
+
+  /// No description provided for @quizMaxAttempts.
+  ///
+  /// In en, this message translates to:
+  /// **'Max Attempts'**
+  String get quizMaxAttempts;
+
+  /// No description provided for @quizMaxAttemptsUnlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlimited'**
+  String get quizMaxAttemptsUnlimited;
+
+  /// No description provided for @quizShuffleQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Shuffle Questions'**
+  String get quizShuffleQuestions;
+
+  /// No description provided for @quizShowAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Answers'**
+  String get quizShowAnswers;
+
+  /// No description provided for @quizEnableNegativeMarking.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Negative Marking'**
+  String get quizEnableNegativeMarking;
+
+  /// No description provided for @quizMarksToCut.
+  ///
+  /// In en, this message translates to:
+  /// **'Marks To Cut'**
+  String get quizMarksToCut;
+
+  /// No description provided for @quizLimitQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit Questions To'**
+  String get quizLimitQuestions;
+
+  /// No description provided for @questionMultipleCorrect.
+  ///
+  /// In en, this message translates to:
+  /// **'Multiple Correct Answers'**
+  String get questionMultipleCorrect;
+
+  /// No description provided for @questionPossibilitiesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Accepted Possibilities'**
+  String get questionPossibilitiesLabel;
+
+  /// No description provided for @questionPossibility.
+  ///
+  /// In en, this message translates to:
+  /// **'Possibility'**
+  String get questionPossibility;
+
+  /// No description provided for @questionOpenEndedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-ended questions require manual grading by the teacher.'**
+  String get questionOpenEndedHint;
+
+  /// No description provided for @quizMaxAttemptsHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter 0 for unlimited attempts'**
+  String get quizMaxAttemptsHelper;
+
+  /// No description provided for @quizDurationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty for unlimited duration'**
+  String get quizDurationHint;
+
+  /// No description provided for @quizLimitQuestionsHelper.
+  ///
+  /// In en, this message translates to:
+  /// **'Randomly pick N questions (0 for all)'**
+  String get quizLimitQuestionsHelper;
+
+  /// No description provided for @questionBankTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Question Bank'**
+  String get questionBankTitle;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search...'**
+  String get search;
+
+  /// No description provided for @addToQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Quiz'**
+  String get addToQuiz;
+
+  /// No description provided for @quizTabOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get quizTabOverview;
+
+  /// No description provided for @quizTabReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get quizTabReview;
+
+  /// No description provided for @quizTimeLimitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Limit'**
+  String get quizTimeLimitLabel;
+
+  /// No description provided for @quizPassingScoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Passing Score'**
+  String get quizPassingScoreLabel;
+
+  /// No description provided for @quizNoQuestionsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Start building your assessment by adding questions manually or importing from the question bank.'**
+  String get quizNoQuestionsSubtitle;
+
+  /// No description provided for @quizErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get quizErrorTitle;
+
+  /// No description provided for @quizRetryButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get quizRetryButton;
+
+  /// No description provided for @questionBankFilterType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get questionBankFilterType;
+
+  /// No description provided for @questionBankFilterDifficulty.
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty'**
+  String get questionBankFilterDifficulty;
+
+  /// No description provided for @questionBankFilterPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get questionBankFilterPoints;
+
+  /// No description provided for @questionBankFilterTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic'**
+  String get questionBankFilterTopic;
+
+  /// No description provided for @questionBankSelectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 question selected} other{{count} questions selected}}'**
+  String questionBankSelectedCount(int count);
+
+  /// No description provided for @questionBankClear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get questionBankClear;
+
+  /// No description provided for @quizSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Setup'**
+  String get quizSetupTitle;
+
+  /// No description provided for @quizGeneralDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'General Details'**
+  String get quizGeneralDetails;
+
+  /// No description provided for @quizGradingLimits.
+  ///
+  /// In en, this message translates to:
+  /// **'Grading & Limits'**
+  String get quizGradingLimits;
+
+  /// No description provided for @quizBehavior.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Behavior'**
+  String get quizBehavior;
+
+  /// No description provided for @questionSavedDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved Draft'**
+  String get questionSavedDraft;
+
+  /// No description provided for @questionAttachMedia.
+  ///
+  /// In en, this message translates to:
+  /// **'Attach Media'**
+  String get questionAttachMedia;
+
+  /// No description provided for @quizReorderButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reorder'**
+  String get quizReorderButton;
+
+  /// No description provided for @questionOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String questionOfTotal(int current, int total);
+
+  /// No description provided for @quizChoicesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 choice} other{{count} choices}}'**
+  String quizChoicesCount(int count);
+
+  /// No description provided for @quizSaveSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Settings'**
+  String get quizSaveSettings;
+
+  /// No description provided for @quizReviewPlaceholderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Results not available'**
+  String get quizReviewPlaceholderTitle;
+
+  /// No description provided for @quizReviewPlaceholderMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Result tracking is not fully integrated yet.'**
+  String get quizReviewPlaceholderMessage;
+
+  /// No description provided for @quizCourseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Course'**
+  String get quizCourseLabel;
+
+  /// No description provided for @quizLessonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson'**
+  String get quizLessonLabel;
+
+  /// No description provided for @quizTimeLimitToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time Limit'**
+  String get quizTimeLimitToggle;
+
+  /// No description provided for @quizMinutesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes'**
+  String get quizMinutesLabel;
+
+  /// No description provided for @quizShowCorrectAnswersToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Correct Answers'**
+  String get quizShowCorrectAnswersToggle;
+
+  /// No description provided for @quizNegativeMarkingToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Negative Marking'**
+  String get quizNegativeMarkingToggle;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @saveLocally.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Locally'**
+  String get saveLocally;
+
+  /// No description provided for @addNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Add New'**
+  String get addNew;
+
+  /// No description provided for @questionRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Question removed'**
+  String get questionRemoved;
+
+  /// No description provided for @questionsAddedFromBank.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 question added from bank} other{{count} questions added from bank}}'**
+  String questionsAddedFromBank(int count);
 }
 
 class _AppLocalizationsDelegate

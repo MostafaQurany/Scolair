@@ -56,7 +56,8 @@ class CourseHeaderCard extends StatelessWidget {
                 Container(decoration: BoxDecoration(gradient: headerGrad)),
                 if (course.image != null)
                   AppCachedNetworkImage(
-                    imageUrl: (course.image!.contains('http') ||
+                    imageUrl:
+                        (course.image!.contains('http') ||
                             course.image!.contains('https'))
                         ? course.image!
                         : '${ApiEndpoints.baseUrl}${course.image!}',

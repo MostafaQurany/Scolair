@@ -4,8 +4,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../homework/presentation/screens/homework_list_screen.dart';
-import '../../../quiz/presentation/screens/quizzes_list_screen.dart';
 import '../../domain/entities/home_summary.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
@@ -73,41 +71,6 @@ class _HomeContent extends StatelessWidget {
         ),
         SizedBox(height: 24.h),
         _SummaryPanel(summary: summary),
-        SizedBox(height: 16.h),
-        const _QuickActionsRow(),
-      ],
-    );
-  }
-}
-
-class _QuickActionsRow extends StatelessWidget {
-  const _QuickActionsRow();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const QuizzesListScreen()),
-            ),
-            icon: const Icon(Icons.quiz_outlined),
-            label: Text(context.l10n.homeQuizzesAction),
-          ),
-        ),
-        SizedBox(width: 12.w),
-        Expanded(
-          child: OutlinedButton.icon(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const HomeworkListScreen()),
-            ),
-            icon: const Icon(Icons.assignment_outlined),
-            label: Text(context.l10n.homeHomeworkAction),
-          ),
-        ),
       ],
     );
   }

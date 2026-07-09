@@ -7,11 +7,11 @@ import '../../../../core/localization/localization_extension.dart';
 abstract final class QuizSection {
   static const int questions = 0;
   static const int settings = 1;
-  static const int results = 2;
+  static const int review = 2;
 }
 
-/// A pill-shaped Material 3 segment bar for switching between
-/// quiz detail sections (Questions, Settings, Results).
+/// An underline-style tab bar for switching between quiz detail
+/// sections (Questions, Settings, Review).
 class QuizSegmentBar extends StatelessWidget {
   const QuizSegmentBar({
     required this.selectedIndex,
@@ -25,68 +25,101 @@ class QuizSegmentBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-      padding: EdgeInsets.all(4.r),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 8,
-            spreadRadius: 0,
-            offset: Offset(0, 2),
-            color: Colors.black12,
+        border: Border(
+          bottom: BorderSide(
+            color: colorScheme.outlineVariant.withValues(alpha: 0.4),
           ),
-        ],
+        ),
       ),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: SegmentedButton<int>(
-          selected: {selectedIndex},
-          onSelectionChanged: (values) => onChanged(values.first),
-          showSelectedIcon: false,
-          style: SegmentedButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            selectedBackgroundColor: colorScheme.primary,
-            selectedForegroundColor: colorScheme.onPrimary,
-            foregroundColor: colorScheme.onSurfaceVariant,
-            side: BorderSide.none,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Row(
+          children: [
+            _TabItem(
+              label: context.l10n.quizTabQuestions,
+              icon: Icons.quiz_outlined,
+              isSelected: selectedIndex == QuizSection.questions,
+              onTap: () => onChanged(QuizSection.questions),
+              colorScheme: colorScheme,
+              textTheme: textTheme,
             ),
-            textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
-              fontWeight: FontWeight.w600,
+            SizedBox(width: 8.w),
+            _TabItem(
+              label: context.l10n.quizTabSettings,
+              icon: Icons.settings_outlined,
+              isSelected: selectedIndex == QuizSection.settings,
+              onTap: () => onChanged(QuizSection.settings),
+              colorScheme: colorScheme,
+              textTheme: textTheme,
+            ),
+            SizedBox(width: 8.w),
+            _TabItem(
+              label: context.l10n.quizTabReview,
+              icon: Icons.bar_chart_outlined,
+              isSelected: selectedIndex == QuizSection.review,
+              onTap: () => onChanged(QuizSection.review),
+              colorScheme: colorScheme,
+              textTheme: textTheme,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TabItem extends StatelessWidget {
+  const _TabItem({
+    required this.label,
+    required this.icon,
+    required this.isSelected,
+    required this.onTap,
+    required this.colorScheme,
+    required this.textTheme,
+  });
+
+  final String label;
+  final IconData icon;
+  final bool isSelected;
+  final VoidCallback onTap;
+  final ColorScheme colorScheme;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isSelected
+        ? colorScheme.primary
+        : colorScheme.onSurfaceVariant;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8.r),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              color: isSelected ? colorScheme.primary : Colors.transparent,
+              width: 2,
             ),
           ),
-          segments: [
-            ButtonSegment<int>(
-              value: QuizSection.questions,
-              label: Text(
-                context.l10n.quizTabQuestions,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 16.r, color: color),
+            SizedBox(width: 6.w),
+            Text(
+              label,
+              style: textTheme.labelMedium?.copyWith(
+                color: color,
+                fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
               ),
-              icon: Icon(Icons.quiz_outlined, size: 16.r),
-            ),
-            ButtonSegment<int>(
-              value: QuizSection.settings,
-              label: Text(
-                context.l10n.quizTabSettings,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-              icon: Icon(Icons.settings_outlined, size: 16.r),
-            ),
-            ButtonSegment<int>(
-              value: QuizSection.results,
-              label: Text(
-                context.l10n.quizTabResults,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-              ),
-              icon: Icon(Icons.bar_chart_outlined, size: 16.r),
             ),
           ],
         ),

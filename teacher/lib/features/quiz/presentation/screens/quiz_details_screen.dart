@@ -4,135 +4,286 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
+import '../../data/models/quiz_models.dart';
 import '../cubit/quiz_details_cubit.dart';
 import '../cubit/quiz_details_state.dart';
-import 'question_form_screen.dart';
 import '../widgets/questions_tab_view.dart';
-import '../widgets/quiz_details_header_card.dart';
-import '../widgets/quiz_read_only_tabs.dart';
-import '../widgets/quiz_segment_bar.dart';
+import '../widgets/quiz_state_widgets.dart';
+import 'quiz_questions_slider_screen.dart';
+import 'quiz_settings_screen.dart';
 
-/// Displays full quiz details for the teacher: header, questions,
-/// settings, and results — all in a single scrollable layout
-/// driven by a [QuizSegmentBar] instead of a [TabBar].
-class QuizDetailsScreen extends StatefulWidget {
-  const QuizDetailsScreen({required this.quizId, super.key});
+class QuizDetailsScreen extends StatelessWidget {
+  const QuizDetailsScreen({required this.quizName, super.key});
 
-  final String quizId;
-
-  @override
-  State<QuizDetailsScreen> createState() => _QuizDetailsScreenState();
-}
-
-class _QuizDetailsScreenState extends State<QuizDetailsScreen> {
-  final _pageController = PageController();
-  final _selectedSection = ValueNotifier<int>(QuizSection.questions);
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    _selectedSection.dispose();
-    super.dispose();
-  }
-
-  void _onSegmentChanged(int index) {
-    _selectedSection.value = index;
-    _pageController.jumpToPage(index);
-  }
+  final String quizName;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt<QuizDetailsCubit>()..loadQuiz(widget.quizId),
+      create: (_) => getIt<QuizDetailsCubit>()..loadQuiz(quizName),
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(context.l10n.quizDetailsTitle),
-        ),
-        body: BlocConsumer<QuizDetailsCubit, QuizDetailsState>(
-          listener: (context, state) {
-            final mutationError = state.mutationError;
-            if (mutationError != null) {
-              AppSnackBar.showError(context, mutationError);
-            }
-          },
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            final errorMessage = state.errorMessage;
-            if (errorMessage != null) {
-              return Center(
-                child: Text(
-                  errorMessage,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.error,
-                  ),
-                ),
-              );
-            }
-            final quiz = state.quiz;
-            if (quiz == null) return const SizedBox.shrink();
+        backgroundColor: AppColors.background,
+        body: _QuizDetailsBody(quizName: quizName),
+        floatingActionButton: const _QuizFab(),
+      ),
+    );
+  }
+}
 
-            return Column(
-              children: [
-                // Always-visible header (replaces the old "Details" tab).
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
-                  child: QuizDetailsHeaderCard(quiz: quiz),
+class _QuizDetailsBody extends StatelessWidget {
+  const _QuizDetailsBody({required this.quizName});
+
+  final String quizName;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<QuizDetailsCubit, QuizDetailsState>(
+      listenWhen: (previous, current) =>
+          previous.mutationError != current.mutationError,
+      listener: (context, state) {
+        final mutationError = state.mutationError;
+        if (mutationError != null) {
+          AppSnackBar.showError(context, mutationError);
+        }
+      },
+      builder: (context, state) {
+        if (state.isLoading) {
+          return const QuizQuestionsShimmer();
+        }
+
+        final errorMessage = state.errorMessage;
+        if (errorMessage != null) {
+          return QuizErrorState(
+            message: errorMessage,
+            onRetry: () => context.read<QuizDetailsCubit>().loadQuiz(quizName),
+          );
+        }
+
+        final quiz = state.quiz;
+        if (quiz == null) return const SizedBox.shrink();
+
+        return CustomScrollView(
+          slivers: [
+            if (state.isUpdating)
+              const SliverToBoxAdapter(
+                child: LinearProgressIndicator(
+                  color: AppColors.primary,
+                  backgroundColor: AppColors.neutralSoft,
                 ),
-                // Pill segment bar — inside the body, not in AppBar.
-                ValueListenableBuilder<int>(
-                  valueListenable: _selectedSection,
-                  builder: (context, selected, _) => QuizSegmentBar(
-                    selectedIndex: selected,
-                    onChanged: _onSegmentChanged,
-                  ),
+              ),
+            SliverToBoxAdapter(
+              child: _TopControlRow(
+                quiz: quiz,
+                onBack: () => Navigator.maybePop(context),
+                onRefresh: () =>
+                    context.read<QuizDetailsCubit>().loadQuiz(quizName),
+                onBulkDelete: () => _confirmDeleteAll(context, quiz),
+                onSettings: () => _openSettings(context),
+              ),
+            ),
+            QuestionsTabView(
+              quiz: quiz,
+              onDeleteQuestion: (question) => context
+                  .read<QuizDetailsCubit>()
+                  .removeQuestion(question.name),
+              onAddQuestion: () => _addQuestion(context, quiz),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _addQuestion(BuildContext context, QuizModel quiz) {
+    final cubit = context.read<QuizDetailsCubit>();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: cubit,
+          child: QuizQuestionsSliderScreen(
+            quiz: quiz,
+            initialIndex: quiz.questions.length,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _openSettings(BuildContext context) {
+    final cubit = context.read<QuizDetailsCubit>();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            BlocProvider.value(value: cubit, child: const QuizSettingsScreen()),
+      ),
+    );
+  }
+
+  Future<void> _confirmDeleteAll(BuildContext context, QuizModel quiz) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: AppColors.cardBackground,
+        title: Text(
+          context.l10n.delete,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        content: Text(
+          '${context.l10n.delete} ${context.l10n.quizQuestionsCount(quiz.questions.length)}?',
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            style: TextButton.styleFrom(foregroundColor: AppColors.textPrimary),
+            child: Text(context.l10n.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            style: TextButton.styleFrom(foregroundColor: AppColors.error),
+            child: Text(context.l10n.delete),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final cubit = context.read<QuizDetailsCubit>();
+    final questionNames = quiz.questions
+        .map((question) => question.question)
+        .toList(growable: false);
+
+    for (final questionName in questionNames) {
+      await cubit.removeQuestion(questionName);
+    }
+  }
+}
+
+class _TopControlRow extends StatelessWidget {
+  const _TopControlRow({
+    required this.quiz,
+    required this.onBack,
+    required this.onRefresh,
+    required this.onBulkDelete,
+    required this.onSettings,
+  });
+
+  final QuizModel quiz;
+  final VoidCallback onBack;
+  final VoidCallback onRefresh;
+  final VoidCallback onBulkDelete;
+  final VoidCallback onSettings;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+    final questionCount = quiz.questions.length;
+    final refreshLabel = MaterialLocalizations.of(
+      context,
+    ).refreshIndicatorSemanticLabel;
+
+    return SafeArea(
+      bottom: false,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(4.w, 16.h, 12.w, 10.h),
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: onBack,
+              icon: Icon(
+                Icons.arrow_back,
+                color: AppColors.iconPrimary,
+                size: 22.r,
+              ),
+              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+            ),
+            Expanded(
+              child: Text(
+                context.l10n.quizQuestionsCount(questionCount),
+                style: textTheme.titleMedium?.copyWith(
+                  color: AppColors.textPrimary,
+                  fontWeight: FontWeight.w700,
                 ),
-                // PageView content area.
-                Expanded(
-                  child: PageView(
-                    controller: _pageController,
-                    // Disable swipe so questions list scrolling isn't
-                    // interrupted; users navigate via the segment bar.
-                    physics: const NeverScrollableScrollPhysics(),
-                    onPageChanged: (index) {
-                      _selectedSection.value = index;
-                    },
-                    children: [
-                      QuestionsTabView(
-                        quiz: quiz,
-                        onAddQuestion: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                QuestionFormScreen(quizId: quiz.id),
-                          ),
-                        ),
-                        onEditQuestion: (question) => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => QuestionFormScreen(
-                              quizId: quiz.id,
-                              editingQuestion: question,
-                            ),
-                          ),
-                        ),
-                        onDuplicateQuestion: (question) => context
-                            .read<QuizDetailsCubit>()
-                            .duplicateQuestion(question),
-                        onDeleteQuestion: (question) => context
-                            .read<QuizDetailsCubit>()
-                            .deleteQuestion(question.id),
-                      ),
-                      QuizSettingsTab(quiz: quiz),
-                      QuizResultsTab(quiz: quiz),
-                    ],
-                  ),
+              ),
+            ),
+            TextButton.icon(
+              onPressed: onRefresh,
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.iconPrimary,
+                padding: EdgeInsets.symmetric(horizontal: 8.w),
+              ),
+              icon: Icon(Icons.refresh, size: 18.r),
+              label: Text(refreshLabel),
+            ),
+            if (questionCount > 0)
+              IconButton(
+                onPressed: onBulkDelete,
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: AppColors.error,
+                  size: 22.r,
                 ),
-              ],
-            );
-          },
+                tooltip: context.l10n.delete,
+              ),
+            IconButton(
+              onPressed: onSettings,
+              icon: Icon(
+                Icons.settings,
+                color: AppColors.iconPrimary,
+                size: 22.r,
+              ),
+              tooltip: context.l10n.quizTabSettings,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _QuizFab extends StatelessWidget {
+  const _QuizFab();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<QuizDetailsCubit, QuizDetailsState>(
+      builder: (context, state) {
+        final quiz = state.quiz;
+        if (quiz == null || state.isLoading || quiz.questions.isEmpty) {
+          return const SizedBox.shrink();
+        }
+
+        return FloatingActionButton(
+          backgroundColor: AppColors.primary,
+          foregroundColor: AppColors.onPrimary,
+          onPressed: () => _addQuestion(context, quiz),
+          child: const Icon(Icons.add),
+        );
+      },
+    );
+  }
+
+  void _addQuestion(BuildContext context, QuizModel quiz) {
+    final cubit = context.read<QuizDetailsCubit>();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: cubit,
+          child: QuizQuestionsSliderScreen(
+            quiz: quiz,
+            initialIndex: quiz.questions.length,
+          ),
         ),
       ),
     );

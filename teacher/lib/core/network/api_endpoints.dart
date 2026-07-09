@@ -46,4 +46,29 @@ abstract final class ApiEndpoints {
       '/api/method/lms.courses.controllers.delete_lesson';
   static const String myCourses =
       '/api/method/lms.courses.controllers.my_courses';
+
+  // === Quiz Endpoints ===
+  static const String listQuestions =
+      '/api/method/lms.quiz.controllers.list_questions';
+  static const String getQuestion =
+      '/api/method/lms.quiz.controllers.get_question';
+  static const String createQuestion =
+      '/api/method/lms.quiz.controllers.create_question';
+  static const String updateQuestion =
+      '/api/method/lms.quiz.controllers.update_question';
+  static const String deleteQuestion =
+      '/api/method/lms.quiz.controllers.delete_question';
+  static const String listQuizzes =
+      '/api/method/lms.quiz.controllers.list_quizzes';
+  static const String getQuiz = '/api/method/lms.quiz.controllers.get_quiz';
+  static const String createQuiz =
+      '/api/method/lms.quiz.controllers.create_quiz';
+  static const String updateQuiz =
+      '/api/method/lms.quiz.controllers.update_quiz';
+  static const String deleteQuiz =
+      '/api/method/lms.quiz.controllers.delete_quiz';
+  static const String addQuestionToQuiz =
+      '/api/method/lms.quiz.controllers.add_question';
+  static const String removeQuestionFromQuiz =
+      '/api/method/lms.quiz.controllers.remove_question';
 }

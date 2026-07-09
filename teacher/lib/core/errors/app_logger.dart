@@ -25,10 +25,6 @@ abstract final class AppLogger {
 
   static void warning(String message) => _logger?.w(message);
 
-  static void error(
-    String message, [
-    Object? error,
-    StackTrace? stackTrace,
-  ]) =>
+  static void error(String message, [Object? error, StackTrace? stackTrace]) =>
       _logger?.e(message, error: error, stackTrace: stackTrace);
 }

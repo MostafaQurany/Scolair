@@ -1,0 +1,293 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+
+import '../../../../core/localization/localization_extension.dart';
+import '../../data/models/quiz_models.dart';
+
+class QuestionTypeSelector extends StatelessWidget {
+  const QuestionTypeSelector({
+    required this.value,
+    required this.onChanged,
+    super.key,
+  });
+
+  final ApiQuestionType value;
+  final ValueChanged<ApiQuestionType> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return SegmentedButton<ApiQuestionType>(
+      segments: [
+        ButtonSegment(
+          value: ApiQuestionType.choices,
+          label: Text(context.l10n.questionTypeChoices),
+        ),
+        ButtonSegment(
+          value: ApiQuestionType.userInput,
+          label: Text(context.l10n.questionTypeUserInput),
+        ),
+        ButtonSegment(
+          value: ApiQuestionType.openEnded,
+          label: Text(context.l10n.questionTypeOpenEnded),
+        ),
+      ],
+      selected: {value},
+      onSelectionChanged: (selected) => onChanged(selected.first),
+    );
+  }
+}
+
+class ChoicesSection extends StatelessWidget {
+  const ChoicesSection({
+    required this.option1,
+    required this.option2,
+    required this.option3,
+    required this.option4,
+    required this.option5,
+    required this.explanation1,
+    required this.explanation2,
+    required this.explanation3,
+    required this.explanation4,
+    required this.explanation5,
+    required this.correctOptions,
+    required this.multiple,
+    required this.onToggleCorrect,
+    required this.onMultipleChanged,
+    super.key,
+  });
+
+  final TextEditingController option1;
+  final TextEditingController option2;
+  final TextEditingController option3;
+  final TextEditingController option4;
+  final TextEditingController option5;
+  final TextEditingController explanation1;
+  final TextEditingController explanation2;
+  final TextEditingController explanation3;
+  final TextEditingController explanation4;
+  final TextEditingController explanation5;
+  final List<int> correctOptions;
+  final bool multiple;
+  final ValueChanged<int> onToggleCorrect;
+  final ValueChanged<bool> onMultipleChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(context.l10n.questionMultipleCorrect),
+          value: multiple,
+          onChanged: onMultipleChanged,
+        ),
+        SizedBox(height: 8.h),
+        _OptionTile(
+          index: 1,
+          controller: option1,
+          explanationController: explanation1,
+          isCorrect: correctOptions.contains(1),
+          onToggle: () => onToggleCorrect(1),
+        ),
+        _OptionTile(
+          index: 2,
+          controller: option2,
+          explanationController: explanation2,
+          isCorrect: correctOptions.contains(2),
+          onToggle: () => onToggleCorrect(2),
+        ),
+        _OptionTile(
+          index: 3,
+          controller: option3,
+          explanationController: explanation3,
+          isCorrect: correctOptions.contains(3),
+          onToggle: () => onToggleCorrect(3),
+        ),
+        _OptionTile(
+          index: 4,
+          controller: option4,
+          explanationController: explanation4,
+          isCorrect: correctOptions.contains(4),
+          onToggle: () => onToggleCorrect(4),
+        ),
+        _OptionTile(
+          index: 5,
+          controller: option5,
+          explanationController: explanation5,
+          isCorrect: correctOptions.contains(5),
+          onToggle: () => onToggleCorrect(5),
+        ),
+      ],
+    );
+  }
+}
+
+class _OptionTile extends StatelessWidget {
+  const _OptionTile({
+    required this.index,
+    required this.controller,
+    required this.explanationController,
+    required this.isCorrect,
+    required this.onToggle,
+  });
+
+  final int index;
+  final TextEditingController controller;
+  final TextEditingController explanationController;
+  final bool isCorrect;
+  final VoidCallback onToggle;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      margin: EdgeInsets.only(bottom: 12.h),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        borderRadius: BorderRadius.circular(12.r),
+        border: Border.all(
+          color: isCorrect
+              ? colorScheme.primary
+              : colorScheme.outlineVariant.withValues(alpha: 0.4),
+          width: isCorrect ? 1.5 : 1,
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(12.r),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    isCorrect ? Icons.check_circle : Icons.circle_outlined,
+                    color: isCorrect
+                        ? colorScheme.primary
+                        : colorScheme.outline,
+                  ),
+                  onPressed: onToggle,
+                ),
+                Expanded(
+                  child: TextFormField(
+                    controller: controller,
+                    decoration: InputDecoration(
+                      labelText: '${context.l10n.questionOptionLabel} $index',
+                      border: InputBorder.none,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              height: 1,
+              color: colorScheme.outlineVariant.withValues(alpha: 0.3),
+            ),
+            TextFormField(
+              controller: explanationController,
+              decoration: InputDecoration(
+                labelText: '${context.l10n.questionExplanationLabel} $index',
+                border: InputBorder.none,
+                isDense: true,
+              ),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class UserInputSection extends StatelessWidget {
+  const UserInputSection({
+    required this.possibility1,
+    required this.possibility2,
+    required this.possibility3,
+    required this.possibility4,
+    required this.possibility5,
+    super.key,
+  });
+
+  final TextEditingController possibility1;
+  final TextEditingController possibility2;
+  final TextEditingController possibility3;
+  final TextEditingController possibility4;
+  final TextEditingController possibility5;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          context.l10n.questionPossibilitiesLabel,
+          style: Theme.of(
+            context,
+          ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+        ),
+        SizedBox(height: 12.h),
+        _PossibilityField(index: 1, controller: possibility1),
+        SizedBox(height: 8.h),
+        _PossibilityField(index: 2, controller: possibility2),
+        SizedBox(height: 8.h),
+        _PossibilityField(index: 3, controller: possibility3),
+        SizedBox(height: 8.h),
+        _PossibilityField(index: 4, controller: possibility4),
+        SizedBox(height: 8.h),
+        _PossibilityField(index: 5, controller: possibility5),
+      ],
+    );
+  }
+}
+
+class _PossibilityField extends StatelessWidget {
+  const _PossibilityField({required this.index, required this.controller});
+
+  final int index;
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: '${context.l10n.questionPossibility} $index',
+      ),
+    );
+  }
+}
+
+class OpenEndedHint extends StatelessWidget {
+  const OpenEndedHint({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: EdgeInsets.all(16.r),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.4),
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.info_outline,
+            color: colorScheme.onSurfaceVariant,
+            size: 20.r,
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Text(
+              context.l10n.questionOpenEndedHint,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

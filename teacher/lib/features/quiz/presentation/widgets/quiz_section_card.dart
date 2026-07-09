@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/theme/app_colors.dart';
+
+/// Reusable section card used in Quiz Settings and Quiz Form.
+/// Displays a titled card with children inside padding.
 class QuizSectionCard extends StatelessWidget {
   const QuizSectionCard({
     required this.title,
@@ -13,31 +17,37 @@ class QuizSectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Card(
-      elevation: 0,
+    final textTheme = Theme.of(context).textTheme;
+    final radius = BorderRadius.circular(14.r);
+
+    return Material(
+      color: AppColors.cardBackground,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.r),
-        side: BorderSide(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.6),
-        ),
+        borderRadius: radius,
+        side: BorderSide(color: AppColors.border.withValues(alpha: 0.4)),
       ),
-      child: Padding(
-        padding: EdgeInsets.all(16.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.fromLTRB(16.w, 14.h, 16.w, 4.h),
+            child: Text(
               title,
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: colorScheme.primary,
-                fontWeight: FontWeight.bold,
+              style: textTheme.titleSmall?.copyWith(
+                color: AppColors.textPrimary,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(height: 16.h),
-            ...children,
-          ],
-        ),
+          ),
+          Divider(height: 1, color: AppColors.border.withValues(alpha: 0.3)),
+          Padding(
+            padding: EdgeInsets.all(16.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: children,
+            ),
+          ),
+        ],
       ),
     );
   }

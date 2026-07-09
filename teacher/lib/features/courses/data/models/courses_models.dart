@@ -413,7 +413,10 @@ class GetChaptersResponseData {
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
-  @JsonKey(fromJson: _paginatedChaptersFromJson, toJson: _paginatedChaptersToJson)
+  @JsonKey(
+    fromJson: _paginatedChaptersFromJson,
+    toJson: _paginatedChaptersToJson,
+  )
   final PaginatedList<ChapterSummaryModel> data;
 
   factory GetChaptersResponseData.fromJson(Map<String, dynamic> json) =>
@@ -700,13 +703,14 @@ List<LessonSummaryModel> _lessonSummaryListFromJson(Object? json) {
 PaginatedList<CourseModel> _paginatedCoursesFromJson(Object? json) =>
     PaginatedList.fromJson(json, _courseFromJson);
 
-Map<String, dynamic> _paginatedCoursesToJson(PaginatedList<CourseModel> data) => {
-  'items': data.items.map((e) => e.toJson()).toList(),
-  'total': data.total,
-  'start': data.start,
-  'page_size': data.pageSize,
-  'has_next_page': data.hasNextPage,
-};
+Map<String, dynamic> _paginatedCoursesToJson(PaginatedList<CourseModel> data) =>
+    {
+      'items': data.items.map((e) => e.toJson()).toList(),
+      'total': data.total,
+      'start': data.start,
+      'page_size': data.pageSize,
+      'has_next_page': data.hasNextPage,
+    };
 
 PaginatedList<LessonSummaryModel> _paginatedLessonsFromJson(Object? json) =>
     PaginatedList.fromJson(json, _lessonSummaryFromJson);

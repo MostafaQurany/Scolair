@@ -636,7 +636,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quizzesMockClassLabel => 'CLASS MATH-10A';
 
   @override
-  String get quizCreateButton => 'Create Exam';
+  String get quizCreateButton => 'Create Quiz';
 
   @override
   String get quizFilterAll => 'All Assessments';
@@ -734,7 +734,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quizStartDateTimeHint => 'mm/dd/yyyy, --:-- --';
 
   @override
-  String get quizDurationLabel => 'Duration';
+  String get quizDurationLabel => 'Duration (minutes)';
 
   @override
   String get quizMinutesSuffix => 'mins';
@@ -1162,5 +1162,212 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String myCoursesCoTaughtBy(String names) {
     return 'Co-taught w/ $names';
+  }
+
+  @override
+  String get questionTypeChoices => 'Choices';
+
+  @override
+  String get questionTypeUserInput => 'User Input';
+
+  @override
+  String get questionTypeOpenEnded => 'Open Ended';
+
+  @override
+  String get quizPassingPercentage => 'Passing Percentage';
+
+  @override
+  String get quizMaxAttempts => 'Max Attempts';
+
+  @override
+  String get quizMaxAttemptsUnlimited => 'Unlimited';
+
+  @override
+  String get quizShuffleQuestions => 'Shuffle Questions';
+
+  @override
+  String get quizShowAnswers => 'Show Answers';
+
+  @override
+  String get quizEnableNegativeMarking => 'Enable Negative Marking';
+
+  @override
+  String get quizMarksToCut => 'Marks To Cut';
+
+  @override
+  String get quizLimitQuestions => 'Limit Questions To';
+
+  @override
+  String get questionMultipleCorrect => 'Multiple Correct Answers';
+
+  @override
+  String get questionPossibilitiesLabel => 'Accepted Possibilities';
+
+  @override
+  String get questionPossibility => 'Possibility';
+
+  @override
+  String get questionOpenEndedHint =>
+      'Open-ended questions require manual grading by the teacher.';
+
+  @override
+  String get quizMaxAttemptsHelper => 'Enter 0 for unlimited attempts';
+
+  @override
+  String get quizDurationHint => 'Leave empty for unlimited duration';
+
+  @override
+  String get quizLimitQuestionsHelper =>
+      'Randomly pick N questions (0 for all)';
+
+  @override
+  String get questionBankTitle => 'Question Bank';
+
+  @override
+  String get search => 'Search...';
+
+  @override
+  String get addToQuiz => 'Add to Quiz';
+
+  @override
+  String get quizTabOverview => 'Overview';
+
+  @override
+  String get quizTabReview => 'Review';
+
+  @override
+  String get quizTimeLimitLabel => 'Time Limit';
+
+  @override
+  String get quizPassingScoreLabel => 'Passing Score';
+
+  @override
+  String get quizNoQuestionsSubtitle =>
+      'Start building your assessment by adding questions manually or importing from the question bank.';
+
+  @override
+  String get quizErrorTitle => 'Something went wrong';
+
+  @override
+  String get quizRetryButton => 'Retry';
+
+  @override
+  String get questionBankFilterType => 'Type';
+
+  @override
+  String get questionBankFilterDifficulty => 'Difficulty';
+
+  @override
+  String get questionBankFilterPoints => 'Points';
+
+  @override
+  String get questionBankFilterTopic => 'Topic';
+
+  @override
+  String questionBankSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions selected',
+      one: '1 question selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get questionBankClear => 'Clear';
+
+  @override
+  String get quizSetupTitle => 'Quiz Setup';
+
+  @override
+  String get quizGeneralDetails => 'General Details';
+
+  @override
+  String get quizGradingLimits => 'Grading & Limits';
+
+  @override
+  String get quizBehavior => 'Quiz Behavior';
+
+  @override
+  String get questionSavedDraft => 'Saved Draft';
+
+  @override
+  String get questionAttachMedia => 'Attach Media';
+
+  @override
+  String get quizReorderButton => 'Reorder';
+
+  @override
+  String questionOfTotal(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String quizChoicesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count choices',
+      one: '1 choice',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get quizSaveSettings => 'Save Settings';
+
+  @override
+  String get quizReviewPlaceholderTitle => 'Results not available';
+
+  @override
+  String get quizReviewPlaceholderMessage =>
+      'Result tracking is not fully integrated yet.';
+
+  @override
+  String get quizCourseLabel => 'Course';
+
+  @override
+  String get quizLessonLabel => 'Lesson';
+
+  @override
+  String get quizTimeLimitToggle => 'Time Limit';
+
+  @override
+  String get quizMinutesLabel => 'Minutes';
+
+  @override
+  String get quizShowCorrectAnswersToggle => 'Show Correct Answers';
+
+  @override
+  String get quizNegativeMarkingToggle => 'Negative Marking';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get saveLocally => 'Save Locally';
+
+  @override
+  String get addNew => 'Add New';
+
+  @override
+  String get questionRemoved => 'Question removed';
+
+  @override
+  String questionsAddedFromBank(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions added from bank',
+      one: '1 question added from bank',
+    );
+    return '$_temp0';
   }
 }

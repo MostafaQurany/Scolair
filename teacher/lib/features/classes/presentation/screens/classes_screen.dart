@@ -3,6 +3,8 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/localization/localization_extension.dart';
 import '../../../courses/presentation/screens/my_courses_screen.dart';
+import '../../../homework/presentation/screens/homework_list_screen.dart';
+import '../../../quiz/presentation/screens/quizzes_list_screen.dart';
 import '../../data/mock_classes_data.dart';
 import '../../data/models/class_model.dart';
 import '../widgets/category_chips.dart';
@@ -36,7 +38,8 @@ class _ClassesScreenState extends State<ClassesScreen> {
 
     return MockClassesData.classes.where((c) {
       final matchesCategory = isAll || c.category == _selectedCategory;
-      final matchesQuery = query.isEmpty ||
+      final matchesQuery =
+          query.isEmpty ||
           c.code.toLowerCase().contains(query) ||
           c.subject.toLowerCase().contains(query);
       return matchesCategory && matchesQuery;
@@ -104,14 +107,14 @@ class _ClassesScreenState extends State<ClassesScreen> {
                   SizedBox(height: 18.h),
                   _MyCoursesButton(onTap: _openMyCourses),
                   SizedBox(height: 18.h),
+                  const _QuickActionsRow(),
+                  SizedBox(height: 18.h),
                   if (classes.isEmpty)
                     _EmptyClasses()
                   else
                     ...classes.map(
-                      (c) => ClassCard(
-                        classData: c,
-                        onTap: () => _openClass(c),
-                      ),
+                      (c) =>
+                          ClassCard(classData: c, onTap: () => _openClass(c)),
                     ),
                 ]),
               ),
@@ -247,6 +250,39 @@ class _EmptyClasses extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _QuickActionsRow extends StatelessWidget {
+  const _QuickActionsRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const QuizzesListScreen()),
+            ),
+            icon: const Icon(Icons.quiz_outlined),
+            label: Text(context.l10n.homeQuizzesAction),
+          ),
+        ),
+        SizedBox(width: 12.w),
+        Expanded(
+          child: OutlinedButton.icon(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const HomeworkListScreen()),
+            ),
+            icon: const Icon(Icons.assignment_outlined),
+            label: Text(context.l10n.homeHomeworkAction),
+          ),
+        ),
+      ],
     );
   }
 }

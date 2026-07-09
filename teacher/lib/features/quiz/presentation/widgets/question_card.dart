@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:scolair_teacher/core/theme/app_colors.dart';
 
 import '../../../../core/localization/localization_extension.dart';
-import '../../../../core/theme/app_colors.dart';
 import '../../data/models/quiz_models.dart';
 import 'question_type_badge.dart';
 
-
+/// Compact question card for the quiz questions list.
+/// Shows drag handle, question number, type badge, marks badge,
+/// question text preview, and action buttons.
 class QuestionCard extends StatelessWidget {
   const QuestionCard({
     required this.index,
@@ -18,215 +20,195 @@ class QuestionCard extends StatelessWidget {
   });
 
   final int index;
-  final QuestionModel question;
+  final QuizQuestionModel question;
   final VoidCallback? onEdit;
   final VoidCallback? onDuplicate;
   final VoidCallback? onDelete;
 
-  String _difficultyLabel(BuildContext context) =>
-      switch (question.difficulty) {
-        QuestionDifficulty.easy => context.l10n.questionDifficultyEasy,
-        QuestionDifficulty.medium => context.l10n.questionDifficultyMedium,
-        QuestionDifficulty.hard => context.l10n.questionDifficultyHard,
-      };
-
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      margin: EdgeInsets.only(bottom: 12.h),
+      margin: EdgeInsets.only(bottom: 8.h),
       decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(14.r),
-        border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-        ),
+        color: AppColors.cardBackground,
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: AppColors.border, width: 1.w),
       ),
-      padding: EdgeInsets.all(16.r),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Wrap(
-            spacing: 8.w,
-            runSpacing: 6.h,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              Text(
-                context.l10n.questionNumberLabel(index),
-                style: textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              QuestionTypeBadge(type: question.type),
-              _Badge(label: context.l10n.questionPointsLabel(question.points)),
-              _Badge(label: _difficultyLabel(context)),
-              if (question.required)
-                _Badge(label: context.l10n.questionRequiredLabel),
-            ],
-          ),
-          SizedBox(height: 10.h),
-          Text(question.text, style: textTheme.bodyMedium),
-          SizedBox(height: 10.h),
-          _QuestionPreview(question: question, showAnswers: true),
-          ...[
-            SizedBox(height: 10.h),
-            const Divider(),
-            Row(
+      child: Material(
+        color: AppColors.transparent,
+        borderRadius: BorderRadius.circular(8.r),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(8.r),
+          onTap: onEdit,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const _DragHandle(),
+                SizedBox(width: 8.w),
                 Expanded(
-                  child: TextButton.icon(
-                    onPressed: onEdit,
-                    icon: const Icon(Icons.edit_outlined, size: 16),
-                    label: Text(context.l10n.edit),
+                  child: _CardContent(
+                    index: index,
+                    question: question,
+                    textTheme: textTheme,
                   ),
                 ),
-                Expanded(
-                  child: TextButton.icon(
-                    onPressed: onDuplicate,
-                    icon: const Icon(Icons.copy_outlined, size: 16),
-                    label: Text(context.l10n.duplicate),
-                  ),
-                ),
-                Expanded(
-                  child: TextButton.icon(
-                    onPressed: onDelete,
-                    icon: Icon(
-                      Icons.delete_outline,
-                      size: 16,
-                      color: colorScheme.error,
-                    ),
-                    label: Text(
-                      context.l10n.delete,
-                      style: TextStyle(color: colorScheme.error),
-                    ),
-                  ),
-                ),
+                if (onDelete != null) _DeleteButton(onDelete: onDelete!),
               ],
             ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class _Badge extends StatelessWidget {
-  const _Badge({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(6.r),
-      ),
-      child: Text(label, style: Theme.of(context).textTheme.labelSmall),
-    );
-  }
-}
-
-class _QuestionPreview extends StatelessWidget {
-  const _QuestionPreview({required this.question, required this.showAnswers});
-
-  final QuestionModel question;
-  final bool showAnswers;
-
-  @override
-  Widget build(BuildContext context) {
-    switch (question.type) {
-      case QuestionType.multipleChoice:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: question.options
-              .map(
-                (option) => _OptionRow(
-                  text: option.text,
-                  isCorrect: showAnswers && option.isCorrect,
-                ),
-              )
-              .toList(),
-        );
-      case QuestionType.trueFalse:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _OptionRow(
-              text: context.l10n.questionTrue,
-              isCorrect: showAnswers && question.correctBoolAnswer == true,
-            ),
-            _OptionRow(
-              text: context.l10n.questionFalse,
-              isCorrect: showAnswers && question.correctBoolAnswer == false,
-            ),
-          ],
-        );
-      case QuestionType.shortAnswer:
-        return showAnswers
-            ? _AcceptedAnswer(answer: question.acceptedAnswer ?? '')
-            : const SizedBox.shrink();
-      case QuestionType.essay:
-      case QuestionType.fillBlank:
-      case QuestionType.matching:
-        return const SizedBox.shrink();
-    }
-  }
-}
-
-class _OptionRow extends StatelessWidget {
-  const _OptionRow({required this.text, required this.isCorrect});
-
-  final String text;
-  final bool isCorrect;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 2.h),
-      child: Row(
-        children: [
-          Icon(
-            isCorrect ? Icons.check_circle : Icons.circle_outlined,
-            size: 16.r,
-            color: isCorrect
-                ? AppColors.success
-                : Theme.of(context).colorScheme.onSurfaceVariant,
           ),
-          SizedBox(width: 6.w),
-          Expanded(
-            child: Text(text, style: Theme.of(context).textTheme.bodySmall),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
 
-class _AcceptedAnswer extends StatelessWidget {
-  const _AcceptedAnswer({required this.answer});
-
-  final String answer;
+class _DragHandle extends StatelessWidget {
+  const _DragHandle();
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    return Icon(Icons.drag_indicator, size: 20.r, color: AppColors.textMuted);
+  }
+}
+
+class _CardContent extends StatelessWidget {
+  const _CardContent({
+    required this.index,
+    required this.question,
+    required this.textTheme,
+  });
+
+  final int index;
+  final QuizQuestionModel question;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        _BadgesRow(index: index, question: question, textTheme: textTheme),
+        SizedBox(height: 8.h),
         Text(
-          context.l10n.questionAcceptedAnswerLabel,
+          question.displayText,
+          style: textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+        SizedBox(height: 6.h),
+        _ChoicesInfo(question: question),
+      ],
+    );
+  }
+}
+
+class _BadgesRow extends StatelessWidget {
+  const _BadgesRow({
+    required this.index,
+    required this.question,
+    required this.textTheme,
+  });
+
+  final int index;
+  final QuizQuestionModel question;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 8.w,
+      runSpacing: 4.h,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      children: [
+        Text(
+          context.l10n.questionNumberLabel(index),
+          style: textTheme.titleSmall?.copyWith(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        QuestionTypeBadge(type: question.type ?? ApiQuestionType.choices),
+        _MarksBadge(marks: question.marks),
+      ],
+    );
+  }
+}
+
+class _MarksBadge extends StatelessWidget {
+  const _MarksBadge({required this.marks});
+
+  final int marks;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+      decoration: BoxDecoration(
+        color: AppColors.neutralSoft,
+        borderRadius: BorderRadius.circular(6.r),
+      ),
+      child: Text(
+        context.l10n.questionPointsLabel(marks),
+        style: Theme.of(
+          context,
+        ).textTheme.labelSmall?.copyWith(color: AppColors.textSecondary),
+      ),
+    );
+  }
+}
+
+class _ChoicesInfo extends StatelessWidget {
+  const _ChoicesInfo({required this.question});
+
+  final QuizQuestionModel question;
+
+  @override
+  Widget build(BuildContext context) {
+    final type = question.type ?? ApiQuestionType.choices;
+    if (type != ApiQuestionType.choices) {
+      return const SizedBox.shrink();
+    }
+
+    var count = 0;
+    if (question.option1 != null) count++;
+    if (question.option2 != null) count++;
+    if (question.option3 != null) count++;
+    if (question.option4 != null) count++;
+    if (question.option5 != null) count++;
+
+    if (count == 0) return const SizedBox.shrink();
+
+    return Row(
+      children: [
+        Icon(Icons.list_alt_rounded, size: 14.r, color: AppColors.textMuted),
+        SizedBox(width: 4.w),
+        Text(
+          context.l10n.quizChoicesCount(count),
           style: Theme.of(
             context,
-          ).textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant),
+          ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
         ),
-        SizedBox(height: 2.h),
-        Text(answer, style: Theme.of(context).textTheme.bodySmall),
       ],
+    );
+  }
+}
+
+class _DeleteButton extends StatelessWidget {
+  const _DeleteButton({required this.onDelete});
+
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.delete_outline, size: 20.r, color: AppColors.error),
+      onPressed: onDelete,
+      constraints: BoxConstraints(minWidth: 44.r, minHeight: 44.r),
+      padding: EdgeInsets.zero,
     );
   }
 }

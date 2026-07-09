@@ -7,6 +7,7 @@ part 'quiz_details_state.freezed.dart';
 abstract class QuizDetailsState with _$QuizDetailsState {
   const factory QuizDetailsState({
     @Default(true) bool isLoading,
+    @Default(false) bool isUpdating,
     QuizModel? quiz,
     String? errorMessage,
     String? mutationError,

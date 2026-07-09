@@ -1,13 +1,14 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/quiz_models.dart';
 import '../../domain/usecases/quiz_usecases.dart';
 import 'quizzes_state.dart';
 
 class QuizzesCubit extends Cubit<QuizzesState> {
-  QuizzesCubit(this._listQuizzesUseCase) : super(const QuizzesState());
+  QuizzesCubit(this._listQuizzesUseCase, this._deleteQuizUseCase)
+    : super(const QuizzesState());
 
   final ListQuizzesUseCase _listQuizzesUseCase;
+  final DeleteQuizUseCase _deleteQuizUseCase;
 
   Future<void> loadQuizzes() async {
     emit(state.copyWith(isLoading: true, errorMessage: null));
@@ -20,7 +21,11 @@ class QuizzesCubit extends Cubit<QuizzesState> {
     );
   }
 
-  void filterByType(QuizType? type) {
-    emit(state.copyWith(typeFilter: type));
+  Future<void> deleteQuiz(String quizName) async {
+    final result = await _deleteQuizUseCase(quizName);
+    result.when(
+      success: (_) => loadQuizzes(),
+      failure: (failure) => emit(state.copyWith(errorMessage: failure.message)),
+    );
   }
 }

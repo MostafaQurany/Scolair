@@ -7,7 +7,11 @@ import 'failures.dart';
 
 abstract final class ErrorHandler {
   static Failure handle(Object error) {
-    AppLogger.error('ErrorHandler: ${error.runtimeType}', error, StackTrace.current);
+    AppLogger.error(
+      'ErrorHandler: ${error.runtimeType}',
+      error,
+      StackTrace.current,
+    );
 
     if (error is DioException) {
       String message = error.message ?? 'Network request failed';

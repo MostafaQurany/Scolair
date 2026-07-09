@@ -129,12 +129,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  submitting,TResult Function()?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  submitting,TResult Function( QuestionModel question)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Submitting() when submitting != null:
 return submitting();case _Success() when success != null:
-return success();case _Error() when error != null:
+return success(_that.question);case _Error() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -153,12 +153,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  submitting,required TResult Function()  success,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  submitting,required TResult Function( QuestionModel question)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Submitting():
 return submitting();case _Success():
-return success();case _Error():
+return success(_that.question);case _Error():
 return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
@@ -176,12 +176,12 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  submitting,TResult? Function()?  success,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  submitting,TResult? Function( QuestionModel question)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Submitting() when submitting != null:
 return submitting();case _Success() when success != null:
-return success();case _Error() when error != null:
+return success(_that.question);case _Error() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -258,33 +258,67 @@ String toString() {
 
 
 class _Success implements QuestionFormState {
-  const _Success();
+  const _Success(this.question);
   
 
+ final  QuestionModel question;
 
-
+/// Create a copy of QuestionFormState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SuccessCopyWith<_Success> get copyWith => __$SuccessCopyWithImpl<_Success>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Success&&(identical(other.question, question) || other.question == question));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,question);
 
 @override
 String toString() {
-  return 'QuestionFormState.success()';
+  return 'QuestionFormState.success(question: $question)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$SuccessCopyWith<$Res> implements $QuestionFormStateCopyWith<$Res> {
+  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) = __$SuccessCopyWithImpl;
+@useResult
+$Res call({
+ QuestionModel question
+});
 
 
+
+
+}
+/// @nodoc
+class __$SuccessCopyWithImpl<$Res>
+    implements _$SuccessCopyWith<$Res> {
+  __$SuccessCopyWithImpl(this._self, this._then);
+
+  final _Success _self;
+  final $Res Function(_Success) _then;
+
+/// Create a copy of QuestionFormState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? question = null,}) {
+  return _then(_Success(
+null == question ? _self.question : question // ignore: cast_nullable_to_non_nullable
+as QuestionModel,
+  ));
+}
+
+
+}
 
 /// @nodoc
 

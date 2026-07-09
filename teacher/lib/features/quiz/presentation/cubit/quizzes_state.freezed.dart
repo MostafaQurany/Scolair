@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$QuizzesState {
 
- bool get isLoading; QuizType? get typeFilter; List<QuizModel>? get quizzes; String? get errorMessage;
+ bool get isLoading; PaginatedList<QuizSummaryModel>? get quizzes; String? get errorMessage;
 /// Create a copy of QuizzesState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $QuizzesStateCopyWith<QuizzesState> get copyWith => _$QuizzesStateCopyWithImpl<Q
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuizzesState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.typeFilter, typeFilter) || other.typeFilter == typeFilter)&&const DeepCollectionEquality().equals(other.quizzes, quizzes)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuizzesState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.quizzes, quizzes) || other.quizzes == quizzes)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,typeFilter,const DeepCollectionEquality().hash(quizzes),errorMessage);
+int get hashCode => Object.hash(runtimeType,isLoading,quizzes,errorMessage);
 
 @override
 String toString() {
-  return 'QuizzesState(isLoading: $isLoading, typeFilter: $typeFilter, quizzes: $quizzes, errorMessage: $errorMessage)';
+  return 'QuizzesState(isLoading: $isLoading, quizzes: $quizzes, errorMessage: $errorMessage)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $QuizzesStateCopyWith<$Res>  {
   factory $QuizzesStateCopyWith(QuizzesState value, $Res Function(QuizzesState) _then) = _$QuizzesStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, QuizType? typeFilter, List<QuizModel>? quizzes, String? errorMessage
+ bool isLoading, PaginatedList<QuizSummaryModel>? quizzes, String? errorMessage
 });
 
 
@@ -63,12 +63,11 @@ class _$QuizzesStateCopyWithImpl<$Res>
 
 /// Create a copy of QuizzesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? typeFilter = freezed,Object? quizzes = freezed,Object? errorMessage = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? quizzes = freezed,Object? errorMessage = freezed,}) {
   return _then(QuizzesState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,typeFilter: freezed == typeFilter ? _self.typeFilter : typeFilter // ignore: cast_nullable_to_non_nullable
-as QuizType?,quizzes: freezed == quizzes ? _self.quizzes : quizzes // ignore: cast_nullable_to_non_nullable
-as List<QuizModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as bool,quizzes: freezed == quizzes ? _self.quizzes : quizzes // ignore: cast_nullable_to_non_nullable
+as PaginatedList<QuizSummaryModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -154,10 +153,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  QuizType? typeFilter,  List<QuizModel>? quizzes,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  PaginatedList<QuizSummaryModel>? quizzes,  String? errorMessage)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _QuizzesState() when $default != null:
-return $default(_that.isLoading,_that.typeFilter,_that.quizzes,_that.errorMessage);case _:
+return $default(_that.isLoading,_that.quizzes,_that.errorMessage);case _:
   return orElse();
 
 }
@@ -175,10 +174,10 @@ return $default(_that.isLoading,_that.typeFilter,_that.quizzes,_that.errorMessag
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  QuizType? typeFilter,  List<QuizModel>? quizzes,  String? errorMessage)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  PaginatedList<QuizSummaryModel>? quizzes,  String? errorMessage)  $default,) {final _that = this;
 switch (_that) {
 case _QuizzesState():
-return $default(_that.isLoading,_that.typeFilter,_that.quizzes,_that.errorMessage);case _:
+return $default(_that.isLoading,_that.quizzes,_that.errorMessage);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +194,10 @@ return $default(_that.isLoading,_that.typeFilter,_that.quizzes,_that.errorMessag
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  QuizType? typeFilter,  List<QuizModel>? quizzes,  String? errorMessage)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  PaginatedList<QuizSummaryModel>? quizzes,  String? errorMessage)?  $default,) {final _that = this;
 switch (_that) {
 case _QuizzesState() when $default != null:
-return $default(_that.isLoading,_that.typeFilter,_that.quizzes,_that.errorMessage);case _:
+return $default(_that.isLoading,_that.quizzes,_that.errorMessage);case _:
   return null;
 
 }
@@ -210,20 +209,11 @@ return $default(_that.isLoading,_that.typeFilter,_that.quizzes,_that.errorMessag
 
 
 class _QuizzesState implements QuizzesState {
-  const _QuizzesState({this.isLoading = true, this.typeFilter,  List<QuizModel>? quizzes, this.errorMessage}): _quizzes = quizzes;
+  const _QuizzesState({this.isLoading = true, this.quizzes, this.errorMessage});
   
 
 @override@JsonKey() final  bool isLoading;
-@override final  QuizType? typeFilter;
- final  List<QuizModel>? _quizzes;
-@override List<QuizModel>? get quizzes {
-  final value = _quizzes;
-  if (value == null) return null;
-  if (_quizzes is EqualUnmodifiableListView) return _quizzes;
-  // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(value);
-}
-
+@override final  PaginatedList<QuizSummaryModel>? quizzes;
 @override final  String? errorMessage;
 
 /// Create a copy of QuizzesState
@@ -236,16 +226,16 @@ _$QuizzesStateCopyWith<_QuizzesState> get copyWith => __$QuizzesStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuizzesState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.typeFilter, typeFilter) || other.typeFilter == typeFilter)&&const DeepCollectionEquality().equals(other._quizzes, _quizzes)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuizzesState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.quizzes, quizzes) || other.quizzes == quizzes)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,typeFilter,const DeepCollectionEquality().hash(_quizzes),errorMessage);
+int get hashCode => Object.hash(runtimeType,isLoading,quizzes,errorMessage);
 
 @override
 String toString() {
-  return 'QuizzesState(isLoading: $isLoading, typeFilter: $typeFilter, quizzes: $quizzes, errorMessage: $errorMessage)';
+  return 'QuizzesState(isLoading: $isLoading, quizzes: $quizzes, errorMessage: $errorMessage)';
 }
 
 
@@ -256,7 +246,7 @@ abstract mixin class _$QuizzesStateCopyWith<$Res> implements $QuizzesStateCopyWi
   factory _$QuizzesStateCopyWith(_QuizzesState value, $Res Function(_QuizzesState) _then) = __$QuizzesStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, QuizType? typeFilter, List<QuizModel>? quizzes, String? errorMessage
+ bool isLoading, PaginatedList<QuizSummaryModel>? quizzes, String? errorMessage
 });
 
 
@@ -273,12 +263,11 @@ class __$QuizzesStateCopyWithImpl<$Res>
 
 /// Create a copy of QuizzesState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? typeFilter = freezed,Object? quizzes = freezed,Object? errorMessage = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? quizzes = freezed,Object? errorMessage = freezed,}) {
   return _then(_QuizzesState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,typeFilter: freezed == typeFilter ? _self.typeFilter : typeFilter // ignore: cast_nullable_to_non_nullable
-as QuizType?,quizzes: freezed == quizzes ? _self._quizzes : quizzes // ignore: cast_nullable_to_non_nullable
-as List<QuizModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as bool,quizzes: freezed == quizzes ? _self.quizzes : quizzes // ignore: cast_nullable_to_non_nullable
+as PaginatedList<QuizSummaryModel>?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

@@ -58,7 +58,8 @@ class AppCachedNetworkImage extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: errorWidget ??
+      child:
+          errorWidget ??
           Container(
             color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: Icon(

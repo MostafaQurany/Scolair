@@ -23,14 +23,10 @@ class ClassSearchBar extends StatelessWidget {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: colorScheme.surfaceContainerHighest.withValues(
-                alpha: 0.5,
-              ),
+              color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12.r),
               border: Border.all(
-                color: colorScheme.outlineVariant.withValues(
-                  alpha: 0.5,
-                ),
+                color: colorScheme.outlineVariant.withValues(alpha: 0.5),
               ),
             ),
             child: TextField(
@@ -47,9 +43,7 @@ class ClassSearchBar extends StatelessWidget {
                 border: InputBorder.none,
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 12.h,
-                ),
+                contentPadding: EdgeInsets.symmetric(vertical: 12.h),
                 fillColor: Colors.transparent,
                 filled: true,
               ),
@@ -61,14 +55,10 @@ class ClassSearchBar extends StatelessWidget {
           width: 44.r,
           height: 44.r,
           decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHighest.withValues(
-              alpha: 0.5,
-            ),
+            color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(12.r),
             border: Border.all(
-              color: colorScheme.outlineVariant.withValues(
-                alpha: 0.5,
-              ),
+              color: colorScheme.outlineVariant.withValues(alpha: 0.5),
             ),
           ),
           child: IconButton(

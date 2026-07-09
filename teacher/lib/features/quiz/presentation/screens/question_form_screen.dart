@@ -3,22 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/extensions/adaptive_layout_extension.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/quiz_models.dart';
 import '../cubit/question_form_cubit.dart';
 import '../cubit/question_form_state.dart';
-import '../widgets/forms/question_settings_fields.dart';
-import '../widgets/question_type_body.dart';
+import '../widgets/question_form_body.dart';
 
+/// Screen for creating or editing a standalone question.
+/// Questions are independent from quizzes in the API.
 class QuestionFormScreen extends StatefulWidget {
-  const QuestionFormScreen({
-    required this.quizId,
-    this.editingQuestion,
-    super.key,
-  });
+  const QuestionFormScreen({this.editingQuestion, super.key});
 
-  final String quizId;
   final QuestionModel? editingQuestion;
 
   @override
@@ -26,125 +23,32 @@ class QuestionFormScreen extends StatefulWidget {
 }
 
 class _QuestionFormScreenState extends State<QuestionFormScreen> {
-  final _formKey = GlobalKey<FormState>();
-  late final TextEditingController _textController;
-  late final TextEditingController _pointsController;
-  late final TextEditingController _acceptedAnswerController;
-  late final TextEditingController _explanationController;
-  late List<TextEditingController> _optionControllers;
-  late List<bool> _optionCorrect;
-  QuestionType _type = QuestionType.multipleChoice;
-  QuestionDifficulty _difficulty = QuestionDifficulty.medium;
-  bool _required = true;
-  bool? _boolAnswer = true;
+  final GlobalKey<QuestionFormBodyState> _bodyKey =
+      GlobalKey<QuestionFormBodyState>();
 
-  @override
-  void initState() {
-    super.initState();
-    final question = widget.editingQuestion;
-    _textController = TextEditingController(text: question?.text ?? '');
-    _pointsController = TextEditingController(
-      text: (question?.points ?? 5).toString(),
-    );
-    _acceptedAnswerController = TextEditingController(
-      text: question?.acceptedAnswer ?? '',
-    );
-    _explanationController = TextEditingController(
-      text: question?.explanation ?? '',
-    );
-    _type = question?.type ?? QuestionType.multipleChoice;
-    _difficulty = question?.difficulty ?? QuestionDifficulty.medium;
-    _required = question?.required ?? true;
-    _boolAnswer = question?.correctBoolAnswer ?? true;
-    final options = question?.options ?? const [];
-    _optionControllers = options.isEmpty
-        ? List.generate(4, (_) => TextEditingController())
-        : options.map((o) => TextEditingController(text: o.text)).toList();
-    _optionCorrect = options.isEmpty
-        ? List.generate(4, (index) => index == 0)
-        : options.map((o) => o.isCorrect).toList();
-  }
-
-  @override
-  void dispose() {
-    _textController.dispose();
-    _pointsController.dispose();
-    _acceptedAnswerController.dispose();
-    _explanationController.dispose();
-    for (final controller in _optionControllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
-
-  void _addOption() {
-    setState(() {
-      _optionControllers.add(TextEditingController());
-      _optionCorrect.add(false);
-    });
-  }
-
-  void _removeOption(int index) {
-    setState(() {
-      _optionControllers.removeAt(index).dispose();
-      _optionCorrect.removeAt(index);
-    });
-  }
-
-  void _selectCorrectOption(int index) {
-    setState(() {
-      _optionCorrect = List.generate(_optionCorrect.length, (i) => i == index);
-    });
-  }
+  bool get _isEditing => widget.editingQuestion != null;
 
   void _submit(BuildContext context) {
-    if (!_formKey.currentState!.validate()) return;
-
-    final question = QuestionModel(
-      id:
-          widget.editingQuestion?.id ??
-          'q_${DateTime.now().microsecondsSinceEpoch}',
-      type: _type,
-      text: _textController.text.trim(),
-      points: int.tryParse(_pointsController.text) ?? 5,
-      difficulty: _difficulty,
-      required: _required,
-      options: _type == QuestionType.multipleChoice
-          ? List.generate(
-              _optionControllers.length,
-              (index) => QuestionOptionModel(
-                id: 'opt_$index',
-                text: _optionControllers[index].text.trim(),
-                isCorrect: _optionCorrect[index],
-              ),
-            )
-          : const [],
-      correctBoolAnswer: _type == QuestionType.trueFalse ? _boolAnswer : null,
-      acceptedAnswer: _type == QuestionType.shortAnswer
-          ? _acceptedAnswerController.text.trim()
-          : null,
-      explanation: _explanationController.text.trim(),
-    );
+    final bodyData = _bodyKey.currentState?.getFormData();
+    if (bodyData == null) return;
 
     final cubit = context.read<QuestionFormCubit>();
-    if (widget.editingQuestion == null) {
-      cubit.createQuestion(widget.quizId, question);
+    if (_isEditing) {
+      cubit.updateQuestion(bodyData);
     } else {
-      cubit.updateQuestion(widget.quizId, question);
+      cubit.createQuestion(bodyData);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isEditing = widget.editingQuestion != null;
-
     return BlocProvider(
       create: (_) => getIt<QuestionFormCubit>(),
       child: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
             title: Text(
-              isEditing
+              _isEditing
                   ? context.l10n.questionEditTitle
                   : context.l10n.questionAddTitle,
             ),
@@ -155,90 +59,124 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
               ),
             ],
           ),
-          body: BlocConsumer<QuestionFormCubit, QuestionFormState>(
-            listener: (context, state) {
-              state.whenOrNull(
-                success: () {
-                  AppSnackBar.showSuccess(
-                    context,
-                    context.l10n.questionSavedSuccess,
-                  );
-                  Navigator.pop(context, true);
-                },
-                error: (message) => AppSnackBar.showError(context, message),
-              );
-            },
-            builder: (context, state) {
-              return Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView(
-                        padding: EdgeInsets.all(16.r),
-                        children: [
-                          QuestionTypeAndTextFields(
-                            type: _type,
-                            onTypeChanged: (value) =>
-                                setState(() => _type = value),
-                            textController: _textController,
-                          ),
-                          SizedBox(height: 16.h),
-                          QuestionSettingsFields(
-                            pointsController: _pointsController,
-                            difficulty: _difficulty,
-                            onDifficultyChanged: (value) =>
-                                setState(() => _difficulty = value),
-                            required: _required,
-                            onRequiredChanged: (value) =>
-                                setState(() => _required = value),
-                          ),
-                          SizedBox(height: 16.h),
-                          QuestionTypeBody(
-                            type: _type,
-                            optionControllers: _optionControllers,
-                            optionCorrect: _optionCorrect,
-                            onAddOption: _addOption,
-                            onRemoveOption: _removeOption,
-                            onSelectCorrectOption: _selectCorrectOption,
-                            boolAnswer: _boolAnswer,
-                            onBoolAnswerChanged: (value) =>
-                                setState(() => _boolAnswer = value),
-                            acceptedAnswerController: _acceptedAnswerController,
-                          ),
-                          SizedBox(height: 16.h),
-                          TextFormField(
-                            controller: _explanationController,
-                            maxLines: 2,
-                            decoration: InputDecoration(
-                              labelText: context.l10n.questionExplanationLabel,
-                              hintText: context.l10n.questionExplanationHint,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                        16.w,
-                        12.h,
-                        16.w,
-                        16.h + MediaQuery.of(context).padding.bottom,
-                      ),
-                      child: FilledButton(
-                        onPressed: () => _submit(context),
-                        style: FilledButton.styleFrom(
-                          minimumSize: Size(double.infinity, 52.h),
-                        ),
-                        child: Text(context.l10n.questionSaveButton),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
+          body: _FormBody(
+            bodyKey: _bodyKey,
+            editingQuestion: widget.editingQuestion,
+          ),
+          bottomNavigationBar: _FormBottomBar(
+            isEditing: _isEditing,
+            onSave: () => _submit(context),
+            onDelete: _isEditing ? () => Navigator.pop(context) : null,
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _FormBody extends StatelessWidget {
+  const _FormBody({required this.bodyKey, required this.editingQuestion});
+
+  final GlobalKey<QuestionFormBodyState> bodyKey;
+  final QuestionModel? editingQuestion;
+
+  @override
+  Widget build(BuildContext context) {
+    final isTablet = context.isTabletLayout;
+
+    return BlocConsumer<QuestionFormCubit, QuestionFormState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          success: (question) {
+            AppSnackBar.showSuccess(context, context.l10n.questionSavedSuccess);
+            Navigator.pop(context, question);
+          },
+          error: (message) => AppSnackBar.showError(context, message),
+        );
+      },
+      builder: (context, state) {
+        return Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: isTablet ? 720.w : double.infinity,
+            ),
+            child: QuestionFormBody(
+              key: bodyKey,
+              initialQuestion: editingQuestion,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _FormBottomBar extends StatelessWidget {
+  const _FormBottomBar({
+    required this.isEditing,
+    required this.onSave,
+    this.onDelete,
+  });
+
+  final bool isEditing;
+  final VoidCallback onSave;
+  final VoidCallback? onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 14.h + bottomPadding),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        border: Border(
+          top: BorderSide(
+            color: colorScheme.outlineVariant.withValues(alpha: 0.4),
+          ),
+        ),
+      ),
+      child: Row(
+        children: [
+          if (isEditing && onDelete != null)
+            IconButton(
+              icon: Icon(Icons.delete_outline, color: colorScheme.error),
+              onPressed: onDelete,
+            ),
+          if (isEditing) SizedBox(width: 8.w),
+          Expanded(
+            child: OutlinedButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(context.l10n.cancel),
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            flex: 2,
+            child: BlocBuilder<QuestionFormCubit, QuestionFormState>(
+              builder: (context, state) {
+                final isLoading = state.maybeWhen(
+                  submitting: () => true,
+                  orElse: () => false,
+                );
+                return FilledButton(
+                  onPressed: isLoading ? null : onSave,
+                  child: isLoading
+                      ? SizedBox(
+                          width: 20.r,
+                          height: 20.r,
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : Text(context.l10n.questionSaveButton),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

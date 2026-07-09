@@ -83,13 +83,11 @@ class _HomeworkListScreenState extends State<HomeworkListScreen> {
                       children: [
                         Text(
                           context.l10n.homeworkMockBreadcrumb,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
+                          style: Theme.of(context).textTheme.labelMedium
                               ?.copyWith(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
                               ),
                         ),
                         SizedBox(height: 12.h),
@@ -145,10 +143,7 @@ class _HomeworkList extends StatelessWidget {
 
   final List<HomeworkModel> homework;
 
-  Future<void> _editHomework(
-    BuildContext context,
-    HomeworkModel item,
-  ) async {
+  Future<void> _editHomework(BuildContext context, HomeworkModel item) async {
     final updated = await Navigator.push<bool>(
       context,
       MaterialPageRoute(
@@ -178,9 +173,9 @@ class _HomeworkList extends StatelessWidget {
             homework: item,
             onEdit: () => _editHomework(context, item),
             onDuplicate: () async {
-              await context
-                  .read<HomeworkListCubit>()
-                  .duplicateHomework(item.id);
+              await context.read<HomeworkListCubit>().duplicateHomework(
+                item.id,
+              );
               if (context.mounted) {
                 AppSnackBar.showSuccess(
                   context,

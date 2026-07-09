@@ -3,21 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/extensions/adaptive_layout_extension.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/quiz_models.dart';
 import '../cubit/quiz_form_cubit.dart';
 import '../cubit/quiz_form_state.dart';
-import '../widgets/forms/quiz_form_fields.dart';
-import '../widgets/quiz_bottom_action_bar.dart';
 import '../widgets/quiz_section_card.dart';
-import '../widgets/quiz_type_segment.dart';
-import '../widgets/security_results_accordion.dart';
 
 class QuizFormScreen extends StatefulWidget {
   const QuizFormScreen({this.editingQuiz, super.key});
 
-  final QuizModel? editingQuiz;
+  final QuizSummaryModel? editingQuiz;
 
   @override
   State<QuizFormScreen> createState() => _QuizFormScreenState();
@@ -26,121 +23,77 @@ class QuizFormScreen extends StatefulWidget {
 class _QuizFormScreenState extends State<QuizFormScreen> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _titleController;
-  late final TextEditingController _descriptionController;
-  late final TextEditingController _durationController;
-  late final TextEditingController _maxGradeController;
-  late final TextEditingController _minPassingController;
+  late final TextEditingController _passingPercentageController;
   late final TextEditingController _maxAttemptsController;
-  QuizType _type = QuizType.quiz;
-  QuizFormat _format = QuizFormat.online;
-  DateTime? _startDateTime;
-  bool _randomizeQuestions = false;
-  bool _randomizeAnswers = false;
-  bool _showResultImmediately = false;
-  bool _showCorrectAnswers = false;
-  bool _allowRetake = false;
-  bool _preventLateSubmission = false;
+  late final TextEditingController _durationController;
+  late final TextEditingController _marksToCutController;
+  late final TextEditingController _limitQuestionsToController;
+  bool _showAnswers = true;
+  bool _shuffleQuestions = false;
+  bool _enableNegativeMarking = false;
+
+  bool get _isEditing => widget.editingQuiz != null;
 
   @override
   void initState() {
     super.initState();
     final quiz = widget.editingQuiz;
     _titleController = TextEditingController(text: quiz?.title ?? '');
-    _descriptionController = TextEditingController(
-      text: quiz?.description ?? '',
-    );
-    _durationController = TextEditingController(
-      text: (quiz?.durationMinutes ?? 90).toString(),
-    );
-    _maxGradeController = TextEditingController(
-      text: (quiz?.maxGrade ?? 100).toString(),
-    );
-    _minPassingController = TextEditingController(
-      text: (quiz?.minPassing ?? 60).toString(),
+    _passingPercentageController = TextEditingController(
+      text: (quiz?.passingPercentage ?? 50).toString(),
     );
     _maxAttemptsController = TextEditingController(
-      text: (quiz?.maxAttempts ?? 1).toString(),
+      text: (quiz?.maxAttempts ?? 0).toString(),
     );
-    _type = quiz?.type ?? QuizType.quiz;
-    _format = quiz?.format ?? QuizFormat.online;
-    _startDateTime = quiz?.startDateTime;
-    _randomizeQuestions = quiz?.randomizeQuestions ?? false;
-    _randomizeAnswers = quiz?.randomizeAnswers ?? false;
-    _showResultImmediately = quiz?.showResultImmediately ?? false;
-    _showCorrectAnswers = quiz?.showCorrectAnswers ?? false;
-    _allowRetake = quiz?.allowRetake ?? false;
-    _preventLateSubmission = quiz?.preventLateSubmission ?? false;
+    _durationController = TextEditingController(text: quiz?.duration ?? '');
+    _marksToCutController = TextEditingController(
+      text: (quiz?.marksToCut ?? 1).toString(),
+    );
+    _limitQuestionsToController = TextEditingController(
+      text: (quiz?.limitQuestionsTo ?? 0).toString(),
+    );
+    _showAnswers = (quiz?.showAnswers ?? 1) == 1;
+    _shuffleQuestions = (quiz?.shuffleQuestions ?? 0) == 1;
+    _enableNegativeMarking = (quiz?.enableNegativeMarking ?? 0) == 1;
   }
 
   @override
   void dispose() {
     _titleController.dispose();
-    _descriptionController.dispose();
-    _durationController.dispose();
-    _maxGradeController.dispose();
-    _minPassingController.dispose();
+    _passingPercentageController.dispose();
     _maxAttemptsController.dispose();
+    _durationController.dispose();
+    _marksToCutController.dispose();
+    _limitQuestionsToController.dispose();
     super.dispose();
-  }
-
-  Future<void> _pickDateTime() async {
-    final date = await showDatePicker(
-      context: context,
-      initialDate: _startDateTime ?? DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days: 365)),
-      lastDate: DateTime.now().add(const Duration(days: 365 * 2)),
-    );
-    if (date == null || !mounted) return;
-    final time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(_startDateTime ?? DateTime.now()),
-    );
-    if (time == null) return;
-    setState(() {
-      _startDateTime = DateTime(
-        date.year,
-        date.month,
-        date.day,
-        time.hour,
-        time.minute,
-      );
-    });
   }
 
   void _submit(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
-    if (_startDateTime == null) return;
 
-    final quiz = QuizModel(
-      id: widget.editingQuiz?.id ?? '',
-      type: _type,
-      title: _titleController.text.trim(),
-      description: _descriptionController.text.trim(),
-      format: _format,
-      startDateTime: _startDateTime!,
-      durationMinutes: int.tryParse(_durationController.text) ?? 90,
-      maxGrade: int.tryParse(_maxGradeController.text) ?? 100,
-      minPassing: int.tryParse(_minPassingController.text) ?? 60,
-      timelineStatus:
-          widget.editingQuiz?.timelineStatus ?? QuizTimelineStatus.upcoming,
-      totalStudents: widget.editingQuiz?.totalStudents ?? 0,
-      submittedCount: widget.editingQuiz?.submittedCount ?? 0,
-      gradedCount: widget.editingQuiz?.gradedCount ?? 0,
-      questions: widget.editingQuiz?.questions ?? const [],
-      randomizeQuestions: _randomizeQuestions,
-      randomizeAnswers: _randomizeAnswers,
-      showResultImmediately: _showResultImmediately,
-      showCorrectAnswers: _showCorrectAnswers,
-      allowRetake: _allowRetake,
-      preventLateSubmission: _preventLateSubmission,
-      maxAttempts: int.tryParse(_maxAttemptsController.text) ?? 1,
-    );
+    final body = <String, dynamic>{
+      'title': _titleController.text.trim(),
+      'passing_percentage':
+          int.tryParse(_passingPercentageController.text) ?? 50,
+      'max_attempts': int.tryParse(_maxAttemptsController.text) ?? 0,
+      'show_answers': _showAnswers ? 1 : 0,
+      'shuffle_questions': _shuffleQuestions ? 1 : 0,
+      'enable_negative_marking': _enableNegativeMarking ? 1 : 0,
+      'marks_to_cut': int.tryParse(_marksToCutController.text) ?? 1,
+      'limit_questions_to': int.tryParse(_limitQuestionsToController.text) ?? 0,
+    };
+
+    final duration = _durationController.text.trim();
+    if (duration.isNotEmpty) {
+      body['duration'] = duration;
+    }
 
     final cubit = context.read<QuizFormCubit>();
-    if (widget.editingQuiz == null) {
-      cubit.createQuiz(quiz);
+    if (_isEditing) {
+      body['quiz'] = widget.editingQuiz!.name;
+      cubit.updateQuiz(body);
     } else {
-      cubit.updateQuiz(quiz);
+      cubit.createQuiz(body);
     }
   }
 
@@ -148,119 +101,289 @@ class _QuizFormScreenState extends State<QuizFormScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<QuizFormCubit>(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(context.l10n.quizCreateTitle),
-          actions: [
-            TextButton(
-              onPressed: () {},
-              child: Text(context.l10n.quizSaveDraft),
+      child: Builder(
+        builder: (context) => Scaffold(
+          appBar: AppBar(
+            title: Text(
+              _isEditing
+                  ? context
+                        .l10n
+                        .quizCreateTitle // or edit title if available
+                  : context.l10n.quizCreateTitle,
             ),
-          ],
-        ),
-        body: BlocConsumer<QuizFormCubit, QuizFormState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              success: () {
-                AppSnackBar.showSuccess(context, context.l10n.quizSavedSuccess);
-                Navigator.pop(context, true);
-              },
-              error: (message) => AppSnackBar.showError(context, message),
-            );
-          },
-          builder: (context, state) {
-            final isLoading = state.maybeWhen(
-              submitting: () => true,
-              orElse: () => false,
-            );
+          ),
+          body: BlocConsumer<QuizFormCubit, QuizFormState>(
+            listener: (context, state) {
+              state.whenOrNull(
+                success: () {
+                  AppSnackBar.showSuccess(
+                    context,
+                    context.l10n.quizSavedSuccess,
+                  );
+                  Navigator.pop(context, true);
+                },
+                error: (message) => AppSnackBar.showError(context, message),
+              );
+            },
+            builder: (context, state) {
+              final isLoading = state.maybeWhen(
+                submitting: () => true,
+                orElse: () => false,
+              );
 
-            return Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView(
-                      padding: EdgeInsets.all(16.r),
-                      children: [
-                        QuizSectionCard(
-                          title: context.l10n.quizAssessmentTypeSection,
-                          children: [
-                            QuizTypeSegment(
-                              value: _type,
-                              onChanged: (value) =>
-                                  setState(() => _type = value),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.h),
-                        QuizSectionCard(
-                          title: context.l10n.quizBasicInfoSection,
-                          children: [
-                            QuizBasicInfoFields(
-                              titleController: _titleController,
-                              descriptionController: _descriptionController,
-                              format: _format,
-                              onFormatChanged: (value) =>
-                                  setState(() => _format = value),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.h),
-                        QuizSectionCard(
-                          title: context.l10n.quizTimingSection,
-                          children: [
-                            QuizTimingFields(
-                              startDateTime: _startDateTime,
-                              onPickDateTime: _pickDateTime,
-                              durationController: _durationController,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.h),
-                        QuizSectionCard(
-                          title: context.l10n.quizGradingSection,
-                          children: [
-                            QuizGradingFields(
-                              maxGradeController: _maxGradeController,
-                              minPassingController: _minPassingController,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 12.h),
-                        SecurityResultsAccordion(
-                          randomizeQuestions: _randomizeQuestions,
-                          randomizeAnswers: _randomizeAnswers,
-                          showResultImmediately: _showResultImmediately,
-                          showCorrectAnswers: _showCorrectAnswers,
-                          allowRetake: _allowRetake,
-                          preventLateSubmission: _preventLateSubmission,
-                          maxAttemptsController: _maxAttemptsController,
-                          onRandomizeQuestionsChanged: (v) =>
-                              setState(() => _randomizeQuestions = v),
-                          onRandomizeAnswersChanged: (v) =>
-                              setState(() => _randomizeAnswers = v),
-                          onShowResultImmediatelyChanged: (v) =>
-                              setState(() => _showResultImmediately = v),
-                          onShowCorrectAnswersChanged: (v) =>
-                              setState(() => _showCorrectAnswers = v),
-                          onAllowRetakeChanged: (v) =>
-                              setState(() => _allowRetake = v),
-                          onPreventLateSubmissionChanged: (v) =>
-                              setState(() => _preventLateSubmission = v),
-                        ),
-                      ],
-                    ),
-                  ),
-                  QuizBottomActionBar(
-                    isLoading: isLoading,
-                    onSchedule: () => _submit(context),
-                    onPublish: () => _submit(context),
-                  ),
-                ],
-              ),
-            );
+              return _QuizFormBody(
+                formKey: _formKey,
+                titleController: _titleController,
+                passingPercentageController: _passingPercentageController,
+                maxAttemptsController: _maxAttemptsController,
+                durationController: _durationController,
+                marksToCutController: _marksToCutController,
+                limitQuestionsToController: _limitQuestionsToController,
+                showAnswers: _showAnswers,
+                shuffleQuestions: _shuffleQuestions,
+                enableNegativeMarking: _enableNegativeMarking,
+                onShowAnswersChanged: (v) => setState(() => _showAnswers = v),
+                onShuffleQuestionsChanged: (v) =>
+                    setState(() => _shuffleQuestions = v),
+                onNegativeMarkingChanged: (v) =>
+                    setState(() => _enableNegativeMarking = v),
+                isLoading: isLoading,
+                onSubmit: () => _submit(context),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _QuizFormBody extends StatelessWidget {
+  const _QuizFormBody({
+    required this.formKey,
+    required this.titleController,
+    required this.passingPercentageController,
+    required this.maxAttemptsController,
+    required this.durationController,
+    required this.marksToCutController,
+    required this.limitQuestionsToController,
+    required this.showAnswers,
+    required this.shuffleQuestions,
+    required this.enableNegativeMarking,
+    required this.onShowAnswersChanged,
+    required this.onShuffleQuestionsChanged,
+    required this.onNegativeMarkingChanged,
+    required this.isLoading,
+    required this.onSubmit,
+  });
+
+  final GlobalKey<FormState> formKey;
+  final TextEditingController titleController;
+  final TextEditingController passingPercentageController;
+  final TextEditingController maxAttemptsController;
+  final TextEditingController durationController;
+  final TextEditingController marksToCutController;
+  final TextEditingController limitQuestionsToController;
+  final bool showAnswers;
+  final bool shuffleQuestions;
+  final bool enableNegativeMarking;
+  final ValueChanged<bool> onShowAnswersChanged;
+  final ValueChanged<bool> onShuffleQuestionsChanged;
+  final ValueChanged<bool> onNegativeMarkingChanged;
+  final bool isLoading;
+  final VoidCallback onSubmit;
+
+  @override
+  Widget build(BuildContext context) {
+    final isTablet = context.isTabletLayout;
+    final pad = isTablet ? 24.0.w : 16.0.w;
+
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.symmetric(horizontal: pad, vertical: 16.h),
+              children: [
+                if (isTablet)
+                  _tabletLayout(context)
+                else
+                  _mobileLayout(context),
+              ],
+            ),
+          ),
+          _BottomAction(isLoading: isLoading, onSubmit: onSubmit),
+        ],
+      ),
+    );
+  }
+
+  Widget _mobileLayout(BuildContext context) {
+    return Column(
+      children: [
+        _buildGeneralSection(context),
+        SizedBox(height: 16.h),
+        _buildGradingSection(context),
+        SizedBox(height: 16.h),
+        _buildBehaviorSection(context),
+      ],
+    );
+  }
+
+  Widget _tabletLayout(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Column(
+            children: [
+              _buildGeneralSection(context),
+              SizedBox(height: 16.h),
+              _buildBehaviorSection(context),
+            ],
+          ),
+        ),
+        SizedBox(width: 16.w),
+        Expanded(flex: 4, child: _buildGradingSection(context)),
+      ],
+    );
+  }
+
+  Widget _buildGeneralSection(BuildContext context) {
+    return QuizSectionCard(
+      title: context.l10n.quizGeneralDetails,
+      children: [
+        TextFormField(
+          controller: titleController,
+          decoration: InputDecoration(labelText: context.l10n.quizTitleLabel),
+          validator: (value) {
+            if (value == null || value.trim().isEmpty) {
+              return context.l10n.quizTitleRequired;
+            }
+            return null;
           },
         ),
+        SizedBox(height: 14.h),
+        TextFormField(
+          controller: durationController,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            labelText: context.l10n.quizDurationLabel,
+            hintText: context.l10n.quizDurationHint,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGradingSection(BuildContext context) {
+    return QuizSectionCard(
+      title: context.l10n.quizGradingLimits,
+      children: [
+        TextFormField(
+          controller: passingPercentageController,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            labelText: context.l10n.quizPassingPercentage,
+            suffixText: '%',
+          ),
+        ),
+        SizedBox(height: 14.h),
+        TextFormField(
+          controller: maxAttemptsController,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            labelText: context.l10n.quizMaxAttempts,
+            helperText: context.l10n.quizMaxAttemptsHelper,
+          ),
+        ),
+        SizedBox(height: 14.h),
+        TextFormField(
+          controller: limitQuestionsToController,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            labelText: context.l10n.quizLimitQuestions,
+            helperText: context.l10n.quizLimitQuestionsHelper,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildBehaviorSection(BuildContext context) {
+    return QuizSectionCard(
+      title: context.l10n.quizBehavior,
+      children: [
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(context.l10n.quizShowAnswers),
+          value: showAnswers,
+          onChanged: onShowAnswersChanged,
+        ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(context.l10n.quizShuffleQuestions),
+          value: shuffleQuestions,
+          onChanged: onShuffleQuestionsChanged,
+        ),
+        SwitchListTile(
+          contentPadding: EdgeInsets.zero,
+          title: Text(context.l10n.quizEnableNegativeMarking),
+          value: enableNegativeMarking,
+          onChanged: onNegativeMarkingChanged,
+        ),
+        if (enableNegativeMarking)
+          Padding(
+            padding: EdgeInsets.only(top: 14.h),
+            child: TextFormField(
+              controller: marksToCutController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: context.l10n.quizMarksToCut,
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _BottomAction extends StatelessWidget {
+  const _BottomAction({required this.isLoading, required this.onSubmit});
+
+  final bool isLoading;
+  final VoidCallback onSubmit;
+
+  @override
+  Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.of(context).padding.bottom;
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Container(
+      padding: EdgeInsets.fromLTRB(16.w, 12.h, 16.w, 14.h + bottomPadding),
+      decoration: BoxDecoration(
+        color: colorScheme.surface,
+        border: Border(
+          top: BorderSide(
+            color: colorScheme.outlineVariant.withValues(alpha: 0.4),
+          ),
+        ),
+      ),
+      child: FilledButton(
+        onPressed: isLoading ? null : onSubmit,
+        style: FilledButton.styleFrom(minimumSize: Size(double.infinity, 52.h)),
+        child: isLoading
+            ? SizedBox(
+                height: 20.h,
+                width: 20.w,
+                child: const CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              )
+            : Text(context.l10n.save),
       ),
     );
   }

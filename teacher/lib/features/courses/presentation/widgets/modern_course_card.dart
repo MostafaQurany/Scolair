@@ -240,7 +240,8 @@ class _Header extends StatelessWidget {
         return context.l10n.myCoursesCoTaughtBy(names.join(', '));
       }
     } else if (instructors.length == 1) {
-      final name = instructors.first.fullName ??
+      final name =
+          instructors.first.fullName ??
           instructors.first.firstName ??
           instructors.first.username;
       if (name != null && name.isNotEmpty) return name;
@@ -334,9 +335,7 @@ class _StatTile extends StatelessWidget {
           SizedBox(height: 6.h),
           Text(
             value,
-            style: textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 2.h),
           Text(

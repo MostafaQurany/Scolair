@@ -44,7 +44,7 @@ import '../../features/courses/presentation/cubit/lesson_details_cubit.dart';
 import '../../features/courses/presentation/cubit/chapter_lessons_cubit.dart';
 import '../../features/courses/presentation/cubit/course_form_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_form_cubit.dart';
-import '../../features/quiz/data/datasources/local/quiz_mock_datasource.dart';
+import '../../features/quiz/data/datasources/remote/quiz_remote_datasource.dart';
 import '../../features/quiz/data/repositories/quiz_repository_impl.dart';
 import '../../features/quiz/domain/repositories/quiz_repository.dart';
 import '../../features/quiz/domain/usecases/quiz_usecases.dart';
@@ -52,6 +52,7 @@ import '../../features/quiz/presentation/cubit/quizzes_cubit.dart';
 import '../../features/quiz/presentation/cubit/quiz_form_cubit.dart';
 import '../../features/quiz/presentation/cubit/quiz_details_cubit.dart';
 import '../../features/quiz/presentation/cubit/question_form_cubit.dart';
+import '../../features/quiz/presentation/cubit/question_bank_cubit.dart';
 import '../../features/homework/data/datasources/local/homework_mock_datasource.dart';
 import '../../features/homework/data/repositories/homework_repository_impl.dart';
 import '../../features/homework/domain/repositories/homework_repository.dart';
@@ -204,7 +205,9 @@ Future<void> setupDependencyInjection() async {
       () => LessonFormCubit(getIt(), getIt(), getIt()),
     )
     // Quiz Feature
-    ..registerLazySingleton<QuizMockDataSource>(QuizMockDataSourceImpl.new)
+    ..registerLazySingleton<QuizRemoteDataSource>(
+      () => QuizRemoteDataSourceImpl(getIt()),
+    )
     ..registerLazySingleton<QuizRepository>(() => QuizRepositoryImpl(getIt()))
     ..registerLazySingleton<ListQuizzesUseCase>(
       () => ListQuizzesUseCase(getIt()),
@@ -213,6 +216,12 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<CreateQuizUseCase>(() => CreateQuizUseCase(getIt()))
     ..registerLazySingleton<UpdateQuizUseCase>(() => UpdateQuizUseCase(getIt()))
     ..registerLazySingleton<DeleteQuizUseCase>(() => DeleteQuizUseCase(getIt()))
+    ..registerLazySingleton<ListQuestionsUseCase>(
+      () => ListQuestionsUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetQuestionUseCase>(
+      () => GetQuestionUseCase(getIt()),
+    )
     ..registerLazySingleton<CreateQuestionUseCase>(
       () => CreateQuestionUseCase(getIt()),
     )
@@ -222,7 +231,13 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<DeleteQuestionUseCase>(
       () => DeleteQuestionUseCase(getIt()),
     )
-    ..registerFactory<QuizzesCubit>(() => QuizzesCubit(getIt()))
+    ..registerLazySingleton<AddQuestionToQuizUseCase>(
+      () => AddQuestionToQuizUseCase(getIt()),
+    )
+    ..registerLazySingleton<RemoveQuestionFromQuizUseCase>(
+      () => RemoveQuestionFromQuizUseCase(getIt()),
+    )
+    ..registerFactory<QuizzesCubit>(() => QuizzesCubit(getIt(), getIt()))
     ..registerFactory<QuizFormCubit>(() => QuizFormCubit(getIt(), getIt()))
     ..registerFactory<QuizDetailsCubit>(
       () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt()),
@@ -230,6 +245,7 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<QuestionFormCubit>(
       () => QuestionFormCubit(getIt(), getIt()),
     )
+    ..registerFactory<QuestionBankCubit>(() => QuestionBankCubit(getIt()))
     // Homework Feature
     ..registerLazySingleton<HomeworkMockDataSource>(
       HomeworkMockDataSourceImpl.new,

@@ -1,109 +1,198 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:intl/intl.dart';
 
+import '../../../../core/extensions/adaptive_layout_extension.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../data/models/quiz_models.dart';
 
+/// Stats grid showing quiz metadata: question count, total points,
+/// time limit, and passing score. Adapts to 2x2 on mobile
+/// and 4-in-a-row on tablet.
 class QuizDetailsHeaderCard extends StatelessWidget {
   const QuizDetailsHeaderCard({required this.quiz, super.key});
 
   final QuizModel quiz;
 
-  String _typeLabel(BuildContext context) => switch (quiz.type) {
-    QuizType.quiz => context.l10n.quizTypeQuiz,
-    QuizType.midterm => context.l10n.quizTypeMidterm,
-    QuizType.final_ => context.l10n.quizTypeFinal,
-  };
+  @override
+  Widget build(BuildContext context) {
+    final isTablet = context.isTabletLayout;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _QuizSubtitle(quiz: quiz),
+          SizedBox(height: 12.h),
+          isTablet
+              ? Row(
+                  children: [
+                    Expanded(child: _StatBox.questions(context, quiz)),
+                    SizedBox(width: 10.w),
+                    Expanded(child: _StatBox.totalPoints(context, quiz)),
+                    SizedBox(width: 10.w),
+                    Expanded(child: _StatBox.timeLimit(context, quiz)),
+                    SizedBox(width: 10.w),
+                    Expanded(child: _StatBox.passingScore(context, quiz)),
+                  ],
+                )
+              : Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(child: _StatBox.questions(context, quiz)),
+                        SizedBox(width: 10.w),
+                        Expanded(child: _StatBox.totalPoints(context, quiz)),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      children: [
+                        Expanded(child: _StatBox.timeLimit(context, quiz)),
+                        SizedBox(width: 10.w),
+                        Expanded(child: _StatBox.passingScore(context, quiz)),
+                      ],
+                    ),
+                  ],
+                ),
+        ],
+      ),
+    );
+  }
+}
+
+class _QuizSubtitle extends StatelessWidget {
+  const _QuizSubtitle({required this.quiz});
+
+  final QuizModel quiz;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.r),
-        side: BorderSide(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.6),
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(16.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              _typeLabel(context),
-              style: textTheme.labelLarge?.copyWith(color: colorScheme.primary),
+    return Row(
+      children: [
+        if (quiz.course != null && quiz.course!.isNotEmpty) ...[
+          Icon(
+            Icons.school_outlined,
+            size: 14.r,
+            color: colorScheme.onSurfaceVariant,
+          ),
+          SizedBox(width: 4.w),
+          Text(
+            quiz.course!,
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
             ),
-            SizedBox(height: 4.h),
-            Text(
-              quiz.title,
-              style: textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+          ),
+          SizedBox(width: 12.w),
+        ],
+        if (quiz.lesson != null && quiz.lesson!.isNotEmpty) ...[
+          Icon(
+            Icons.bookmark_outline,
+            size: 14.r,
+            color: colorScheme.onSurfaceVariant,
+          ),
+          SizedBox(width: 4.w),
+          Text(
+            quiz.lesson!,
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
             ),
-            if (quiz.description != null) ...[
-              SizedBox(height: 4.h),
-              Text(
-                quiz.description!,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-            SizedBox(height: 12.h),
-            Wrap(
-              spacing: 16.w,
-              runSpacing: 8.h,
-              children: [
-                _InfoItem(
-                  icon: Icons.calendar_today_outlined,
-                  label: DateFormat.yMMMd().format(quiz.startDateTime),
-                ),
-                _InfoItem(
-                  icon: Icons.timer_outlined,
-                  label: context.l10n.quizDurationMinutes(quiz.durationMinutes),
-                ),
-                _InfoItem(
-                  icon: Icons.grade_outlined,
-                  label: context.l10n.quizMaxGradeLabel(quiz.maxGrade),
-                ),
-                _InfoItem(
-                  icon: Icons.check_circle_outline,
-                  label: context.l10n.quizPassingGradeLabel(quiz.minPassing),
-                ),
-                _InfoItem(
-                  icon: Icons.quiz_outlined,
-                  label: context.l10n.quizQuestionsCount(quiz.questions.length),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      ],
     );
   }
 }
 
-class _InfoItem extends StatelessWidget {
-  const _InfoItem({required this.icon, required this.label});
+class _StatBox extends StatelessWidget {
+  const _StatBox({
+    required this.icon,
+    required this.value,
+    required this.label,
+    required this.iconColor,
+  });
+
+  factory _StatBox.questions(BuildContext context, QuizModel quiz) {
+    return _StatBox(
+      icon: Icons.help_outline_rounded,
+      value: '${quiz.questions.length}',
+      label: context.l10n.quizTabQuestions,
+      iconColor: const Color(0xFF2196F3),
+    );
+  }
+
+  factory _StatBox.totalPoints(BuildContext context, QuizModel quiz) {
+    final total = quiz.questions.fold<int>(0, (sum, q) => sum + q.marks);
+    return _StatBox(
+      icon: Icons.star_outline_rounded,
+      value: '$total',
+      label: context.l10n.quizPointsSuffix,
+      iconColor: const Color(0xFFFF9800),
+    );
+  }
+
+  factory _StatBox.timeLimit(BuildContext context, QuizModel quiz) {
+    final duration = quiz.duration;
+    final display = (duration != null && duration.isNotEmpty)
+        ? '$duration min'
+        : '∞';
+    return _StatBox(
+      icon: Icons.timer_outlined,
+      value: display,
+      label: context.l10n.quizTimeLimitLabel,
+      iconColor: const Color(0xFF4CAF50),
+    );
+  }
+
+  factory _StatBox.passingScore(BuildContext context, QuizModel quiz) {
+    return _StatBox(
+      icon: Icons.trending_up_rounded,
+      value: '${quiz.passingPercentage}%',
+      label: context.l10n.quizPassingScoreLabel,
+      iconColor: const Color(0xFF9C27B0),
+    );
+  }
 
   final IconData icon;
+  final String value;
   final String label;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 16.r, color: colorScheme.onSurfaceVariant),
-        SizedBox(width: 4.w),
-        Text(label, style: Theme.of(context).textTheme.bodySmall),
-      ],
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 14.h),
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainer,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.4),
+        ),
+      ),
+      child: Column(
+        children: [
+          Icon(icon, size: 22.r, color: iconColor),
+          SizedBox(height: 8.h),
+          Text(
+            value,
+            style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 2.h),
+          Text(
+            label,
+            style: textTheme.labelSmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

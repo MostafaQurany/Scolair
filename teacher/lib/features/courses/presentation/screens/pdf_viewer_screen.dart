@@ -50,11 +50,7 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          fileName,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-        ),
+        title: Text(fileName, maxLines: 1, overflow: TextOverflow.ellipsis),
       ),
       body: _errorMessage != null
           ? Center(
@@ -85,9 +81,7 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
               scrollDirection: Axis.vertical,
               onDocumentError: (error) {
                 if (mounted) {
-                  setState(
-                    () => _errorMessage = context.l10n.authErrorGeneric,
-                  );
+                  setState(() => _errorMessage = context.l10n.authErrorGeneric);
                 }
               },
             ),

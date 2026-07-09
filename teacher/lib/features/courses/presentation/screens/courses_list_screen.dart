@@ -132,7 +132,8 @@ class _CoursesListViewState extends State<_CoursesListView>
                   isMyCourses: true,
                   onRefresh: context.read<CoursesCubit>().refreshCourses,
                   onCourseTapped: _navigateToCourseDetails,
-                  onCourseChanged: () => context.read<CoursesCubit>().loadCourses(),
+                  onCourseChanged: () =>
+                      context.read<CoursesCubit>().loadCourses(),
                 ),
                 BrowseCoursesTab(
                   state: state,
@@ -140,7 +141,8 @@ class _CoursesListViewState extends State<_CoursesListView>
                   onSearchChanged: _onSearchChanged,
                   onClearSearch: _clearSearch,
                   onCourseTapped: _navigateToCourseDetails,
-                  onCourseChanged: () => context.read<CoursesCubit>().loadCourses(),
+                  onCourseChanged: () =>
+                      context.read<CoursesCubit>().loadCourses(),
                 ),
               ],
             );

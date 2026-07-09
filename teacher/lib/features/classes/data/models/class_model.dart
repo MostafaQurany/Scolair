@@ -48,8 +48,7 @@ class SubmissionStatus {
   final int pendingCount;
   final bool isAllCaughtUp;
 
-  String get displayText =>
-      isAllCaughtUp ? '' : '$pendingCount Pending Review';
+  String get displayText => isAllCaughtUp ? '' : '$pendingCount Pending Review';
 }
 
 /// Represents one curriculum item (lesson, quiz, problem set).
@@ -72,20 +71,10 @@ class CurriculumItem {
 }
 
 /// Completion status of a curriculum item.
-enum CurriculumStatus {
-  completed,
-  current,
-  upcoming,
-  overdue,
-}
+enum CurriculumStatus { completed, current, upcoming, overdue }
 
 /// Type of curriculum item.
-enum CurriculumType {
-  lesson,
-  quiz,
-  problemSet,
-  chapter,
-}
+enum CurriculumType { lesson, quiz, problemSet, chapter }
 
 /// Represents a class activity entry.
 class ClassActivity {
@@ -111,10 +100,7 @@ class ClassActivity {
 }
 
 /// Type of class activity.
-enum ClassActivityType {
-  announcement,
-  grading,
-}
+enum ClassActivityType { announcement, grading }
 
 /// Attendance data for a class.
 class AttendanceData {

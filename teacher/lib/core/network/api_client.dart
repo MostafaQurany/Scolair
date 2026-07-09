@@ -16,6 +16,7 @@ import '../../features/auth/data/models/register_request_data.dart';
 import '../../features/auth/data/models/register_response_data.dart';
 import '../../features/auth/data/models/reset_password_request_data.dart';
 import '../../features/courses/data/models/courses_models.dart';
+import '../../features/quiz/data/models/quiz_models.dart';
 import 'api_endpoints.dart';
 
 part 'api_client.g.dart';
@@ -138,4 +139,65 @@ abstract class ApiClient {
 
   @GET(ApiEndpoints.myCourses)
   Future<MyCoursesResponseData> myCourses();
+
+  // === Quiz — Questions ===
+
+  @GET(ApiEndpoints.listQuestions)
+  Future<ListQuestionsResponseData> listQuestions(
+    @Query('type') String? type,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET(ApiEndpoints.getQuestion)
+  Future<GetQuestionResponseData> getQuestion(
+    @Query('question') String questionName,
+  );
+
+  @POST(ApiEndpoints.createQuestion)
+  Future<CreateQuestionResponseData> createQuestion(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @PUT(ApiEndpoints.updateQuestion)
+  Future<UpdateQuestionResponseData> updateQuestion(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @DELETE(ApiEndpoints.deleteQuestion)
+  Future<DeleteQuestionResponseData> deleteQuestion(
+    @Body() Map<String, dynamic> body,
+  );
+
+  // === Quiz — Quizzes ===
+
+  @GET(ApiEndpoints.listQuizzes)
+  Future<ListQuizzesResponseData> listQuizzes(
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET(ApiEndpoints.getQuiz)
+  Future<GetQuizResponseData> getQuiz(@Query('quiz') String quizName);
+
+  @POST(ApiEndpoints.createQuiz)
+  Future<CreateQuizResponseData> createQuiz(@Body() Map<String, dynamic> body);
+
+  @PUT(ApiEndpoints.updateQuiz)
+  Future<UpdateQuizResponseData> updateQuiz(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApiEndpoints.deleteQuiz)
+  Future<DeleteQuizResponseData> deleteQuiz(@Body() Map<String, dynamic> body);
+
+  // === Quiz — Quiz-Question link ===
+
+  @POST(ApiEndpoints.addQuestionToQuiz)
+  Future<AddQuestionToQuizResponseData> addQuestionToQuiz(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @DELETE(ApiEndpoints.removeQuestionFromQuiz)
+  Future<RemoveQuestionFromQuizResponseData> removeQuestionFromQuiz(
+    @Body() Map<String, dynamic> body,
+  );
 }

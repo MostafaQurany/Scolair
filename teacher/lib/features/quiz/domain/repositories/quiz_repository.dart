@@ -1,19 +1,38 @@
 import '../../../../core/network/api_result.dart';
+import '../../../../core/network/paginated_list.dart';
 import '../../data/models/quiz_models.dart';
 
+/// Quiz feature repository contract.
 abstract class QuizRepository {
-  Future<ApiResult<List<QuizModel>>> listQuizzes();
-  Future<ApiResult<QuizModel>> getQuiz(String id);
-  Future<ApiResult<QuizModel>> createQuiz(QuizModel quiz);
-  Future<ApiResult<QuizModel>> updateQuiz(QuizModel quiz);
-  Future<ApiResult<void>> deleteQuiz(String id);
-  Future<ApiResult<QuizModel>> createQuestion(
-    String quizId,
-    QuestionModel question,
-  );
-  Future<ApiResult<QuizModel>> updateQuestion(
-    String quizId,
-    QuestionModel question,
-  );
-  Future<ApiResult<QuizModel>> deleteQuestion(String quizId, String questionId);
+  // Questions
+  Future<ApiResult<PaginatedList<QuestionModel>>> listQuestions({
+    String? type,
+    int start = 0,
+    int pageSize = 30,
+  });
+  Future<ApiResult<QuestionModel>> getQuestion(String questionName);
+  Future<ApiResult<QuestionModel>> createQuestion(Map<String, dynamic> body);
+  Future<ApiResult<QuestionModel>> updateQuestion(Map<String, dynamic> body);
+  Future<ApiResult<void>> deleteQuestion(String questionName);
+
+  // Quizzes
+  Future<ApiResult<PaginatedList<QuizSummaryModel>>> listQuizzes({
+    int start = 0,
+    int pageSize = 30,
+  });
+  Future<ApiResult<QuizModel>> getQuiz(String quizName);
+  Future<ApiResult<QuizModel>> createQuiz(Map<String, dynamic> body);
+  Future<ApiResult<QuizModel>> updateQuiz(Map<String, dynamic> body);
+  Future<ApiResult<void>> deleteQuiz(String quizName);
+
+  // Quiz-Question link
+  Future<ApiResult<QuizModel>> addQuestionToQuiz({
+    required String quiz,
+    required String question,
+    required int marks,
+  });
+  Future<ApiResult<QuizModel>> removeQuestionFromQuiz({
+    required String quiz,
+    required String question,
+  });
 }

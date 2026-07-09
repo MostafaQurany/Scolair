@@ -55,7 +55,8 @@ class App extends StatelessWidget {
             AppRouteNames.forgotPassword: (_) => const ForgotPasswordScreen(),
             AppRouteNames.resetPassword: (_) => const ResetPasswordScreen(),
             AppRouteNames.biometricUnlock: (_) => const BiometricUnlockScreen(),
-            AppRouteNames.biometricRequest: (_) => const BiometricRequestScreen(),
+            AppRouteNames.biometricRequest: (_) =>
+                const BiometricRequestScreen(),
           },
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,

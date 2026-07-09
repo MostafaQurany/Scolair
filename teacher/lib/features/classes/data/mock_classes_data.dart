@@ -31,10 +31,7 @@ abstract final class MockClassesData {
     scheduleDays: 'Mon, Wed, Fri • 09:00 - 10:30 AM',
     category: 'Mathematics',
     nextLesson: 'Matrices & Transformations',
-    submissionStatus: SubmissionStatus(
-      pendingCount: 12,
-      isAllCaughtUp: false,
-    ),
+    submissionStatus: SubmissionStatus(pendingCount: 12, isAllCaughtUp: false),
     curriculum: [
       CurriculumItem(
         title: 'Matrices & Determinants',
@@ -101,10 +98,7 @@ abstract final class MockClassesData {
       presentToday: 31,
       absentToday: 1,
     ),
-    performance: PerformanceData(
-      classAverage: 86,
-      assignmentCompletion: 93,
-    ),
+    performance: PerformanceData(classAverage: 86, assignmentCompletion: 93),
   );
 
   static const _physicsClass = ClassModel(
@@ -116,10 +110,7 @@ abstract final class MockClassesData {
     scheduleDays: 'Tue, Thu • 01:15 - 02:45 PM',
     category: 'Science',
     nextLesson: 'Kinematics Review',
-    submissionStatus: SubmissionStatus(
-      pendingCount: 0,
-      isAllCaughtUp: true,
-    ),
+    submissionStatus: SubmissionStatus(pendingCount: 0, isAllCaughtUp: true),
     curriculum: [
       CurriculumItem(
         title: 'Kinematics',
@@ -152,10 +143,7 @@ abstract final class MockClassesData {
       presentToday: 17,
       absentToday: 1,
     ),
-    performance: PerformanceData(
-      classAverage: 82,
-      assignmentCompletion: 89,
-    ),
+    performance: PerformanceData(classAverage: 82, assignmentCompletion: 89),
   );
 
   static const _chemistryClass = ClassModel(
@@ -167,10 +155,7 @@ abstract final class MockClassesData {
     scheduleDays: 'Mon, Wed • 09:00 - 10:30 AM',
     category: 'Science',
     nextLesson: 'Periodic Table Trends',
-    submissionStatus: SubmissionStatus(
-      pendingCount: 4,
-      isAllCaughtUp: false,
-    ),
+    submissionStatus: SubmissionStatus(pendingCount: 4, isAllCaughtUp: false),
     urgentAlert:
         '2 flagged posts in Class Wall require '
         'moderation review.',
@@ -205,9 +190,6 @@ abstract final class MockClassesData {
       presentToday: 28,
       absentToday: 2,
     ),
-    performance: PerformanceData(
-      classAverage: 78,
-      assignmentCompletion: 85,
-    ),
+    performance: PerformanceData(classAverage: 78, assignmentCompletion: 85),
   );
 }

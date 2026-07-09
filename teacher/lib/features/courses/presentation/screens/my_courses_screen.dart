@@ -73,8 +73,7 @@ class _MyCoursesView extends StatelessWidget {
                     course: course,
                     canManage: true,
                     onTap: () => _openCourse(context, course),
-                    onChanged: () =>
-                        context.read<CoursesCubit>().loadCourses(),
+                    onChanged: () => context.read<CoursesCubit>().loadCourses(),
                   );
                 },
               ),

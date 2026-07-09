@@ -242,7 +242,9 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.r),
-        side: BorderSide(color: colorScheme.outlineVariant.withValues(alpha: 0.6)),
+        side: BorderSide(
+          color: colorScheme.outlineVariant.withValues(alpha: 0.6),
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.all(16.r),
@@ -415,8 +417,7 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
                                     controller: _tagsController,
                                     decoration: InputDecoration(
                                       labelText: context.l10n.courseTagsLabel,
-                                      hintText:
-                                          context.l10n.courseTagsHint,
+                                      hintText: context.l10n.courseTagsHint,
                                       prefixIcon: const Icon(
                                         Icons.label_outline,
                                       ),
@@ -444,7 +445,8 @@ class _CourseFormScreenState extends State<CourseFormScreen> {
                                   _SettingsToggle(
                                     icon: Icons.workspace_premium_outlined,
                                     title: context
-                                        .l10n.courseEnableCertificationLabel,
+                                        .l10n
+                                        .courseEnableCertificationLabel,
                                     value: _enableCertification,
                                     onChanged: (v) => setState(
                                       () => _enableCertification = v,
@@ -537,10 +539,7 @@ class _SettingsToggle extends StatelessWidget {
         Icon(icon, size: 20.r, color: colorScheme.onSurfaceVariant),
         SizedBox(width: 12.w),
         Expanded(
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
+          child: Text(title, style: Theme.of(context).textTheme.bodyMedium),
         ),
         Switch(value: value, onChanged: onChanged),
       ],

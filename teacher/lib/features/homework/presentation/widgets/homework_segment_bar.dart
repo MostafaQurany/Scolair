@@ -56,9 +56,9 @@ class HomeworkSegmentBar extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.r),
             ),
-            textStyle: Theme.of(context).textTheme.labelMedium?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+            textStyle: Theme.of(
+              context,
+            ).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
           ),
           segments: [
             _segment(
@@ -93,11 +93,7 @@ class HomeworkSegmentBar extends StatelessWidget {
   }) {
     return ButtonSegment<int>(
       value: index,
-      label: Text(
-        label,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-      ),
+      label: Text(label, overflow: TextOverflow.ellipsis, maxLines: 1),
       icon: Icon(icon, size: 16.r),
     );
   }

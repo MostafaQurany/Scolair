@@ -11,11 +11,7 @@ import '../../data/models/class_model.dart';
 /// title, a meta row (students + schedule), and icon rows for the next
 /// lesson / urgent alert and submission status.
 class ClassCard extends StatelessWidget {
-  const ClassCard({
-    required this.classData,
-    required this.onTap,
-    super.key,
-  });
+  const ClassCard({required this.classData, required this.onTap, super.key});
 
   final ClassModel classData;
   final VoidCallback onTap;
@@ -145,11 +141,7 @@ class _ClassHeader extends StatelessWidget {
           ),
         ),
         SizedBox(width: 8.w),
-        Icon(
-          Icons.more_vert,
-          size: 20.r,
-          color: colorScheme.onSurfaceVariant,
-        ),
+        Icon(Icons.more_vert, size: 20.r, color: colorScheme.onSurfaceVariant),
       ],
     );
   }

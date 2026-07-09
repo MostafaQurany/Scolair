@@ -634,7 +634,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quizzesMockClassLabel => 'الفصل رياضيات-10أ';
 
   @override
-  String get quizCreateButton => 'إنشاء اختبار';
+  String get quizCreateButton => 'إنشاء اختبار قصير';
 
   @override
   String get quizFilterAll => 'كل التقييمات';
@@ -732,7 +732,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quizStartDateTimeHint => 'يوم/شهر/سنة، --:--';
 
   @override
-  String get quizDurationLabel => 'المدة';
+  String get quizDurationLabel => 'المدة (دقائق)';
 
   @override
   String get quizMinutesSuffix => 'دقيقة';
@@ -1160,5 +1160,211 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String myCoursesCoTaughtBy(String names) {
     return 'بالاشتراك مع $names';
+  }
+
+  @override
+  String get questionTypeChoices => 'خيارات';
+
+  @override
+  String get questionTypeUserInput => 'إدخال مستخدم';
+
+  @override
+  String get questionTypeOpenEnded => 'سؤال مفتوح';
+
+  @override
+  String get quizPassingPercentage => 'نسبة النجاح';
+
+  @override
+  String get quizMaxAttempts => 'أقصى عدد محاولات';
+
+  @override
+  String get quizMaxAttemptsUnlimited => 'غير محدود';
+
+  @override
+  String get quizShuffleQuestions => 'خلط الأسئلة';
+
+  @override
+  String get quizShowAnswers => 'إظهار الإجابات';
+
+  @override
+  String get quizEnableNegativeMarking => 'تفعيل الخصم';
+
+  @override
+  String get quizMarksToCut => 'الدرجات المخصومة';
+
+  @override
+  String get quizLimitQuestions => 'تحديد عدد الأسئلة';
+
+  @override
+  String get questionMultipleCorrect => 'إجابات صحيحة متعددة';
+
+  @override
+  String get questionPossibilitiesLabel => 'الاحتمالات المقبولة';
+
+  @override
+  String get questionPossibility => 'احتمال';
+
+  @override
+  String get questionOpenEndedHint =>
+      'الأسئلة المقالية تتطلب تصحيحاً يدوياً من قبل المعلم.';
+
+  @override
+  String get quizMaxAttemptsHelper => 'أدخل 0 لمحاولات غير محدودة';
+
+  @override
+  String get quizDurationHint => 'اتركه فارغاً لوقت غير محدود';
+
+  @override
+  String get quizLimitQuestionsHelper => 'اختيار N سؤال عشوائياً (0 للكل)';
+
+  @override
+  String get questionBankTitle => 'بنك الأسئلة';
+
+  @override
+  String get search => 'بحث...';
+
+  @override
+  String get addToQuiz => 'أضف إلى الاختبار';
+
+  @override
+  String get quizTabOverview => 'نظرة عامة';
+
+  @override
+  String get quizTabReview => 'المراجعة';
+
+  @override
+  String get quizTimeLimitLabel => 'المدة الزمنية';
+
+  @override
+  String get quizPassingScoreLabel => 'درجة النجاح';
+
+  @override
+  String get quizNoQuestionsSubtitle =>
+      'ابدأ ببناء تقييمك بإضافة أسئلة يدوياً أو الاستيراد من بنك الأسئلة.';
+
+  @override
+  String get quizErrorTitle => 'حدث خطأ ما';
+
+  @override
+  String get quizRetryButton => 'إعادة المحاولة';
+
+  @override
+  String get questionBankFilterType => 'النوع';
+
+  @override
+  String get questionBankFilterDifficulty => 'الصعوبة';
+
+  @override
+  String get questionBankFilterPoints => 'النقاط';
+
+  @override
+  String get questionBankFilterTopic => 'الموضوع';
+
+  @override
+  String questionBankSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count سؤال محدد',
+      one: 'سؤال واحد محدد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get questionBankClear => 'مسح';
+
+  @override
+  String get quizSetupTitle => 'إعداد الاختبار';
+
+  @override
+  String get quizGeneralDetails => 'التفاصيل العامة';
+
+  @override
+  String get quizGradingLimits => 'الدرجات والحدود';
+
+  @override
+  String get quizBehavior => 'سلوك الاختبار';
+
+  @override
+  String get questionSavedDraft => 'مسودة محفوظة';
+
+  @override
+  String get questionAttachMedia => 'إرفاق وسائط';
+
+  @override
+  String get quizReorderButton => 'إعادة ترتيب';
+
+  @override
+  String questionOfTotal(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String quizChoicesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count خيارات',
+      one: 'خيار واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get quizSaveSettings => 'حفظ الإعدادات';
+
+  @override
+  String get quizReviewPlaceholderTitle => 'النتائج غير متاحة';
+
+  @override
+  String get quizReviewPlaceholderMessage =>
+      'تتبع النتائج غير مُدمج بالكامل بعد.';
+
+  @override
+  String get quizCourseLabel => 'الدورة';
+
+  @override
+  String get quizLessonLabel => 'الدرس';
+
+  @override
+  String get quizTimeLimitToggle => 'المدة الزمنية';
+
+  @override
+  String get quizMinutesLabel => 'الدقائق';
+
+  @override
+  String get quizShowCorrectAnswersToggle => 'إظهار الإجابات الصحيحة';
+
+  @override
+  String get quizNegativeMarkingToggle => 'الخصم السلبي';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get back => 'رجوع';
+
+  @override
+  String get done => 'تم';
+
+  @override
+  String get saveLocally => 'حفظ محلياً';
+
+  @override
+  String get addNew => 'إضافة جديد';
+
+  @override
+  String get questionRemoved => 'تمت إزالة السؤال';
+
+  @override
+  String questionsAddedFromBank(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تمت إضافة $count سؤال من البنك',
+      one: 'تمت إضافة سؤال واحد من البنك',
+    );
+    return '$_temp0';
   }
 }
