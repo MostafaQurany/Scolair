@@ -120,11 +120,7 @@ class _LoginViewState extends State<_LoginView>
         final destination = prefs.biometricDontShow || !canUseBiometrics
             ? AppRouteNames.homeLayout
             : AppRouteNames.biometricRequest;
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          destination,
-          (_) => false,
-        );
+        Navigator.pushNamedAndRemoveUntil(context, destination, (_) => false);
       },
       error: (_) => ScaffoldMessenger.of(
         context,

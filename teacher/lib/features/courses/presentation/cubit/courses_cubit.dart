@@ -21,7 +21,7 @@ class CoursesCubit extends Cubit<CoursesState> {
     final allRes = await _listCoursesUseCase(
       searchText: state.searchText,
       publishedFilter: state.publishedFilter,
-      pageSize: 2
+      pageSize: 2,
     );
     final myRes = await _getMyCoursesUseCase();
     if (requestId != _requestId) return;
@@ -93,7 +93,10 @@ class CoursesCubit extends Cubit<CoursesState> {
       },
       failure: (fail) {
         emit(
-          state.copyWith(isLoadingMoreCourses: false, errorMessage: fail.message),
+          state.copyWith(
+            isLoadingMoreCourses: false,
+            errorMessage: fail.message,
+          ),
         );
       },
     );
@@ -106,7 +109,7 @@ class CoursesCubit extends Cubit<CoursesState> {
     final allRes = await _listCoursesUseCase(
       searchText: state.searchText,
       publishedFilter: state.publishedFilter,
-      pageSize: 2
+      pageSize: 2,
     );
     final myRes = await _getMyCoursesUseCase();
     if (requestId != _requestId) return;

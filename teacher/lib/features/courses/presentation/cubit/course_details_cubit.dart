@@ -131,9 +131,8 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
     );
   }
 
-  Future<
-    ({List<ChapterDetailModel> details, String? errorMessage})
-  > _fetchChapterDetails(List<ChapterSummaryModel> summaries) async {
+  Future<({List<ChapterDetailModel> details, String? errorMessage})>
+  _fetchChapterDetails(List<ChapterSummaryModel> summaries) async {
     final List<ChapterDetailModel> chapterDetails = [];
     String? errorMsg;
 

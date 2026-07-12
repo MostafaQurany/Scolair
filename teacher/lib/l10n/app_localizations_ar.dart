@@ -614,4 +614,793 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get delete => 'حذف';
+
+  @override
+  String get edit => 'تعديل';
+
+  @override
+  String get duplicate => 'نسخ';
+
+  @override
+  String get homeQuizzesAction => 'الاختبارات';
+
+  @override
+  String get homeHomeworkAction => 'الواجبات';
+
+  @override
+  String get quizzesTitle => 'التقييمات';
+
+  @override
+  String get quizzesMockClassLabel => 'الفصل رياضيات-10أ';
+
+  @override
+  String get quizCreateButton => 'إنشاء اختبار قصير';
+
+  @override
+  String get quizFilterAll => 'كل التقييمات';
+
+  @override
+  String get quizTypeQuiz => 'اختبار قصير';
+
+  @override
+  String get quizTypeMidterm => 'اختبار منتصف الفصل';
+
+  @override
+  String get quizTypeFinal => 'اختبار نهائي';
+
+  @override
+  String get quizTimelineUpcoming => 'قادم';
+
+  @override
+  String get quizTimelinePast => 'سابق';
+
+  @override
+  String get quizTimelineStatusLabel => 'حالة الجدول الزمني';
+
+  @override
+  String get quizResultStatusLabel => 'حالة النتيجة';
+
+  @override
+  String get quizResultPending => 'قيد الانتظار';
+
+  @override
+  String quizResultGraded(int graded, int submitted) {
+    return 'تم تصحيح $graded/$submitted';
+  }
+
+  @override
+  String quizResultNeedsGrading(int graded, int submitted) {
+    return 'بحاجة إلى تصحيح $graded/$submitted';
+  }
+
+  @override
+  String quizSubmittedProgress(int submitted, int total) {
+    return 'تم التسليم $submitted/$total';
+  }
+
+  @override
+  String quizGradedProgress(int graded, int submitted) {
+    return 'تم تصحيح $graded/$submitted';
+  }
+
+  @override
+  String get quizzesEmptyMessage => 'لا توجد تقييمات.';
+
+  @override
+  String get quizCreateTitle => 'إنشاء تقييم';
+
+  @override
+  String get quizSaveDraft => 'حفظ كمسودة';
+
+  @override
+  String get quizSavedSuccess => 'تم حفظ التقييم بنجاح';
+
+  @override
+  String get quizAssessmentTypeSection => 'نوع التقييم';
+
+  @override
+  String get quizBasicInfoSection => 'معلومات أساسية';
+
+  @override
+  String get quizTitleLabel => 'العنوان';
+
+  @override
+  String get quizTitleHint => 'مثال: الفصل 4 الدوال';
+
+  @override
+  String get quizTitleRequired => 'العنوان مطلوب';
+
+  @override
+  String get quizDescriptionLabel => 'الوصف (اختياري)';
+
+  @override
+  String get quizDescriptionHint => 'أضف تعليمات أو سياقاً...';
+
+  @override
+  String get quizFormatOnline => 'عبر الإنترنت';
+
+  @override
+  String get quizFormatOffline => 'دون اتصال';
+
+  @override
+  String get quizTimingSection => 'التوقيت';
+
+  @override
+  String get quizStartDateTimeLabel => 'تاريخ ووقت البدء';
+
+  @override
+  String get quizStartDateTimeHint => 'يوم/شهر/سنة، --:--';
+
+  @override
+  String get quizDurationLabel => 'المدة (دقائق)';
+
+  @override
+  String get quizMinutesSuffix => 'دقيقة';
+
+  @override
+  String get quizGradingSection => 'الدرجات';
+
+  @override
+  String get quizMaxGradeFieldLabel => 'الدرجة القصوى';
+
+  @override
+  String get quizMinPassingFieldLabel => 'درجة النجاح';
+
+  @override
+  String get quizSecurityResultsSection => 'الأمان والنتائج';
+
+  @override
+  String get quizRandomizeQuestions => 'ترتيب عشوائي للأسئلة';
+
+  @override
+  String get quizRandomizeAnswers => 'ترتيب عشوائي للإجابات';
+
+  @override
+  String get quizShowResultImmediately => 'إظهار النتيجة فوراً';
+
+  @override
+  String get quizShowCorrectAnswers => 'إظهار الإجابات الصحيحة';
+
+  @override
+  String get quizAllowRetake => 'السماح بإعادة المحاولة';
+
+  @override
+  String get quizPreventLateSubmission => 'منع التسليم المتأخر';
+
+  @override
+  String get quizMaxAttemptsLabel => 'الحد الأقصى للمحاولات';
+
+  @override
+  String get quizScheduleButton => 'جدولة';
+
+  @override
+  String get quizPublishButton => 'نشر التقييم';
+
+  @override
+  String get quizDetailsTitle => 'تفاصيل الاختبار';
+
+  @override
+  String get quizPreviewAction => 'معاينة';
+
+  @override
+  String get quizTabDetails => 'التفاصيل';
+
+  @override
+  String get quizTabQuestions => 'الأسئلة';
+
+  @override
+  String get quizTabSettings => 'الإعدادات';
+
+  @override
+  String get quizTabResults => 'النتائج';
+
+  @override
+  String quizDurationMinutes(int minutes) {
+    return '$minutes دقيقة';
+  }
+
+  @override
+  String quizMaxGradeLabel(int grade) {
+    return 'الدرجة القصوى: $grade';
+  }
+
+  @override
+  String quizPassingGradeLabel(int grade) {
+    return 'درجة النجاح: $grade';
+  }
+
+  @override
+  String quizQuestionsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count سؤال',
+      one: 'سؤال واحد',
+      zero: '0 سؤال',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String quizTotalPoints(int points) {
+    return 'مجموع الدرجات: $points';
+  }
+
+  @override
+  String get quizPointsSuffix => 'نقطة إجمالية';
+
+  @override
+  String get quizImportFromBank => 'استيراد من البنك';
+
+  @override
+  String get quizAddQuestion => 'إضافة سؤال';
+
+  @override
+  String get quizNoQuestionsTitle => 'لا توجد أسئلة بعد';
+
+  @override
+  String get quizNoQuestionsMessage =>
+      'أضف أسئلة لجعل هذا الاختبار جاهزاً للطلاب.';
+
+  @override
+  String questionNumberLabel(int number) {
+    return 'س$number';
+  }
+
+  @override
+  String questionPointsLabel(int points) {
+    return '$points نقاط';
+  }
+
+  @override
+  String get questionRequiredLabel => 'مطلوب';
+
+  @override
+  String get questionDifficultyEasy => 'سهل';
+
+  @override
+  String get questionDifficultyMedium => 'متوسط';
+
+  @override
+  String get questionDifficultyHard => 'صعب';
+
+  @override
+  String get questionTypeMultipleChoice => 'اختيار من متعدد';
+
+  @override
+  String get questionTypeTrueFalse => 'صح / خطأ';
+
+  @override
+  String get questionTypeShortAnswer => 'إجابة قصيرة';
+
+  @override
+  String get questionTypeEssay => 'مقالي';
+
+  @override
+  String get questionTypeFillBlank => 'أكمل الفراغ';
+
+  @override
+  String get questionTypeMatching => 'مطابقة';
+
+  @override
+  String get questionTrue => 'صح';
+
+  @override
+  String get questionFalse => 'خطأ';
+
+  @override
+  String get questionAcceptedAnswerLabel => 'الإجابة المقبولة';
+
+  @override
+  String get questionAddTitle => 'إضافة سؤال';
+
+  @override
+  String get questionEditTitle => 'تعديل سؤال';
+
+  @override
+  String get questionSavedSuccess => 'تم حفظ السؤال بنجاح';
+
+  @override
+  String get questionTypeLabel => 'نوع السؤال';
+
+  @override
+  String get questionTextLabel => 'نص السؤال';
+
+  @override
+  String get questionTextHint => 'اكتب سؤالك هنا...';
+
+  @override
+  String get questionTextRequired => 'نص السؤال مطلوب';
+
+  @override
+  String get questionPointsFieldLabel => 'النقاط';
+
+  @override
+  String get questionDifficultyFieldLabel => 'الصعوبة';
+
+  @override
+  String questionOptionLabel(String letter) {
+    return 'الخيار $letter';
+  }
+
+  @override
+  String get questionAddOption => 'إضافة خيار';
+
+  @override
+  String get questionCorrectAnswerLabel => 'الإجابة الصحيحة';
+
+  @override
+  String get questionAcceptedAnswerHint => 'مثال: 6x + 2';
+
+  @override
+  String get questionEssayInfo => 'الأسئلة المقالية تتطلب تصحيحاً يدوياً.';
+
+  @override
+  String get questionExplanationLabel => 'الشرح (اختياري)';
+
+  @override
+  String get questionExplanationHint => 'اشرح الإجابة الصحيحة...';
+
+  @override
+  String get questionSaveButton => 'حفظ السؤال';
+
+  @override
+  String get homeworkManagementTitle => 'إدارة الواجبات';
+
+  @override
+  String get homeworkMockBreadcrumb => 'رياضيات-10أ > الواجبات';
+
+  @override
+  String get homeworkCreateButton => 'إنشاء واجب';
+
+  @override
+  String homeworkTabPublished(int count) {
+    return 'منشور ($count)';
+  }
+
+  @override
+  String homeworkTabDrafts(int count) {
+    return 'مسودات ($count)';
+  }
+
+  @override
+  String homeworkTabScheduled(int count) {
+    return 'مجدول ($count)';
+  }
+
+  @override
+  String get homeworkEmptyMessage => 'لا توجد واجبات.';
+
+  @override
+  String homeworkDueToday(String time) {
+    return 'يستحق اليوم، $time';
+  }
+
+  @override
+  String homeworkDueOn(String dateTime) {
+    return 'يستحق في $dateTime';
+  }
+
+  @override
+  String homeworkSubmissionProgress(int submitted, int total) {
+    return 'تقدم التسليم: $submitted/$total';
+  }
+
+  @override
+  String get homeworkDuplicatedSuccess => 'تم نسخ الواجب بنجاح';
+
+  @override
+  String get homeworkAddFileTitle => 'إضافة ملف تقييم';
+
+  @override
+  String get homeworkEditFileTitle => 'تعديل ملف تقييم';
+
+  @override
+  String get homeworkSavedSuccess => 'تم حفظ الواجب بنجاح';
+
+  @override
+  String get homeworkFileDetailsSection => 'تفاصيل الملف';
+
+  @override
+  String get homeworkTitleLabel => 'العنوان';
+
+  @override
+  String get homeworkTitleHint => 'مثال: ورقة عمل مراجعة منتصف الفصل';
+
+  @override
+  String get homeworkTitleRequired => 'العنوان مطلوب';
+
+  @override
+  String get homeworkCategoryLabel => 'الفئة';
+
+  @override
+  String get homeworkUploadSection => 'رفع الملف';
+
+  @override
+  String get homeworkUploadHint => 'اضغط للرفع أو اسحب وأفلت';
+
+  @override
+  String get homeworkUploadSupportedTypes => 'يدعم PDF وDOCX وXLSX';
+
+  @override
+  String get homeworkTargetSection => 'الوجهة';
+
+  @override
+  String get homeworkTargetExamQuiz => 'إرفاق إلى اختبار';
+
+  @override
+  String get homeworkTargetLesson => 'إرفاق إلى درس';
+
+  @override
+  String get homeworkSearchExamLabel => 'ابحث عن اختبار أو اختره';
+
+  @override
+  String get homeworkSearchLessonLabel => 'ابحث عن درس أو اختره';
+
+  @override
+  String get homeworkSearchTargetHint => 'مثال: اختبار منتصف الفصل رياضيات 101';
+
+  @override
+  String get homeworkTargetRequired => 'يرجى اختيار وجهة';
+
+  @override
+  String get homeworkUploadAndAttach => 'رفع وإرفاق';
+
+  @override
+  String get classesTitle => 'فصولي';
+
+  @override
+  String get classesSubtitle => 'إدارة الدورات والواجبات النشطة.';
+
+  @override
+  String get classesSearchHint => 'ابحث عن فصول...';
+
+  @override
+  String get classFilterAll => 'جميع الفصول';
+
+  @override
+  String get classFilterMathematics => 'الرياضيات';
+
+  @override
+  String get classFilterScience => 'العلوم';
+
+  @override
+  String get classFilterNetworking => 'الشبكات';
+
+  @override
+  String get classFilterLiterature => 'الأدب';
+
+  @override
+  String classStudentsCount(int count) {
+    return '$count طالب';
+  }
+
+  @override
+  String get classNextLesson => 'الدرس التالي';
+
+  @override
+  String get classSubmissions => 'التسليمات';
+
+  @override
+  String classPendingReview(int count) {
+    return '$count بانتظار المراجعة';
+  }
+
+  @override
+  String get classAllCaughtUp => 'تم الانتهاء من الكل';
+
+  @override
+  String get classUrgentAlert => 'تنبيه عاجل';
+
+  @override
+  String get classDetailViewStudents => 'عرض الطلاب';
+
+  @override
+  String get classDetailExamsQuizzes => 'الاختبارات والمسابقات';
+
+  @override
+  String get classCurriculum => 'المنهج';
+
+  @override
+  String classCurriculumWeek(int current, int total) {
+    return 'الأسبوع $current من $total';
+  }
+
+  @override
+  String get classActivity => 'نشاط الفصل';
+
+  @override
+  String get classAttendance => 'الحضور';
+
+  @override
+  String get classPresentToday => 'حاضر اليوم';
+
+  @override
+  String get classAbsentToday => 'غائب اليوم';
+
+  @override
+  String get classTakeAttendance => 'تسجيل الحضور';
+
+  @override
+  String get classPerformance => 'أداء الفصل';
+
+  @override
+  String get classAverage => 'متوسط الفصل';
+
+  @override
+  String get classAssignmentCompletion => 'إتمام الواجبات';
+
+  @override
+  String get classGradeNow => 'تصحيح الآن';
+
+  @override
+  String get classSubmitted => 'تم التسليم';
+
+  @override
+  String get myCoursesTitle => 'دوراتي';
+
+  @override
+  String get myCoursesEmpty => 'لا توجد دورات بعد.';
+
+  @override
+  String get myCoursesButton => 'دوراتي';
+
+  @override
+  String get classStudents => 'طالب';
+
+  @override
+  String get coursesLessonsLabel => 'الدروس';
+
+  @override
+  String get coursesStudentsLabel => 'الطلاب';
+
+  @override
+  String get coursesRatingLabel => 'التقييم';
+
+  @override
+  String myCoursesCoTaughtBy(String names) {
+    return 'بالاشتراك مع $names';
+  }
+
+  @override
+  String get questionTypeChoices => 'خيارات';
+
+  @override
+  String get questionTypeUserInput => 'إدخال مستخدم';
+
+  @override
+  String get questionTypeOpenEnded => 'سؤال مفتوح';
+
+  @override
+  String get questionTypeFileUpload => 'رفع ملف';
+
+  @override
+  String get quizPassingPercentage => 'نسبة النجاح';
+
+  @override
+  String get quizMaxAttempts => 'أقصى عدد محاولات';
+
+  @override
+  String get quizMaxAttemptsUnlimited => 'غير محدود';
+
+  @override
+  String get quizShuffleQuestions => 'خلط الأسئلة';
+
+  @override
+  String get quizShowAnswers => 'إظهار الإجابات';
+
+  @override
+  String get quizEnableNegativeMarking => 'تفعيل الخصم';
+
+  @override
+  String get quizMarksToCut => 'الدرجات المخصومة';
+
+  @override
+  String get quizLimitQuestions => 'تحديد عدد الأسئلة';
+
+  @override
+  String get questionMultipleCorrect => 'إجابات صحيحة متعددة';
+
+  @override
+  String get questionPossibilitiesLabel => 'الاحتمالات المقبولة';
+
+  @override
+  String get questionPossibility => 'احتمال';
+
+  @override
+  String get questionOpenEndedHint =>
+      'الأسئلة المقالية تتطلب تصحيحاً يدوياً من قبل المعلم.';
+
+  @override
+  String get questionFileUploadHint =>
+      'يجيب الطلاب على هذا السؤال برفع ملف، ويحتاج إلى تصحيح يدوي.';
+
+  @override
+  String get quizMaxAttemptsHelper => 'أدخل 0 لمحاولات غير محدودة';
+
+  @override
+  String get quizDurationHint => 'اتركه فارغاً لوقت غير محدود';
+
+  @override
+  String get quizLimitQuestionsHelper => 'اختيار N سؤال عشوائياً (0 للكل)';
+
+  @override
+  String get questionBankTitle => 'بنك الأسئلة';
+
+  @override
+  String get questionCenterTitle => 'مركز الأسئلة';
+
+  @override
+  String get search => 'بحث...';
+
+  @override
+  String get addToQuiz => 'أضف إلى الاختبار';
+
+  @override
+  String get quizTabOverview => 'نظرة عامة';
+
+  @override
+  String get quizTabReview => 'المراجعة';
+
+  @override
+  String get quizTimeLimitLabel => 'المدة الزمنية';
+
+  @override
+  String get quizPassingScoreLabel => 'درجة النجاح';
+
+  @override
+  String get quizNoQuestionsSubtitle =>
+      'ابدأ ببناء تقييمك بإضافة أسئلة يدوياً أو الاستيراد من بنك الأسئلة.';
+
+  @override
+  String get quizErrorTitle => 'حدث خطأ ما';
+
+  @override
+  String get quizRetryButton => 'إعادة المحاولة';
+
+  @override
+  String get questionBankFilterType => 'النوع';
+
+  @override
+  String get questionBankFilterAll => 'الكل';
+
+  @override
+  String get questionBankFilterDifficulty => 'الصعوبة';
+
+  @override
+  String get questionBankFilterPoints => 'النقاط';
+
+  @override
+  String get questionBankFilterTopic => 'الموضوع';
+
+  @override
+  String get questionBankClearFilters => 'مسح الفلاتر';
+
+  @override
+  String get questionBankEmptyTitle => 'لا توجد أسئلة';
+
+  @override
+  String get questionBankEmptyMessage => 'أنشئ أسئلة أو تحقق لاحقاً.';
+
+  @override
+  String get questionBankNoMatches => 'جرّب بحثاً أو فلترًا مختلفاً.';
+
+  @override
+  String get questionBankManualTypeBlocked =>
+      'يحتوي هذا الاختبار بالفعل على أسئلة تُصحح تلقائياً، لذلك لا يمكن إضافة أسئلة التصحيح اليدوي.';
+
+  @override
+  String get questionBankAutoTypeBlocked =>
+      'يحتوي هذا الاختبار بالفعل على أسئلة تصحيح يدوي، لذلك لا يمكن إضافة أسئلة تُصحح تلقائياً.';
+
+  @override
+  String get questionDeletedSuccess => 'تم حذف السؤال بنجاح';
+
+  @override
+  String questionBankSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count سؤال محدد',
+      one: 'سؤال واحد محدد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get questionBankClear => 'مسح';
+
+  @override
+  String get quizSetupTitle => 'إعداد الاختبار';
+
+  @override
+  String get quizGeneralDetails => 'التفاصيل العامة';
+
+  @override
+  String get quizGradingLimits => 'الدرجات والحدود';
+
+  @override
+  String get quizBehavior => 'سلوك الاختبار';
+
+  @override
+  String get questionSavedDraft => 'مسودة محفوظة';
+
+  @override
+  String get questionAttachMedia => 'إرفاق وسائط';
+
+  @override
+  String get quizReorderButton => 'إعادة ترتيب';
+
+  @override
+  String questionOfTotal(int current, int total) {
+    return 'السؤال $current من $total';
+  }
+
+  @override
+  String quizChoicesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count خيارات',
+      one: 'خيار واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get quizSaveSettings => 'حفظ الإعدادات';
+
+  @override
+  String get quizReviewPlaceholderTitle => 'النتائج غير متاحة';
+
+  @override
+  String get quizReviewPlaceholderMessage =>
+      'تتبع النتائج غير مُدمج بالكامل بعد.';
+
+  @override
+  String get quizCourseLabel => 'الدورة';
+
+  @override
+  String get quizLessonLabel => 'الدرس';
+
+  @override
+  String get quizTimeLimitToggle => 'المدة الزمنية';
+
+  @override
+  String get quizMinutesLabel => 'الدقائق';
+
+  @override
+  String get quizShowCorrectAnswersToggle => 'إظهار الإجابات الصحيحة';
+
+  @override
+  String get quizNegativeMarkingToggle => 'الخصم السلبي';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get back => 'رجوع';
+
+  @override
+  String get done => 'تم';
+
+  @override
+  String get saveLocally => 'حفظ محلياً';
+
+  @override
+  String get addNew => 'إضافة جديد';
+
+  @override
+  String get questionRemoved => 'تمت إزالة السؤال';
+
+  @override
+  String questionsAddedFromBank(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تمت إضافة $count سؤال من البنك',
+      one: 'تمت إضافة سؤال واحد من البنك',
+    );
+    return '$_temp0';
+  }
 }

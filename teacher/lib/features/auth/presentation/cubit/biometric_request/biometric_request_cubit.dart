@@ -7,7 +7,7 @@ import 'biometric_request_state.dart';
 
 class BiometricRequestCubit extends Cubit<BiometricRequestState> {
   BiometricRequestCubit(this._prefs)
-      : super(const BiometricRequestState.initial());
+    : super(const BiometricRequestState.initial());
 
   final AppSharedPreferences _prefs;
   final _auth = LocalAuthentication();

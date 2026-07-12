@@ -17,9 +17,9 @@ class BiometricRequestScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-        create: (_) => getIt<BiometricRequestCubit>(),
-        child: const _BiometricRequestView(),
-      );
+    create: (_) => getIt<BiometricRequestCubit>(),
+    child: const _BiometricRequestView(),
+  );
 }
 
 class _BiometricRequestView extends StatefulWidget {
@@ -52,9 +52,9 @@ class _BiometricRequestViewState extends State<_BiometricRequestView> {
               onEnable: () => context
                   .read<BiometricRequestCubit>()
                   .enableBiometric(dontShowAgain: _dontShowAgain),
-              onDismiss: () => context
-                  .read<BiometricRequestCubit>()
-                  .dismiss(dontShowAgain: _dontShowAgain),
+              onDismiss: () => context.read<BiometricRequestCubit>().dismiss(
+                dontShowAgain: _dontShowAgain,
+              ),
             ),
           ),
         );
@@ -66,10 +66,8 @@ class _BiometricRequestViewState extends State<_BiometricRequestView> {
     state.whenOrNull(
       enabled: () => _goHome(context),
       dismissed: () => _goHome(context),
-      unavailable: () => AppSnackBar.showError(
-        context,
-        context.l10n.biometricUnavailable,
-      ),
+      unavailable: () =>
+          AppSnackBar.showError(context, context.l10n.biometricUnavailable),
       failed: (msg) {
         if (msg != 'cancelled') {
           AppSnackBar.showError(context, context.l10n.authErrorGeneric);

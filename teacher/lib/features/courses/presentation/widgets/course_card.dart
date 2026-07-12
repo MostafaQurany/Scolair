@@ -197,17 +197,18 @@ class _CourseManageMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return PopupMenuButton<String>(
-      icon: Icon(Icons.more_vert, size: 20.r, color: colorScheme.onSurfaceVariant),
+      icon: Icon(
+        Icons.more_vert,
+        size: 20.r,
+        color: colorScheme.onSurfaceVariant,
+      ),
       padding: EdgeInsets.zero,
       onSelected: (value) {
         if (value == 'edit') onEdit();
         if (value == 'delete') onDelete();
       },
       itemBuilder: (context) => [
-        PopupMenuItem(
-          value: 'edit',
-          child: Text(context.l10n.editCourse),
-        ),
+        PopupMenuItem(value: 'edit', child: Text(context.l10n.editCourse)),
         PopupMenuItem(
           value: 'delete',
           child: Text(
@@ -231,8 +232,8 @@ class _CourseBanner extends StatelessWidget {
     final imageUrl = course.image == null
         ? null
         : (course.image!.contains('http') || course.image!.contains('https'))
-            ? course.image!
-            : '${ApiEndpoints.baseUrl}${course.image!}';
+        ? course.image!
+        : '${ApiEndpoints.baseUrl}${course.image!}';
 
     return SizedBox(
       height: 120.h,

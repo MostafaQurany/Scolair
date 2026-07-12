@@ -14,7 +14,7 @@ class CoursePermissionHelper {
     final userEmail = preferences.getUserEmail()?.trim().toLowerCase();
     final username = preferences.getUsername()?.trim().toLowerCase();
 
-    bool _matchesUser(String? value) {
+    bool matchesUser(String? value) {
       if (value == null || value.isEmpty) return false;
       return value == userName || value == userEmail || value == username;
     }
@@ -22,7 +22,7 @@ class CoursePermissionHelper {
     // Primary check: owner field (Frappe sets this to the creator's email/name)
     final owner = course.owner?.trim().toLowerCase();
     if (owner != null && owner.isNotEmpty) {
-      return _matchesUser(owner);
+      return matchesUser(owner);
     }
 
     // Fallback: API may omit owner — check instructors list instead.
@@ -31,8 +31,8 @@ class CoursePermissionHelper {
     if (instructors != null && instructors.isNotEmpty) {
       return instructors.any(
         (i) =>
-            _matchesUser(i.name.trim().toLowerCase()) ||
-            _matchesUser(i.username?.trim().toLowerCase()),
+            matchesUser(i.name.trim().toLowerCase()) ||
+            matchesUser(i.username?.trim().toLowerCase()),
       );
     }
 

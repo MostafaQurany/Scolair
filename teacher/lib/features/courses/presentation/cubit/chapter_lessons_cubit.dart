@@ -11,9 +11,7 @@ class ChapterLessonsCubit extends Cubit<ChapterLessonsState> {
 
   Future<void> loadLessons(String chapterName) async {
     final requestId = ++_requestId;
-    emit(
-      ChapterLessonsState(chapterName: chapterName, isInitialLoading: true),
-    );
+    emit(ChapterLessonsState(chapterName: chapterName, isInitialLoading: true));
 
     final result = await _getLessonsUseCase(chapterName);
     if (requestId != _requestId) return;
@@ -32,7 +30,9 @@ class ChapterLessonsCubit extends Cubit<ChapterLessonsState> {
         );
       },
       failure: (fail) {
-        emit(state.copyWith(isInitialLoading: false, errorMessage: fail.message));
+        emit(
+          state.copyWith(isInitialLoading: false, errorMessage: fail.message),
+        );
       },
     );
   }

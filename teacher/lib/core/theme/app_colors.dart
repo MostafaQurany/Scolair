@@ -54,8 +54,15 @@ abstract final class AppColors {
 
   static const Color background = lightBackground;
   static const Color surface = lightSurface;
+  static const Color cardBackground = lightCard;
   static const Color accent = secondary;
   static const Color textPrimary = lightTextPrimary;
   static const Color textSecondary = lightTextSecondary;
+  static const Color textMuted = lightTextMuted;
+  static const Color iconPrimary = lightTextPrimary;
+  static const Color disabled = lightDisabled;
   static const Color border = lightBorder;
+  static const Color danger = error;
+  static const Color onPrimary = Color(0xFFFFFFFF);
+  static const Color transparent = Color(0x00000000);
 }

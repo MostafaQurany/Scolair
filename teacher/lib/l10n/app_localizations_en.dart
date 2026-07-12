@@ -616,4 +616,795 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get delete => 'Delete';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get duplicate => 'Duplicate';
+
+  @override
+  String get homeQuizzesAction => 'Quizzes';
+
+  @override
+  String get homeHomeworkAction => 'Homework';
+
+  @override
+  String get quizzesTitle => 'Assessments';
+
+  @override
+  String get quizzesMockClassLabel => 'CLASS MATH-10A';
+
+  @override
+  String get quizCreateButton => 'Create Quiz';
+
+  @override
+  String get quizFilterAll => 'All Assessments';
+
+  @override
+  String get quizTypeQuiz => 'Quiz';
+
+  @override
+  String get quizTypeMidterm => 'Midterm';
+
+  @override
+  String get quizTypeFinal => 'Final';
+
+  @override
+  String get quizTimelineUpcoming => 'Upcoming';
+
+  @override
+  String get quizTimelinePast => 'Past';
+
+  @override
+  String get quizTimelineStatusLabel => 'Timeline Status';
+
+  @override
+  String get quizResultStatusLabel => 'Result Status';
+
+  @override
+  String get quizResultPending => 'Pending';
+
+  @override
+  String quizResultGraded(int graded, int submitted) {
+    return 'Graded $graded/$submitted';
+  }
+
+  @override
+  String quizResultNeedsGrading(int graded, int submitted) {
+    return 'Needs Grading $graded/$submitted';
+  }
+
+  @override
+  String quizSubmittedProgress(int submitted, int total) {
+    return 'Submitted $submitted/$total';
+  }
+
+  @override
+  String quizGradedProgress(int graded, int submitted) {
+    return 'Graded $graded/$submitted';
+  }
+
+  @override
+  String get quizzesEmptyMessage => 'No assessments found.';
+
+  @override
+  String get quizCreateTitle => 'Create Assessment';
+
+  @override
+  String get quizSaveDraft => 'SAVE DRAFT';
+
+  @override
+  String get quizSavedSuccess => 'Assessment saved successfully';
+
+  @override
+  String get quizAssessmentTypeSection => 'Assessment Type';
+
+  @override
+  String get quizBasicInfoSection => 'Basic Info';
+
+  @override
+  String get quizTitleLabel => 'Title';
+
+  @override
+  String get quizTitleHint => 'e.g. Chapter 4 Functions';
+
+  @override
+  String get quizTitleRequired => 'Title is required';
+
+  @override
+  String get quizDescriptionLabel => 'Description (Optional)';
+
+  @override
+  String get quizDescriptionHint => 'Add instructions or context...';
+
+  @override
+  String get quizFormatOnline => 'Online';
+
+  @override
+  String get quizFormatOffline => 'Offline';
+
+  @override
+  String get quizTimingSection => 'Timing';
+
+  @override
+  String get quizStartDateTimeLabel => 'Start Date & Time';
+
+  @override
+  String get quizStartDateTimeHint => 'mm/dd/yyyy, --:-- --';
+
+  @override
+  String get quizDurationLabel => 'Duration (minutes)';
+
+  @override
+  String get quizMinutesSuffix => 'mins';
+
+  @override
+  String get quizGradingSection => 'Grading';
+
+  @override
+  String get quizMaxGradeFieldLabel => 'Max Grade';
+
+  @override
+  String get quizMinPassingFieldLabel => 'Min Passing';
+
+  @override
+  String get quizSecurityResultsSection => 'Security & Results';
+
+  @override
+  String get quizRandomizeQuestions => 'Randomize Questions';
+
+  @override
+  String get quizRandomizeAnswers => 'Randomize Answers';
+
+  @override
+  String get quizShowResultImmediately => 'Show Result Immediately';
+
+  @override
+  String get quizShowCorrectAnswers => 'Show Correct Answers';
+
+  @override
+  String get quizAllowRetake => 'Allow Retake';
+
+  @override
+  String get quizPreventLateSubmission => 'Prevent Late Submission';
+
+  @override
+  String get quizMaxAttemptsLabel => 'Max Attempts';
+
+  @override
+  String get quizScheduleButton => 'Schedule';
+
+  @override
+  String get quizPublishButton => 'Publish Assessment';
+
+  @override
+  String get quizDetailsTitle => 'Quiz Details';
+
+  @override
+  String get quizPreviewAction => 'Preview';
+
+  @override
+  String get quizTabDetails => 'Details';
+
+  @override
+  String get quizTabQuestions => 'Questions';
+
+  @override
+  String get quizTabSettings => 'Settings';
+
+  @override
+  String get quizTabResults => 'Results';
+
+  @override
+  String quizDurationMinutes(int minutes) {
+    return '$minutes mins';
+  }
+
+  @override
+  String quizMaxGradeLabel(int grade) {
+    return 'Max Grade: $grade';
+  }
+
+  @override
+  String quizPassingGradeLabel(int grade) {
+    return 'Passing: $grade';
+  }
+
+  @override
+  String quizQuestionsCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions',
+      one: '1 question',
+      zero: '0 questions',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String quizTotalPoints(int points) {
+    return 'Total Points: $points';
+  }
+
+  @override
+  String get quizPointsSuffix => 'pts total';
+
+  @override
+  String get quizImportFromBank => 'Import from Bank';
+
+  @override
+  String get quizAddQuestion => 'Add Question';
+
+  @override
+  String get quizNoQuestionsTitle => 'No questions yet';
+
+  @override
+  String get quizNoQuestionsMessage =>
+      'Add questions to make this quiz ready for students.';
+
+  @override
+  String questionNumberLabel(int number) {
+    return 'Q$number';
+  }
+
+  @override
+  String questionPointsLabel(int points) {
+    return '$points pts';
+  }
+
+  @override
+  String get questionRequiredLabel => 'Required';
+
+  @override
+  String get questionDifficultyEasy => 'Easy';
+
+  @override
+  String get questionDifficultyMedium => 'Medium';
+
+  @override
+  String get questionDifficultyHard => 'Hard';
+
+  @override
+  String get questionTypeMultipleChoice => 'Multiple Choice';
+
+  @override
+  String get questionTypeTrueFalse => 'True / False';
+
+  @override
+  String get questionTypeShortAnswer => 'Short Answer';
+
+  @override
+  String get questionTypeEssay => 'Essay';
+
+  @override
+  String get questionTypeFillBlank => 'Fill Blank';
+
+  @override
+  String get questionTypeMatching => 'Matching';
+
+  @override
+  String get questionTrue => 'True';
+
+  @override
+  String get questionFalse => 'False';
+
+  @override
+  String get questionAcceptedAnswerLabel => 'Accepted answer';
+
+  @override
+  String get questionAddTitle => 'Add Question';
+
+  @override
+  String get questionEditTitle => 'Edit Question';
+
+  @override
+  String get questionSavedSuccess => 'Question saved successfully';
+
+  @override
+  String get questionTypeLabel => 'Question Type';
+
+  @override
+  String get questionTextLabel => 'Question Text';
+
+  @override
+  String get questionTextHint => 'Write your question here...';
+
+  @override
+  String get questionTextRequired => 'Question text is required';
+
+  @override
+  String get questionPointsFieldLabel => 'Points';
+
+  @override
+  String get questionDifficultyFieldLabel => 'Difficulty';
+
+  @override
+  String questionOptionLabel(String letter) {
+    return 'Option $letter';
+  }
+
+  @override
+  String get questionAddOption => 'Add Option';
+
+  @override
+  String get questionCorrectAnswerLabel => 'Correct Answer';
+
+  @override
+  String get questionAcceptedAnswerHint => 'e.g. 6x + 2';
+
+  @override
+  String get questionEssayInfo => 'Essay questions require manual grading.';
+
+  @override
+  String get questionExplanationLabel => 'Explanation (Optional)';
+
+  @override
+  String get questionExplanationHint => 'Explain the correct answer...';
+
+  @override
+  String get questionSaveButton => 'Save Question';
+
+  @override
+  String get homeworkManagementTitle => 'Homework Management';
+
+  @override
+  String get homeworkMockBreadcrumb => 'MATH-10A > Homework';
+
+  @override
+  String get homeworkCreateButton => 'Create Homework';
+
+  @override
+  String homeworkTabPublished(int count) {
+    return 'Published ($count)';
+  }
+
+  @override
+  String homeworkTabDrafts(int count) {
+    return 'Drafts ($count)';
+  }
+
+  @override
+  String homeworkTabScheduled(int count) {
+    return 'Scheduled ($count)';
+  }
+
+  @override
+  String get homeworkEmptyMessage => 'No homework found.';
+
+  @override
+  String homeworkDueToday(String time) {
+    return 'Due Today, $time';
+  }
+
+  @override
+  String homeworkDueOn(String dateTime) {
+    return 'Due $dateTime';
+  }
+
+  @override
+  String homeworkSubmissionProgress(int submitted, int total) {
+    return 'Submission Progress: $submitted/$total';
+  }
+
+  @override
+  String get homeworkDuplicatedSuccess => 'Homework duplicated successfully';
+
+  @override
+  String get homeworkAddFileTitle => 'Add Assessment File';
+
+  @override
+  String get homeworkEditFileTitle => 'Edit Assessment File';
+
+  @override
+  String get homeworkSavedSuccess => 'Homework saved successfully';
+
+  @override
+  String get homeworkFileDetailsSection => 'File Details';
+
+  @override
+  String get homeworkTitleLabel => 'Title';
+
+  @override
+  String get homeworkTitleHint => 'e.g. Midterm Review Worksheet';
+
+  @override
+  String get homeworkTitleRequired => 'Title is required';
+
+  @override
+  String get homeworkCategoryLabel => 'Category';
+
+  @override
+  String get homeworkUploadSection => 'Upload';
+
+  @override
+  String get homeworkUploadHint => 'Click to Upload or Drag & Drop';
+
+  @override
+  String get homeworkUploadSupportedTypes => 'Supports PDF, DOCX, XLSX';
+
+  @override
+  String get homeworkTargetSection => 'Target';
+
+  @override
+  String get homeworkTargetExamQuiz => 'Attach to Exam/Quiz';
+
+  @override
+  String get homeworkTargetLesson => 'Attach to Lesson';
+
+  @override
+  String get homeworkSearchExamLabel => 'Search or Select Exam';
+
+  @override
+  String get homeworkSearchLessonLabel => 'Search or Select Lesson';
+
+  @override
+  String get homeworkSearchTargetHint => 'e.g. Midterm Math 101';
+
+  @override
+  String get homeworkTargetRequired => 'Please select a target';
+
+  @override
+  String get homeworkUploadAndAttach => 'Upload and Attach';
+
+  @override
+  String get classesTitle => 'My Classes';
+
+  @override
+  String get classesSubtitle => 'Manage your active courses and assignments.';
+
+  @override
+  String get classesSearchHint => 'Search classes...';
+
+  @override
+  String get classFilterAll => 'All Classes';
+
+  @override
+  String get classFilterMathematics => 'Mathematics';
+
+  @override
+  String get classFilterScience => 'Science';
+
+  @override
+  String get classFilterNetworking => 'Networking';
+
+  @override
+  String get classFilterLiterature => 'Literature';
+
+  @override
+  String classStudentsCount(int count) {
+    return '$count Students';
+  }
+
+  @override
+  String get classNextLesson => 'NEXT LESSON';
+
+  @override
+  String get classSubmissions => 'SUBMISSIONS';
+
+  @override
+  String classPendingReview(int count) {
+    return '$count Pending Review';
+  }
+
+  @override
+  String get classAllCaughtUp => 'All Caught Up';
+
+  @override
+  String get classUrgentAlert => 'URGENT ALERT';
+
+  @override
+  String get classDetailViewStudents => 'View Students';
+
+  @override
+  String get classDetailExamsQuizzes => 'Exams & Quizzes';
+
+  @override
+  String get classCurriculum => 'Curriculum';
+
+  @override
+  String classCurriculumWeek(int current, int total) {
+    return 'Week $current of $total';
+  }
+
+  @override
+  String get classActivity => 'Class Activity';
+
+  @override
+  String get classAttendance => 'Attendance';
+
+  @override
+  String get classPresentToday => 'PRESENT TODAY';
+
+  @override
+  String get classAbsentToday => 'ABSENT TODAY';
+
+  @override
+  String get classTakeAttendance => 'Take Attendance';
+
+  @override
+  String get classPerformance => 'Class Performance';
+
+  @override
+  String get classAverage => 'Class Average';
+
+  @override
+  String get classAssignmentCompletion => 'Assignment Completion';
+
+  @override
+  String get classGradeNow => 'Grade Now';
+
+  @override
+  String get classSubmitted => 'SUBMITTED';
+
+  @override
+  String get myCoursesTitle => 'My Courses';
+
+  @override
+  String get myCoursesEmpty => 'You have no courses yet.';
+
+  @override
+  String get myCoursesButton => 'My Courses';
+
+  @override
+  String get classStudents => 'students';
+
+  @override
+  String get coursesLessonsLabel => 'Lessons';
+
+  @override
+  String get coursesStudentsLabel => 'Students';
+
+  @override
+  String get coursesRatingLabel => 'Rating';
+
+  @override
+  String myCoursesCoTaughtBy(String names) {
+    return 'Co-taught w/ $names';
+  }
+
+  @override
+  String get questionTypeChoices => 'Choices';
+
+  @override
+  String get questionTypeUserInput => 'User Input';
+
+  @override
+  String get questionTypeOpenEnded => 'Open Ended';
+
+  @override
+  String get questionTypeFileUpload => 'File Upload';
+
+  @override
+  String get quizPassingPercentage => 'Passing Percentage';
+
+  @override
+  String get quizMaxAttempts => 'Max Attempts';
+
+  @override
+  String get quizMaxAttemptsUnlimited => 'Unlimited';
+
+  @override
+  String get quizShuffleQuestions => 'Shuffle Questions';
+
+  @override
+  String get quizShowAnswers => 'Show Answers';
+
+  @override
+  String get quizEnableNegativeMarking => 'Enable Negative Marking';
+
+  @override
+  String get quizMarksToCut => 'Marks To Cut';
+
+  @override
+  String get quizLimitQuestions => 'Limit Questions To';
+
+  @override
+  String get questionMultipleCorrect => 'Multiple Correct Answers';
+
+  @override
+  String get questionPossibilitiesLabel => 'Accepted Possibilities';
+
+  @override
+  String get questionPossibility => 'Possibility';
+
+  @override
+  String get questionOpenEndedHint =>
+      'Open-ended questions require manual grading by the teacher.';
+
+  @override
+  String get questionFileUploadHint =>
+      'Students answer this question by uploading a file. It requires manual grading.';
+
+  @override
+  String get quizMaxAttemptsHelper => 'Enter 0 for unlimited attempts';
+
+  @override
+  String get quizDurationHint => 'Leave empty for unlimited duration';
+
+  @override
+  String get quizLimitQuestionsHelper =>
+      'Randomly pick N questions (0 for all)';
+
+  @override
+  String get questionBankTitle => 'Question Bank';
+
+  @override
+  String get questionCenterTitle => 'Question Center';
+
+  @override
+  String get search => 'Search...';
+
+  @override
+  String get addToQuiz => 'Add to Quiz';
+
+  @override
+  String get quizTabOverview => 'Overview';
+
+  @override
+  String get quizTabReview => 'Review';
+
+  @override
+  String get quizTimeLimitLabel => 'Time Limit';
+
+  @override
+  String get quizPassingScoreLabel => 'Passing Score';
+
+  @override
+  String get quizNoQuestionsSubtitle =>
+      'Start building your assessment by adding questions manually or importing from the question bank.';
+
+  @override
+  String get quizErrorTitle => 'Something went wrong';
+
+  @override
+  String get quizRetryButton => 'Retry';
+
+  @override
+  String get questionBankFilterType => 'Type';
+
+  @override
+  String get questionBankFilterAll => 'All';
+
+  @override
+  String get questionBankFilterDifficulty => 'Difficulty';
+
+  @override
+  String get questionBankFilterPoints => 'Points';
+
+  @override
+  String get questionBankFilterTopic => 'Topic';
+
+  @override
+  String get questionBankClearFilters => 'Clear filters';
+
+  @override
+  String get questionBankEmptyTitle => 'No questions found';
+
+  @override
+  String get questionBankEmptyMessage =>
+      'Create questions or check back later.';
+
+  @override
+  String get questionBankNoMatches => 'Try a different search or filter.';
+
+  @override
+  String get questionBankManualTypeBlocked =>
+      'This quiz already has auto-graded questions, so manual question types cannot be mixed in.';
+
+  @override
+  String get questionBankAutoTypeBlocked =>
+      'This quiz already has manual question types, so auto-graded questions cannot be mixed in.';
+
+  @override
+  String get questionDeletedSuccess => 'Question deleted successfully';
+
+  @override
+  String questionBankSelectedCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions selected',
+      one: '1 question selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get questionBankClear => 'Clear';
+
+  @override
+  String get quizSetupTitle => 'Quiz Setup';
+
+  @override
+  String get quizGeneralDetails => 'General Details';
+
+  @override
+  String get quizGradingLimits => 'Grading & Limits';
+
+  @override
+  String get quizBehavior => 'Quiz Behavior';
+
+  @override
+  String get questionSavedDraft => 'Saved Draft';
+
+  @override
+  String get questionAttachMedia => 'Attach Media';
+
+  @override
+  String get quizReorderButton => 'Reorder';
+
+  @override
+  String questionOfTotal(int current, int total) {
+    return 'Question $current of $total';
+  }
+
+  @override
+  String quizChoicesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count choices',
+      one: '1 choice',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get quizSaveSettings => 'Save Settings';
+
+  @override
+  String get quizReviewPlaceholderTitle => 'Results not available';
+
+  @override
+  String get quizReviewPlaceholderMessage =>
+      'Result tracking is not fully integrated yet.';
+
+  @override
+  String get quizCourseLabel => 'Course';
+
+  @override
+  String get quizLessonLabel => 'Lesson';
+
+  @override
+  String get quizTimeLimitToggle => 'Time Limit';
+
+  @override
+  String get quizMinutesLabel => 'Minutes';
+
+  @override
+  String get quizShowCorrectAnswersToggle => 'Show Correct Answers';
+
+  @override
+  String get quizNegativeMarkingToggle => 'Negative Marking';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get saveLocally => 'Save Locally';
+
+  @override
+  String get addNew => 'Add New';
+
+  @override
+  String get questionRemoved => 'Question removed';
+
+  @override
+  String questionsAddedFromBank(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count questions added from bank',
+      one: '1 question added from bank',
+    );
+    return '$_temp0';
+  }
 }

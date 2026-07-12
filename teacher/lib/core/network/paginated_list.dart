@@ -49,7 +49,10 @@ class PaginatedList<T> {
     final map = _asStringMap(json);
     final itemsJson = map['items'];
     final items = itemsJson is List
-        ? itemsJson.whereType<Map>().map((e) => itemFromJson(_asStringMap(e))).toList()
+        ? itemsJson
+              .whereType<Map>()
+              .map((e) => itemFromJson(_asStringMap(e)))
+              .toList()
         : <T>[];
     return PaginatedList<T>(
       items: items,

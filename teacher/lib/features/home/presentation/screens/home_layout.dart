@@ -6,7 +6,7 @@ import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/navigation/lms_adaptive_navigation_shell.dart';
 import '../../../../core/widgets/navigation/lms_navigation_item.dart';
 import 'home_screen.dart';
-import '../../../courses/presentation/screens/courses_list_screen.dart';
+import '../../../classes/presentation/screens/classes_screen.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({super.key});
@@ -30,7 +30,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         index: _currentIndex,
         children: [
           const HomeScreen(embedded: true),
-          const CoursesListScreen(),
+          const ClassesScreen(),
           _PlaceholderTab(
             title: items[2].label,
             message: context.l10n.navStudentsPlaceholder,

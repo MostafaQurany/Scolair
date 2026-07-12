@@ -9,11 +9,11 @@ import '../../../../core/widgets/app_snack_bar.dart';
 import '../../domain/usecases/courses_usecases.dart';
 import '../cubit/course_details_cubit.dart';
 import '../cubit/course_details_state.dart';
-import '../screens/course_form_screen.dart';
 import '../screens/chapter_form_screen.dart';
+import '../screens/course_form_screen.dart';
+import '../widgets/course_details/chapter_expansion_tile.dart';
 import '../widgets/course_details/course_header_card.dart';
 import '../widgets/course_details/instructors_row.dart';
-import '../widgets/course_details/chapter_expansion_tile.dart';
 import '../widgets/forms/delete_confirmation_dialog.dart';
 import '../utils/course_permission_helper.dart';
 

@@ -54,9 +54,9 @@ class UploadPdfBlockWidget extends StatelessWidget {
                   SizedBox(height: 4.h),
                   Text(
                     fileType.toUpperCase(),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: colorScheme.outline,
-                    ),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: colorScheme.outline),
                   ),
                 ],
               ),
