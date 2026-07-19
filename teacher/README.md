@@ -22,3 +22,12 @@ samples, guidance on mobile development, and a full API reference.
 - Published filters map to `0` for unpublished and `1` for published.
 - Course name search maps to `["like", "%query%"]`.
 - Pull-to-refresh preserves the active search text and published filter.
+
+## Teacher Home & Learning Wall
+- Combines a Greeting header (adapting to morning/afternoon/evening) with a scrollable Learning Wall feed.
+- High-fidelity shimmer loads using `skeletonizer`.
+- Horizonally-scrollable class/subject filters reset the feed and pagination on tap.
+- Uses `AppUserAvatar` which displays initials and a stable color based on a deterministic hash of user details if profile image is absent.
+- Full optimistic likes toggle reaction count immediately and roll back on API connection errors.
+- Mocked via `TeacherHomeLocalDataSourceImpl` using Clean Architecture repository use cases.
+

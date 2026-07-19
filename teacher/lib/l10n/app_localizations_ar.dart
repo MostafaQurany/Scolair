@@ -1453,4 +1453,147 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeworkInstructionsUnavailable => 'لم تتم إضافة تعليمات.';
+
+  @override
+  String get homeGreetingMorning => 'صباح الخير';
+
+  @override
+  String get homeGreetingAfternoon => 'طاب مساؤك';
+
+  @override
+  String get homeGreetingEvening => 'مساء الخير';
+
+  @override
+  String homeGreetingTemplate(String greeting, String teacherName) {
+    return '$greeting، $teacherName';
+  }
+
+  @override
+  String get homeGreetingSecondaryFallback => 'هل أنت مستعد لدرس اليوم؟';
+
+  @override
+  String homeGreetingSecondaryWithActivity(String activity) {
+    return 'هل أنت مستعد لدرس اليوم في $activity؟';
+  }
+
+  @override
+  String organizationNoticeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count إشعارات مؤسسية جديدة',
+      one: 'إشعار مؤسسي جديد واحد',
+      zero: 'لا توجد إشعارات مؤسسية جديدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeNoPostsTitle => 'لا توجد منشورات بعد';
+
+  @override
+  String get homeNoPostsSubtitle =>
+      'لا توجد منشورات متاحة لهذا الفصل الدراسي بعد.';
+
+  @override
+  String get homeFeedFilterAll => 'كل الفصول';
+
+  @override
+  String get postTypeBadgePinned => 'مثبت';
+
+  @override
+  String get postTypeBadgeAnnouncement => 'إعلان';
+
+  @override
+  String get postTypeBadgeQuestion => 'سؤال';
+
+  @override
+  String get postTypeBadgeDiscussion => 'نقاش';
+
+  @override
+  String get postTypeBadgeResource => 'مصدر';
+
+  @override
+  String get postTypeBadgeAssignment => 'واجب';
+
+  @override
+  String get postTypeBadgeQuiz => 'اختبار';
+
+  @override
+  String get postTypeBadgeAchievement => 'إنجاز';
+
+  @override
+  String get postTypeBadgePoll => 'استطلاع';
+
+  @override
+  String get postTypeBadgeSystem => 'تحديث النظام';
+
+  @override
+  String get postYouLabel => '(أنت)';
+
+  @override
+  String get postModerateBadge => 'إشراف';
+
+  @override
+  String get postReadMore => 'اقرأ المزيد';
+
+  @override
+  String get postShowLess => 'عرض أقل';
+
+  @override
+  String get postLike => 'إعجاب';
+
+  @override
+  String get postComment => 'تعليق';
+
+  @override
+  String get postShare => 'مشاركة';
+
+  @override
+  String get postMenuEdit => 'تعديل';
+
+  @override
+  String get postMenuDelete => 'حذف';
+
+  @override
+  String get postMenuPin => 'تثبيت';
+
+  @override
+  String get postMenuUnpin => 'إلغاء التثبيت';
+
+  @override
+  String get postMenuCopyText => 'نسخ النص';
+
+  @override
+  String get postMenuReport => 'إبلاغ';
+
+  @override
+  String get postMenuHide => 'إخفاء';
+
+  @override
+  String get postMenuModerate => 'إشراف';
+
+  @override
+  String get postDeleteConfirmTitle => 'حذف المنشور؟';
+
+  @override
+  String get postDeleteConfirmBody => 'لا يمكن التراجع عن هذا الإجراء.';
+
+  @override
+  String get postDeleteConfirmAction => 'حذف';
+
+  @override
+  String get postImageSemantic => 'صورة المنشور';
+
+  @override
+  String get postActionComingSoon => 'هذه الميزة ستتوفر قريباً.';
+
+  @override
+  String get homeNoMorePosts => 'لقد شاهدت كل المنشورات';
+
+  @override
+  String get notificationsBadgeSemantic => 'الإشعارات';
+
+  @override
+  String get teacherAvatarSemantic => 'الملف الشخصي للمعلم';
 }

@@ -32,7 +32,8 @@ class HomeworkRepositoryImpl implements HomeworkRepository {
   Future<ApiResult<PaginatedList<HomeworkListItem>>> listHomeworkPage(
     ListHomeworksRequestData request,
   ) => _getResult(
-    () async => (await _remoteDataSource.listHomeworks(request)).data.toDomain(),
+    () async =>
+        (await _remoteDataSource.listHomeworks(request)).data.toDomain(),
   );
 
   @override

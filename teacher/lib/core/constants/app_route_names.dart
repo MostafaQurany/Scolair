@@ -10,4 +10,8 @@ abstract final class AppRouteNames {
   static const String biometricRequest = '/biometric-request';
   static const String splash = '/splash';
   static const String onboarding = '/onboarding';
+  static const String organizationNotices = '/organization-notices';
+  static const String teacherProfile = '/teacher-profile';
+  static const String wallPostDetails = '/wall-post-details';
+  static const String wallPostComments = '/wall-post-comments';
 }

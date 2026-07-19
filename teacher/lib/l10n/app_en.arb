@@ -680,5 +680,72 @@
   "homeworkAttachmentAvailable": "Attachment available",
   "homeworkEndOfResults": "You have reached the end.",
   "homeworkLoadMoreFailed": "Could not load more homework.",
-  "homeworkInstructionsUnavailable": "No instructions provided."
+  "homeworkInstructionsUnavailable": "No instructions provided.",
+  "homeGreetingMorning": "Good Morning",
+  "homeGreetingAfternoon": "Good Afternoon",
+  "homeGreetingEvening": "Good Evening",
+  "homeGreetingTemplate": "{greeting}, {teacherName}",
+  "@homeGreetingTemplate": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "teacherName": {
+        "type": "String"
+      }
+    }
+  },
+  "homeGreetingSecondaryFallback": "Ready for today's lesson?",
+  "homeGreetingSecondaryWithActivity": "Ready for today's lesson in {activity}?",
+  "@homeGreetingSecondaryWithActivity": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "organizationNoticeCount": "{count, plural, =0{No new organization notices} =1{1 new organization notice} other{{count} new organization notices}}",
+  "@organizationNoticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoPostsTitle": "No posts yet",
+  "homeNoPostsSubtitle": "No posts are available for this class yet.",
+  "homeFeedFilterAll": "All Classes",
+  "postTypeBadgePinned": "Pinned",
+  "postTypeBadgeAnnouncement": "Announcement",
+  "postTypeBadgeQuestion": "Question",
+  "postTypeBadgeDiscussion": "Discussion",
+  "postTypeBadgeResource": "Resource",
+  "postTypeBadgeAssignment": "Assignment",
+  "postTypeBadgeQuiz": "Quiz",
+  "postTypeBadgeAchievement": "Achievement",
+  "postTypeBadgePoll": "Poll",
+  "postTypeBadgeSystem": "System",
+  "postYouLabel": "(You)",
+  "postModerateBadge": "Moderate",
+  "postReadMore": "Read more",
+  "postShowLess": "Show less",
+  "postLike": "Like",
+  "postComment": "Comment",
+  "postShare": "Share",
+  "postMenuEdit": "Edit",
+  "postMenuDelete": "Delete",
+  "postMenuPin": "Pin",
+  "postMenuUnpin": "Unpin",
+  "postMenuCopyText": "Copy text",
+  "postMenuReport": "Report",
+  "postMenuHide": "Hide",
+  "postMenuModerate": "Moderate",
+  "postDeleteConfirmTitle": "Delete post?",
+  "postDeleteConfirmBody": "This action cannot be undone.",
+  "postDeleteConfirmAction": "Delete",
+  "postImageSemantic": "Post image",
+  "postActionComingSoon": "This feature is coming soon.",
+  "homeNoMorePosts": "You've seen all posts",
+  "notificationsBadgeSemantic": "Notifications",
+  "teacherAvatarSemantic": "Teacher profile"
 }

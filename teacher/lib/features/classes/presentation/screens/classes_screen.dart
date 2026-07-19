@@ -73,7 +73,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(child: const _ClassesTopBar()),
+            //  SliverToBoxAdapter(child: const _ClassesTopBar()),
             SliverPadding(
               padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 20.h),
               sliver: SliverList(

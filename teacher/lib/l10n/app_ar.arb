@@ -680,5 +680,72 @@
   "homeworkAttachmentAvailable": "يوجد مرفق",
   "homeworkEndOfResults": "وصلت إلى نهاية النتائج.",
   "homeworkLoadMoreFailed": "تعذر تحميل المزيد من الواجبات.",
-  "homeworkInstructionsUnavailable": "لم تتم إضافة تعليمات."
+  "homeworkInstructionsUnavailable": "لم تتم إضافة تعليمات.",
+  "homeGreetingMorning": "صباح الخير",
+  "homeGreetingAfternoon": "طاب مساؤك",
+  "homeGreetingEvening": "مساء الخير",
+  "homeGreetingTemplate": "{greeting}، {teacherName}",
+  "@homeGreetingTemplate": {
+    "placeholders": {
+      "greeting": {
+        "type": "String"
+      },
+      "teacherName": {
+        "type": "String"
+      }
+    }
+  },
+  "homeGreetingSecondaryFallback": "هل أنت مستعد لدرس اليوم؟",
+  "homeGreetingSecondaryWithActivity": "هل أنت مستعد لدرس اليوم في {activity}؟",
+  "@homeGreetingSecondaryWithActivity": {
+    "placeholders": {
+      "activity": {
+        "type": "String"
+      }
+    }
+  },
+  "organizationNoticeCount": "{count, plural, =0{لا توجد إشعارات مؤسسية جديدة} =1{إشعار مؤسسي جديد واحد} other{{count} إشعارات مؤسسية جديدة}}",
+  "@organizationNoticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoPostsTitle": "لا توجد منشورات بعد",
+  "homeNoPostsSubtitle": "لا توجد منشورات متاحة لهذا الفصل الدراسي بعد.",
+  "homeFeedFilterAll": "كل الفصول",
+  "postTypeBadgePinned": "مثبت",
+  "postTypeBadgeAnnouncement": "إعلان",
+  "postTypeBadgeQuestion": "سؤال",
+  "postTypeBadgeDiscussion": "نقاش",
+  "postTypeBadgeResource": "مصدر",
+  "postTypeBadgeAssignment": "واجب",
+  "postTypeBadgeQuiz": "اختبار",
+  "postTypeBadgeAchievement": "إنجاز",
+  "postTypeBadgePoll": "استطلاع",
+  "postTypeBadgeSystem": "تحديث النظام",
+  "postYouLabel": "(أنت)",
+  "postModerateBadge": "إشراف",
+  "postReadMore": "اقرأ المزيد",
+  "postShowLess": "عرض أقل",
+  "postLike": "إعجاب",
+  "postComment": "تعليق",
+  "postShare": "مشاركة",
+  "postMenuEdit": "تعديل",
+  "postMenuDelete": "حذف",
+  "postMenuPin": "تثبيت",
+  "postMenuUnpin": "إلغاء التثبيت",
+  "postMenuCopyText": "نسخ النص",
+  "postMenuReport": "إبلاغ",
+  "postMenuHide": "إخفاء",
+  "postMenuModerate": "إشراف",
+  "postDeleteConfirmTitle": "حذف المنشور؟",
+  "postDeleteConfirmBody": "لا يمكن التراجع عن هذا الإجراء.",
+  "postDeleteConfirmAction": "حذف",
+  "postImageSemantic": "صورة المنشور",
+  "postActionComingSoon": "هذه الميزة ستتوفر قريباً.",
+  "homeNoMorePosts": "لقد شاهدت كل المنشورات",
+  "notificationsBadgeSemantic": "الإشعارات",
+  "teacherAvatarSemantic": "الملف الشخصي للمعلم"
 }

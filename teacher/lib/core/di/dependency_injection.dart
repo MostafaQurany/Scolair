@@ -23,10 +23,12 @@ import '../../features/auth/presentation/cubit/otp/otp_cubit.dart';
 import '../../features/auth/presentation/cubit/register/register_cubit.dart';
 import '../../features/auth/presentation/cubit/phone_login/phone_login_cubit.dart';
 import '../../features/auth/presentation/cubit/reset_password/reset_password_cubit.dart';
-import '../../features/home/data/datasources/local/home_local_datasource.dart';
-import '../../features/home/data/repositories/home_repository_impl.dart';
-import '../../features/home/domain/repositories/home_repository.dart';
-import '../../features/home/domain/usecases/get_home_summary_usecase.dart';
+import '../../features/home/data/datasources/local/teacher_home_local_datasource.dart';
+import '../../features/home/data/repositories/teacher_home_repository_impl.dart';
+import '../../features/home/domain/repositories/teacher_home_repository.dart';
+import '../../features/home/domain/usecases/get_teacher_home_usecase.dart';
+import '../../features/home/domain/usecases/get_wall_posts_usecase.dart';
+import '../../features/home/domain/usecases/toggle_wall_post_like_usecase.dart';
 import '../../features/home/presentation/cubit/home_cubit.dart';
 import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import '../../features/splash/presentation/cubit/splash_cubit.dart';
@@ -91,12 +93,24 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<Dio>(() => DioFactory.create(getIt()))
     ..registerLazySingleton<ApiClient>(() => ApiClient(getIt()))
     // Home feature
-    ..registerLazySingleton<HomeLocalDataSource>(HomeLocalDataSource.new)
-    ..registerLazySingleton<HomeRepository>(() => HomeRepositoryImpl(getIt()))
-    ..registerLazySingleton<GetHomeSummaryUseCase>(
-      () => GetHomeSummaryUseCase(getIt()),
+    ..registerLazySingleton<TeacherHomeLocalDataSource>(
+      TeacherHomeLocalDataSourceImpl.new,
     )
-    ..registerFactory<HomeCubit>(() => HomeCubit(getIt()))
+    ..registerLazySingleton<TeacherHomeRepository>(
+      () => TeacherHomeRepositoryImpl(getIt(), getIt()),
+    )
+    ..registerLazySingleton<GetTeacherHomeUseCase>(
+      () => GetTeacherHomeUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetWallPostsUseCase>(
+      () => GetWallPostsUseCase(getIt()),
+    )
+    ..registerLazySingleton<ToggleWallPostLikeUseCase>(
+      () => ToggleWallPostLikeUseCase(getIt()),
+    )
+    ..registerFactory<TeacherHomeCubit>(
+      () => TeacherHomeCubit(getIt(), getIt(), getIt()),
+    )
     // Auth — data
     ..registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(getIt()),

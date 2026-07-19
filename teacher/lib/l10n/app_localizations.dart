@@ -2713,6 +2713,264 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No instructions provided.'**
   String get homeworkInstructionsUnavailable;
+
+  /// No description provided for @homeGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Morning'**
+  String get homeGreetingMorning;
+
+  /// No description provided for @homeGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Afternoon'**
+  String get homeGreetingAfternoon;
+
+  /// No description provided for @homeGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Evening'**
+  String get homeGreetingEvening;
+
+  /// No description provided for @homeGreetingTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'{greeting}, {teacherName}'**
+  String homeGreetingTemplate(String greeting, String teacherName);
+
+  /// No description provided for @homeGreetingSecondaryFallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for today\'s lesson?'**
+  String get homeGreetingSecondaryFallback;
+
+  /// No description provided for @homeGreetingSecondaryWithActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for today\'s lesson in {activity}?'**
+  String homeGreetingSecondaryWithActivity(String activity);
+
+  /// No description provided for @organizationNoticeCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No new organization notices} =1{1 new organization notice} other{{count} new organization notices}}'**
+  String organizationNoticeCount(int count);
+
+  /// No description provided for @homeNoPostsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No posts yet'**
+  String get homeNoPostsTitle;
+
+  /// No description provided for @homeNoPostsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No posts are available for this class yet.'**
+  String get homeNoPostsSubtitle;
+
+  /// No description provided for @homeFeedFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All Classes'**
+  String get homeFeedFilterAll;
+
+  /// No description provided for @postTypeBadgePinned.
+  ///
+  /// In en, this message translates to:
+  /// **'Pinned'**
+  String get postTypeBadgePinned;
+
+  /// No description provided for @postTypeBadgeAnnouncement.
+  ///
+  /// In en, this message translates to:
+  /// **'Announcement'**
+  String get postTypeBadgeAnnouncement;
+
+  /// No description provided for @postTypeBadgeQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get postTypeBadgeQuestion;
+
+  /// No description provided for @postTypeBadgeDiscussion.
+  ///
+  /// In en, this message translates to:
+  /// **'Discussion'**
+  String get postTypeBadgeDiscussion;
+
+  /// No description provided for @postTypeBadgeResource.
+  ///
+  /// In en, this message translates to:
+  /// **'Resource'**
+  String get postTypeBadgeResource;
+
+  /// No description provided for @postTypeBadgeAssignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignment'**
+  String get postTypeBadgeAssignment;
+
+  /// No description provided for @postTypeBadgeQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz'**
+  String get postTypeBadgeQuiz;
+
+  /// No description provided for @postTypeBadgeAchievement.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievement'**
+  String get postTypeBadgeAchievement;
+
+  /// No description provided for @postTypeBadgePoll.
+  ///
+  /// In en, this message translates to:
+  /// **'Poll'**
+  String get postTypeBadgePoll;
+
+  /// No description provided for @postTypeBadgeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get postTypeBadgeSystem;
+
+  /// No description provided for @postYouLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'(You)'**
+  String get postYouLabel;
+
+  /// No description provided for @postModerateBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get postModerateBadge;
+
+  /// No description provided for @postReadMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Read more'**
+  String get postReadMore;
+
+  /// No description provided for @postShowLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get postShowLess;
+
+  /// No description provided for @postLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Like'**
+  String get postLike;
+
+  /// No description provided for @postComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get postComment;
+
+  /// No description provided for @postShare.
+  ///
+  /// In en, this message translates to:
+  /// **'Share'**
+  String get postShare;
+
+  /// No description provided for @postMenuEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get postMenuEdit;
+
+  /// No description provided for @postMenuDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get postMenuDelete;
+
+  /// No description provided for @postMenuPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin'**
+  String get postMenuPin;
+
+  /// No description provided for @postMenuUnpin.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpin'**
+  String get postMenuUnpin;
+
+  /// No description provided for @postMenuCopyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy text'**
+  String get postMenuCopyText;
+
+  /// No description provided for @postMenuReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get postMenuReport;
+
+  /// No description provided for @postMenuHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide'**
+  String get postMenuHide;
+
+  /// No description provided for @postMenuModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate'**
+  String get postMenuModerate;
+
+  /// No description provided for @postDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete post?'**
+  String get postDeleteConfirmTitle;
+
+  /// No description provided for @postDeleteConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This action cannot be undone.'**
+  String get postDeleteConfirmBody;
+
+  /// No description provided for @postDeleteConfirmAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get postDeleteConfirmAction;
+
+  /// No description provided for @postImageSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Post image'**
+  String get postImageSemantic;
+
+  /// No description provided for @postActionComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature is coming soon.'**
+  String get postActionComingSoon;
+
+  /// No description provided for @homeNoMorePosts.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve seen all posts'**
+  String get homeNoMorePosts;
+
+  /// No description provided for @notificationsBadgeSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationsBadgeSemantic;
+
+  /// No description provided for @teacherAvatarSemantic.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher profile'**
+  String get teacherAvatarSemantic;
 }
 
 class _AppLocalizationsDelegate

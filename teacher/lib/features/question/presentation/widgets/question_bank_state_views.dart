@@ -34,9 +34,9 @@ class QuestionBankEmptyView extends StatelessWidget {
               hasActiveFilters
                   ? context.l10n.questionBankNoMatches
                   : context.l10n.questionBankEmptyMessage,
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: colorScheme.onSurfaceVariant),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
               textAlign: TextAlign.center,
             ),
           ],
