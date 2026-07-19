@@ -154,17 +154,17 @@ class TeacherHomeCubit extends Cubit<TeacherHomeState> {
         return;
       }
       home = currentState.home;
+      emit(currentState.copyWith(selectedFilterId: filterId, isFiltering: true));
     } else if (currentState is TeacherHomeEmpty) {
       if (currentState.selectedFilterId == filterId) {
         return;
       }
       home = currentState.home;
+      emit(currentState.copyWith(selectedFilterId: filterId, isFiltering: true));
     }
 
     final safeHome = home;
     if (safeHome == null) return;
-
-    emit(const TeacherHomeState.loading());
     _currentPage = 1;
 
     final postsResult = await _getWallPostsUseCase(
@@ -177,7 +177,11 @@ class TeacherHomeCubit extends Cubit<TeacherHomeState> {
       success: (pageData) {
         if (pageData.posts.isEmpty) {
           emit(
-            TeacherHomeState.empty(home: safeHome, selectedFilterId: filterId),
+            TeacherHomeState.empty(
+              home: safeHome, 
+              selectedFilterId: filterId,
+              isFiltering: false,
+            ),
           );
         } else {
           emit(
@@ -188,6 +192,7 @@ class TeacherHomeCubit extends Cubit<TeacherHomeState> {
               hasMore: pageData.hasMore,
               isLoadingMore: false,
               isRefreshing: false,
+              isFiltering: false,
             ),
           );
         }

@@ -17,12 +17,14 @@ sealed class TeacherHomeState with _$TeacherHomeState {
     required bool hasMore,
     required bool isLoadingMore,
     required bool isRefreshing,
+    @Default(false) bool isFiltering,
     String? actionError,
   }) = TeacherHomeSuccess;
 
   const factory TeacherHomeState.empty({
     required TeacherHome home,
     required String selectedFilterId,
+    @Default(false) bool isFiltering,
   }) = TeacherHomeEmpty;
 
   const factory TeacherHomeState.error({required String message}) =

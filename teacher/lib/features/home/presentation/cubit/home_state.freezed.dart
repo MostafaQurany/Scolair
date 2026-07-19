@@ -129,13 +129,13 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( TeacherHome home,  List<TeacherWallPost> posts,  String selectedFilterId,  bool hasMore,  bool isLoadingMore,  bool isRefreshing,  String? actionError)?  success,TResult Function( TeacherHome home,  String selectedFilterId)?  empty,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( TeacherHome home,  List<TeacherWallPost> posts,  String selectedFilterId,  bool hasMore,  bool isLoadingMore,  bool isRefreshing,  bool isFiltering,  String? actionError)?  success,TResult Function( TeacherHome home,  String selectedFilterId,  bool isFiltering)?  empty,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case TeacherHomeInitial() when initial != null:
 return initial();case TeacherHomeLoading() when loading != null:
 return loading();case TeacherHomeSuccess() when success != null:
-return success(_that.home,_that.posts,_that.selectedFilterId,_that.hasMore,_that.isLoadingMore,_that.isRefreshing,_that.actionError);case TeacherHomeEmpty() when empty != null:
-return empty(_that.home,_that.selectedFilterId);case TeacherHomeError() when error != null:
+return success(_that.home,_that.posts,_that.selectedFilterId,_that.hasMore,_that.isLoadingMore,_that.isRefreshing,_that.isFiltering,_that.actionError);case TeacherHomeEmpty() when empty != null:
+return empty(_that.home,_that.selectedFilterId,_that.isFiltering);case TeacherHomeError() when error != null:
 return error(_that.message);case _:
   return orElse();
 
@@ -154,13 +154,13 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( TeacherHome home,  List<TeacherWallPost> posts,  String selectedFilterId,  bool hasMore,  bool isLoadingMore,  bool isRefreshing,  String? actionError)  success,required TResult Function( TeacherHome home,  String selectedFilterId)  empty,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( TeacherHome home,  List<TeacherWallPost> posts,  String selectedFilterId,  bool hasMore,  bool isLoadingMore,  bool isRefreshing,  bool isFiltering,  String? actionError)  success,required TResult Function( TeacherHome home,  String selectedFilterId,  bool isFiltering)  empty,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case TeacherHomeInitial():
 return initial();case TeacherHomeLoading():
 return loading();case TeacherHomeSuccess():
-return success(_that.home,_that.posts,_that.selectedFilterId,_that.hasMore,_that.isLoadingMore,_that.isRefreshing,_that.actionError);case TeacherHomeEmpty():
-return empty(_that.home,_that.selectedFilterId);case TeacherHomeError():
+return success(_that.home,_that.posts,_that.selectedFilterId,_that.hasMore,_that.isLoadingMore,_that.isRefreshing,_that.isFiltering,_that.actionError);case TeacherHomeEmpty():
+return empty(_that.home,_that.selectedFilterId,_that.isFiltering);case TeacherHomeError():
 return error(_that.message);}
 }
 /// A variant of `when` that fallback to returning `null`
@@ -175,13 +175,13 @@ return error(_that.message);}
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( TeacherHome home,  List<TeacherWallPost> posts,  String selectedFilterId,  bool hasMore,  bool isLoadingMore,  bool isRefreshing,  String? actionError)?  success,TResult? Function( TeacherHome home,  String selectedFilterId)?  empty,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( TeacherHome home,  List<TeacherWallPost> posts,  String selectedFilterId,  bool hasMore,  bool isLoadingMore,  bool isRefreshing,  bool isFiltering,  String? actionError)?  success,TResult? Function( TeacherHome home,  String selectedFilterId,  bool isFiltering)?  empty,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case TeacherHomeInitial() when initial != null:
 return initial();case TeacherHomeLoading() when loading != null:
 return loading();case TeacherHomeSuccess() when success != null:
-return success(_that.home,_that.posts,_that.selectedFilterId,_that.hasMore,_that.isLoadingMore,_that.isRefreshing,_that.actionError);case TeacherHomeEmpty() when empty != null:
-return empty(_that.home,_that.selectedFilterId);case TeacherHomeError() when error != null:
+return success(_that.home,_that.posts,_that.selectedFilterId,_that.hasMore,_that.isLoadingMore,_that.isRefreshing,_that.isFiltering,_that.actionError);case TeacherHomeEmpty() when empty != null:
+return empty(_that.home,_that.selectedFilterId,_that.isFiltering);case TeacherHomeError() when error != null:
 return error(_that.message);case _:
   return null;
 
@@ -258,7 +258,7 @@ String toString() {
 
 
 class TeacherHomeSuccess implements TeacherHomeState {
-  const TeacherHomeSuccess({required this.home, required  List<TeacherWallPost> posts, required this.selectedFilterId, required this.hasMore, required this.isLoadingMore, required this.isRefreshing, this.actionError}): _posts = posts;
+  const TeacherHomeSuccess({required this.home, required  List<TeacherWallPost> posts, required this.selectedFilterId, required this.hasMore, required this.isLoadingMore, required this.isRefreshing, this.isFiltering = false, this.actionError}): _posts = posts;
   
 
  final  TeacherHome home;
@@ -273,6 +273,7 @@ class TeacherHomeSuccess implements TeacherHomeState {
  final  bool hasMore;
  final  bool isLoadingMore;
  final  bool isRefreshing;
+@JsonKey() final  bool isFiltering;
  final  String? actionError;
 
 /// Create a copy of TeacherHomeState
@@ -285,16 +286,16 @@ $TeacherHomeSuccessCopyWith<TeacherHomeSuccess> get copyWith => _$TeacherHomeSuc
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TeacherHomeSuccess&&(identical(other.home, home) || other.home == home)&&const DeepCollectionEquality().equals(other._posts, _posts)&&(identical(other.selectedFilterId, selectedFilterId) || other.selectedFilterId == selectedFilterId)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.actionError, actionError) || other.actionError == actionError));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TeacherHomeSuccess&&(identical(other.home, home) || other.home == home)&&const DeepCollectionEquality().equals(other._posts, _posts)&&(identical(other.selectedFilterId, selectedFilterId) || other.selectedFilterId == selectedFilterId)&&(identical(other.hasMore, hasMore) || other.hasMore == hasMore)&&(identical(other.isLoadingMore, isLoadingMore) || other.isLoadingMore == isLoadingMore)&&(identical(other.isRefreshing, isRefreshing) || other.isRefreshing == isRefreshing)&&(identical(other.isFiltering, isFiltering) || other.isFiltering == isFiltering)&&(identical(other.actionError, actionError) || other.actionError == actionError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,home,const DeepCollectionEquality().hash(_posts),selectedFilterId,hasMore,isLoadingMore,isRefreshing,actionError);
+int get hashCode => Object.hash(runtimeType,home,const DeepCollectionEquality().hash(_posts),selectedFilterId,hasMore,isLoadingMore,isRefreshing,isFiltering,actionError);
 
 @override
 String toString() {
-  return 'TeacherHomeState.success(home: $home, posts: $posts, selectedFilterId: $selectedFilterId, hasMore: $hasMore, isLoadingMore: $isLoadingMore, isRefreshing: $isRefreshing, actionError: $actionError)';
+  return 'TeacherHomeState.success(home: $home, posts: $posts, selectedFilterId: $selectedFilterId, hasMore: $hasMore, isLoadingMore: $isLoadingMore, isRefreshing: $isRefreshing, isFiltering: $isFiltering, actionError: $actionError)';
 }
 
 
@@ -305,7 +306,7 @@ abstract mixin class $TeacherHomeSuccessCopyWith<$Res> implements $TeacherHomeSt
   factory $TeacherHomeSuccessCopyWith(TeacherHomeSuccess value, $Res Function(TeacherHomeSuccess) _then) = _$TeacherHomeSuccessCopyWithImpl;
 @useResult
 $Res call({
- TeacherHome home, List<TeacherWallPost> posts, String selectedFilterId, bool hasMore, bool isLoadingMore, bool isRefreshing, String? actionError
+ TeacherHome home, List<TeacherWallPost> posts, String selectedFilterId, bool hasMore, bool isLoadingMore, bool isRefreshing, bool isFiltering, String? actionError
 });
 
 
@@ -322,7 +323,7 @@ class _$TeacherHomeSuccessCopyWithImpl<$Res>
 
 /// Create a copy of TeacherHomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? home = null,Object? posts = null,Object? selectedFilterId = null,Object? hasMore = null,Object? isLoadingMore = null,Object? isRefreshing = null,Object? actionError = freezed,}) {
+@pragma('vm:prefer-inline') $Res call({Object? home = null,Object? posts = null,Object? selectedFilterId = null,Object? hasMore = null,Object? isLoadingMore = null,Object? isRefreshing = null,Object? isFiltering = null,Object? actionError = freezed,}) {
   return _then(TeacherHomeSuccess(
 home: null == home ? _self.home : home // ignore: cast_nullable_to_non_nullable
 as TeacherHome,posts: null == posts ? _self._posts : posts // ignore: cast_nullable_to_non_nullable
@@ -330,6 +331,7 @@ as List<TeacherWallPost>,selectedFilterId: null == selectedFilterId ? _self.sele
 as String,hasMore: null == hasMore ? _self.hasMore : hasMore // ignore: cast_nullable_to_non_nullable
 as bool,isLoadingMore: null == isLoadingMore ? _self.isLoadingMore : isLoadingMore // ignore: cast_nullable_to_non_nullable
 as bool,isRefreshing: null == isRefreshing ? _self.isRefreshing : isRefreshing // ignore: cast_nullable_to_non_nullable
+as bool,isFiltering: null == isFiltering ? _self.isFiltering : isFiltering // ignore: cast_nullable_to_non_nullable
 as bool,actionError: freezed == actionError ? _self.actionError : actionError // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
@@ -342,11 +344,12 @@ as String?,
 
 
 class TeacherHomeEmpty implements TeacherHomeState {
-  const TeacherHomeEmpty({required this.home, required this.selectedFilterId});
+  const TeacherHomeEmpty({required this.home, required this.selectedFilterId, this.isFiltering = false});
   
 
  final  TeacherHome home;
  final  String selectedFilterId;
+@JsonKey() final  bool isFiltering;
 
 /// Create a copy of TeacherHomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -358,16 +361,16 @@ $TeacherHomeEmptyCopyWith<TeacherHomeEmpty> get copyWith => _$TeacherHomeEmptyCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TeacherHomeEmpty&&(identical(other.home, home) || other.home == home)&&(identical(other.selectedFilterId, selectedFilterId) || other.selectedFilterId == selectedFilterId));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TeacherHomeEmpty&&(identical(other.home, home) || other.home == home)&&(identical(other.selectedFilterId, selectedFilterId) || other.selectedFilterId == selectedFilterId)&&(identical(other.isFiltering, isFiltering) || other.isFiltering == isFiltering));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,home,selectedFilterId);
+int get hashCode => Object.hash(runtimeType,home,selectedFilterId,isFiltering);
 
 @override
 String toString() {
-  return 'TeacherHomeState.empty(home: $home, selectedFilterId: $selectedFilterId)';
+  return 'TeacherHomeState.empty(home: $home, selectedFilterId: $selectedFilterId, isFiltering: $isFiltering)';
 }
 
 
@@ -378,7 +381,7 @@ abstract mixin class $TeacherHomeEmptyCopyWith<$Res> implements $TeacherHomeStat
   factory $TeacherHomeEmptyCopyWith(TeacherHomeEmpty value, $Res Function(TeacherHomeEmpty) _then) = _$TeacherHomeEmptyCopyWithImpl;
 @useResult
 $Res call({
- TeacherHome home, String selectedFilterId
+ TeacherHome home, String selectedFilterId, bool isFiltering
 });
 
 
@@ -395,11 +398,12 @@ class _$TeacherHomeEmptyCopyWithImpl<$Res>
 
 /// Create a copy of TeacherHomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? home = null,Object? selectedFilterId = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? home = null,Object? selectedFilterId = null,Object? isFiltering = null,}) {
   return _then(TeacherHomeEmpty(
 home: null == home ? _self.home : home // ignore: cast_nullable_to_non_nullable
 as TeacherHome,selectedFilterId: null == selectedFilterId ? _self.selectedFilterId : selectedFilterId // ignore: cast_nullable_to_non_nullable
-as String,
+as String,isFiltering: null == isFiltering ? _self.isFiltering : isFiltering // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
