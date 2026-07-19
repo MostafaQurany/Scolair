@@ -1,13 +1,70 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import '../../data/models/homework_models.dart';
+import '../../data/models/list_homeworks_request_data.dart';
+import '../../domain/entities/homework_list_item.dart';
 
-part 'homework_list_state.freezed.dart';
+class HomeworkListState {
+  const HomeworkListState({
+    this.items = const [],
+    this.start = 0,
+    this.pageSize = 30,
+    this.total = 0,
+    this.hasNextPage = false,
+    this.filter = HomeworkPublishedFilter.all,
+    this.isInitialLoading = false,
+    this.isRefreshing = false,
+    this.isLoadingMore = false,
+    this.errorMessage,
+    this.paginationErrorMessage,
+    this.deletingNames = const <String>{},
+    this.errorSerial = 0,
+  });
 
-@freezed
-abstract class HomeworkListState with _$HomeworkListState {
-  const factory HomeworkListState({
-    @Default(true) bool isLoading,
-    List<HomeworkModel>? homework,
+  final List<HomeworkListItem> items;
+  final int start;
+  final int pageSize;
+  final int total;
+  final bool hasNextPage;
+  final HomeworkPublishedFilter filter;
+  final bool isInitialLoading;
+  final bool isRefreshing;
+  final bool isLoadingMore;
+  final String? errorMessage;
+  final String? paginationErrorMessage;
+  final Set<String> deletingNames;
+  final int errorSerial;
+
+  bool get hasBlockingError => errorMessage != null && items.isEmpty;
+
+  HomeworkListState copyWith({
+    List<HomeworkListItem>? items,
+    int? start,
+    int? pageSize,
+    int? total,
+    bool? hasNextPage,
+    HomeworkPublishedFilter? filter,
+    bool? isInitialLoading,
+    bool? isRefreshing,
+    bool? isLoadingMore,
     String? errorMessage,
-  }) = _HomeworkListState;
+    bool clearError = false,
+    String? paginationErrorMessage,
+    bool clearPaginationError = false,
+    Set<String>? deletingNames,
+    int? errorSerial,
+  }) => HomeworkListState(
+    items: items ?? this.items,
+    start: start ?? this.start,
+    pageSize: pageSize ?? this.pageSize,
+    total: total ?? this.total,
+    hasNextPage: hasNextPage ?? this.hasNextPage,
+    filter: filter ?? this.filter,
+    isInitialLoading: isInitialLoading ?? this.isInitialLoading,
+    isRefreshing: isRefreshing ?? this.isRefreshing,
+    isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+    errorMessage: clearError ? null : errorMessage ?? this.errorMessage,
+    paginationErrorMessage: clearPaginationError
+        ? null
+        : paginationErrorMessage ?? this.paginationErrorMessage,
+    deletingNames: deletingNames ?? this.deletingNames,
+    errorSerial: errorSerial ?? this.errorSerial,
+  );
 }

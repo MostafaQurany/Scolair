@@ -337,6 +337,16 @@ Required plural usage:
 Text(context.l10n.itemCount(count));
 ```
 
+## Date And Time Utilities
+
+- Keep shared date parsing and display formatting in `lib/core/utils/app_date_time_formatter.dart`.
+- Use `AppDateTimeFormatter` from screens and widgets instead of creating `DateFormat` instances directly.
+- Always pass the active locale when formatting user-visible dates or times.
+- Parse API date strings through `AppDateTimeFormatter.tryParseApiDateTime` so null, empty, and malformed values fail safely.
+- Keep localized sentence structure such as "Due {dateTime}" in ARB files; the utility formats only the date/time value.
+- Do not hardcode date patterns in feature widgets unless an API contract requires a machine-readable format.
+- Preserve `DateTime` values in domain and presentation state. Convert them to strings only at the final UI boundary.
+
 ## Clean Code
 
 - Use meaningful names for files, classes, methods, and variables.

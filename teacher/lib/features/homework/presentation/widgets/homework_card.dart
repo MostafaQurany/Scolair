@@ -1,184 +1,202 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../core/localization/localization_extension.dart';
-import '../../data/models/homework_models.dart';
+import '../../../../core/utils/app_date_time_formatter.dart';
+import '../../domain/entities/homework_list_item.dart';
 
 class HomeworkCard extends StatelessWidget {
   const HomeworkCard({
     required this.homework,
-    this.onEdit,
-    this.onDuplicate,
-    this.onDelete,
+    required this.onViewDetails,
+    required this.onDelete,
+    this.isDeleting = false,
     super.key,
   });
 
-  final HomeworkModel homework;
-  final VoidCallback? onEdit;
-  final VoidCallback? onDuplicate;
-  final VoidCallback? onDelete;
+  final HomeworkListItem homework;
+  final VoidCallback onViewDetails;
+  final VoidCallback onDelete;
+  final bool isDeleting;
 
-  Color _subjectColor(ColorScheme colorScheme) {
-    final palette = [
-      colorScheme.primary,
-      colorScheme.tertiary,
-      colorScheme.secondary,
-    ];
-    final index = homework.subject.hashCode.abs() % palette.length;
-    return palette[index];
-  }
-
-  bool get _isDueToday {
-    final now = DateTime.now();
-    return homework.dueDateTime.year == now.year &&
-        homework.dueDateTime.month == now.month &&
-        homework.dueDateTime.day == now.day;
-  }
+  String _plainInstructions(String value) => value
+      .replaceAll(RegExp(r'<[^>]*>'), ' ')
+      .replaceAll(RegExp(r'\s+'), ' ')
+      .trim();
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
+    final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    final progress = homework.totalStudents == 0
-        ? 0.0
-        : homework.submittedCount / homework.totalStudents;
+    final instructions = _plainInstructions(homework.instructions);
+    final course = homework.course.isEmpty
+        ? context.l10n.homeworkNoCourse
+        : homework.course;
+    final title = homework.title.isEmpty
+        ? context.l10n.homeworkUntitled
+        : homework.title;
+    final dueDate = homework.dueDate;
 
     return Container(
-      margin: EdgeInsets.only(bottom: 14.h),
       decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.circular(16.r),
-        border: Border.all(
-          color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(12.r),
+        border: BorderDirectional(
+          bottom: BorderSide(color: colors.primary, width: 1),
+          end: BorderSide(color: colors.primary, width: 1),
         ),
       ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(height: 3.h, color: _subjectColor(colorScheme)),
-          Padding(
-            padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(1),
+      child: Card(
+        child: InkWell(
+          onTap: isDeleting ? null : onViewDetails,
+          child: Padding(
+            padding: EdgeInsetsDirectional.all(16.r),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      homework.subject,
-                      style: textTheme.labelMedium?.copyWith(
-                        color: _subjectColor(colorScheme),
-                        fontWeight: FontWeight.bold,
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    const Spacer(),
                     PopupMenuButton<String>(
-                      icon: Icon(
-                        Icons.more_vert,
-                        size: 20.r,
-                        color: colorScheme.onSurfaceVariant,
-                      ),
-                      padding: EdgeInsets.zero,
-                      onSelected: (value) {
-                        if (value == 'edit') onEdit?.call();
-                        if (value == 'duplicate') onDuplicate?.call();
-                        if (value == 'delete') onDelete?.call();
+                      icon: const Icon(Icons.more_vert),
+                      enabled: !isDeleting,
+                      onSelected: (action) {
+                        if (action == 'view') onViewDetails();
+                        if (action == 'delete') onDelete();
                       },
                       itemBuilder: (context) => [
-                        PopupMenuItem(
-                          value: 'edit',
-                          child: Text(context.l10n.edit),
+                        PopupMenuItem<String>(
+                          value: 'view',
+                          child: ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: const Icon(Icons.visibility_outlined),
+                            title: Text(context.l10n.homeworkViewDetails),
+                          ),
                         ),
-                        PopupMenuItem(
-                          value: 'duplicate',
-                          child: Text(context.l10n.duplicate),
-                        ),
-                        PopupMenuItem(
+                        PopupMenuItem<String>(
                           value: 'delete',
-                          child: Text(
-                            context.l10n.delete,
-                            style: TextStyle(color: colorScheme.error),
+                          child: ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            leading: Icon(
+                              Icons.delete_outline,
+                              color: colors.error,
+                            ),
+                            title: Text(
+                              context.l10n.delete,
+                              style: TextStyle(color: colors.error),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
-                SizedBox(height: 6.h),
-                Text(
-                  homework.title,
-                  style: textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.event_outlined,
-                      size: 14.r,
-                      color: colorScheme.onSurfaceVariant,
+
+                if (instructions.isNotEmpty) ...[
+                  SizedBox(height: 8.h),
+                  Text(
+                    instructions,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colors.onSurfaceVariant,
                     ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      _isDueToday
-                          ? context.l10n.homeworkDueToday(
-                              DateFormat.jm().format(homework.dueDateTime),
-                            )
-                          : context.l10n.homeworkDueOn(
-                              DateFormat.yMMMd().add_jm().format(
-                                homework.dueDateTime,
-                              ),
+                  ),
+                ],
+                SizedBox(height: 14.h),
+                _MetadataRow(
+                  icon: Icons.event_outlined,
+                  label: dueDate == null
+                      ? context.l10n.homeworkNoDueDate
+                      : context.l10n.homeworkDueOn(
+                          AppDateTimeFormatter.formatDateTime(
+                            dueDate,
+                            locale: Localizations.localeOf(
+                              context,
+                            ).toLanguageTag(),
+                          ),
+                        ),
+                ),
+                SizedBox(height: 6.h),
+                _MetadataRow(
+                  icon: Icons.grade_outlined,
+                  label: context.l10n.questionPointsLabel(homework.maxMarks),
+                ),
+                if (homework.allowLateSubmission) ...[
+                  SizedBox(height: 6.h),
+                  _MetadataRow(
+                    icon: Icons.schedule_outlined,
+                    label: context.l10n.homeworkLateAllowed,
+                  ),
+                ],
+                if (homework.attachment != null) ...[
+                  SizedBox(height: 6.h),
+                  _MetadataRow(
+                    icon: Icons.attach_file,
+                    label: context.l10n.homeworkAttachmentAvailable,
+                  ),
+                ],
+                SizedBox(height: 16.h),
+
+                Align(
+                  alignment: AlignmentDirectional.centerEnd,
+                  child: Chip(
+                    visualDensity: VisualDensity.compact,
+                    avatar: isDeleting
+                        ? SizedBox.square(
+                            dimension: 14.r,
+                            child: const CircularProgressIndicator(
+                              strokeWidth: 2,
                             ),
-                      style: textTheme.bodySmall,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10.h),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.r),
-                  child: LinearProgressIndicator(
-                    value: progress,
-                    minHeight: 6.h,
-                    backgroundColor: colorScheme.surfaceContainerHighest,
-                  ),
-                ),
-                SizedBox(height: 6.h),
-                Text(
-                  context.l10n.homeworkSubmissionProgress(
-                    homework.submittedCount,
-                    homework.totalStudents,
-                  ),
-                  style: textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: onEdit,
-                        icon: const Icon(Icons.edit_outlined, size: 16),
-                        label: Text(context.l10n.edit),
+                          )
+                        : null,
+                    label: ConstrainedBox(
+                      constraints: BoxConstraints(maxWidth: 220.w),
+                      child: Text(
+                        course,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    SizedBox(width: 8.w),
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: onDuplicate,
-                        icon: const Icon(Icons.copy_outlined, size: 16),
-                        label: Text(context.l10n.duplicate),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
+}
+
+class _MetadataRow extends StatelessWidget {
+  const _MetadataRow({required this.icon, required this.label});
+
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    children: [
+      Icon(
+        icon,
+        size: 18.r,
+        color: Theme.of(context).colorScheme.onSurfaceVariant,
+      ),
+      SizedBox(width: 8.w),
+      Expanded(
+        child: Text(label, style: Theme.of(context).textTheme.bodySmall),
+      ),
+    ],
+  );
 }

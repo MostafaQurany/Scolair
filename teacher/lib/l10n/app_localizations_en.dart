@@ -992,6 +992,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeworkDuplicatedSuccess => 'Homework duplicated successfully';
 
   @override
+  String get homeworkDeleteConfirmTitle => 'Delete homework?';
+
+  @override
+  String homeworkDeleteConfirmMessage(String title) {
+    return 'This will permanently delete $title.';
+  }
+
+  @override
+  String get homeworkDeletedSuccess => 'Homework deleted successfully';
+
+  @override
   String get homeworkAddFileTitle => 'Add Assessment File';
 
   @override
@@ -1407,4 +1418,43 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get homeworkFilterLabel => 'Status';
+
+  @override
+  String get homeworkFilterAll => 'All';
+
+  @override
+  String get homeworkFilterPublished => 'Published';
+
+  @override
+  String get homeworkFilterDrafts => 'Drafts';
+
+  @override
+  String get homeworkViewDetails => 'View Details';
+
+  @override
+  String get homeworkNoCourse => 'No course';
+
+  @override
+  String get homeworkNoDueDate => 'No due date';
+
+  @override
+  String get homeworkUntitled => 'Untitled homework';
+
+  @override
+  String get homeworkLateAllowed => 'Late submissions allowed';
+
+  @override
+  String get homeworkAttachmentAvailable => 'Attachment available';
+
+  @override
+  String get homeworkEndOfResults => 'You have reached the end.';
+
+  @override
+  String get homeworkLoadMoreFailed => 'Could not load more homework.';
+
+  @override
+  String get homeworkInstructionsUnavailable => 'No instructions provided.';
 }

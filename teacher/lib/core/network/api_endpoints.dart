@@ -71,4 +71,8 @@ abstract final class ApiEndpoints {
       '/api/method/lms.quiz.controllers.add_question';
   static const String removeQuestionFromQuiz =
       '/api/method/lms.quiz.controllers.remove_question';
+  static const String listHomeworks =
+      '/api/method/lms.homework.controllers.list_homeworks';
+  static const String deleteHomework =
+      '/api/method/lms.homework.controllers.delete_homework';
 }

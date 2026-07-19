@@ -1868,6 +1868,24 @@ abstract class AppLocalizations {
   /// **'Homework duplicated successfully'**
   String get homeworkDuplicatedSuccess;
 
+  /// No description provided for @homeworkDeleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete homework?'**
+  String get homeworkDeleteConfirmTitle;
+
+  /// No description provided for @homeworkDeleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete {title}.'**
+  String homeworkDeleteConfirmMessage(String title);
+
+  /// No description provided for @homeworkDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Homework deleted successfully'**
+  String get homeworkDeletedSuccess;
+
   /// No description provided for @homeworkAddFileTitle.
   ///
   /// In en, this message translates to:
@@ -2617,6 +2635,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 question added from bank} other{{count} questions added from bank}}'**
   String questionsAddedFromBank(int count);
+
+  /// No description provided for @homeworkFilterLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get homeworkFilterLabel;
+
+  /// No description provided for @homeworkFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get homeworkFilterAll;
+
+  /// No description provided for @homeworkFilterPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Published'**
+  String get homeworkFilterPublished;
+
+  /// No description provided for @homeworkFilterDrafts.
+  ///
+  /// In en, this message translates to:
+  /// **'Drafts'**
+  String get homeworkFilterDrafts;
+
+  /// No description provided for @homeworkViewDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'View Details'**
+  String get homeworkViewDetails;
+
+  /// No description provided for @homeworkNoCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'No course'**
+  String get homeworkNoCourse;
+
+  /// No description provided for @homeworkNoDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No due date'**
+  String get homeworkNoDueDate;
+
+  /// No description provided for @homeworkUntitled.
+  ///
+  /// In en, this message translates to:
+  /// **'Untitled homework'**
+  String get homeworkUntitled;
+
+  /// No description provided for @homeworkLateAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Late submissions allowed'**
+  String get homeworkLateAllowed;
+
+  /// No description provided for @homeworkAttachmentAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Attachment available'**
+  String get homeworkAttachmentAvailable;
+
+  /// No description provided for @homeworkEndOfResults.
+  ///
+  /// In en, this message translates to:
+  /// **'You have reached the end.'**
+  String get homeworkEndOfResults;
+
+  /// No description provided for @homeworkLoadMoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load more homework.'**
+  String get homeworkLoadMoreFailed;
+
+  /// No description provided for @homeworkInstructionsUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No instructions provided.'**
+  String get homeworkInstructionsUnavailable;
 }
 
 class _AppLocalizationsDelegate
