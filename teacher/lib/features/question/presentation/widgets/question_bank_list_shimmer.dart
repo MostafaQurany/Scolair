@@ -39,7 +39,7 @@ class QuestionBankListShimmer extends StatelessWidget {
                     width: 24.r,
                     height: 24.r,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
+                      color: colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(4.r),
                     ),
                   ),
@@ -54,7 +54,7 @@ class QuestionBankListShimmer extends StatelessWidget {
                               width: 70.w,
                               height: 24.h,
                               decoration: BoxDecoration(
-                                color: Colors.grey.shade300,
+                                color: colorScheme.surfaceContainerHighest,
                                 borderRadius: BorderRadius.circular(8.r),
                               ),
                             ),
@@ -62,7 +62,7 @@ class QuestionBankListShimmer extends StatelessWidget {
                             Container(
                               width: 100.w,
                               height: 16.h,
-                              color: Colors.grey.shade300,
+                              color: colorScheme.surfaceContainerHighest,
                             ),
                           ],
                         ),
@@ -70,19 +70,19 @@ class QuestionBankListShimmer extends StatelessWidget {
                         Container(
                           width: double.infinity,
                           height: 14.h,
-                          color: Colors.grey.shade300,
+                          color: colorScheme.surfaceContainerHighest,
                         ),
                         SizedBox(height: 6.h),
                         Container(
                           width: double.infinity,
                           height: 14.h,
-                          color: Colors.grey.shade300,
+                          color: colorScheme.surfaceContainerHighest,
                         ),
                         SizedBox(height: 6.h),
                         Container(
                           width: 200.w,
                           height: 14.h,
-                          color: Colors.grey.shade300,
+                          color: colorScheme.surfaceContainerHighest,
                         ),
                       ],
                     ),

@@ -21,9 +21,9 @@ class TeacherHomeSkeletonView extends StatelessWidget {
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               title: Row(
                 children: [
-                  Container(width: 24.r, height: 24.r, color: Colors.grey.shade300),
+                  Container(width: 24.r, height: 24.r, color: colorScheme.surfaceContainerHighest),
                   SizedBox(width: 8.w),
-                  Container(width: 100.w, height: 20.h, color: Colors.grey.shade300),
+                  Container(width: 100.w, height: 20.h, color: colorScheme.surfaceContainerHighest),
                 ],
               ),
               actions: [
@@ -31,7 +31,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 12.w),
                   child: CircleAvatar(
                     radius: 16.r,
-                    backgroundColor: Colors.grey.shade300,
+                    backgroundColor: colorScheme.surfaceContainerHighest,
                   ),
                 ),
               ],
@@ -52,13 +52,13 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                           Container(
                             width: 22.r,
                             height: 22.r,
-                            color: Colors.grey.shade300,
+                            color: colorScheme.surfaceContainerHighest,
                           ),
                           SizedBox(width: 8.w),
                           Container(
                             width: 180.w,
                             height: 20.h,
-                            color: Colors.grey.shade300,
+                            color: colorScheme.surfaceContainerHighest,
                           ),
                         ],
                       ),
@@ -68,7 +68,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                         child: Container(
                           width: 220.w,
                           height: 14.h,
-                          color: Colors.grey.shade300,
+                          color: colorScheme.surfaceContainerHighest,
                         ),
                       ),
                     ],
@@ -87,7 +87,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                   child: Container(
                     height: 54.h,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: colorScheme.surfaceContainer,
                       borderRadius: BorderRadius.circular(12.r),
                     ),
                   ),
@@ -112,7 +112,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                         width: 90.w,
                         height: 38.h,
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: colorScheme.surfaceContainerHighest,
                           borderRadius: BorderRadius.circular(18.r),
                         ),
                       ),
@@ -154,7 +154,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                               children: [
                                 CircleAvatar(
                                   radius: 18.r,
-                                  backgroundColor: Colors.grey.shade300,
+                                  backgroundColor: colorScheme.surfaceContainerHighest,
                                 ),
                                 SizedBox(width: 10.w),
                                 Column(
@@ -163,13 +163,13 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                                     Container(
                                       width: 120.w,
                                       height: 14.h,
-                                      color: Colors.grey.shade300,
+                                      color: colorScheme.surfaceContainerHighest,
                                     ),
                                     SizedBox(height: 4.h),
                                     Container(
                                       width: 80.w,
                                       height: 10.h,
-                                      color: Colors.grey.shade300,
+                                      color: colorScheme.surfaceContainerHighest,
                                     ),
                                   ],
                                 ),
@@ -179,19 +179,19 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                             Container(
                               width: double.infinity,
                               height: 14.h,
-                              color: Colors.grey.shade300,
+                              color: colorScheme.surfaceContainerHighest,
                             ),
                             SizedBox(height: 6.h),
                             Container(
                               width: double.infinity,
                               height: 14.h,
-                              color: Colors.grey.shade300,
+                              color: colorScheme.surfaceContainerHighest,
                             ),
                             SizedBox(height: 6.h),
                             Container(
                               width: 200.w,
                               height: 14.h,
-                              color: Colors.grey.shade300,
+                              color: colorScheme.surfaceContainerHighest,
                             ),
                             SizedBox(height: 12.h),
                             if (index == 1) ...[
@@ -199,7 +199,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                                 width: double.infinity,
                                 height: 160.h,
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade300,
+                                  color: colorScheme.surfaceContainerHighest,
                                   borderRadius: BorderRadius.circular(8.r),
                                 ),
                               ),
@@ -210,19 +210,19 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                                 Expanded(
                                   child: Container(
                                     height: 32.h,
-                                    color: Colors.grey.shade300,
+                                    color: colorScheme.surfaceContainerHighest,
                                   ),
                                 ),
                                 Expanded(
                                   child: Container(
                                     height: 32.h,
-                                    color: Colors.grey.shade300,
+                                    color: colorScheme.surfaceContainerHighest,
                                   ),
                                 ),
                                 Container(
                                   width: 32.w,
                                   height: 32.h,
-                                  color: Colors.grey.shade300,
+                                  color: colorScheme.surfaceContainerHighest,
                                 ),
                               ],
                             ),

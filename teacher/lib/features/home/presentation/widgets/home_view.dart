@@ -26,6 +26,7 @@ class HomeView extends StatelessWidget {
     required TeacherHome home,
     required String selectedFilterId,
     required double bottomSpacing,
+    bool isFiltering = false,
   }) {
     return [
       TeacherHomeAppBar(
@@ -67,6 +68,11 @@ class HomeView extends StatelessWidget {
                   onFilterSelected: (id) =>
                       context.read<TeacherHomeCubit>().selectFilter(id),
                 ),
+                if (isFiltering)
+                  Padding(
+                    padding: EdgeInsets.only(top: 8.h),
+                    child: const LinearProgressIndicator(),
+                  ),
                 SizedBox(height: bottomSpacing),
               ],
             ),
@@ -115,6 +121,7 @@ class HomeView extends StatelessWidget {
                     home: e.home,
                     selectedFilterId: e.selectedFilterId,
                     bottomSpacing: 24.h,
+                    isFiltering: e.isFiltering,
                   ),
                   const SliverFillRemaining(
                     hasScrollBody: false,
@@ -145,6 +152,7 @@ class HomeView extends StatelessWidget {
                       home: s.home,
                       selectedFilterId: s.selectedFilterId,
                       bottomSpacing: 12.h,
+                      isFiltering: s.isFiltering,
                     ),
                     SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
