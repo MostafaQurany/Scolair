@@ -3,162 +3,220 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/localization/localization_extension.dart';
-import '../../../../core/theme/app_colors.dart';
-import '../../domain/entities/home_summary.dart';
+import '../../../../core/widgets/app_snack_bar.dart';
+import '../../domain/entities/teacher_home.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
+import 'organization_notice_card.dart';
+import 'teacher_feed_filter_list.dart';
+import 'teacher_greeting_section.dart';
+import 'teacher_home_empty_view.dart';
+import 'teacher_home_error_view.dart';
+import 'teacher_home_skeleton.dart';
+import 'teacher_home_app_bar.dart';
+import 'teacher_wall_post_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({this.embedded = false, super.key});
 
   final bool embedded;
 
-  @override
-  Widget build(BuildContext context) {
-    final body = SafeArea(
-      child: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return Center(child: Text(context.l10n.loading));
-          }
-
-          final errorMessage = state.errorMessage;
-          if (errorMessage != null) {
-            return _HomeError(message: errorMessage);
-          }
-
-          final summary = state.summary;
-          if (summary == null) {
-            return const SizedBox.shrink();
-          }
-
-          return _HomeContent(summary: summary);
-        },
+  List<Widget> _buildHeaderSlivers({
+    required BuildContext context,
+    required TeacherHome home,
+    required String selectedFilterId,
+    required double bottomSpacing,
+  }) {
+    return [
+      TeacherHomeAppBar(
+        teacher: home.teacher,
+        hasUnreadNotifications: home.organizationNoticeCount > 0,
+        showBackButton: !embedded,
       ),
-    );
-
-    if (embedded) {
-      return body;
-    }
-
-    return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.appName)),
-      body: body,
-    );
-  }
-}
-
-class _HomeContent extends StatelessWidget {
-  const _HomeContent({required this.summary});
-
-  final HomeSummary summary;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return ListView(
-      padding: EdgeInsetsDirectional.all(20.r),
-      children: [
-        Text(context.l10n.homeTitle, style: textTheme.headlineSmall),
-        SizedBox(height: 8.h),
-        Text(
-          context.l10n.homeSubtitle,
-          style: textTheme.bodyMedium?.copyWith(
-            color: colorScheme.onSurfaceVariant,
+      SliverToBoxAdapter(
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 600.w),
+            child: TeacherGreetingSection(
+              teacherName: home.teacher.displayName,
+              greetingActivityTitle: home.greetingActivityTitle,
+            ),
           ),
         ),
-        SizedBox(height: 24.h),
-        _SummaryPanel(summary: summary),
-      ],
-    );
-  }
-}
-
-class _SummaryPanel extends StatelessWidget {
-  const _SummaryPanel({required this.summary});
-
-  final HomeSummary summary;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Card(
-      child: Padding(
-        padding: EdgeInsetsDirectional.all(16.r),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(context.l10n.homeSummaryTitle, style: textTheme.titleMedium),
-            SizedBox(height: 16.h),
-            _SummaryRow(text: context.l10n.classCount(summary.classCount)),
-            SizedBox(height: 10.h),
-            _SummaryRow(
-              text: context.l10n.assignmentCount(summary.assignmentCount),
-            ),
-          ],
-        ),
       ),
-    );
-  }
-}
-
-class _SummaryRow extends StatelessWidget {
-  const _SummaryRow({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Row(
-      children: [
-        Container(
-          width: 8.r,
-          height: 8.r,
-          decoration: const BoxDecoration(
-            color: AppColors.accent,
-            shape: BoxShape.circle,
+      SliverToBoxAdapter(
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 600.w),
+            child: OrganizationNoticeCard(
+              noticeCount: home.organizationNoticeCount,
+            ),
           ),
         ),
-        SizedBox(width: 10.w),
-        Expanded(child: Text(text, style: textTheme.bodyMedium)),
-      ],
-    );
+      ),
+      SliverToBoxAdapter(
+        child: Center(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 600.w),
+            child: Column(
+              children: [
+                SizedBox(height: 8.h),
+                TeacherFeedFilterList(
+                  filters: home.filters,
+                  selectedFilterId: selectedFilterId,
+                  onFilterSelected: (id) =>
+                      context.read<TeacherHomeCubit>().selectFilter(id),
+                ),
+                SizedBox(height: bottomSpacing),
+              ],
+            ),
+          ),
+        ),
+      ),
+    ];
   }
-}
-
-class _HomeError extends StatelessWidget {
-  const _HomeError({required this.message});
-
-  final String message;
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Center(
-      child: Padding(
-        padding: EdgeInsetsDirectional.all(20.r),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              message,
-              style: textTheme.bodyMedium?.copyWith(color: colorScheme.error),
+    return BlocConsumer<TeacherHomeCubit, TeacherHomeState>(
+      listener: (context, state) {
+        state.maybeMap(
+          success: (s) {
+            if (s.actionError != null) {
+              if (s.actionError == 'coming_soon') {
+                AppSnackBar.showSuccess(
+                  context,
+                  context.l10n.postActionComingSoon,
+                );
+              } else {
+                AppSnackBar.showError(context, s.actionError!);
+              }
+              context.read<TeacherHomeCubit>().clearActionError();
+            }
+          },
+          orElse: () {},
+        );
+      },
+      builder: (context, state) {
+        return state.map(
+          initial: (_) => const TeacherHomeSkeletonView(),
+          loading: (_) => const TeacherHomeSkeletonView(),
+          error: (e) => TeacherHomeErrorView(
+            message: e.message,
+            onRetry: () => context.read<TeacherHomeCubit>().load(),
+          ),
+          empty: (e) => Scaffold(
+            body: RefreshIndicator(
+              onRefresh: () => context.read<TeacherHomeCubit>().refresh(),
+              child: CustomScrollView(
+                slivers: [
+                  ..._buildHeaderSlivers(
+                    context: context,
+                    home: e.home,
+                    selectedFilterId: e.selectedFilterId,
+                    bottomSpacing: 24.h,
+                  ),
+                  const SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Center(child: TeacherHomeEmptyView()),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 12.h),
-            FilledButton(
-              onPressed: context.read<HomeCubit>().loadSummary,
-              child: Text(context.l10n.retry),
+          ),
+          success: (s) => Scaffold(
+            body: NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollInfo) {
+                if (scrollInfo.depth == 0 &&
+                    scrollInfo is ScrollUpdateNotification) {
+                  final metrics = scrollInfo.metrics;
+                  if (metrics.pixels >= metrics.maxScrollExtent * 0.8) {
+                    context.read<TeacherHomeCubit>().loadMore();
+                  }
+                }
+                return false;
+              },
+              child: RefreshIndicator(
+                onRefresh: () => context.read<TeacherHomeCubit>().refresh(),
+                child: CustomScrollView(
+                  slivers: [
+                    ..._buildHeaderSlivers(
+                      context: context,
+                      home: s.home,
+                      selectedFilterId: s.selectedFilterId,
+                      bottomSpacing: 12.h,
+                    ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final post = s.posts[index];
+                        return Center(
+                          child: Container(
+                            constraints: BoxConstraints(maxWidth: 600.w),
+                            child: TeacherWallPostCard(
+                              post: post,
+                              onLike: () => context
+                                  .read<TeacherHomeCubit>()
+                                  .toggleLike(post.id),
+                              onEdit: () => context
+                                  .read<TeacherHomeCubit>()
+                                  .reportPost(post.id),
+                              onDelete: () => context
+                                  .read<TeacherHomeCubit>()
+                                  .deletePost(post.id),
+                              onPin: () => context
+                                  .read<TeacherHomeCubit>()
+                                  .pinPost(post.id),
+                              onReport: () => context
+                                  .read<TeacherHomeCubit>()
+                                  .reportPost(post.id),
+                              onModerate: () => context
+                                  .read<TeacherHomeCubit>()
+                                  .reportPost(post.id),
+                              onCopyText: () => context
+                                  .read<TeacherHomeCubit>()
+                                  .copyPostText(post.id),
+                            ),
+                          ),
+                        );
+                      }, childCount: s.posts.length),
+                    ),
+                    if (s.isLoadingMore)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.symmetric(
+                            vertical: 16.h,
+                          ),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
+                      ),
+                    if (!s.hasMore && s.posts.isNotEmpty)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.symmetric(
+                            vertical: 24.h,
+                          ),
+                          child: Center(
+                            child: Text(
+                              context.l10n.homeNoMorePosts,
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.outline,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

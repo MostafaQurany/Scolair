@@ -37,18 +37,19 @@ class _HomeworkStatusDropdownState extends State<HomeworkStatusDropdown> {
       children: [
         Container(
           padding: !_isExpanded ? null : EdgeInsetsDirectional.all(8.r),
-          decoration:
-          !_isExpanded ? null : BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12.r),
-              topRight: Radius.circular(12.r),
-            ),
-            border: Border(
-              top: BorderSide(color: colors.primary),
-              left: BorderSide(color: colors.primary),
-              right: BorderSide(color: colors.primary),
-            ),
-          ),
+          decoration: !_isExpanded
+              ? null
+              : BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12.r),
+                    topRight: Radius.circular(12.r),
+                  ),
+                  border: Border(
+                    top: BorderSide(color: colors.primary),
+                    left: BorderSide(color: colors.primary),
+                    right: BorderSide(color: colors.primary),
+                  ),
+                ),
           child: Row(
             children: [
               Expanded(

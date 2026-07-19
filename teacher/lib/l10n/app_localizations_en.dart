@@ -1457,4 +1457,147 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeworkInstructionsUnavailable => 'No instructions provided.';
+
+  @override
+  String get homeGreetingMorning => 'Good Morning';
+
+  @override
+  String get homeGreetingAfternoon => 'Good Afternoon';
+
+  @override
+  String get homeGreetingEvening => 'Good Evening';
+
+  @override
+  String homeGreetingTemplate(String greeting, String teacherName) {
+    return '$greeting, $teacherName';
+  }
+
+  @override
+  String get homeGreetingSecondaryFallback => 'Ready for today\'s lesson?';
+
+  @override
+  String homeGreetingSecondaryWithActivity(String activity) {
+    return 'Ready for today\'s lesson in $activity?';
+  }
+
+  @override
+  String organizationNoticeCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count new organization notices',
+      one: '1 new organization notice',
+      zero: 'No new organization notices',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get homeNoPostsTitle => 'No posts yet';
+
+  @override
+  String get homeNoPostsSubtitle =>
+      'No posts are available for this class yet.';
+
+  @override
+  String get homeFeedFilterAll => 'All Classes';
+
+  @override
+  String get postTypeBadgePinned => 'Pinned';
+
+  @override
+  String get postTypeBadgeAnnouncement => 'Announcement';
+
+  @override
+  String get postTypeBadgeQuestion => 'Question';
+
+  @override
+  String get postTypeBadgeDiscussion => 'Discussion';
+
+  @override
+  String get postTypeBadgeResource => 'Resource';
+
+  @override
+  String get postTypeBadgeAssignment => 'Assignment';
+
+  @override
+  String get postTypeBadgeQuiz => 'Quiz';
+
+  @override
+  String get postTypeBadgeAchievement => 'Achievement';
+
+  @override
+  String get postTypeBadgePoll => 'Poll';
+
+  @override
+  String get postTypeBadgeSystem => 'System';
+
+  @override
+  String get postYouLabel => '(You)';
+
+  @override
+  String get postModerateBadge => 'Moderate';
+
+  @override
+  String get postReadMore => 'Read more';
+
+  @override
+  String get postShowLess => 'Show less';
+
+  @override
+  String get postLike => 'Like';
+
+  @override
+  String get postComment => 'Comment';
+
+  @override
+  String get postShare => 'Share';
+
+  @override
+  String get postMenuEdit => 'Edit';
+
+  @override
+  String get postMenuDelete => 'Delete';
+
+  @override
+  String get postMenuPin => 'Pin';
+
+  @override
+  String get postMenuUnpin => 'Unpin';
+
+  @override
+  String get postMenuCopyText => 'Copy text';
+
+  @override
+  String get postMenuReport => 'Report';
+
+  @override
+  String get postMenuHide => 'Hide';
+
+  @override
+  String get postMenuModerate => 'Moderate';
+
+  @override
+  String get postDeleteConfirmTitle => 'Delete post?';
+
+  @override
+  String get postDeleteConfirmBody => 'This action cannot be undone.';
+
+  @override
+  String get postDeleteConfirmAction => 'Delete';
+
+  @override
+  String get postImageSemantic => 'Post image';
+
+  @override
+  String get postActionComingSoon => 'This feature is coming soon.';
+
+  @override
+  String get homeNoMorePosts => 'You\'ve seen all posts';
+
+  @override
+  String get notificationsBadgeSemantic => 'Notifications';
+
+  @override
+  String get teacherAvatarSemantic => 'Teacher profile';
 }
