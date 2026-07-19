@@ -69,7 +69,6 @@ class _ClassesScreenState extends State<ClassesScreen> {
     final classes = _filteredClasses;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
