@@ -55,6 +55,10 @@ This file helps future agents understand the current work state without relying 
 - Completed the full Courses feature on `teacher`, including CRUD (Create, Edit, Delete) for Courses, Chapters, and Lessons, media file upload handling, and a modular Editor.js parser + 16 custom block widgets.
 - Implemented auth user caching and Course Creator ownership UI gating on `teacher`, including signup redirect to login, course image upload/manual path, name-only chapter dialog, ordered multi-part lesson creation, Markdown lesson rendering, and YouTube external fallback.
 - Implemented biometric login opt-in flow (`BiometricRequestScreen` + `BiometricRequestCubit`), courses shimmer loading (`CoursesListShimmer` via `skeletonizer: ^2.1.3`), and cached network images (`AppCachedNetworkImage`) replacing bare `NetworkImage` in `CourseCard` and `CourseHeaderCard`.
+- Implemented the teacher homework viewing flow against `list_homeworks`: handwritten defensive API models, published/draft filters, pagination, refresh/retry behavior, responsive sliver list/grid, skeleton loading, localized empty/error states, and API-accurate cards without fabricated submission progress.
+- Added `AppDateTimeFormatter` as the shared locale-aware date parsing/formatting utility, documented its usage in project rules, and aligned the homework status filter with the Question Bank expandable filter pattern.
+- Added the real homework delete flow with a card overflow action, confirmation dialog, DELETE query request, per-item mutation protection, and localized success/error feedback. Homework editing remains deferred.
+- Hardened homework card constraints for sliver lists and grids by removing vertical flex, accommodating optional metadata on tablets, and matching the skeleton structure to the real card.
 
 ## In-Progress Tasks
 
@@ -91,6 +95,12 @@ This file helps future agents understand the current work state without relying 
 - 2026-06-28: Completed Frappe LMS Courses feature implementation on `teacher`. Added packages, generated code (`build_runner` and `gen-l10n`), refactored monolithic renderer to 16 clean widgets (<250 lines/file limit), built Course/Chapter/Lesson CRUD flows, and updated English/Arabic localization. `dart format .` and local code generation verified successfully.
 - 2026-06-28: Scanned all files in `features/courses/` for 100% compliance with `.agent/project-rules.md`. Fixed unscaled font family configurations (changed to `GoogleFonts.dmSans`), hardcoded directional properties (replaced with `BorderDirectional`, `EdgeInsetsDirectional`, `TextAlign.start` for RTL support), and replaced direct `ScaffoldMessenger` calls with the project's compliant `AppSnackBar` helper. Static analysis completed clean.
 - 2026-06-29: Implemented `.agent/specs/004-auth-cache-course-creator-lesson-editor/`. Ran `flutter pub add flutter_markdown_plus`, `flutter gen-l10n`, and scoped `dart format` on changed Dart/localization files. Skipped `build_runner`, `flutter analyze`, `flutter test`, and unit tests per user request.
+- 2026-07-12: Implemented `.agents/specs/006-homework-list-api/spec.md`. Ran `flutter gen-l10n` and scoped `dart analyze` successfully. Skipped `build_runner`, `dart format`, and `flutter test` per user request.
+- 2026-07-12: Fixed the homework loading skeleton's unbounded-height RenderFlex crash by removing its `Spacer`. Runtime logs also confirmed the server returns `403 Not permitted` for the current account; that permission response is external to the Flutter layout fix.
+- 2026-07-12: Corrected `list_homeworks` from POST body usage to GET query parameters after the working Postman collection showed the endpoint's actual HTTP method. The method mismatch was the source of the Flutter client's 403.
+- 2026-07-12: Added the shared date/time formatter and project rule section, migrated homework date parsing/display, and restyled the homework filter to match Question Bank. Validation remained scoped with no formatting, build generation, or Flutter tests per user constraints.
+- 2026-07-12: Connected the homework card Delete action to `lms.homework.controllers.delete_homework`, using `homework=<name>` as a DELETE query parameter. Edit remains out of scope.
+- 2026-07-12: Scanned the homework runtime error log. One unbounded-height `Expanded` in `HomeworkCard` caused all subsequent render failures; removed it and updated the feature shimmer. Scoped analysis passed without running tests, formatting, or code generation.
 
 ## Notes For Future Agents
 

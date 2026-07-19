@@ -471,6 +471,16 @@
     }
   },
   "homeworkDuplicatedSuccess": "Homework duplicated successfully",
+  "homeworkDeleteConfirmTitle": "Delete homework?",
+  "homeworkDeleteConfirmMessage": "This will permanently delete {title}.",
+  "@homeworkDeleteConfirmMessage": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "homeworkDeletedSuccess": "Homework deleted successfully",
   "homeworkAddFileTitle": "Add Assessment File",
   "homeworkEditFileTitle": "Edit Assessment File",
   "homeworkSavedSuccess": "Homework saved successfully",
@@ -657,5 +667,18 @@
         "type": "int"
       }
     }
-  }
+  },
+  "homeworkFilterLabel": "Status",
+  "homeworkFilterAll": "All",
+  "homeworkFilterPublished": "Published",
+  "homeworkFilterDrafts": "Drafts",
+  "homeworkViewDetails": "View Details",
+  "homeworkNoCourse": "No course",
+  "homeworkNoDueDate": "No due date",
+  "homeworkUntitled": "Untitled homework",
+  "homeworkLateAllowed": "Late submissions allowed",
+  "homeworkAttachmentAvailable": "Attachment available",
+  "homeworkEndOfResults": "You have reached the end.",
+  "homeworkLoadMoreFailed": "Could not load more homework.",
+  "homeworkInstructionsUnavailable": "No instructions provided."
 }

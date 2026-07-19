@@ -990,6 +990,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeworkDuplicatedSuccess => 'تم نسخ الواجب بنجاح';
 
   @override
+  String get homeworkDeleteConfirmTitle => 'حذف الواجب؟';
+
+  @override
+  String homeworkDeleteConfirmMessage(String title) {
+    return 'سيتم حذف $title نهائياً.';
+  }
+
+  @override
+  String get homeworkDeletedSuccess => 'تم حذف الواجب بنجاح';
+
+  @override
   String get homeworkAddFileTitle => 'إضافة ملف تقييم';
 
   @override
@@ -1403,4 +1414,43 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get homeworkFilterLabel => 'الحالة';
+
+  @override
+  String get homeworkFilterAll => 'كل';
+
+  @override
+  String get homeworkFilterPublished => 'منشور';
+
+  @override
+  String get homeworkFilterDrafts => 'مسودات';
+
+  @override
+  String get homeworkViewDetails => 'عرض التفاصيل';
+
+  @override
+  String get homeworkNoCourse => 'لا توجد دورة';
+
+  @override
+  String get homeworkNoDueDate => 'لا يوجد موعد تسليم';
+
+  @override
+  String get homeworkUntitled => 'واجب بلا عنوان';
+
+  @override
+  String get homeworkLateAllowed => 'يسمح بالتسليم المتأخر';
+
+  @override
+  String get homeworkAttachmentAvailable => 'يوجد مرفق';
+
+  @override
+  String get homeworkEndOfResults => 'وصلت إلى نهاية النتائج.';
+
+  @override
+  String get homeworkLoadMoreFailed => 'تعذر تحميل المزيد من الواجبات.';
+
+  @override
+  String get homeworkInstructionsUnavailable => 'لم تتم إضافة تعليمات.';
 }

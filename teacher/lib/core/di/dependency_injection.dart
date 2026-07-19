@@ -64,6 +64,7 @@ import '../../features/question/presentation/cubit/question_form_cubit.dart'
 import '../../features/question/presentation/cubit/question_bank_cubit.dart'
     as question_presentation;
 import '../../features/homework/data/datasources/local/homework_mock_datasource.dart';
+import '../../features/homework/data/datasources/remote/homework_remote_datasource.dart';
 import '../../features/homework/data/repositories/homework_repository_impl.dart';
 import '../../features/homework/domain/repositories/homework_repository.dart';
 import '../../features/homework/domain/usecases/homework_usecases.dart';
@@ -277,11 +278,17 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<HomeworkMockDataSource>(
       HomeworkMockDataSourceImpl.new,
     )
+    ..registerLazySingleton<HomeworkRemoteDataSource>(
+      () => HomeworkRemoteDataSourceImpl(getIt()),
+    )
     ..registerLazySingleton<HomeworkRepository>(
-      () => HomeworkRepositoryImpl(getIt()),
+      () => HomeworkRepositoryImpl(getIt(), getIt()),
     )
     ..registerLazySingleton<ListHomeworkUseCase>(
       () => ListHomeworkUseCase(getIt()),
+    )
+    ..registerLazySingleton<ListHomeworkPageUseCase>(
+      () => ListHomeworkPageUseCase(getIt()),
     )
     ..registerLazySingleton<CreateHomeworkUseCase>(
       () => CreateHomeworkUseCase(getIt()),
@@ -296,7 +303,7 @@ Future<void> setupDependencyInjection() async {
       () => DuplicateHomeworkUseCase(getIt()),
     )
     ..registerFactory<HomeworkListCubit>(
-      () => HomeworkListCubit(getIt(), getIt(), getIt()),
+      () => HomeworkListCubit(getIt(), getIt()),
     )
     ..registerFactory<HomeworkFormCubit>(
       () => HomeworkFormCubit(getIt(), getIt()),

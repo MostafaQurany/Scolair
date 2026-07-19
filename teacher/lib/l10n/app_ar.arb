@@ -471,6 +471,16 @@
     }
   },
   "homeworkDuplicatedSuccess": "تم نسخ الواجب بنجاح",
+  "homeworkDeleteConfirmTitle": "حذف الواجب؟",
+  "homeworkDeleteConfirmMessage": "سيتم حذف {title} نهائياً.",
+  "@homeworkDeleteConfirmMessage": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "homeworkDeletedSuccess": "تم حذف الواجب بنجاح",
   "homeworkAddFileTitle": "إضافة ملف تقييم",
   "homeworkEditFileTitle": "تعديل ملف تقييم",
   "homeworkSavedSuccess": "تم حفظ الواجب بنجاح",
@@ -657,5 +667,18 @@
         "type": "int"
       }
     }
-  }
+  },
+  "homeworkFilterLabel": "الحالة",
+  "homeworkFilterAll": "كل",
+  "homeworkFilterPublished": "منشور",
+  "homeworkFilterDrafts": "مسودات",
+  "homeworkViewDetails": "عرض التفاصيل",
+  "homeworkNoCourse": "لا توجد دورة",
+  "homeworkNoDueDate": "لا يوجد موعد تسليم",
+  "homeworkUntitled": "واجب بلا عنوان",
+  "homeworkLateAllowed": "يسمح بالتسليم المتأخر",
+  "homeworkAttachmentAvailable": "يوجد مرفق",
+  "homeworkEndOfResults": "وصلت إلى نهاية النتائج.",
+  "homeworkLoadMoreFailed": "تعذر تحميل المزيد من الواجبات.",
+  "homeworkInstructionsUnavailable": "لم تتم إضافة تعليمات."
 }
