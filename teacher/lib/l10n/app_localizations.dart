@@ -1235,7 +1235,7 @@ abstract class AppLocalizations {
   /// No description provided for @quizzesTitle.
   ///
   /// In en, this message translates to:
-  /// **'Assessments'**
+  /// **'Quizzes'**
   String get quizzesTitle;
 
   /// No description provided for @quizzesMockClassLabel.
@@ -2971,6 +2971,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Teacher profile'**
   String get teacherAvatarSemantic;
+
+  /// No description provided for @discard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get discard;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @unsavedChangesDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'You have unsaved changes. Do you want to discard them?'**
+  String get unsavedChangesDiscard;
+
+  /// No description provided for @savingQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving quiz...'**
+  String get savingQuiz;
+
+  /// No description provided for @quizUpdatedWithErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz updated with some errors. Failed to delete {count} questions.'**
+  String quizUpdatedWithErrors(int count);
+
+  /// No description provided for @pleaseCompleteQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Please complete question {index}'**
+  String pleaseCompleteQuestion(int index);
+
+  /// No description provided for @questionsToDeleteAndAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {deleteCount} questions to delete and {addCount} questions to add/update. Proceed?'**
+  String questionsToDeleteAndAdd(int deleteCount, int addCount);
 }
 
 class _AppLocalizationsDelegate

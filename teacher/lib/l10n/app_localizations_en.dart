@@ -630,7 +630,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeHomeworkAction => 'Homework';
 
   @override
-  String get quizzesTitle => 'Assessments';
+  String get quizzesTitle => 'Quizzes';
 
   @override
   String get quizzesMockClassLabel => 'CLASS MATH-10A';
@@ -1600,4 +1600,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get teacherAvatarSemantic => 'Teacher profile';
+
+  @override
+  String get discard => 'Discard';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get unsavedChangesDiscard =>
+      'You have unsaved changes. Do you want to discard them?';
+
+  @override
+  String get savingQuiz => 'Saving quiz...';
+
+  @override
+  String quizUpdatedWithErrors(int count) {
+    return 'Quiz updated with some errors. Failed to delete $count questions.';
+  }
+
+  @override
+  String pleaseCompleteQuestion(int index) {
+    return 'Please complete question $index';
+  }
+
+  @override
+  String questionsToDeleteAndAdd(int deleteCount, int addCount) {
+    return 'You have $deleteCount questions to delete and $addCount questions to add/update. Proceed?';
+  }
 }

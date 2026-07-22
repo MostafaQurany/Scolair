@@ -4,7 +4,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
-import '../../../../core/theme/app_colors.dart';
+
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/quiz_models.dart';
 import '../cubit/quiz_details_cubit.dart';
@@ -24,7 +24,7 @@ class QuizDetailsScreen extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<QuizDetailsCubit>()..loadQuiz(quizName),
       child: Scaffold(
-        backgroundColor: AppColors.background,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: _QuizDetailsBody(quizName: quizName),
         floatingActionButton: const _QuizFab(),
       ),
@@ -32,10 +32,83 @@ class QuizDetailsScreen extends StatelessWidget {
   }
 }
 
-class _QuizDetailsBody extends StatelessWidget {
+class _QuizDetailsBody extends StatefulWidget {
   const _QuizDetailsBody({required this.quizName});
 
   final String quizName;
+
+  @override
+  State<_QuizDetailsBody> createState() => _QuizDetailsBodyState();
+}
+
+class _QuizDetailsBodyState extends State<_QuizDetailsBody> {
+  bool _isSelectionMode = false;
+  final Set<String> _selectedQuestions = {};
+
+  void _toggleSelectionMode() {
+    setState(() {
+      _isSelectionMode = !_isSelectionMode;
+      _selectedQuestions.clear();
+    });
+  }
+
+  void _toggleQuestionSelection(String questionName) {
+    setState(() {
+      if (_selectedQuestions.contains(questionName)) {
+        _selectedQuestions.remove(questionName);
+      } else {
+        _selectedQuestions.add(questionName);
+      }
+    });
+  }
+
+  Future<void> _deleteSelected(BuildContext context, QuizModel quiz) async {
+    final colorScheme = Theme.of(context).colorScheme;
+    final count = _selectedQuestions.length;
+    if (count == 0) {
+      _toggleSelectionMode();
+      return;
+    }
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: colorScheme.surfaceContainer,
+        title: Text(
+          context.l10n.delete,
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            color: colorScheme.onSurface,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        content: Text(
+          '${context.l10n.delete} $count?',
+          style: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.copyWith(color: colorScheme.onSurfaceVariant),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, false),
+            style: TextButton.styleFrom(foregroundColor: colorScheme.onSurface),
+            child: Text(context.l10n.cancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            style: TextButton.styleFrom(foregroundColor: colorScheme.error),
+            child: Text(context.l10n.delete),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true || !context.mounted) return;
+
+    final cubit = context.read<QuizDetailsCubit>();
+    final toDelete = _selectedQuestions.toList();
+    _toggleSelectionMode();
+    await cubit.bulkRemoveQuestions(toDelete);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,40 +130,137 @@ class _QuizDetailsBody extends StatelessWidget {
         if (errorMessage != null) {
           return QuizErrorState(
             message: errorMessage,
-            onRetry: () => context.read<QuizDetailsCubit>().loadQuiz(quizName),
+            onRetry: () =>
+                context.read<QuizDetailsCubit>().loadQuiz(widget.quizName),
           );
         }
 
         final quiz = state.quiz;
         if (quiz == null) return const SizedBox.shrink();
 
-        return CustomScrollView(
-          slivers: [
-            if (state.isUpdating)
-              const SliverToBoxAdapter(
-                child: LinearProgressIndicator(
-                  color: AppColors.primary,
-                  backgroundColor: AppColors.neutralSoft,
+        final colorScheme = Theme.of(context).colorScheme;
+        final textTheme = Theme.of(context).textTheme;
+
+        return RefreshIndicator(
+          onRefresh: () =>
+              context.read<QuizDetailsCubit>().loadQuiz(widget.quizName),
+          child: CustomScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+                surfaceTintColor: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20.r),
+                    bottomRight: Radius.circular(20.r),
+                  ),
                 ),
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: colorScheme.onSurface,
+                    size: 22.r,
+                  ),
+                  onPressed: () => Navigator.maybePop(context),
+                  tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+                ),
+                title: Text(
+                  context.l10n.quizTabQuestions,
+                  style: textTheme.titleMedium?.copyWith(
+                    color: colorScheme.onSurface,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                actions: [
+                  if (_isSelectionMode) ...[
+                    Center(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
+                        child: Text(
+                          '${_selectedQuestions.length} selected',
+                          style: textTheme.labelLarge?.copyWith(
+                            color: colorScheme.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.delete_outline,
+                        color: colorScheme.error,
+                        size: 22.r,
+                      ),
+                      onPressed: () => _deleteSelected(context, quiz),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        color: colorScheme.onSurface,
+                        size: 22.r,
+                      ),
+                      onPressed: _toggleSelectionMode,
+                    ),
+                  ] else ...[
+                    Center(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 8.w,
+                          vertical: 4.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: colorScheme.primaryContainer,
+                          borderRadius: BorderRadius.circular(12.r),
+                        ),
+                        child: Text(
+                          '${quiz.questions.length}',
+                          style: textTheme.labelMedium?.copyWith(
+                            color: colorScheme.onPrimaryContainer,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (quiz.questions.isNotEmpty)
+                      IconButton(
+                        icon: Icon(
+                          Icons.checklist,
+                          color: colorScheme.onSurface,
+                          size: 22.r,
+                        ),
+                        onPressed: _toggleSelectionMode,
+                        tooltip: 'Select',
+                      ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.settings,
+                        color: colorScheme.onSurface,
+                        size: 22.r,
+                      ),
+                      onPressed: () => _openSettings(context),
+                      tooltip: context.l10n.quizTabSettings,
+                    ),
+                  ],
+                  SizedBox(width: 8.w),
+                ],
               ),
-            SliverToBoxAdapter(
-              child: _TopControlRow(
+              if (state.isUpdating)
+                SliverToBoxAdapter(
+                  child: LinearProgressIndicator(
+                    color: colorScheme.primary,
+                    backgroundColor: colorScheme.surfaceContainerHighest,
+                  ),
+                ),
+              QuestionsTabView(
                 quiz: quiz,
-                onBack: () => Navigator.maybePop(context),
-                onRefresh: () =>
-                    context.read<QuizDetailsCubit>().loadQuiz(quizName),
-                onBulkDelete: () => _confirmDeleteAll(context, quiz),
-                onSettings: () => _openSettings(context),
+                isSelectionMode: _isSelectionMode,
+                selectedQuestions: _selectedQuestions,
+                onToggleSelection: _toggleQuestionSelection,
+                onAddQuestion: () => _addQuestion(context, quiz),
               ),
-            ),
-            QuestionsTabView(
-              quiz: quiz,
-              onDeleteQuestion: (question) => context
-                  .read<QuizDetailsCubit>()
-                  .removeQuestion(question.name),
-              onAddQuestion: () => _addQuestion(context, quiz),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
@@ -122,133 +292,6 @@ class _QuizDetailsBody extends StatelessWidget {
       ),
     );
   }
-
-  Future<void> _confirmDeleteAll(BuildContext context, QuizModel quiz) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        backgroundColor: AppColors.cardBackground,
-        title: Text(
-          context.l10n.delete,
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: AppColors.textPrimary,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        content: Text(
-          '${context.l10n.delete} ${context.l10n.quizQuestionsCount(quiz.questions.length)}?',
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, false),
-            style: TextButton.styleFrom(foregroundColor: AppColors.textPrimary),
-            child: Text(context.l10n.cancel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext, true),
-            style: TextButton.styleFrom(foregroundColor: AppColors.error),
-            child: Text(context.l10n.delete),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed != true || !context.mounted) return;
-
-    final cubit = context.read<QuizDetailsCubit>();
-    final questionNames = quiz.questions
-        .map((question) => question.name)
-        .toList(growable: false);
-
-    for (final questionName in questionNames) {
-      await cubit.removeQuestion(questionName);
-    }
-  }
-}
-
-class _TopControlRow extends StatelessWidget {
-  const _TopControlRow({
-    required this.quiz,
-    required this.onBack,
-    required this.onRefresh,
-    required this.onBulkDelete,
-    required this.onSettings,
-  });
-
-  final QuizModel quiz;
-  final VoidCallback onBack;
-  final VoidCallback onRefresh;
-  final VoidCallback onBulkDelete;
-  final VoidCallback onSettings;
-
-  @override
-  Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final questionCount = quiz.questions.length;
-    final refreshLabel = MaterialLocalizations.of(
-      context,
-    ).refreshIndicatorSemanticLabel;
-
-    return SafeArea(
-      bottom: false,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(4.w, 16.h, 12.w, 10.h),
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: onBack,
-              icon: Icon(
-                Icons.arrow_back,
-                color: AppColors.iconPrimary,
-                size: 22.r,
-              ),
-              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
-            ),
-            Expanded(
-              child: Text(
-                context.l10n.quizQuestionsCount(questionCount),
-                style: textTheme.titleMedium?.copyWith(
-                  color: AppColors.textPrimary,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            TextButton.icon(
-              onPressed: onRefresh,
-              style: TextButton.styleFrom(
-                foregroundColor: AppColors.iconPrimary,
-                padding: EdgeInsets.symmetric(horizontal: 8.w),
-              ),
-              icon: Icon(Icons.refresh, size: 18.r),
-              label: Text(refreshLabel),
-            ),
-            if (questionCount > 0)
-              IconButton(
-                onPressed: onBulkDelete,
-                icon: Icon(
-                  Icons.delete_outline,
-                  color: AppColors.error,
-                  size: 22.r,
-                ),
-                tooltip: context.l10n.delete,
-              ),
-            IconButton(
-              onPressed: onSettings,
-              icon: Icon(
-                Icons.settings,
-                color: AppColors.iconPrimary,
-                size: 22.r,
-              ),
-              tooltip: context.l10n.quizTabSettings,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 class _QuizFab extends StatelessWidget {
@@ -263,9 +306,11 @@ class _QuizFab extends StatelessWidget {
           return const SizedBox.shrink();
         }
 
+        final colorScheme = Theme.of(context).colorScheme;
+
         return FloatingActionButton(
-          backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.onPrimary,
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
           onPressed: () => _addQuestion(context, quiz),
           child: const Icon(Icons.add),
         );

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/localization/localization_extension.dart';
-import '../../../../core/theme/app_colors.dart';
 
 /// Skeleton shimmer loading state for quiz question lists.
 class QuizQuestionsShimmer extends StatelessWidget {
@@ -11,6 +10,8 @@ class QuizQuestionsShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Skeletonizer(
       child: CustomScrollView(
         slivers: [
@@ -25,7 +26,7 @@ class QuizQuestionsShimmer extends StatelessWidget {
                       width: 112.w,
                       height: 22.h,
                       decoration: BoxDecoration(
-                        color: AppColors.cardBackground,
+                        color: colorScheme.surfaceContainer,
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                     ),
@@ -34,7 +35,7 @@ class QuizQuestionsShimmer extends StatelessWidget {
                       width: 96.w,
                       height: 36.h,
                       decoration: BoxDecoration(
-                        color: AppColors.cardBackground,
+                        color: colorScheme.surfaceContainer,
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
@@ -43,7 +44,7 @@ class QuizQuestionsShimmer extends StatelessWidget {
                       width: 40.r,
                       height: 40.r,
                       decoration: BoxDecoration(
-                        color: AppColors.cardBackground,
+                        color: colorScheme.surfaceContainer,
                         borderRadius: BorderRadius.circular(8.r),
                       ),
                     ),
@@ -72,17 +73,23 @@ class _ShimmerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       margin: EdgeInsets.only(bottom: 8.h),
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground,
+        color: colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: AppColors.border, width: 1.w),
+        border: Border.all(color: colorScheme.outlineVariant, width: 1.w),
       ),
       child: Row(
         children: [
-          Icon(Icons.drag_indicator, size: 20.r, color: AppColors.textMuted),
+          Icon(
+            Icons.drag_indicator,
+            size: 20.r,
+            color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          ),
           SizedBox(width: 8.w),
           Expanded(
             child: Column(
@@ -93,7 +100,7 @@ class _ShimmerCard extends StatelessWidget {
                     Text(
                       'Q${index + 1}',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: AppColors.textPrimary,
+                        color: colorScheme.onSurface,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -102,7 +109,7 @@ class _ShimmerCard extends StatelessWidget {
                       width: 64.w,
                       height: 20.h,
                       decoration: BoxDecoration(
-                        color: AppColors.neutralSoft,
+                        color: colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                     ),
@@ -111,7 +118,7 @@ class _ShimmerCard extends StatelessWidget {
                       width: 48.w,
                       height: 20.h,
                       decoration: BoxDecoration(
-                        color: AppColors.neutralSoft,
+                        color: colorScheme.surfaceContainerHighest,
                         borderRadius: BorderRadius.circular(6.r),
                       ),
                     ),
@@ -122,7 +129,7 @@ class _ShimmerCard extends StatelessWidget {
                   width: double.infinity,
                   height: 14.h,
                   decoration: BoxDecoration(
-                    color: AppColors.neutralSoft,
+                    color: colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(4.r),
                   ),
                 ),
@@ -131,7 +138,7 @@ class _ShimmerCard extends StatelessWidget {
                   width: 220.w,
                   height: 12.h,
                   decoration: BoxDecoration(
-                    color: AppColors.neutralSoft,
+                    color: colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(4.r),
                   ),
                 ),
@@ -139,7 +146,7 @@ class _ShimmerCard extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8.w),
-          Icon(Icons.delete_outline, size: 20.r, color: AppColors.error),
+          Icon(Icons.delete_outline, size: 20.r, color: colorScheme.error),
         ],
       ),
     );
@@ -155,6 +162,7 @@ class QuizEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Center(
       child: Padding(
@@ -166,20 +174,20 @@ class QuizEmptyState extends StatelessWidget {
               width: 72.r,
               height: 72.r,
               decoration: BoxDecoration(
-                color: AppColors.primary.withValues(alpha: 0.08),
+                color: colorScheme.primary.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(18.r),
               ),
               child: Icon(
                 Icons.quiz_outlined,
                 size: 36.r,
-                color: AppColors.primary,
+                color: colorScheme.primary,
               ),
             ),
             SizedBox(height: 20.h),
             Text(
               context.l10n.quizNoQuestionsTitle,
               style: textTheme.titleMedium?.copyWith(
-                color: AppColors.textPrimary,
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.center,
@@ -188,7 +196,7 @@ class QuizEmptyState extends StatelessWidget {
             Text(
               context.l10n.quizNoQuestionsSubtitle,
               style: textTheme.bodyMedium?.copyWith(
-                color: AppColors.textSecondary,
+                color: colorScheme.onSurfaceVariant,
                 height: 1.45,
               ),
               textAlign: TextAlign.center,
@@ -199,8 +207,8 @@ class QuizEmptyState extends StatelessWidget {
               child: FilledButton.icon(
                 onPressed: onAdd,
                 style: FilledButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: AppColors.onPrimary,
+                  backgroundColor: colorScheme.primary,
+                  foregroundColor: colorScheme.onPrimary,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
@@ -231,6 +239,7 @@ class QuizErrorState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Center(
       child: Padding(
@@ -242,20 +251,20 @@ class QuizErrorState extends StatelessWidget {
               width: 64.r,
               height: 64.r,
               decoration: BoxDecoration(
-                color: AppColors.error.withValues(alpha: 0.1),
+                color: colorScheme.error.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Icon(
                 Icons.warning_amber_rounded,
                 size: 32.r,
-                color: AppColors.error,
+                color: colorScheme.error,
               ),
             ),
             SizedBox(height: 16.h),
             Text(
               context.l10n.quizErrorTitle,
               style: textTheme.titleMedium?.copyWith(
-                color: AppColors.textPrimary,
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -263,7 +272,7 @@ class QuizErrorState extends StatelessWidget {
             Text(
               message,
               style: textTheme.bodyMedium?.copyWith(
-                color: AppColors.textSecondary,
+                color: colorScheme.onSurfaceVariant,
               ),
               textAlign: TextAlign.center,
             ),

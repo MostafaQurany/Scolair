@@ -30,6 +30,15 @@ abstract final class AppTheme {
       scaffoldBackgroundColor: isDark
           ? AppColors.darkBackground
           : AppColors.lightBackground,
+
+      actionIconTheme: ActionIconThemeData(
+        backButtonIconBuilder: (BuildContext context) {
+          return Icon(
+            Icons.arrow_back_ios_new,
+          );
+        },
+      ),
+
       appBarTheme: AppBarTheme(
         centerTitle: false,
         elevation: 0,

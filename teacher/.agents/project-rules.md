@@ -645,8 +645,16 @@ AppSnackBar.showError(context, message);
 
 * Logger messages are for developers only and must never replace proper UI error handling.
 
+## Arrow back ios shap 
+- the full screens that will only can access to it with a push navigation need to be have icon of the back arrow with ios shape. where the scaffold appbar should look like this:
 
-
+```dart
+appBar: AppBar(
+  leading: BackButton(color: Theme.of(context).colorScheme.primary),
+),
+```
+ 
+- or 
 ## Branch Rules
 
 - `student`, `parent`, and `teacher` branches should share these base rules.

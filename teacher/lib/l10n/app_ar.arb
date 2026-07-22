@@ -224,7 +224,7 @@
   "duplicate": "نسخ",
   "homeQuizzesAction": "الاختبارات",
   "homeHomeworkAction": "الواجبات",
-  "quizzesTitle": "التقييمات",
+  "quizzesTitle": "الاختبارات",
   "quizzesMockClassLabel": "الفصل رياضيات-10أ",
   "quizCreateButton": "إنشاء اختبار قصير",
   "quizFilterAll": "كل التقييمات",
@@ -747,5 +747,36 @@
   "postActionComingSoon": "هذه الميزة ستتوفر قريباً.",
   "homeNoMorePosts": "لقد شاهدت كل المنشورات",
   "notificationsBadgeSemantic": "الإشعارات",
-  "teacherAvatarSemantic": "الملف الشخصي للمعلم"
+  "teacherAvatarSemantic": "الملف الشخصي للمعلم",
+  "discard": "تجاهل",
+  "confirm": "تأكيد",
+  "unsavedChangesDiscard": "لديك تغييرات غير محفوظة. هل تريد تجاهلها؟",
+  "savingQuiz": "جاري حفظ الاختبار...",
+  "quizUpdatedWithErrors": "تم تحديث الاختبار مع بعض الأخطاء. فشل في حذف {count} أسئلة.",
+  "@quizUpdatedWithErrors": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pleaseCompleteQuestion": "يرجى إكمال السؤال {index}",
+  "@pleaseCompleteQuestion": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "questionsToDeleteAndAdd": "لديك {deleteCount} أسئلة لحذفها و {addCount} أسئلة لإضافتها/تحديثها. هل تريد المتابعة؟",
+  "@questionsToDeleteAndAdd": {
+    "placeholders": {
+      "deleteCount": {
+        "type": "int"
+      },
+      "addCount": {
+        "type": "int"
+      }
+    }
+  }
 }

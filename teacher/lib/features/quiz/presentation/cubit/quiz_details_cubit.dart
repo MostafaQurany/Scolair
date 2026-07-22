@@ -75,6 +75,44 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
     );
   }
 
+  Future<void> bulkRemoveQuestions(List<String> questionNames) async {
+    final currentQuiz = state.quiz;
+    if (currentQuiz == null || questionNames.isEmpty) return;
+
+    // Optimistically update the UI
+    final newQuestions = currentQuiz.questions
+        .where((q) => !questionNames.contains(q.name))
+        .toList();
+    final updatedQuiz = currentQuiz.copyWith(questions: newQuestions);
+
+    emit(state.copyWith(quiz: updatedQuiz, mutationError: null));
+
+    bool hasError = false;
+    // Perform deletions in the background silently
+    for (final questionName in questionNames) {
+      final result = await _removeQuestionFromQuizUseCase(
+        quiz: currentQuiz.name,
+        question: questionName,
+      );
+      result.when(
+        success: (_) {},
+        failure: (_) {
+          hasError = true;
+        },
+      );
+    }
+
+    if (hasError) {
+      // Show error and reload from server to restore correct state
+      emit(
+        state.copyWith(
+          mutationError: 'Failed to delete some questions. Re-syncing...',
+        ),
+      );
+      loadQuiz(currentQuiz.name);
+    }
+  }
+
   Future<void> updateSettings(Map<String, dynamic> settings) async {
     final quiz = state.quiz;
     if (quiz == null) return;
@@ -94,5 +132,80 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
         state.copyWith(isUpdating: false, mutationError: failure.message),
       ),
     );
+  }
+
+  Future<void> saveQuizQuestions(
+    List<Map<String, dynamic>> additions,
+    Set<String> deletions,
+  ) async {
+    final currentQuiz = state.quiz;
+    if (currentQuiz == null) return;
+
+    emit(
+      state.copyWith(
+        isBatchSaving: true,
+        batchDeleteTotal: deletions.length,
+        batchDeleteCompleted: 0,
+        batchDeleteFailures: [],
+        mutationError: null,
+      ),
+    );
+
+    // Phase 1: Additions (Update Quiz)
+    if (additions.isNotEmpty) {
+      final body = {
+        'quiz': currentQuiz.name,
+        'title': currentQuiz.title,
+        'questions': additions,
+      };
+
+      final updateResult = await _updateQuizUseCase(body);
+      bool addFailed = false;
+      updateResult.when(
+        success: (_) {},
+        failure: (failure) {
+          addFailed = true;
+          emit(
+            state.copyWith(
+              isBatchSaving: false,
+              mutationError: 'Failed to add questions: ${failure.message}',
+            ),
+          );
+        },
+      );
+
+      if (addFailed) return;
+    }
+
+    // Phase 2: Deletions
+    final failures = <String>[];
+    int completed = 0;
+    for (final questionName in deletions) {
+      final result = await _removeQuestionFromQuizUseCase(
+        quiz: currentQuiz.name,
+        question: questionName,
+      );
+      result.when(
+        success: (_) {
+          completed++;
+          emit(state.copyWith(batchDeleteCompleted: completed));
+        },
+        failure: (_) {
+          completed++; // Still counts as an attempted deletion for progress
+          failures.add(questionName);
+          emit(
+            state.copyWith(
+              batchDeleteCompleted: completed,
+              batchDeleteFailures: List.of(failures),
+            ),
+          );
+        },
+      );
+    }
+
+    // Phase 3: Reload
+    await loadQuiz(currentQuiz.name);
+
+    emit(state.copyWith(isBatchSaving: false));
   }
 }

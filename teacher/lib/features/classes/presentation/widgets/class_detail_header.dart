@@ -46,7 +46,7 @@ class ClassDetailHeader extends StatelessWidget {
           Row(
             children: [
               _CircleIconButton(
-                icon: Icons.arrow_back,
+                icon: Icons.arrow_back_ios_new_rounded,
                 onTap: () => Navigator.of(context).maybePop(),
               ),
               const Spacer(),

@@ -224,7 +224,7 @@
   "duplicate": "Duplicate",
   "homeQuizzesAction": "Quizzes",
   "homeHomeworkAction": "Homework",
-  "quizzesTitle": "Assessments",
+  "quizzesTitle": "Quizzes",
   "quizzesMockClassLabel": "CLASS MATH-10A",
   "quizCreateButton": "Create Quiz",
   "quizFilterAll": "All Assessments",
@@ -747,5 +747,36 @@
   "postActionComingSoon": "This feature is coming soon.",
   "homeNoMorePosts": "You've seen all posts",
   "notificationsBadgeSemantic": "Notifications",
-  "teacherAvatarSemantic": "Teacher profile"
+  "teacherAvatarSemantic": "Teacher profile",
+  "discard": "Discard",
+  "confirm": "Confirm",
+  "unsavedChangesDiscard": "You have unsaved changes. Do you want to discard them?",
+  "savingQuiz": "Saving quiz...",
+  "quizUpdatedWithErrors": "Quiz updated with some errors. Failed to delete {count} questions.",
+  "@quizUpdatedWithErrors": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pleaseCompleteQuestion": "Please complete question {index}",
+  "@pleaseCompleteQuestion": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "questionsToDeleteAndAdd": "You have {deleteCount} questions to delete and {addCount} questions to add/update. Proceed?",
+  "@questionsToDeleteAndAdd": {
+    "placeholders": {
+      "deleteCount": {
+        "type": "int"
+      },
+      "addCount": {
+        "type": "int"
+      }
+    }
+  }
 }

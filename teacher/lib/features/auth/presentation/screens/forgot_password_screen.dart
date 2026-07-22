@@ -178,7 +178,7 @@ class _ForgotPasswordBody extends StatelessWidget {
         SizedBox(height: 22.h),
         AuthSecondaryAction(
           label: context.l10n.usePasswordFallback,
-          icon: Icons.arrow_back,
+          icon: Icons.arrow_back_ios_new_rounded,
           onPressed: onBack,
         ),
       ],

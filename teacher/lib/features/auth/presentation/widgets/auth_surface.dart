@@ -44,7 +44,7 @@ class AuthSurface extends StatelessWidget {
             if (isBack)
               IconButton(
                 onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back_ios_sharp),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
               ),
             Expanded(child: content),
           ],

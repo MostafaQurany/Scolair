@@ -13,6 +13,9 @@ class QuestionCard extends StatelessWidget {
   const QuestionCard({
     required this.index,
     required this.question,
+    this.isSelectionMode = false,
+    this.isSelected = false,
+    this.onToggleSelection,
     this.onEdit,
     this.onDuplicate,
     this.onDelete,
@@ -21,34 +24,49 @@ class QuestionCard extends StatelessWidget {
 
   final int index;
   final QuizQuestionModel question;
+  final bool isSelectionMode;
+  final bool isSelected;
+  final VoidCallback? onToggleSelection;
   final VoidCallback? onEdit;
   final VoidCallback? onDuplicate;
   final VoidCallback? onDelete;
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       margin: EdgeInsets.only(bottom: 8.h),
       decoration: BoxDecoration(
-        color: AppColors.cardBackground,
+        color: isSelected
+            ? colorScheme.primary.withValues(alpha: 0.05)
+            : theme.cardTheme.color ?? colorScheme.surface,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: AppColors.border, width: 1.w),
+        border: Border.all(
+          color: isSelected ? colorScheme.primary : colorScheme.outline,
+          width: isSelected ? 2.w : 1.w,
+        ),
       ),
       child: Material(
         color: AppColors.transparent,
         borderRadius: BorderRadius.circular(8.r),
         child: InkWell(
           borderRadius: BorderRadius.circular(8.r),
-          onTap: onEdit,
+          onTap: isSelectionMode ? onToggleSelection : onEdit,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const _DragHandle(),
-                SizedBox(width: 8.w),
+                if (isSelectionMode)
+                  Checkbox(
+                    value: isSelected,
+                    onChanged: (_) => onToggleSelection?.call(),
+                    activeColor: colorScheme.primary,
+                  ),
                 Expanded(
                   child: _CardContent(
                     index: index,
@@ -56,7 +74,8 @@ class QuestionCard extends StatelessWidget {
                     textTheme: textTheme,
                   ),
                 ),
-                if (onDelete != null) _DeleteButton(onDelete: onDelete!),
+                if (!isSelectionMode && onDelete != null)
+                  _DeleteButton(onDelete: onDelete!),
               ],
             ),
           ),
@@ -71,7 +90,12 @@ class _DragHandle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(Icons.drag_indicator, size: 20.r, color: AppColors.textMuted);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return Icon(
+      Icons.drag_indicator,
+      size: 20.r,
+      color: isDark ? AppColors.darkTextMuted : AppColors.textMuted,
+    );
   }
 }
 
@@ -88,6 +112,8 @@ class _CardContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -95,7 +121,9 @@ class _CardContent extends StatelessWidget {
         SizedBox(height: 8.h),
         Text(
           question.displayText,
-          style: textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
@@ -119,6 +147,8 @@ class _BadgesRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Wrap(
       spacing: 8.w,
       runSpacing: 4.h,
@@ -127,7 +157,7 @@ class _BadgesRow extends StatelessWidget {
         Text(
           context.l10n.questionNumberLabel(index),
           style: textTheme.titleSmall?.copyWith(
-            color: AppColors.textPrimary,
+            color: colorScheme.onSurface,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -145,17 +175,20 @@ class _MarksBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
       decoration: BoxDecoration(
-        color: AppColors.neutralSoft,
+        color: colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: Text(
         context.l10n.questionPointsLabel(marks),
-        style: Theme.of(
-          context,
-        ).textTheme.labelSmall?.copyWith(color: AppColors.textSecondary),
+        style: theme.textTheme.labelSmall?.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
       ),
     );
   }
@@ -168,6 +201,10 @@ class _ChoicesInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
     final type = question.type ?? ApiQuestionType.choices;
     if (type != ApiQuestionType.choices) {
       return const SizedBox.shrink();
@@ -184,13 +221,17 @@ class _ChoicesInfo extends StatelessWidget {
 
     return Row(
       children: [
-        Icon(Icons.list_alt_rounded, size: 14.r, color: AppColors.textMuted),
+        Icon(
+          Icons.list_alt_rounded,
+          size: 14.r,
+          color: isDark ? AppColors.darkTextMuted : AppColors.textMuted,
+        ),
         SizedBox(width: 4.w),
         Text(
           context.l10n.quizChoicesCount(count),
-          style: Theme.of(
-            context,
-          ).textTheme.bodySmall?.copyWith(color: AppColors.textSecondary),
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
         ),
       ],
     );
@@ -204,8 +245,9 @@ class _DeleteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return IconButton(
-      icon: Icon(Icons.delete_outline, size: 20.r, color: AppColors.error),
+      icon: Icon(Icons.delete_outline, size: 20.r, color: colorScheme.error),
       onPressed: onDelete,
       constraints: BoxConstraints(minWidth: 44.r, minHeight: 44.r),
       padding: EdgeInsets.zero,
