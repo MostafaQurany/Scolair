@@ -3013,6 +3013,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have {deleteCount} questions to delete and {addCount} questions to add/update. Proceed?'**
   String questionsToDeleteAndAdd(int deleteCount, int addCount);
+
+  /// No description provided for @questionMarksMinError.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum value is 1'**
+  String get questionMarksMinError;
+
+  /// No description provided for @fieldInvalidNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid number'**
+  String get fieldInvalidNumber;
+
+  /// No description provided for @questionsChangesConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {marksCount} marks updated, {addCount} questions added/modified, and {deleteCount} questions deleted. Proceed?'**
+  String questionsChangesConfirm(int marksCount, int addCount, int deleteCount);
 }
 
 class _AppLocalizationsDelegate

@@ -210,3 +210,71 @@ class GetMyCoursesUseCase {
   final CoursesRepository _repository;
   Future<ApiResult<MyCoursesData>> call() => _repository.myCourses();
 }
+
+class GetSharedCoursesUseCase {
+  const GetSharedCoursesUseCase(this._repository);
+  final CoursesRepository _repository;
+  Future<ApiResult<MyCoursesData>> call() => _repository.sharedCourses();
+}
+
+class GetStudentsUseCase {
+  const GetStudentsUseCase(this._repository);
+  final CoursesRepository _repository;
+  Future<ApiResult<List<StudentModel>>> call(String courseName) =>
+      _repository.getStudents(courseName);
+}
+
+class AddStudentUseCase {
+  const AddStudentUseCase(this._repository);
+  final CoursesRepository _repository;
+  Future<ApiResult<void>> call({
+    required String courseName,
+    required String studentEmail,
+  }) => _repository.addStudent(
+    courseName: courseName,
+    studentEmail: studentEmail,
+  );
+}
+
+class RemoveStudentUseCase {
+  const RemoveStudentUseCase(this._repository);
+  final CoursesRepository _repository;
+  Future<ApiResult<void>> call({
+    required String courseName,
+    required String studentEmail,
+  }) => _repository.removeStudent(
+    courseName: courseName,
+    studentEmail: studentEmail,
+  );
+}
+
+class GetInstructorsUseCase {
+  const GetInstructorsUseCase(this._repository);
+  final CoursesRepository _repository;
+  Future<ApiResult<List<InstructorModel>>> call(String courseName) =>
+      _repository.getInstructors(courseName);
+}
+
+class AddInstructorUseCase {
+  const AddInstructorUseCase(this._repository);
+  final CoursesRepository _repository;
+  Future<ApiResult<void>> call({
+    required String courseName,
+    required String instructorEmail,
+  }) => _repository.addInstructor(
+    courseName: courseName,
+    instructorEmail: instructorEmail,
+  );
+}
+
+class RemoveInstructorUseCase {
+  const RemoveInstructorUseCase(this._repository);
+  final CoursesRepository _repository;
+  Future<ApiResult<void>> call({
+    required String courseName,
+    required String instructorEmail,
+  }) => _repository.removeInstructor(
+    courseName: courseName,
+    instructorEmail: instructorEmail,
+  );
+}

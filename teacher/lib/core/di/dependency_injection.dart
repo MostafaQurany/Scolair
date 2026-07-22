@@ -45,6 +45,7 @@ import '../../features/courses/presentation/cubit/course_details_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_details_cubit.dart';
 import '../../features/courses/presentation/cubit/chapter_lessons_cubit.dart';
 import '../../features/courses/presentation/cubit/course_form_cubit.dart';
+import '../../features/courses/presentation/cubit/course_students_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_form_cubit.dart';
 import '../../features/quiz/data/datasources/remote/quiz_remote_datasource.dart';
 import '../../features/quiz/data/repositories/quiz_repository_impl.dart';
@@ -204,6 +205,27 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<GetMyCoursesUseCase>(
       () => GetMyCoursesUseCase(getIt()),
     )
+    ..registerLazySingleton<GetSharedCoursesUseCase>(
+      () => GetSharedCoursesUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetStudentsUseCase>(
+      () => GetStudentsUseCase(getIt()),
+    )
+    ..registerLazySingleton<AddStudentUseCase>(
+      () => AddStudentUseCase(getIt()),
+    )
+    ..registerLazySingleton<RemoveStudentUseCase>(
+      () => RemoveStudentUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetInstructorsUseCase>(
+      () => GetInstructorsUseCase(getIt()),
+    )
+    ..registerLazySingleton<AddInstructorUseCase>(
+      () => AddInstructorUseCase(getIt()),
+    )
+    ..registerLazySingleton<RemoveInstructorUseCase>(
+      () => RemoveInstructorUseCase(getIt()),
+    )
     // Cubits
     ..registerFactory<CoursesCubit>(
       () => CoursesCubit(getIt(), getIt(), getIt()),
@@ -218,7 +240,13 @@ Future<void> setupDependencyInjection() async {
         getIt(),
         getIt(),
         getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
       ),
+    )
+    ..registerFactory<CourseStudentsCubit>(
+      () => CourseStudentsCubit(getIt(), getIt(), getIt()),
     )
     ..registerFactory<LessonDetailsCubit>(
       () => LessonDetailsCubit(getIt(), getIt()),

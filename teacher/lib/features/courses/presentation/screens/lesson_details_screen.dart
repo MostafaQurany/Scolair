@@ -57,6 +57,9 @@ class LessonDetailsScreen extends StatelessWidget {
       create: (_) => getIt<LessonDetailsCubit>()..loadLessonDetails(lessonName),
       child: Scaffold(
         appBar: AppBar(
+          leading: BackButton(
+            color: Theme.of(context).colorScheme.primary,
+          ),
           title: Text(context.l10n.lessonMaterial),
           actions: [
             BlocBuilder<LessonDetailsCubit, LessonDetailsState>(

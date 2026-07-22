@@ -43,6 +43,13 @@ abstract class CoursesRemoteDataSource {
   Future<void> updateLesson(Map<String, dynamic> body);
   Future<void> deleteLesson(Map<String, dynamic> body);
   Future<MyCoursesResponseData> myCourses();
+  Future<MyCoursesResponseData> sharedCourses();
+  Future<GetStudentsResponseData> getStudents(String courseName);
+  Future<void> addStudent(Map<String, dynamic> body);
+  Future<void> removeStudent(Map<String, dynamic> body);
+  Future<GetInstructorsResponseData> getInstructors(String courseName);
+  Future<void> addInstructor(Map<String, dynamic> body);
+  Future<void> removeInstructor(Map<String, dynamic> body);
 }
 
 class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
@@ -156,4 +163,31 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
 
   @override
   Future<MyCoursesResponseData> myCourses() => _apiClient.myCourses();
+
+  @override
+  Future<MyCoursesResponseData> sharedCourses() => _apiClient.sharedCourses();
+
+  @override
+  Future<GetStudentsResponseData> getStudents(String courseName) =>
+      _apiClient.getStudents(courseName);
+
+  @override
+  Future<void> addStudent(Map<String, dynamic> body) =>
+      _apiClient.addStudent(body);
+
+  @override
+  Future<void> removeStudent(Map<String, dynamic> body) =>
+      _apiClient.removeStudent(body);
+
+  @override
+  Future<GetInstructorsResponseData> getInstructors(String courseName) =>
+      _apiClient.getInstructors(courseName);
+
+  @override
+  Future<void> addInstructor(Map<String, dynamic> body) =>
+      _apiClient.addInstructor(body);
+
+  @override
+  Future<void> removeInstructor(Map<String, dynamic> body) =>
+      _apiClient.removeInstructor(body);
 }

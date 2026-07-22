@@ -140,6 +140,31 @@ abstract class ApiClient {
   @GET(ApiEndpoints.myCourses)
   Future<MyCoursesResponseData> myCourses();
 
+  @GET(ApiEndpoints.sharedCourses)
+  Future<MyCoursesResponseData> sharedCourses();
+
+  @GET(ApiEndpoints.getStudents)
+  Future<GetStudentsResponseData> getStudents(
+    @Query('course') String courseName,
+  );
+
+  @POST(ApiEndpoints.addStudent)
+  Future<void> addStudent(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApiEndpoints.removeStudent)
+  Future<void> removeStudent(@Body() Map<String, dynamic> body);
+
+  @GET(ApiEndpoints.getInstructors)
+  Future<GetInstructorsResponseData> getInstructors(
+    @Query('course') String courseName,
+  );
+
+  @POST(ApiEndpoints.addInstructor)
+  Future<void> addInstructor(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApiEndpoints.removeInstructor)
+  Future<void> removeInstructor(@Body() Map<String, dynamic> body);
+
   // === Quiz — Questions ===
 
   @GET(ApiEndpoints.listQuestions)

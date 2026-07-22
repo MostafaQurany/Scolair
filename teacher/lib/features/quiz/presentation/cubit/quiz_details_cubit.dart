@@ -136,8 +136,9 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
 
   Future<void> saveQuizQuestions(
     List<Map<String, dynamic>> additions,
-    Set<String> deletions,
-  ) async {
+    Set<String> deletions, {
+    List<Map<String, dynamic>> marksUpdates = const [],
+  }) async {
     final currentQuiz = state.quiz;
     if (currentQuiz == null) return;
 
@@ -151,12 +152,14 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
       ),
     );
 
-    // Phase 1: Additions (Update Quiz)
-    if (additions.isNotEmpty) {
+    final allQuestionUpdates = [...marksUpdates, ...additions];
+
+    // Phase 1: Question Updates & Additions (Update Quiz)
+    if (allQuestionUpdates.isNotEmpty) {
       final body = {
         'quiz': currentQuiz.name,
         'title': currentQuiz.title,
-        'questions': additions,
+        'questions': allQuestionUpdates,
       };
 
       final updateResult = await _updateQuizUseCase(body);
@@ -168,7 +171,7 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
           emit(
             state.copyWith(
               isBatchSaving: false,
-              mutationError: 'Failed to add questions: ${failure.message}',
+              mutationError: 'Failed to update questions: ${failure.message}',
             ),
           );
         },

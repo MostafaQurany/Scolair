@@ -19,6 +19,13 @@ class FrappeFileUrlResolver {
       return trimmed;
     }
 
+    if (trimmed.contains('/private/') || trimmed.startsWith('private/')) {
+      final uri = Uri.parse(
+        '${ApiEndpoints.baseUrl}/api/method/lms.lms.doctype.course_lesson.course_lesson.serve_resource',
+      );
+      return uri.replace(queryParameters: {'file_url': trimmed}).toString();
+    }
+
     final path = trimmed.startsWith('/') ? trimmed : '/$trimmed';
     return '${ApiEndpoints.baseUrl}$path';
   }

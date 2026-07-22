@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../../../core/network/paginated_list.dart';
@@ -567,6 +569,84 @@ class MyCoursesResponseData {
 }
 
 @JsonSerializable()
+class StudentModel {
+  const StudentModel({
+    required this.name,
+    this.member,
+    this.memberName,
+    this.memberUsername,
+    this.memberImage,
+    this.progress,
+    this.currentLesson,
+    this.creation,
+  });
+
+  @JsonKey(fromJson: _stringFromJson)
+  final String name;
+  @JsonKey(fromJson: _nullableStringFromJson)
+  final String? member;
+  @JsonKey(name: 'member_name', fromJson: _nullableStringFromJson)
+  final String? memberName;
+  @JsonKey(name: 'member_username', fromJson: _nullableStringFromJson)
+  final String? memberUsername;
+  @JsonKey(name: 'member_image', fromJson: _nullableStringFromJson)
+  final String? memberImage;
+  @JsonKey(fromJson: _nullableDoubleFromJson)
+  final double? progress;
+  @JsonKey(name: 'current_lesson', fromJson: _nullableStringFromJson)
+  final String? currentLesson;
+  @JsonKey(fromJson: _nullableStringFromJson)
+  final String? creation;
+
+  factory StudentModel.fromJson(Map<String, dynamic> json) =>
+      _$StudentModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$StudentModelToJson(this);
+}
+
+@JsonSerializable()
+class GetStudentsResponseData {
+  const GetStudentsResponseData({
+    required this.state,
+    required this.message,
+    required this.data,
+  });
+
+  @JsonKey(fromJson: _stringFromJson)
+  final String state;
+  @JsonKey(fromJson: _stringFromJson)
+  final String message;
+  @JsonKey(fromJson: _studentsListFromJson)
+  final List<StudentModel> data;
+
+  factory GetStudentsResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetStudentsResponseDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetStudentsResponseDataToJson(this);
+}
+
+@JsonSerializable()
+class GetInstructorsResponseData {
+  const GetInstructorsResponseData({
+    required this.state,
+    required this.message,
+    required this.data,
+  });
+
+  @JsonKey(fromJson: _stringFromJson)
+  final String state;
+  @JsonKey(fromJson: _stringFromJson)
+  final String message;
+  @JsonKey(fromJson: _instructorsListFromJson)
+  final List<InstructorModel> data;
+
+  factory GetInstructorsResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetInstructorsResponseDataFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GetInstructorsResponseDataToJson(this);
+}
+
+@JsonSerializable()
 class UploadFileMessage {
   const UploadFileMessage({required this.fileUrl, this.name});
 
@@ -607,6 +687,14 @@ String _stringFromJson(Object? value) => value?.toString() ?? '';
 
 String? _nullableStringFromJson(Object? value) {
   if (value == null) return null;
+  if (value is String) return value;
+  if (value is Map || value is List) {
+    try {
+      return jsonEncode(value);
+    } catch (_) {
+      return value.toString();
+    }
+  }
   return value.toString();
 }
 
@@ -737,3 +825,31 @@ Map<String, dynamic> _paginatedChaptersToJson(
   'page_size': data.pageSize,
   'has_next_page': data.hasNextPage,
 };
+
+List<StudentModel> _studentsListFromJson(Object? json) {
+  if (json is Map) {
+    final items = json['items'];
+    if (items is List) {
+      return items
+          .whereType<Map>()
+          .map((item) => StudentModel.fromJson(_asStringMap(item)))
+          .toList();
+    }
+  }
+  if (json is List) {
+    return json
+        .whereType<Map>()
+        .map((item) => StudentModel.fromJson(_asStringMap(item)))
+        .toList();
+  }
+  return <StudentModel>[];
+}
+
+List<InstructorModel> _instructorsListFromJson(Object? json) {
+  if (json is! List) return <InstructorModel>[];
+  return json
+      .whereType<Map>()
+      .map((item) => InstructorModel.fromJson(_asStringMap(item)))
+      .toList();
+}
+

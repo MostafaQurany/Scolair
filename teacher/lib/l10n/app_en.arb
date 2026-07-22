@@ -778,5 +778,21 @@
         "type": "int"
       }
     }
+  },
+  "questionMarksMinError": "Minimum value is 1",
+  "fieldInvalidNumber": "Invalid number",
+  "questionsChangesConfirm": "You have {marksCount} marks updated, {addCount} questions added/modified, and {deleteCount} questions deleted. Proceed?",
+  "@questionsChangesConfirm": {
+    "placeholders": {
+      "marksCount": {
+        "type": "int"
+      },
+      "addCount": {
+        "type": "int"
+      },
+      "deleteCount": {
+        "type": "int"
+      }
+    }
   }
 }

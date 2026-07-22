@@ -12,6 +12,9 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
     this._updateChapterUseCase,
     this._deleteChapterUseCase,
     this._deleteLessonUseCase,
+    this._deleteCourseUseCase,
+    this._addInstructorUseCase,
+    this._removeInstructorUseCase,
   ) : super(const CourseDetailsState());
 
   final GetCourseUseCase _getCourseUseCase;
@@ -21,6 +24,9 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
   final UpdateChapterUseCase _updateChapterUseCase;
   final DeleteChapterUseCase _deleteChapterUseCase;
   final DeleteLessonUseCase _deleteLessonUseCase;
+  final DeleteCourseUseCase _deleteCourseUseCase;
+  final AddInstructorUseCase _addInstructorUseCase;
+  final RemoveInstructorUseCase _removeInstructorUseCase;
   int _requestId = 0;
 
   Future<void> loadCourseDetails(String courseName) async {
@@ -267,6 +273,101 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
         if (state.course != null) {
           loadCourseDetails(state.course!.name);
         }
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  Future<void> addInstructor(String email) async {
+    final courseName = state.course?.name;
+    if (courseName == null) return;
+
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _addInstructorUseCase(
+      courseName: courseName,
+      instructorEmail: email,
+    );
+
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(
+            isMutating: false,
+            mutationSuccess: 'Instructor added successfully',
+          ),
+        );
+        loadCourseDetails(courseName);
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  Future<void> removeInstructor(String email) async {
+    final courseName = state.course?.name;
+    if (courseName == null) return;
+
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _removeInstructorUseCase(
+      courseName: courseName,
+      instructorEmail: email,
+    );
+
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(
+            isMutating: false,
+            mutationSuccess: 'Instructor removed successfully',
+          ),
+        );
+        loadCourseDetails(courseName);
+      },
+      failure: (fail) {
+        emit(state.copyWith(isMutating: false, mutationError: fail.message));
+      },
+    );
+  }
+
+  Future<void> deleteCourse() async {
+    final courseName = state.course?.name;
+    if (courseName == null) return;
+
+    emit(
+      state.copyWith(
+        isMutating: true,
+        mutationSuccess: null,
+        mutationError: null,
+      ),
+    );
+
+    final result = await _deleteCourseUseCase(courseName);
+
+    result.when(
+      success: (_) {
+        emit(
+          state.copyWith(
+            isMutating: false,
+            mutationSuccess: 'courseDeleted',
+          ),
+        );
       },
       failure: (fail) {
         emit(state.copyWith(isMutating: false, mutationError: fail.message));

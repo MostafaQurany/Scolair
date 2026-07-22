@@ -9,13 +9,11 @@ class QuestionFormBody extends StatefulWidget {
   const QuestionFormBody({
     this.initialQuestion,
     this.initialMarks = 1,
-    this.isMarksReadOnly = false,
     super.key,
   });
 
   final QuestionModel? initialQuestion;
   final int initialMarks;
-  final bool isMarksReadOnly;
 
   @override
   State<QuestionFormBody> createState() => QuestionFormBodyState();
@@ -232,17 +230,18 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                           vertical: 12.h,
                         ),
                         filled: true,
-                        fillColor: widget.isMarksReadOnly
-                            ? colorScheme.surfaceContainerHighest
-                            : colorScheme.surfaceContainerLow,
+                        fillColor: colorScheme.surfaceContainerLow,
                       ),
-                      readOnly: widget.isMarksReadOnly,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Required';
+                          return context.l10n.questionRequiredLabel;
                         }
-                        if (int.tryParse(value.trim()) == null) {
-                          return 'Invalid';
+                        final parsed = int.tryParse(value.trim());
+                        if (parsed == null) {
+                          return context.l10n.fieldInvalidNumber;
+                        }
+                        if (parsed < 1) {
+                          return context.l10n.questionMarksMinError;
                         }
                         return null;
                       },

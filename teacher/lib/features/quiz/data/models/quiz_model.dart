@@ -90,13 +90,15 @@ class QuizModel {
       title: title ?? this.title,
       maxAttempts: maxAttempts ?? this.maxAttempts,
       showAnswers: showAnswers ?? this.showAnswers,
-      showSubmissionHistory: showSubmissionHistory ?? this.showSubmissionHistory,
+      showSubmissionHistory:
+          showSubmissionHistory ?? this.showSubmissionHistory,
       totalMarks: totalMarks ?? this.totalMarks,
       passingPercentage: passingPercentage ?? this.passingPercentage,
       duration: duration ?? this.duration,
       shuffleQuestions: shuffleQuestions ?? this.shuffleQuestions,
       limitQuestionsTo: limitQuestionsTo ?? this.limitQuestionsTo,
-      enableNegativeMarking: enableNegativeMarking ?? this.enableNegativeMarking,
+      enableNegativeMarking:
+          enableNegativeMarking ?? this.enableNegativeMarking,
       marksToCut: marksToCut ?? this.marksToCut,
       lesson: lesson ?? this.lesson,
       course: course ?? this.course,

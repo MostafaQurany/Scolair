@@ -46,6 +46,20 @@ abstract final class ApiEndpoints {
       '/api/method/lms.courses.controllers.delete_lesson';
   static const String myCourses =
       '/api/method/lms.courses.controllers.my_courses';
+  static const String sharedCourses =
+      '/api/method/lms.courses.controllers.shared_courses';
+  static const String getStudents =
+      '/api/method/lms.courses.controllers.get_students';
+  static const String addStudent =
+      '/api/method/lms.courses.controllers.add_student';
+  static const String removeStudent =
+      '/api/method/lms.courses.controllers.remove_student';
+  static const String getInstructors =
+      '/api/method/lms.courses.controllers.get_instructors';
+  static const String addInstructor =
+      '/api/method/lms.courses.controllers.add_instructor';
+  static const String removeInstructor =
+      '/api/method/lms.courses.controllers.remove_instructor';
 
   // === Quiz Endpoints ===
   static const String listQuestions =

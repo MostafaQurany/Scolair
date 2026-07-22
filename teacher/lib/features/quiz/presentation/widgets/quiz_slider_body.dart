@@ -42,7 +42,6 @@ class SliderBody extends StatelessWidget {
               key: formKeys[index],
               initialQuestion: initialQuestion,
               initialMarks: initialMarks,
-              isMarksReadOnly: drafts[index].existingQuizQuestionId != null,
             );
           },
         ),

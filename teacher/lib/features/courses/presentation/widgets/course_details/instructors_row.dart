@@ -2,77 +2,114 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../../core/localization/localization_extension.dart';
-import '../../../../../core/network/api_endpoints.dart';
+import '../../../../../core/widgets/app_user_avatar.dart';
 import '../../../data/models/courses_models.dart';
 
 class InstructorsRow extends StatelessWidget {
-  const InstructorsRow({required this.instructors, super.key});
+  const InstructorsRow({
+    required this.instructors,
+    this.onAddInstructor,
+    this.onRemoveInstructor,
+    super.key,
+  });
 
   final List<InstructorModel> instructors;
+  final VoidCallback? onAddInstructor;
+  final ValueChanged<InstructorModel>? onRemoveInstructor;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
-    if (instructors.isEmpty) return const SizedBox.shrink();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          context.l10n.instructors,
-          style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
-        ),
-        SizedBox(height: 10.h),
         Row(
-          children: instructors.map((instructor) {
-            final hasImg = instructor.userImage != null;
-            return Container(
-              margin: EdgeInsetsDirectional.only(end: 16.w),
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              decoration: BoxDecoration(
-                color: colorScheme.surfaceContainerHighest.withValues(
-                  alpha: 0.2,
-                ),
-                borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(
-                  color: colorScheme.outlineVariant.withValues(alpha: 0.5),
-                ),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              context.l10n.instructors,
+              style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            if (onAddInstructor != null)
+              IconButton(
+                onPressed: onAddInstructor,
+                icon: const Icon(Icons.person_add_alt_1_outlined),
+                iconSize: 20.r,
+                tooltip: 'Add Instructor',
               ),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 16.r,
-                    backgroundColor: colorScheme.primaryContainer,
-                    backgroundImage: hasImg
-                        ? NetworkImage(
-                            '${ApiEndpoints.baseUrl}${instructor.userImage!}',
-                          )
-                        : null,
-                    child: !hasImg
-                        ? Icon(
-                            Icons.person,
-                            color: colorScheme.primary,
-                            size: 16.r,
-                          )
-                        : null,
-                  ),
-                  SizedBox(width: 8.w),
-                  Text(
-                    instructor.fullName ??
-                        instructor.username ??
-                        instructor.instructor ??
-                        '',
-                    style: textTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }).toList(),
+          ],
         ),
+        SizedBox(height: 8.h),
+        if (instructors.isEmpty)
+          Text(
+            'No instructors assigned',
+            style: textTheme.bodyMedium?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+          )
+        else
+          Wrap(
+            spacing: 8.w,
+            runSpacing: 8.h,
+            children: instructors.map((instructor) {
+              final displayName = instructor.fullName ??
+                  instructor.username ??
+                  instructor.instructor ??
+                  instructor.name;
+              final isLastInstructor = instructors.length <= 1;
+
+              return Container(
+                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                decoration: BoxDecoration(
+                  color: colorScheme.surfaceContainerHighest.withValues(
+                    alpha: 0.3,
+                  ),
+                  borderRadius: BorderRadius.circular(12.r),
+                  border: Border.all(
+                    color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppUserAvatar(
+                      imageUrl: instructor.userImage,
+                      displayName: displayName,
+                      userId: instructor.name,
+                      radius: 14,
+                    ),
+                    SizedBox(width: 8.w),
+                    Text(
+                      displayName,
+                      style: textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    if (onRemoveInstructor != null) ...[
+                      SizedBox(width: 4.w),
+                      InkWell(
+                        onTap: isLastInstructor
+                            ? null
+                            : () => onRemoveInstructor!(instructor),
+                        child: Padding(
+                          padding: EdgeInsets.all(2.r),
+                          child: Icon(
+                            Icons.close,
+                            size: 16.r,
+                            color: isLastInstructor
+                                ? colorScheme.onSurfaceVariant.withValues(alpha: 0.3)
+                                : colorScheme.error,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
       ],
     );
   }

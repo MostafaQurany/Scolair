@@ -125,6 +125,13 @@ class DraftQuestion {
       (inlineData == null ||
           (inlineData!['question'] as String?)?.trim().isEmpty == true);
 
+  bool get isMarksChanged {
+    if (originalData != null) {
+      return marks != originalData!.marks;
+    }
+    return false;
+  }
+
   Map<String, dynamic>? toPayload() {
     if (isEmptyDraft) return null;
 
@@ -137,6 +144,16 @@ class DraftQuestion {
     }
 
     // Existing question, not edited -> omit
+    return null;
+  }
+
+  Map<String, dynamic>? toMarksPayload() {
+    if (isEmptyDraft) return null;
+
+    if (existingQuizQuestionId != null && !isEdited && isMarksChanged) {
+      return {'question': existingQuizQuestionId, 'marks': marks};
+    }
+
     return null;
   }
 }

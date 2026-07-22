@@ -76,4 +76,23 @@ abstract class CoursesRepository {
   });
   Future<ApiResult<void>> deleteLesson(String lessonName);
   Future<ApiResult<MyCoursesData>> myCourses();
+  Future<ApiResult<MyCoursesData>> sharedCourses();
+  Future<ApiResult<List<StudentModel>>> getStudents(String courseName);
+  Future<ApiResult<void>> addStudent({
+    required String courseName,
+    required String studentEmail,
+  });
+  Future<ApiResult<void>> removeStudent({
+    required String courseName,
+    required String studentEmail,
+  });
+  Future<ApiResult<List<InstructorModel>>> getInstructors(String courseName);
+  Future<ApiResult<void>> addInstructor({
+    required String courseName,
+    required String instructorEmail,
+  });
+  Future<ApiResult<void>> removeInstructor({
+    required String courseName,
+    required String instructorEmail,
+  });
 }

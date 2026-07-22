@@ -1628,4 +1628,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String questionsToDeleteAndAdd(int deleteCount, int addCount) {
     return 'You have $deleteCount questions to delete and $addCount questions to add/update. Proceed?';
   }
+
+  @override
+  String get questionMarksMinError => 'Minimum value is 1';
+
+  @override
+  String get fieldInvalidNumber => 'Invalid number';
+
+  @override
+  String questionsChangesConfirm(
+    int marksCount,
+    int addCount,
+    int deleteCount,
+  ) {
+    return 'You have $marksCount marks updated, $addCount questions added/modified, and $deleteCount questions deleted. Proceed?';
+  }
 }

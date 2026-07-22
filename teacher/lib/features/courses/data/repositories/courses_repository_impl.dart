@@ -225,4 +225,64 @@ class CoursesRepositoryImpl implements CoursesRepository {
   @override
   Future<ApiResult<MyCoursesData>> myCourses() =>
       _getResult(() async => (await _remoteDataSource.myCourses()).data);
+
+  @override
+  Future<ApiResult<MyCoursesData>> sharedCourses() =>
+      _getResult(() async => (await _remoteDataSource.sharedCourses()).data);
+
+  @override
+  Future<ApiResult<List<StudentModel>>> getStudents(String courseName) =>
+      _getResult(
+        () async => (await _remoteDataSource.getStudents(courseName)).data,
+      );
+
+  @override
+  Future<ApiResult<void>> addStudent({
+    required String courseName,
+    required String studentEmail,
+  }) => _getResult(
+    () => _remoteDataSource.addStudent({
+      'course': courseName,
+      'student': studentEmail,
+    }),
+  );
+
+  @override
+  Future<ApiResult<void>> removeStudent({
+    required String courseName,
+    required String studentEmail,
+  }) => _getResult(
+    () => _remoteDataSource.removeStudent({
+      'course': courseName,
+      'student': studentEmail,
+    }),
+  );
+
+  @override
+  Future<ApiResult<List<InstructorModel>>> getInstructors(String courseName) =>
+      _getResult(
+        () async => (await _remoteDataSource.getInstructors(courseName)).data,
+      );
+
+  @override
+  Future<ApiResult<void>> addInstructor({
+    required String courseName,
+    required String instructorEmail,
+  }) => _getResult(
+    () => _remoteDataSource.addInstructor({
+      'course': courseName,
+      'instructor': instructorEmail,
+    }),
+  );
+
+  @override
+  Future<ApiResult<void>> removeInstructor({
+    required String courseName,
+    required String instructorEmail,
+  }) => _getResult(
+    () => _remoteDataSource.removeInstructor({
+      'course': courseName,
+      'instructor': instructorEmail,
+    }),
+  );
 }

@@ -161,6 +161,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     _saveCurrentQuestionLocally();
 
     final additions = <Map<String, dynamic>>[];
+    final marksUpdates = <Map<String, dynamic>>[];
     final deletions = Set<String>.from(_pendingDeletions);
 
     for (int i = 0; i < _drafts.length; i++) {
@@ -187,13 +188,17 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
           deletions.add(draft.existingQuizQuestionId!);
         }
       } else if (draft.existingQuizQuestionId != null) {
+        final marksPayload = draft.toMarksPayload();
+        if (marksPayload != null) {
+          marksUpdates.add(marksPayload);
+        }
         // If it's an existing question that wasn't edited, ensure it's not in pendingDeletions
         // (This handles the case where it might have been restored to original state)
         deletions.remove(draft.existingQuizQuestionId!);
       }
     }
 
-    if (additions.isEmpty && deletions.isEmpty) {
+    if (additions.isEmpty && deletions.isEmpty && marksUpdates.isEmpty) {
       Navigator.pop(context);
       return;
     }
@@ -203,9 +208,10 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
       builder: (ctx) => AlertDialog(
         title: Text(context.l10n.confirm),
         content: Text(
-          context.l10n.questionsToDeleteAndAdd(
-            deletions.length,
+          context.l10n.questionsChangesConfirm(
+            marksUpdates.length,
             additions.length,
+            deletions.length,
           ),
         ),
         actions: [
@@ -219,6 +225,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
               context.read<QuizDetailsCubit>().saveQuizQuestions(
                 additions,
                 deletions,
+                marksUpdates: marksUpdates,
               );
             },
             child: Text(context.l10n.confirm),
@@ -350,7 +357,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   Widget build(BuildContext context) {
     final bool hasPendingChanges =
         _pendingDeletions.isNotEmpty ||
-        _drafts.any((d) => d.toPayload() != null);
+        _drafts.any((d) => d.toPayload() != null || d.toMarksPayload() != null);
 
     return PopScope(
       canPop: !hasPendingChanges,

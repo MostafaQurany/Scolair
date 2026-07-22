@@ -1624,4 +1624,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String questionsToDeleteAndAdd(int deleteCount, int addCount) {
     return 'لديك $deleteCount أسئلة لحذفها و $addCount أسئلة لإضافتها/تحديثها. هل تريد المتابعة؟';
   }
+
+  @override
+  String get questionMarksMinError => 'الحد الأدنى هو 1';
+
+  @override
+  String get fieldInvalidNumber => 'رقم غير صحيح';
+
+  @override
+  String questionsChangesConfirm(
+    int marksCount,
+    int addCount,
+    int deleteCount,
+  ) {
+    return 'لديك $marksCount درجات معدلة، و $addCount أسئلة مضافة/معدلة، و $deleteCount أسئلة محذوفة. هل تريد المتابعة؟';
+  }
 }

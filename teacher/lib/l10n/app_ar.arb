@@ -778,5 +778,21 @@
         "type": "int"
       }
     }
+  },
+  "questionMarksMinError": "الحد الأدنى هو 1",
+  "fieldInvalidNumber": "رقم غير صحيح",
+  "questionsChangesConfirm": "لديك {marksCount} درجات معدلة، و {addCount} أسئلة مضافة/معدلة، و {deleteCount} أسئلة محذوفة. هل تريد المتابعة؟",
+  "@questionsChangesConfirm": {
+    "placeholders": {
+      "marksCount": {
+        "type": "int"
+      },
+      "addCount": {
+        "type": "int"
+      },
+      "deleteCount": {
+        "type": "int"
+      }
+    }
   }
 }
