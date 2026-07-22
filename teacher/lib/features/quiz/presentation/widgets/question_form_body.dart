@@ -9,11 +9,13 @@ class QuestionFormBody extends StatefulWidget {
   const QuestionFormBody({
     this.initialQuestion,
     this.initialMarks = 1,
+    this.isMarksReadOnly = false,
     super.key,
   });
 
   final QuestionModel? initialQuestion;
   final int initialMarks;
+  final bool isMarksReadOnly;
 
   @override
   State<QuestionFormBody> createState() => QuestionFormBodyState();
@@ -149,10 +151,6 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
       },
     };
 
-    if (isEditing) {
-      body['question'] = widget.initialQuestion!.name;
-    }
-
     if (_type == ApiQuestionType.choices) {
       _addNonEmpty(body, 'option_1', _option1Controller);
       _addNonEmpty(body, 'option_2', _option2Controller);
@@ -234,8 +232,11 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                           vertical: 12.h,
                         ),
                         filled: true,
-                        fillColor: colorScheme.surfaceContainerLow,
+                        fillColor: widget.isMarksReadOnly
+                            ? colorScheme.surfaceContainerHighest
+                            : colorScheme.surfaceContainerLow,
                       ),
+                      readOnly: widget.isMarksReadOnly,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return 'Required';

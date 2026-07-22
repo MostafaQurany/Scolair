@@ -628,7 +628,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeHomeworkAction => 'الواجبات';
 
   @override
-  String get quizzesTitle => 'التقييمات';
+  String get quizzesTitle => 'الاختبارات';
 
   @override
   String get quizzesMockClassLabel => 'الفصل رياضيات-10أ';
@@ -1596,4 +1596,32 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get teacherAvatarSemantic => 'الملف الشخصي للمعلم';
+
+  @override
+  String get discard => 'تجاهل';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get unsavedChangesDiscard =>
+      'لديك تغييرات غير محفوظة. هل تريد تجاهلها؟';
+
+  @override
+  String get savingQuiz => 'جاري حفظ الاختبار...';
+
+  @override
+  String quizUpdatedWithErrors(int count) {
+    return 'تم تحديث الاختبار مع بعض الأخطاء. فشل في حذف $count أسئلة.';
+  }
+
+  @override
+  String pleaseCompleteQuestion(int index) {
+    return 'يرجى إكمال السؤال $index';
+  }
+
+  @override
+  String questionsToDeleteAndAdd(int deleteCount, int addCount) {
+    return 'لديك $deleteCount أسئلة لحذفها و $addCount أسئلة لإضافتها/تحديثها. هل تريد المتابعة؟';
+  }
 }

@@ -64,4 +64,46 @@ class QuizModel {
       _$QuizModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$QuizModelToJson(this);
+
+  QuizModel copyWith({
+    String? name,
+    String? title,
+    int? maxAttempts,
+    int? showAnswers,
+    int? showSubmissionHistory,
+    int? totalMarks,
+    int? passingPercentage,
+    String? duration,
+    int? shuffleQuestions,
+    int? limitQuestionsTo,
+    int? enableNegativeMarking,
+    int? marksToCut,
+    String? lesson,
+    String? course,
+    String? owner,
+    String? creation,
+    String? modified,
+    List<QuizQuestionModel>? questions,
+  }) {
+    return QuizModel(
+      name: name ?? this.name,
+      title: title ?? this.title,
+      maxAttempts: maxAttempts ?? this.maxAttempts,
+      showAnswers: showAnswers ?? this.showAnswers,
+      showSubmissionHistory: showSubmissionHistory ?? this.showSubmissionHistory,
+      totalMarks: totalMarks ?? this.totalMarks,
+      passingPercentage: passingPercentage ?? this.passingPercentage,
+      duration: duration ?? this.duration,
+      shuffleQuestions: shuffleQuestions ?? this.shuffleQuestions,
+      limitQuestionsTo: limitQuestionsTo ?? this.limitQuestionsTo,
+      enableNegativeMarking: enableNegativeMarking ?? this.enableNegativeMarking,
+      marksToCut: marksToCut ?? this.marksToCut,
+      lesson: lesson ?? this.lesson,
+      course: course ?? this.course,
+      owner: owner ?? this.owner,
+      creation: creation ?? this.creation,
+      modified: modified ?? this.modified,
+      questions: questions ?? this.questions,
+    );
+  }
 }

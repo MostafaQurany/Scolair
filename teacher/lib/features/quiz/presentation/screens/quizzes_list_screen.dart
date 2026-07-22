@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
+import 'package:scolair_teacher/core/theme/app_colors.dart';
 
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
@@ -39,37 +40,56 @@ class _QuizzesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.quizzesTitle)),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(16.r),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                context.l10n.quizzesMockClassLabel,
-                style: textTheme.labelMedium?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
-                  letterSpacing: 1,
+      body: RefreshIndicator(
+        onRefresh: context.read<QuizzesCubit>().loadQuizzes,
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24.r),
+                  bottomRight: Radius.circular(24.r),
                 ),
               ),
-              SizedBox(height: 12.h),
-              FilledButton.icon(
-                onPressed: () => _createQuiz(context),
-                icon: const Icon(Icons.add),
-                label: Text(context.l10n.quizCreateButton),
-                style: FilledButton.styleFrom(
-                  minimumSize: Size(double.infinity, 48.h),
-                ),
+              title: Text(context.l10n.quizzesTitle),
+              floating: true,
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back_ios_new_rounded),
               ),
-              SizedBox(height: 16.h),
-              const Expanded(child: _QuizzesBody()),
-            ],
-          ),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 8.h,
+                  ),
+                  child: IconButton.filled(
+                    onPressed: () => _createQuiz(context),
+                    icon: const Icon(Icons.add),
+                    style: IconButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      iconSize: 24.r,
+                      backgroundColor: AppColors.primaryPressed,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SliverSafeArea(
+              top: false,
+              sliver: SliverPadding(
+                padding: EdgeInsets.all(16.r),
+                sliver: const _QuizzesBody(),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -94,44 +114,43 @@ class _QuizzesBody extends StatelessWidget {
       },
       builder: (context, state) {
         if (state.isLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const SliverFillRemaining(
+            child: Center(child: CircularProgressIndicator()),
+          );
         }
         final quizzes = state.quizzes?.items ?? const [];
 
         if (quizzes.isEmpty) {
-          return Center(child: Text(context.l10n.quizzesEmptyMessage));
+          return SliverFillRemaining(
+            child: Center(child: Text(context.l10n.quizzesEmptyMessage)),
+          );
         }
 
-        return RefreshIndicator(
-          onRefresh: context.read<QuizzesCubit>().loadQuizzes,
-          child: ListView.builder(
-            physics: const AlwaysScrollableScrollPhysics(),
-            itemCount: quizzes.length,
-            itemBuilder: (context, index) {
-              final quiz = quizzes[index];
-              return QuizCard(
-                quiz: quiz,
-                onTap: () => Navigator.push(
+        return SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+            final quiz = quizzes[index];
+            return QuizCard(
+              quiz: quiz,
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => QuizDetailsScreen(quizName: quiz.name),
+                ),
+              ),
+              onEdit: () async {
+                final updated = await Navigator.push<bool>(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => QuizDetailsScreen(quizName: quiz.name),
+                    builder: (_) => QuizFormScreen(editingQuiz: quiz),
                   ),
-                ),
-                onEdit: () async {
-                  final updated = await Navigator.push<bool>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => QuizFormScreen(editingQuiz: quiz),
-                    ),
-                  );
-                  if (updated == true && context.mounted) {
-                    context.read<QuizzesCubit>().loadQuizzes();
-                  }
-                },
-                onDelete: () => _onDeleteQuiz(context, quiz.name),
-              );
-            },
-          ),
+                );
+                if (updated == true && context.mounted) {
+                  context.read<QuizzesCubit>().loadQuizzes();
+                }
+              },
+              onDelete: () => _onDeleteQuiz(context, quiz.name),
+            );
+          }, childCount: quizzes.length),
         );
       },
     );

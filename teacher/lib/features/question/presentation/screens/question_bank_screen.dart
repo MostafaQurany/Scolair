@@ -17,11 +17,13 @@ import '../widgets/question_type_label.dart';
 class QuestionBankScreen extends StatefulWidget {
   const QuestionBankScreen({
     this.blockedTypes = const {},
+    this.blockedQuestionNames = const {},
     this.confirmLabel,
     super.key,
   });
 
   final Set<ApiQuestionType> blockedTypes;
+  final Set<String> blockedQuestionNames;
   final String? confirmLabel;
 
   @override
@@ -123,6 +125,9 @@ class _QuestionBankScreenState extends State<QuestionBankScreen> {
   }
 
   String? _disabledReasonFor(BuildContext context, QuestionModel question) {
+    if (widget.blockedQuestionNames.contains(question.name)) {
+      return 'Already in quiz';
+    }
     if (!widget.blockedTypes.contains(question.type)) return null;
     return question.type.isManualGraded
         ? context.l10n.questionBankManualTypeBlocked

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$QuizDetailsState {
 
- bool get isLoading; bool get isUpdating; QuizModel? get quiz; String? get errorMessage; String? get mutationError;
+ bool get isLoading; bool get isUpdating; bool get isBatchSaving; int get batchDeleteTotal; int get batchDeleteCompleted; List<String> get batchDeleteFailures; QuizModel? get quiz; String? get errorMessage; String? get mutationError;
 /// Create a copy of QuizDetailsState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $QuizDetailsStateCopyWith<QuizDetailsState> get copyWith => _$QuizDetailsStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuizDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isUpdating, isUpdating) || other.isUpdating == isUpdating)&&(identical(other.quiz, quiz) || other.quiz == quiz)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is QuizDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isUpdating, isUpdating) || other.isUpdating == isUpdating)&&(identical(other.isBatchSaving, isBatchSaving) || other.isBatchSaving == isBatchSaving)&&(identical(other.batchDeleteTotal, batchDeleteTotal) || other.batchDeleteTotal == batchDeleteTotal)&&(identical(other.batchDeleteCompleted, batchDeleteCompleted) || other.batchDeleteCompleted == batchDeleteCompleted)&&const DeepCollectionEquality().equals(other.batchDeleteFailures, batchDeleteFailures)&&(identical(other.quiz, quiz) || other.quiz == quiz)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,isUpdating,quiz,errorMessage,mutationError);
+int get hashCode => Object.hash(runtimeType,isLoading,isUpdating,isBatchSaving,batchDeleteTotal,batchDeleteCompleted,const DeepCollectionEquality().hash(batchDeleteFailures),quiz,errorMessage,mutationError);
 
 @override
 String toString() {
-  return 'QuizDetailsState(isLoading: $isLoading, isUpdating: $isUpdating, quiz: $quiz, errorMessage: $errorMessage, mutationError: $mutationError)';
+  return 'QuizDetailsState(isLoading: $isLoading, isUpdating: $isUpdating, isBatchSaving: $isBatchSaving, batchDeleteTotal: $batchDeleteTotal, batchDeleteCompleted: $batchDeleteCompleted, batchDeleteFailures: $batchDeleteFailures, quiz: $quiz, errorMessage: $errorMessage, mutationError: $mutationError)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $QuizDetailsStateCopyWith<$Res>  {
   factory $QuizDetailsStateCopyWith(QuizDetailsState value, $Res Function(QuizDetailsState) _then) = _$QuizDetailsStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading, bool isUpdating, QuizModel? quiz, String? errorMessage, String? mutationError
+ bool isLoading, bool isUpdating, bool isBatchSaving, int batchDeleteTotal, int batchDeleteCompleted, List<String> batchDeleteFailures, QuizModel? quiz, String? errorMessage, String? mutationError
 });
 
 
@@ -63,11 +63,15 @@ class _$QuizDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of QuizDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? isUpdating = null,Object? quiz = freezed,Object? errorMessage = freezed,Object? mutationError = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? isUpdating = null,Object? isBatchSaving = null,Object? batchDeleteTotal = null,Object? batchDeleteCompleted = null,Object? batchDeleteFailures = null,Object? quiz = freezed,Object? errorMessage = freezed,Object? mutationError = freezed,}) {
   return _then(QuizDetailsState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isUpdating: null == isUpdating ? _self.isUpdating : isUpdating // ignore: cast_nullable_to_non_nullable
-as bool,quiz: freezed == quiz ? _self.quiz : quiz // ignore: cast_nullable_to_non_nullable
+as bool,isBatchSaving: null == isBatchSaving ? _self.isBatchSaving : isBatchSaving // ignore: cast_nullable_to_non_nullable
+as bool,batchDeleteTotal: null == batchDeleteTotal ? _self.batchDeleteTotal : batchDeleteTotal // ignore: cast_nullable_to_non_nullable
+as int,batchDeleteCompleted: null == batchDeleteCompleted ? _self.batchDeleteCompleted : batchDeleteCompleted // ignore: cast_nullable_to_non_nullable
+as int,batchDeleteFailures: null == batchDeleteFailures ? _self.batchDeleteFailures : batchDeleteFailures // ignore: cast_nullable_to_non_nullable
+as List<String>,quiz: freezed == quiz ? _self.quiz : quiz // ignore: cast_nullable_to_non_nullable
 as QuizModel?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,mutationError: freezed == mutationError ? _self.mutationError : mutationError // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -155,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  bool isUpdating,  QuizModel? quiz,  String? errorMessage,  String? mutationError)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isLoading,  bool isUpdating,  bool isBatchSaving,  int batchDeleteTotal,  int batchDeleteCompleted,  List<String> batchDeleteFailures,  QuizModel? quiz,  String? errorMessage,  String? mutationError)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _QuizDetailsState() when $default != null:
-return $default(_that.isLoading,_that.isUpdating,_that.quiz,_that.errorMessage,_that.mutationError);case _:
+return $default(_that.isLoading,_that.isUpdating,_that.isBatchSaving,_that.batchDeleteTotal,_that.batchDeleteCompleted,_that.batchDeleteFailures,_that.quiz,_that.errorMessage,_that.mutationError);case _:
   return orElse();
 
 }
@@ -176,10 +180,10 @@ return $default(_that.isLoading,_that.isUpdating,_that.quiz,_that.errorMessage,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  bool isUpdating,  QuizModel? quiz,  String? errorMessage,  String? mutationError)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isLoading,  bool isUpdating,  bool isBatchSaving,  int batchDeleteTotal,  int batchDeleteCompleted,  List<String> batchDeleteFailures,  QuizModel? quiz,  String? errorMessage,  String? mutationError)  $default,) {final _that = this;
 switch (_that) {
 case _QuizDetailsState():
-return $default(_that.isLoading,_that.isUpdating,_that.quiz,_that.errorMessage,_that.mutationError);case _:
+return $default(_that.isLoading,_that.isUpdating,_that.isBatchSaving,_that.batchDeleteTotal,_that.batchDeleteCompleted,_that.batchDeleteFailures,_that.quiz,_that.errorMessage,_that.mutationError);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +200,10 @@ return $default(_that.isLoading,_that.isUpdating,_that.quiz,_that.errorMessage,_
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  bool isUpdating,  QuizModel? quiz,  String? errorMessage,  String? mutationError)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isLoading,  bool isUpdating,  bool isBatchSaving,  int batchDeleteTotal,  int batchDeleteCompleted,  List<String> batchDeleteFailures,  QuizModel? quiz,  String? errorMessage,  String? mutationError)?  $default,) {final _that = this;
 switch (_that) {
 case _QuizDetailsState() when $default != null:
-return $default(_that.isLoading,_that.isUpdating,_that.quiz,_that.errorMessage,_that.mutationError);case _:
+return $default(_that.isLoading,_that.isUpdating,_that.isBatchSaving,_that.batchDeleteTotal,_that.batchDeleteCompleted,_that.batchDeleteFailures,_that.quiz,_that.errorMessage,_that.mutationError);case _:
   return null;
 
 }
@@ -211,11 +215,21 @@ return $default(_that.isLoading,_that.isUpdating,_that.quiz,_that.errorMessage,_
 
 
 class _QuizDetailsState implements QuizDetailsState {
-  const _QuizDetailsState({this.isLoading = true, this.isUpdating = false, this.quiz, this.errorMessage, this.mutationError});
+  const _QuizDetailsState({this.isLoading = true, this.isUpdating = false, this.isBatchSaving = false, this.batchDeleteTotal = 0, this.batchDeleteCompleted = 0,  List<String> batchDeleteFailures = const [], this.quiz, this.errorMessage, this.mutationError}): _batchDeleteFailures = batchDeleteFailures;
   
 
 @override@JsonKey() final  bool isLoading;
 @override@JsonKey() final  bool isUpdating;
+@override@JsonKey() final  bool isBatchSaving;
+@override@JsonKey() final  int batchDeleteTotal;
+@override@JsonKey() final  int batchDeleteCompleted;
+ final  List<String> _batchDeleteFailures;
+@override@JsonKey() List<String> get batchDeleteFailures {
+  if (_batchDeleteFailures is EqualUnmodifiableListView) return _batchDeleteFailures;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_batchDeleteFailures);
+}
+
 @override final  QuizModel? quiz;
 @override final  String? errorMessage;
 @override final  String? mutationError;
@@ -230,16 +244,16 @@ _$QuizDetailsStateCopyWith<_QuizDetailsState> get copyWith => __$QuizDetailsStat
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuizDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isUpdating, isUpdating) || other.isUpdating == isUpdating)&&(identical(other.quiz, quiz) || other.quiz == quiz)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _QuizDetailsState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isUpdating, isUpdating) || other.isUpdating == isUpdating)&&(identical(other.isBatchSaving, isBatchSaving) || other.isBatchSaving == isBatchSaving)&&(identical(other.batchDeleteTotal, batchDeleteTotal) || other.batchDeleteTotal == batchDeleteTotal)&&(identical(other.batchDeleteCompleted, batchDeleteCompleted) || other.batchDeleteCompleted == batchDeleteCompleted)&&const DeepCollectionEquality().equals(other._batchDeleteFailures, _batchDeleteFailures)&&(identical(other.quiz, quiz) || other.quiz == quiz)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.mutationError, mutationError) || other.mutationError == mutationError));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading,isUpdating,quiz,errorMessage,mutationError);
+int get hashCode => Object.hash(runtimeType,isLoading,isUpdating,isBatchSaving,batchDeleteTotal,batchDeleteCompleted,const DeepCollectionEquality().hash(_batchDeleteFailures),quiz,errorMessage,mutationError);
 
 @override
 String toString() {
-  return 'QuizDetailsState(isLoading: $isLoading, isUpdating: $isUpdating, quiz: $quiz, errorMessage: $errorMessage, mutationError: $mutationError)';
+  return 'QuizDetailsState(isLoading: $isLoading, isUpdating: $isUpdating, isBatchSaving: $isBatchSaving, batchDeleteTotal: $batchDeleteTotal, batchDeleteCompleted: $batchDeleteCompleted, batchDeleteFailures: $batchDeleteFailures, quiz: $quiz, errorMessage: $errorMessage, mutationError: $mutationError)';
 }
 
 
@@ -250,7 +264,7 @@ abstract mixin class _$QuizDetailsStateCopyWith<$Res> implements $QuizDetailsSta
   factory _$QuizDetailsStateCopyWith(_QuizDetailsState value, $Res Function(_QuizDetailsState) _then) = __$QuizDetailsStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading, bool isUpdating, QuizModel? quiz, String? errorMessage, String? mutationError
+ bool isLoading, bool isUpdating, bool isBatchSaving, int batchDeleteTotal, int batchDeleteCompleted, List<String> batchDeleteFailures, QuizModel? quiz, String? errorMessage, String? mutationError
 });
 
 
@@ -267,11 +281,15 @@ class __$QuizDetailsStateCopyWithImpl<$Res>
 
 /// Create a copy of QuizDetailsState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? isUpdating = null,Object? quiz = freezed,Object? errorMessage = freezed,Object? mutationError = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? isUpdating = null,Object? isBatchSaving = null,Object? batchDeleteTotal = null,Object? batchDeleteCompleted = null,Object? batchDeleteFailures = null,Object? quiz = freezed,Object? errorMessage = freezed,Object? mutationError = freezed,}) {
   return _then(_QuizDetailsState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,isUpdating: null == isUpdating ? _self.isUpdating : isUpdating // ignore: cast_nullable_to_non_nullable
-as bool,quiz: freezed == quiz ? _self.quiz : quiz // ignore: cast_nullable_to_non_nullable
+as bool,isBatchSaving: null == isBatchSaving ? _self.isBatchSaving : isBatchSaving // ignore: cast_nullable_to_non_nullable
+as bool,batchDeleteTotal: null == batchDeleteTotal ? _self.batchDeleteTotal : batchDeleteTotal // ignore: cast_nullable_to_non_nullable
+as int,batchDeleteCompleted: null == batchDeleteCompleted ? _self.batchDeleteCompleted : batchDeleteCompleted // ignore: cast_nullable_to_non_nullable
+as int,batchDeleteFailures: null == batchDeleteFailures ? _self._batchDeleteFailures : batchDeleteFailures // ignore: cast_nullable_to_non_nullable
+as List<String>,quiz: freezed == quiz ? _self.quiz : quiz // ignore: cast_nullable_to_non_nullable
 as QuizModel?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
 as String?,mutationError: freezed == mutationError ? _self.mutationError : mutationError // ignore: cast_nullable_to_non_nullable
 as String?,

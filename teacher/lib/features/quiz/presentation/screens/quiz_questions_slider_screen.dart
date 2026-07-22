@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
-import '../../../../core/extensions/adaptive_layout_extension.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/quiz_models.dart';
@@ -12,29 +11,10 @@ import '../widgets/question_form_body.dart';
 import '../../../question/presentation/screens/question_bank_screen.dart';
 import '../../../question/presentation/widgets/question_type_label.dart';
 
-class _DraftQuestion {
-  final String? existingQuestionId;
-  final QuizQuestionModel? originalData;
-  final QuestionModel? bankData;
-  Map<String, dynamic>? inlineData;
-  int marks;
-
-  _DraftQuestion({
-    this.existingQuestionId,
-    this.originalData,
-    this.bankData,
-    this.marks = 1,
-  });
-
-  Map<String, dynamic> toPayload() {
-    if (inlineData != null) {
-      return {'inline': inlineData, 'marks': marks};
-    } else if (existingQuestionId != null) {
-      return {'question': existingQuestionId, 'marks': marks};
-    }
-    return {};
-  }
-}
+import '../widgets/quiz_slider_app_bar.dart';
+import '../widgets/quiz_slider_body.dart';
+import '../widgets/quiz_slider_bottom_bar.dart';
+import 'quiz_questions_slider_screen_draft.dart';
 
 class QuizQuestionsSliderScreen extends StatefulWidget {
   const QuizQuestionsSliderScreen({
@@ -55,7 +35,9 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   late final PageController _pageController;
   late int _currentIndex;
   late List<GlobalKey<QuestionFormBodyState>> _formKeys;
-  final List<_DraftQuestion> _drafts = [];
+  final List<DraftQuestion> _drafts = [];
+  final Set<String> _pendingDeletions = {};
+  bool _wasBatchSaving = false;
 
   @override
   void initState() {
@@ -68,14 +50,14 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   void _initDrafts() {
     for (final q in widget.quiz.questions) {
       _drafts.add(
-        _DraftQuestion(
-          existingQuestionId: q.question,
+        DraftQuestion(
+          existingQuizQuestionId: q.name,
           originalData: q,
           marks: q.marks,
         ),
       );
     }
-    if (_drafts.isEmpty) _drafts.add(_DraftQuestion());
+    if (_drafts.isEmpty) _drafts.add(DraftQuestion());
     _initFormKeys();
   }
 
@@ -97,25 +79,33 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   }
 
   void _goToBank() async {
+    final blocked = _drafts
+        .map((d) => d.existingQuizQuestionId ?? d.sourceBankQuestionName)
+        .whereType<String>()
+        .toSet();
+
     final selected = await Navigator.push<List<QuestionModel>>(
       context,
       MaterialPageRoute(
-        builder: (_) => QuestionBankScreen(blockedTypes: _blockedBankTypes()),
+        builder: (_) => QuestionBankScreen(
+          blockedTypes: _blockedBankTypes(),
+          blockedQuestionNames: blocked,
+        ),
       ),
     );
 
     if (selected != null && selected.isNotEmpty && mounted) {
       setState(() {
-        if (_drafts.length == 1 &&
-            _drafts[0].existingQuestionId == null &&
-            _drafts[0].inlineData == null &&
-            _drafts[0].bankData == null &&
-            _drafts[0].originalData == null) {
+        if (_drafts.length == 1 && _drafts[0].isEmptyDraft) {
           _drafts.clear();
         }
         for (final q in selected) {
           _drafts.add(
-            _DraftQuestion(existingQuestionId: q.name, bankData: q, marks: 1),
+            DraftQuestion(
+              sourceBankQuestionName: q.name,
+              bankData: q,
+              marks: 1,
+            ),
           );
         }
         _initFormKeys();
@@ -157,7 +147,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   void _onAddNew() {
     if (_saveCurrentQuestionLocally()) {
       setState(() {
-        _drafts.add(_DraftQuestion());
+        _drafts.add(DraftQuestion());
         _initFormKeys();
       });
       _pageController.nextPage(
@@ -170,23 +160,86 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   void _onDone() {
     _saveCurrentQuestionLocally();
 
-    final payload = _drafts.map((d) => d.toPayload()).toList();
-    payload.removeWhere((element) => element.isEmpty);
-    context.read<QuizDetailsCubit>().updateSettings({'questions': payload});
+    final additions = <Map<String, dynamic>>[];
+    final deletions = Set<String>.from(_pendingDeletions);
 
-    if (mounted) {
-      AppSnackBar.showSuccess(context, context.l10n.quizSavedSuccess);
-      Navigator.pop(context);
+    for (int i = 0; i < _drafts.length; i++) {
+      final draft = _drafts[i];
+      if (draft.isEmptyDraft) continue;
+
+      // Ensure we don't allow partially filled drafts
+      if (draft.inlineData == null &&
+          draft.bankData == null &&
+          draft.originalData == null) {
+        AppSnackBar.showError(
+          context,
+          context.l10n.pleaseCompleteQuestion(i + 1),
+        );
+        _pageController.jumpToPage(i);
+        return;
+      }
+
+      final payload = draft.toPayload();
+      if (payload != null) {
+        additions.add(payload);
+        // If an existing question was edited (inline payload), we must delete the original
+        if (draft.existingQuizQuestionId != null) {
+          deletions.add(draft.existingQuizQuestionId!);
+        }
+      } else if (draft.existingQuizQuestionId != null) {
+        // If it's an existing question that wasn't edited, ensure it's not in pendingDeletions
+        // (This handles the case where it might have been restored to original state)
+        deletions.remove(draft.existingQuizQuestionId!);
+      }
     }
+
+    if (additions.isEmpty && deletions.isEmpty) {
+      Navigator.pop(context);
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(context.l10n.confirm),
+        content: Text(
+          context.l10n.questionsToDeleteAndAdd(
+            deletions.length,
+            additions.length,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(context.l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              context.read<QuizDetailsCubit>().saveQuizQuestions(
+                additions,
+                deletions,
+              );
+            },
+            child: Text(context.l10n.confirm),
+          ),
+        ],
+      ),
+    );
   }
 
   void _removeCurrentQuestion() {
     if (_drafts.isEmpty) return;
 
+    final draft = _drafts[_currentIndex];
+    if (draft.existingQuizQuestionId != null) {
+      _pendingDeletions.add(draft.existingQuizQuestionId!);
+    }
+
     setState(() {
       _drafts.removeAt(_currentIndex);
       if (_drafts.isEmpty) {
-        _drafts.add(_DraftQuestion());
+        _drafts.add(DraftQuestion());
         _currentIndex = 0;
       } else if (_currentIndex >= _drafts.length) {
         _currentIndex = _drafts.length - 1;
@@ -211,7 +264,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     return null;
   }
 
-  QuestionModel _questionFromInline(_DraftQuestion draft) {
+  QuestionModel _questionFromInline(DraftQuestion draft) {
     final data = draft.inlineData!;
     final typeStr = data['type'] as String?;
     final type = switch (typeStr) {
@@ -222,7 +275,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     };
 
     return QuestionModel(
-      name: draft.existingQuestionId ?? '',
+      name: draft.existingQuizQuestionId ?? draft.sourceBankQuestionName ?? '',
       question: data['question'] ?? '',
       type: type,
       multiple: data['multiple'] ?? 0,
@@ -295,35 +348,115 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<QuizDetailsCubit, QuizDetailsState>(
-      builder: (context, quizState) {
-        final isLastSlide = _currentIndex == _drafts.length - 1;
+    final bool hasPendingChanges =
+        _pendingDeletions.isNotEmpty ||
+        _drafts.any((d) => d.toPayload() != null);
 
-        return Scaffold(
-          appBar: _SliderAppBar(
-            currentIndex: _currentIndex,
-            total: _drafts.length,
-            onDelete: _removeCurrentQuestion,
-            onBank: isLastSlide ? _goToBank : null,
-          ),
-          body: _SliderBody(
-            pageController: _pageController,
-            onPageChanged: _onPageChanged,
-            drafts: _drafts,
-            formKeys: _formKeys,
-            buildInitialQuestion: _buildInitialQuestion,
-          ),
-          bottomNavigationBar: _SliderBottomBar(
-            currentIndex: _currentIndex,
-            isLastSlide: isLastSlide,
-            onBack: _onBack,
-            onNext: _onNext,
-            onAddNew: _onAddNew,
-            onDone: _onDone,
-            onSave: _onSaveLocally,
+    return PopScope(
+      canPop: !hasPendingChanges,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        final confirm = await showDialog<bool>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text(context.l10n.confirm),
+            content: Text(context.l10n.unsavedChangesDiscard),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx, false),
+                child: Text(context.l10n.cancel),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(ctx, true),
+                child: Text(context.l10n.discard),
+              ),
+            ],
           ),
         );
+        if (confirm == true && context.mounted) {
+          Navigator.pop(context);
+        }
       },
+      child: BlocConsumer<QuizDetailsCubit, QuizDetailsState>(
+        listener: (context, state) {
+          if (_wasBatchSaving && !state.isBatchSaving) {
+            if (state.mutationError != null && state.batchDeleteTotal == 0) {
+              // Failed during additions phase
+              AppSnackBar.showError(context, state.mutationError!);
+            } else {
+              // Finished deletions phase
+              if (state.batchDeleteFailures.isNotEmpty) {
+                AppSnackBar.showError(
+                  context,
+                  context.l10n.quizUpdatedWithErrors(
+                    state.batchDeleteFailures.length,
+                  ),
+                );
+              } else {
+                AppSnackBar.showSuccess(context, context.l10n.quizSavedSuccess);
+              }
+              Navigator.pop(context);
+            }
+          }
+          _wasBatchSaving = state.isBatchSaving;
+        },
+        builder: (context, quizState) {
+          final isLastSlide = _currentIndex == _drafts.length - 1;
+
+          return Stack(
+            children: [
+              Scaffold(
+                appBar: SliderAppBar(
+                  currentIndex: _currentIndex,
+                  total: _drafts.length,
+                  onDelete: _removeCurrentQuestion,
+                  onBank: isLastSlide ? _goToBank : null,
+                ),
+                body: SliderBody(
+                  pageController: _pageController,
+                  onPageChanged: _onPageChanged,
+                  drafts: _drafts,
+                  formKeys: _formKeys,
+                  buildInitialQuestion: _buildInitialQuestion,
+                ),
+                bottomNavigationBar: SliderBottomBar(
+                  currentIndex: _currentIndex,
+                  isLastSlide: isLastSlide,
+                  onBack: _onBack,
+                  onNext: _onNext,
+                  onAddNew: _onAddNew,
+                  onDone: _onDone,
+                  onSave: _onSaveLocally,
+                ),
+              ),
+              if (quizState.isBatchSaving)
+                Container(
+                  color: Colors.black54,
+                  child: Center(
+                    child: Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(24.r),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircularProgressIndicator(
+                              value: quizState.batchDeleteTotal > 0
+                                  ? quizState.batchDeleteCompleted /
+                                        quizState.batchDeleteTotal
+                                  : null,
+                            ),
+                            SizedBox(height: 16.h),
+                            Text(context.l10n.savingQuiz),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          );
+        },
+      ),
     );
   }
 
@@ -338,161 +471,5 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   void _onSaveLocally() {
     _saveCurrentQuestionLocally();
     AppSnackBar.showSuccess(context, context.l10n.questionSavedDraft);
-  }
-}
-
-class _SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _SliderAppBar({
-    required this.currentIndex,
-    required this.total,
-    required this.onDelete,
-    this.onBank,
-  });
-
-  final int currentIndex;
-  final int total;
-  final VoidCallback onDelete;
-  final VoidCallback? onBank;
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        icon: const Icon(Icons.close),
-        onPressed: () => Navigator.pop(context),
-      ),
-      leadingWidth: 20.w,
-      title: Text(
-        context.l10n.questionOfTotal(currentIndex + 1, total),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
-      actionsPadding: EdgeInsets.symmetric(horizontal: 1.w),
-      actions: [
-        if (onBank != null)
-          TextButton.icon(
-            onPressed: onBank,
-            icon: Icon(Icons.library_books_outlined, size: 16.r),
-            label: Text(context.l10n.questionBankTitle),
-          ),
-        IconButton(
-          icon: Icon(
-            Icons.delete_outline,
-            color: Theme.of(context).colorScheme.error,
-          ),
-          onPressed: onDelete,
-        ),
-      ],
-    );
-  }
-}
-
-class _SliderBody extends StatelessWidget {
-  const _SliderBody({
-    required this.pageController,
-    required this.onPageChanged,
-    required this.drafts,
-    required this.formKeys,
-    required this.buildInitialQuestion,
-  });
-
-  final PageController pageController;
-  final ValueChanged<int> onPageChanged;
-  final List<_DraftQuestion> drafts;
-  final List<GlobalKey<QuestionFormBodyState>> formKeys;
-  final QuestionModel? Function(int) buildInitialQuestion;
-
-  @override
-  Widget build(BuildContext context) {
-    final isTablet = context.isTabletLayout;
-
-    return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: isTablet ? 720.w : double.infinity,
-        ),
-        child: PageView.builder(
-          controller: pageController,
-          onPageChanged: onPageChanged,
-          itemCount: drafts.length,
-          itemBuilder: (context, index) {
-            final initialQuestion = buildInitialQuestion(index);
-            final initialMarks = drafts[index].marks;
-
-            return QuestionFormBody(
-              key: formKeys[index],
-              initialQuestion: initialQuestion,
-              initialMarks: initialMarks,
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class _SliderBottomBar extends StatelessWidget {
-  const _SliderBottomBar({
-    required this.currentIndex,
-    required this.isLastSlide,
-    required this.onBack,
-    required this.onNext,
-    required this.onAddNew,
-    required this.onDone,
-    required this.onSave,
-  });
-
-  final int currentIndex;
-  final bool isLastSlide;
-  final VoidCallback onBack;
-  final VoidCallback onNext;
-  final VoidCallback onAddNew;
-  final VoidCallback onDone;
-  final VoidCallback onSave;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(
-                context,
-              ).colorScheme.outlineVariant.withValues(alpha: 0.4),
-            ),
-          ),
-        ),
-        child: Row(
-          children: [
-            TextButton(
-              onPressed: currentIndex > 0 ? onBack : null,
-              child: Text(context.l10n.back),
-            ),
-            const Spacer(),
-            if (isLastSlide) ...[
-              FilledButton(onPressed: onDone, child: Text(context.l10n.done)),
-              SizedBox(width: 8.w),
-              OutlinedButton(
-                onPressed: onAddNew,
-                child: Text(context.l10n.addNew),
-              ),
-            ] else ...[
-              OutlinedButton(
-                onPressed: onSave,
-                child: Text(context.l10n.saveLocally),
-              ),
-              SizedBox(width: 8.w),
-              FilledButton(onPressed: onNext, child: Text(context.l10n.next)),
-            ],
-          ],
-        ),
-      ),
-    );
   }
 }
