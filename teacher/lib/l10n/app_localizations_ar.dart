@@ -489,6 +489,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get lessonDeletedSuccess => 'تم حذف الدرس بنجاح';
 
   @override
+  String get confirmRemoveQuizFromLessonTitle => 'إزالة الاختبار';
+
+  @override
+  String get confirmRemoveQuizFromLesson =>
+      'هل أنت متأكد من رغبتتك في إزالة هذا الاختبار من الدرس؟';
+
+  @override
+  String get selectQuizTitle => 'اختيار اختبار';
+
+  @override
+  String get searchQuizHint => 'البحث عن اختبارات...';
+
+  @override
+  String get noQuizzesFound => 'لا توجد اختبارات';
+
+  @override
   String get lessonTitleLabel => 'عنوان الدرس';
 
   @override

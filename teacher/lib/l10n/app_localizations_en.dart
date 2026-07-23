@@ -491,6 +491,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lessonDeletedSuccess => 'Lesson deleted successfully';
 
   @override
+  String get confirmRemoveQuizFromLessonTitle => 'Remove Quiz';
+
+  @override
+  String get confirmRemoveQuizFromLesson =>
+      'Are you sure you want to remove this quiz from the lesson?';
+
+  @override
+  String get selectQuizTitle => 'Select Quiz';
+
+  @override
+  String get searchQuizHint => 'Search quizzes...';
+
+  @override
+  String get noQuizzesFound => 'No quizzes found';
+
+  @override
   String get lessonTitleLabel => 'Lesson Title';
 
   @override

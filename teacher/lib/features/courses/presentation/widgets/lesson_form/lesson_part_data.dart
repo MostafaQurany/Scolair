@@ -1,6 +1,6 @@
 import 'dart:io';
 
-enum LessonPartType { markdown, youtube, video, pdf }
+enum LessonPartType { markdown, youtube, video, pdf, quiz }
 
 class LessonPartData {
   const LessonPartData({

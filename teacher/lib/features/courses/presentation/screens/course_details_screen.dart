@@ -215,9 +215,11 @@ class _CourseDetailsViewState extends State<_CourseDetailsView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  context.l10n.courseOutline,
-                  style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    context.l10n.courseOutline,
+                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
                 ),
                 if (canManage)
                   TextButton.icon(

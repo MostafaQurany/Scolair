@@ -284,6 +284,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     return QuestionModel(
       name: draft.existingQuizQuestionId ?? draft.sourceBankQuestionName ?? '',
       question: data['question'] ?? '',
+      attachment: data['attachment'],
       type: type,
       multiple: data['multiple'] ?? 0,
       option1: data['option_1'],
@@ -328,6 +329,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     return QuestionModel(
       name: q.question,
       question: q.questionDetail ?? q.question,
+      attachment: q.attachment,
       type: q.type ?? ApiQuestionType.choices,
       multiple: q.multiple,
       option1: q.option1,

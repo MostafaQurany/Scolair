@@ -646,34 +646,6 @@ class GetInstructorsResponseData {
   Map<String, dynamic> toJson() => _$GetInstructorsResponseDataToJson(this);
 }
 
-@JsonSerializable()
-class UploadFileMessage {
-  const UploadFileMessage({required this.fileUrl, this.name});
-
-  @JsonKey(name: 'file_url', fromJson: _stringFromJson)
-  final String fileUrl;
-  @JsonKey(fromJson: _nullableStringFromJson)
-  final String? name;
-
-  factory UploadFileMessage.fromJson(Map<String, dynamic> json) =>
-      _$UploadFileMessageFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UploadFileMessageToJson(this);
-}
-
-@JsonSerializable()
-class UploadFileResponseData {
-  const UploadFileResponseData({required this.message});
-
-  @JsonKey(fromJson: _uploadFileMessageFromJson)
-  final UploadFileMessage message;
-
-  factory UploadFileResponseData.fromJson(Map<String, dynamic> json) =>
-      _$UploadFileResponseDataFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UploadFileResponseDataToJson(this);
-}
-
 // --- Safe JSON converters for Frappe dynamic/null responses ---
 
 Map<String, dynamic> _asStringMap(Object? json) {
@@ -768,9 +740,6 @@ LessonDetailModel _lessonDetailFromJson(Object? json) =>
 
 MyCoursesData _myCoursesDataFromJson(Object? json) =>
     MyCoursesData.fromJson(_asStringMap(json));
-
-UploadFileMessage _uploadFileMessageFromJson(Object? json) =>
-    UploadFileMessage.fromJson(_asStringMap(json));
 
 List<CourseModel> _courseListFromJson(Object? json) {
   if (json is! List) return <CourseModel>[];

@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/paginated_list.dart';
 import '../../data/models/courses_models.dart';
@@ -61,20 +61,17 @@ abstract class CoursesRepository {
     required bool includeInPreview,
     Map<String, dynamic>? content,
   });
-  Future<ApiResult<String>> uploadFile({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  });
+
   Future<ApiResult<void>> updateLesson({
     required String lessonName,
     required String title,
     required bool includeInPreview,
     Map<String, dynamic>? content,
   });
-  Future<ApiResult<void>> deleteLesson(String lessonName);
+  Future<ApiResult<void>> deleteLesson({
+    required String lessonName,
+    required String chapterName,
+  });
   Future<ApiResult<MyCoursesData>> myCourses();
   Future<ApiResult<MyCoursesData>> sharedCourses();
   Future<ApiResult<List<StudentModel>>> getStudents(String courseName);

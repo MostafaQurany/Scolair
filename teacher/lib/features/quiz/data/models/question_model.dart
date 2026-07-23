@@ -6,6 +6,7 @@ class QuestionModel {
     required this.name,
     required this.question,
     required this.type,
+    this.attachment,
     this.multiple = 0,
     this.option1,
     this.option2,
@@ -33,6 +34,8 @@ class QuestionModel {
   final String name;
   @JsonKey(fromJson: _stringFromJson)
   final String question;
+  @JsonKey(fromJson: _nullableStringFromJson)
+  final String? attachment;
   final ApiQuestionType type;
   @JsonKey(fromJson: _intFromJson)
   final int multiple;

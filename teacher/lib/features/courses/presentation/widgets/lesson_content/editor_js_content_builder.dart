@@ -60,12 +60,12 @@ class EditorJsContentBuilder {
 
   static Map<String, dynamic> quizBlock(String quizName) => {
     'time': DateTime.now().millisecondsSinceEpoch,
-    'blocks': [
-      {
-        'type': 'quiz',
-        'data': {'quiz': quizName},
-      },
-    ],
+    'blocks': [quizBlockData(quizName)],
+  };
+
+  static Map<String, dynamic> quizBlockData(String quizName) => {
+    'type': 'quiz',
+    'data': {'quiz': quizName},
   };
 
   static Map<String, dynamic> codeBlock(

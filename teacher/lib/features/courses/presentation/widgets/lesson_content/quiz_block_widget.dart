@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../../core/localization/localization_extension.dart';
-import '../../../../../core/widgets/app_snack_bar.dart';
+import '../../../../quiz/presentation/screens/quiz_details_screen.dart';
 
 class QuizBlockWidget extends StatelessWidget {
-  const QuizBlockWidget({required this.quizName, super.key});
+  const QuizBlockWidget({
+    required this.quizName,
+    this.onRemoveQuiz,
+    super.key,
+  });
 
   final String quizName;
+  final VoidCallback? onRemoveQuiz;
 
   @override
   Widget build(BuildContext context) {
@@ -59,23 +64,67 @@ class QuizBlockWidget extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16.h),
-            ElevatedButton.icon(
-              onPressed: () {
-                AppSnackBar.showSuccess(context, context.l10n.quizPlaceholder);
-              },
-              icon: const Icon(Icons.assignment_turned_in),
-              label: Text(context.l10n.startQuizNow),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: colorScheme.primary,
-                foregroundColor: colorScheme.onPrimary,
-                minimumSize: Size(double.infinity, 44.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => QuizDetailsScreen(quizName: quizName),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.edit_outlined),
+                    label: Text(context.l10n.edit),
+                  ),
                 ),
-              ),
+                if (onRemoveQuiz != null) ...[
+                  SizedBox(width: 12.w),
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      onPressed: () => _confirmRemove(context),
+                      icon: const Icon(Icons.delete_outline),
+                      label: Text(context.l10n.delete),
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: colorScheme.error,
+                        side: BorderSide(color: colorScheme.error),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void _confirmRemove(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(context.l10n.confirmRemoveQuizFromLessonTitle),
+        content: Text(context.l10n.confirmRemoveQuizFromLesson),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(context.l10n.cancel),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(context);
+              onRemoveQuiz?.call();
+            },
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+            ),
+            child: Text(context.l10n.delete),
+          ),
+        ],
       ),
     );
   }

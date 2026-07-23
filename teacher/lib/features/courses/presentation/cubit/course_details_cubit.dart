@@ -255,7 +255,7 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
     );
   }
 
-  Future<void> deleteLesson(String lessonName) async {
+  Future<void> deleteLesson(String lessonName, String chapterName) async {
     emit(
       state.copyWith(
         isMutating: true,
@@ -264,7 +264,10 @@ class CourseDetailsCubit extends Cubit<CourseDetailsState> {
       ),
     );
 
-    final result = await _deleteLessonUseCase(lessonName);
+    final result = await _deleteLessonUseCase(
+      lessonName: lessonName,
+      chapterName: chapterName,
+    );
     result.when(
       success: (_) {
         emit(

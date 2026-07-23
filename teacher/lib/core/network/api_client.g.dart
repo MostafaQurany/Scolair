@@ -636,9 +636,6 @@ class _ApiClient implements ApiClient {
   Future<UploadFileResponseData> uploadFile({
     required MultipartFile file,
     required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -646,9 +643,6 @@ class _ApiClient implements ApiClient {
     final _data = FormData();
     _data.files.add(MapEntry('file', file));
     _data.fields.add(MapEntry('is_private', isPrivate.toString()));
-    _data.fields.add(MapEntry('doctype', doctype));
-    _data.fields.add(MapEntry('docname', docname));
-    _data.fields.add(MapEntry('fieldname', fieldname));
     final _options = _setStreamType<UploadFileResponseData>(
       Options(
             method: 'POST',

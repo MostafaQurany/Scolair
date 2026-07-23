@@ -22,6 +22,7 @@ class DraftQuestion {
     if (originalData != null) {
       compareTo = {
         'question': originalData!.questionDetail ?? originalData!.question,
+        'attachment': originalData!.attachment,
         'type': _typeToString(originalData!.type ?? ApiQuestionType.choices),
         'multiple': originalData!.multiple,
         'option_1': originalData!.option1,
@@ -48,6 +49,7 @@ class DraftQuestion {
     } else if (bankData != null) {
       compareTo = {
         'question': bankData!.question,
+        'attachment': bankData!.attachment,
         'type': _typeToString(bankData!.type),
         'multiple': bankData!.multiple,
         'option_1': bankData!.option1,
@@ -82,7 +84,9 @@ class DraftQuestion {
       return val1 != val2;
     }
 
-    if (isDifferent('question') || isDifferent('type')) return true;
+    if (inlineData!.containsKey('local_attachment_path') && inlineData!['local_attachment_path'] != null) return true;
+
+    if (isDifferent('question') || isDifferent('type') || isDifferent('attachment')) return true;
 
     if (currentType == 'Choices') {
       if (isDifferent('multiple')) return true;

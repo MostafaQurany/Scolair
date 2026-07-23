@@ -58,6 +58,7 @@ dependencies:
   logger: ^2.7.0
   better_player_plus: ^1.2.1
   pdfx: ^2.9.0
+  flutter_svg: ^2.3.0
 
 dev_dependencies:
   flutter_test:

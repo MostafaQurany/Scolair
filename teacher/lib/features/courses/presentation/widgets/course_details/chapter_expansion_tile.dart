@@ -39,7 +39,11 @@ class ChapterExpansionTile extends StatelessWidget {
     }
   }
 
-  Future<void> _deleteLesson(BuildContext context, String lessonName) async {
+  Future<void> _deleteLesson(
+    BuildContext context,
+    String lessonName,
+    String chapterName,
+  ) async {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => DeleteConfirmationDialog(
@@ -49,7 +53,7 @@ class ChapterExpansionTile extends StatelessWidget {
     );
 
     if (confirmed == true && context.mounted) {
-      context.read<CourseDetailsCubit>().deleteLesson(lessonName);
+      context.read<CourseDetailsCubit>().deleteLesson(lessonName, chapterName);
     }
   }
 
@@ -251,7 +255,7 @@ class ChapterExpansionTile extends StatelessWidget {
                       },
                     );
                   } else if (value == 'delete') {
-                    _deleteLesson(context, lesson.name);
+                    _deleteLesson(context, lesson.name, chapter.name);
                   }
                 },
                 itemBuilder: (context) => [

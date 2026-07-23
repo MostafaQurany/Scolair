@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/paginated_list.dart';
 import '../../data/models/courses_models.dart';
@@ -164,23 +164,7 @@ class CreateLessonUseCase {
   );
 }
 
-class UploadFileUseCase {
-  const UploadFileUseCase(this._repository);
-  final CoursesRepository _repository;
-  Future<ApiResult<String>> call({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  }) => _repository.uploadFile(
-    file: file,
-    isPrivate: isPrivate,
-    doctype: doctype,
-    docname: docname,
-    fieldname: fieldname,
-  );
-}
+
 
 class UpdateLessonUseCase {
   const UpdateLessonUseCase(this._repository);
@@ -201,8 +185,13 @@ class UpdateLessonUseCase {
 class DeleteLessonUseCase {
   const DeleteLessonUseCase(this._repository);
   final CoursesRepository _repository;
-  Future<ApiResult<void>> call(String lessonName) =>
-      _repository.deleteLesson(lessonName);
+  Future<ApiResult<void>> call({
+    required String lessonName,
+    required String chapterName,
+  }) => _repository.deleteLesson(
+    lessonName: lessonName,
+    chapterName: chapterName,
+  );
 }
 
 class GetMyCoursesUseCase {

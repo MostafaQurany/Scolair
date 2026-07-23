@@ -6,6 +6,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../../core/localization/localization_extension.dart';
 import 'lesson_part_data.dart';
+import 'quiz_selection_dialog.dart';
 
 class LessonPartDraft {
   LessonPartDraft({
@@ -140,6 +141,26 @@ class _LessonPartCard extends StatelessWidget {
             if (part.type == LessonPartType.video ||
                 part.type == LessonPartType.pdf)
               _UploadPartField(part: part, onChanged: onChanged)
+            else if (part.type == LessonPartType.quiz)
+              TextFormField(
+                controller: part.controller,
+                readOnly: true,
+                decoration: InputDecoration(
+                  labelText: context.l10n.quizNameLabel,
+                  hintText: context.l10n.selectQuizTitle,
+                  suffixIcon: const Icon(Icons.arrow_drop_down),
+                ),
+                onTap: () async {
+                  final selectedQuiz = await showDialog<String>(
+                    context: context,
+                    builder: (_) => const QuizSelectionDialog(),
+                  );
+                  if (selectedQuiz != null) {
+                    part.controller.text = selectedQuiz;
+                    onChanged();
+                  }
+                },
+              )
             else
               TextFormField(
                 controller: part.controller,
@@ -217,6 +238,7 @@ IconData _iconForType(LessonPartType type) => switch (type) {
   LessonPartType.youtube => Icons.play_circle_outline,
   LessonPartType.video => Icons.video_file_outlined,
   LessonPartType.pdf => Icons.picture_as_pdf_outlined,
+  LessonPartType.quiz => Icons.quiz_outlined,
 };
 
 String _labelForType(BuildContext context, LessonPartType type) =>
@@ -225,4 +247,5 @@ String _labelForType(BuildContext context, LessonPartType type) =>
       LessonPartType.youtube => context.l10n.contentTypeYouTube,
       LessonPartType.video => context.l10n.contentTypeVideo,
       LessonPartType.pdf => context.l10n.contentTypePdf,
+      LessonPartType.quiz => context.l10n.contentTypeQuiz,
     };

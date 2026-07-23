@@ -36,6 +36,8 @@ import '../network/api_client.dart';
 import '../network/dio_factory.dart';
 import '../storage/app_secure_storage.dart';
 import '../storage/app_shared_preferences.dart';
+import '../repositories/upload_repository.dart';
+import '../usecases/upload_file_usecase.dart';
 import '../../features/courses/data/datasources/remote/courses_remote_datasource.dart';
 import '../../features/courses/data/repositories/courses_repository_impl.dart';
 import '../../features/courses/domain/repositories/courses_repository.dart';
@@ -115,6 +117,10 @@ Future<void> setupDependencyInjection() async {
     // Auth — data
     ..registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(getIt()),
+    )
+    // Repositories
+    ..registerLazySingleton<UploadRepository>(
+      () => UploadRepositoryImpl(getIt()),
     )
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(getIt(), getIt(), getIt()),
@@ -249,7 +255,7 @@ Future<void> setupDependencyInjection() async {
       () => CourseStudentsCubit(getIt(), getIt(), getIt()),
     )
     ..registerFactory<LessonDetailsCubit>(
-      () => LessonDetailsCubit(getIt(), getIt()),
+      () => LessonDetailsCubit(getIt(), getIt(), getIt()),
     )
     ..registerFactory<CourseFormCubit>(
       () => CourseFormCubit(getIt(), getIt(), getIt()),
@@ -278,7 +284,7 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<QuizzesCubit>(() => QuizzesCubit(getIt(), getIt()))
     ..registerFactory<QuizFormCubit>(() => QuizFormCubit(getIt(), getIt()))
     ..registerFactory<QuizDetailsCubit>(
-      () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt()),
+      () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt(), getIt()),
     )
     // Question Feature
     ..registerLazySingleton<question_data.QuestionRemoteDataSource>(
@@ -303,7 +309,7 @@ Future<void> setupDependencyInjection() async {
       () => question_domain.DeleteQuestionUseCase(getIt()),
     )
     ..registerFactory<question_presentation.QuestionFormCubit>(
-      () => question_presentation.QuestionFormCubit(getIt(), getIt()),
+      () => question_presentation.QuestionFormCubit(getIt(), getIt(), getIt()),
     )
     ..registerFactory<question_presentation.QuestionBankCubit>(
       () => question_presentation.QuestionBankCubit(

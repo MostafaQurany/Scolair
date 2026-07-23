@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import '../../../../core/errors/error_handler.dart';
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/paginated_list.dart';
@@ -185,23 +185,6 @@ class CoursesRepositoryImpl implements CoursesRepository {
     return response.data;
   });
 
-  @override
-  Future<ApiResult<String>> uploadFile({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  }) => _getResult(() async {
-    final response = await _remoteDataSource.uploadFile(
-      file: file,
-      isPrivate: isPrivate,
-      doctype: doctype,
-      docname: docname,
-      fieldname: fieldname,
-    );
-    return response.message.fileUrl;
-  });
 
   @override
   Future<ApiResult<void>> updateLesson({
@@ -219,8 +202,15 @@ class CoursesRepositoryImpl implements CoursesRepository {
   );
 
   @override
-  Future<ApiResult<void>> deleteLesson(String lessonName) =>
-      _getResult(() => _remoteDataSource.deleteLesson({'lesson': lessonName}));
+  Future<ApiResult<void>> deleteLesson({
+    required String lessonName,
+    required String chapterName,
+  }) => _getResult(
+    () => _remoteDataSource.deleteLesson({
+      'lesson': lessonName,
+      'chapter': chapterName,
+    }),
+  );
 
   @override
   Future<ApiResult<MyCoursesData>> myCourses() =>

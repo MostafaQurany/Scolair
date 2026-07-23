@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 
 import '../../../../../core/network/api_client.dart';
 import '../../models/courses_models.dart';
@@ -33,13 +31,7 @@ abstract class CoursesRemoteDataSource {
   });
   Future<GetLessonResponseData> getLesson(String lessonName);
   Future<CreateLessonResponseData> createLesson(Map<String, dynamic> body);
-  Future<UploadFileResponseData> uploadFile({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  });
+
   Future<void> updateLesson(Map<String, dynamic> body);
   Future<void> deleteLesson(Map<String, dynamic> body);
   Future<MyCoursesResponseData> myCourses();
@@ -131,27 +123,6 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   Future<CreateLessonResponseData> createLesson(Map<String, dynamic> body) =>
       _apiClient.createLesson(body);
 
-  @override
-  Future<UploadFileResponseData> uploadFile({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  }) async {
-    final fileName = file.path.split(Platform.pathSeparator).last;
-    final multipartFile = await MultipartFile.fromFile(
-      file.path,
-      filename: fileName,
-    );
-    return _apiClient.uploadFile(
-      file: multipartFile,
-      isPrivate: isPrivate,
-      doctype: doctype,
-      docname: docname,
-      fieldname: fieldname,
-    );
-  }
 
   @override
   Future<void> updateLesson(Map<String, dynamic> body) =>

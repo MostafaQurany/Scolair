@@ -16,6 +16,7 @@ import '../../features/auth/data/models/register_request_data.dart';
 import '../../features/auth/data/models/register_response_data.dart';
 import '../../features/auth/data/models/reset_password_request_data.dart';
 import '../../features/courses/data/models/courses_models.dart';
+import '../models/upload_file_response.dart';
 import '../../features/quiz/data/models/quiz_models.dart';
 import 'api_endpoints.dart';
 
@@ -126,9 +127,6 @@ abstract class ApiClient {
   Future<UploadFileResponseData> uploadFile({
     @Part(name: 'file') required MultipartFile file,
     @Part(name: 'is_private') required int isPrivate,
-    @Part(name: 'doctype') required String doctype,
-    @Part(name: 'docname') required String docname,
-    @Part(name: 'fieldname') required String fieldname,
   });
 
   @PUT(ApiEndpoints.updateLesson)

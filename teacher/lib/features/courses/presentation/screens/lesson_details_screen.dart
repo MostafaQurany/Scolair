@@ -35,7 +35,10 @@ class LessonDetailsScreen extends StatelessWidget {
     );
 
     if (confirmed == true && context.mounted) {
-      final res = await getIt<DeleteLessonUseCase>().call(lessonName);
+      final res = await getIt<DeleteLessonUseCase>().call(
+        lessonName: lessonName,
+        chapterName: chapterName,
+      );
       if (context.mounted) {
         res.when(
           success: (_) {
@@ -207,7 +210,14 @@ class _LessonDetailsView extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             // Editor.js content renderer
-            EditorJsRenderer(content: lesson.content),
+            EditorJsRenderer(
+              content: lesson.content,
+              onRemoveQuiz: (quizName) {
+                context.read<LessonDetailsCubit>().removeQuizFromLesson(
+                  quizName,
+                );
+              },
+            ),
 
             // Instructor notes or files if present
             if (lesson.instructorNotes != null &&

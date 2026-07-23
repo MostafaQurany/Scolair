@@ -4,6 +4,7 @@ import '../../../../core/localization/localization_extension.dart';
 
 class SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SliderAppBar({
+    super.key,
     required this.currentIndex,
     required this.total,
     required this.onDelete,
@@ -23,9 +24,10 @@ class SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         icon: const Icon(Icons.close),
+
         onPressed: () => Navigator.pop(context),
       ),
-      leadingWidth: 20.w,
+      leadingWidth: 40.w,
       title: Text(
         context.l10n.questionOfTotal(currentIndex + 1, total),
         maxLines: 1,
@@ -34,10 +36,9 @@ class SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
       actionsPadding: EdgeInsets.symmetric(horizontal: 1.w),
       actions: [
         if (onBank != null)
-          TextButton.icon(
+          IconButton(
             onPressed: onBank,
             icon: Icon(Icons.library_books_outlined, size: 16.r),
-            label: Text(context.l10n.questionBankTitle),
           ),
         IconButton(
           icon: Icon(
