@@ -36,6 +36,8 @@ import '../network/api_client.dart';
 import '../network/dio_factory.dart';
 import '../storage/app_secure_storage.dart';
 import '../storage/app_shared_preferences.dart';
+import '../repositories/upload_repository.dart';
+import '../usecases/upload_file_usecase.dart';
 import '../../features/courses/data/datasources/remote/courses_remote_datasource.dart';
 import '../../features/courses/data/repositories/courses_repository_impl.dart';
 import '../../features/courses/domain/repositories/courses_repository.dart';
@@ -45,6 +47,7 @@ import '../../features/courses/presentation/cubit/course_details_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_details_cubit.dart';
 import '../../features/courses/presentation/cubit/chapter_lessons_cubit.dart';
 import '../../features/courses/presentation/cubit/course_form_cubit.dart';
+import '../../features/courses/presentation/cubit/course_students_cubit.dart';
 import '../../features/courses/presentation/cubit/lesson_form_cubit.dart';
 import '../../features/quiz/data/datasources/remote/quiz_remote_datasource.dart';
 import '../../features/quiz/data/repositories/quiz_repository_impl.dart';
@@ -114,6 +117,10 @@ Future<void> setupDependencyInjection() async {
     // Auth — data
     ..registerLazySingleton<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(getIt()),
+    )
+    // Repositories
+    ..registerLazySingleton<UploadRepository>(
+      () => UploadRepositoryImpl(getIt()),
     )
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepositoryImpl(getIt(), getIt(), getIt()),
@@ -204,6 +211,27 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<GetMyCoursesUseCase>(
       () => GetMyCoursesUseCase(getIt()),
     )
+    ..registerLazySingleton<GetSharedCoursesUseCase>(
+      () => GetSharedCoursesUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetStudentsUseCase>(
+      () => GetStudentsUseCase(getIt()),
+    )
+    ..registerLazySingleton<AddStudentUseCase>(
+      () => AddStudentUseCase(getIt()),
+    )
+    ..registerLazySingleton<RemoveStudentUseCase>(
+      () => RemoveStudentUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetInstructorsUseCase>(
+      () => GetInstructorsUseCase(getIt()),
+    )
+    ..registerLazySingleton<AddInstructorUseCase>(
+      () => AddInstructorUseCase(getIt()),
+    )
+    ..registerLazySingleton<RemoveInstructorUseCase>(
+      () => RemoveInstructorUseCase(getIt()),
+    )
     // Cubits
     ..registerFactory<CoursesCubit>(
       () => CoursesCubit(getIt(), getIt(), getIt()),
@@ -218,10 +246,16 @@ Future<void> setupDependencyInjection() async {
         getIt(),
         getIt(),
         getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
       ),
     )
+    ..registerFactory<CourseStudentsCubit>(
+      () => CourseStudentsCubit(getIt(), getIt(), getIt()),
+    )
     ..registerFactory<LessonDetailsCubit>(
-      () => LessonDetailsCubit(getIt(), getIt()),
+      () => LessonDetailsCubit(getIt(), getIt(), getIt()),
     )
     ..registerFactory<CourseFormCubit>(
       () => CourseFormCubit(getIt(), getIt(), getIt()),
@@ -250,7 +284,7 @@ Future<void> setupDependencyInjection() async {
     ..registerFactory<QuizzesCubit>(() => QuizzesCubit(getIt(), getIt()))
     ..registerFactory<QuizFormCubit>(() => QuizFormCubit(getIt(), getIt()))
     ..registerFactory<QuizDetailsCubit>(
-      () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt()),
+      () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt(), getIt()),
     )
     // Question Feature
     ..registerLazySingleton<question_data.QuestionRemoteDataSource>(
@@ -275,7 +309,7 @@ Future<void> setupDependencyInjection() async {
       () => question_domain.DeleteQuestionUseCase(getIt()),
     )
     ..registerFactory<question_presentation.QuestionFormCubit>(
-      () => question_presentation.QuestionFormCubit(getIt(), getIt()),
+      () => question_presentation.QuestionFormCubit(getIt(), getIt(), getIt()),
     )
     ..registerFactory<question_presentation.QuestionBankCubit>(
       () => question_presentation.QuestionBankCubit(

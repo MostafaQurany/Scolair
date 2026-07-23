@@ -35,7 +35,10 @@ class LessonDetailsScreen extends StatelessWidget {
     );
 
     if (confirmed == true && context.mounted) {
-      final res = await getIt<DeleteLessonUseCase>().call(lessonName);
+      final res = await getIt<DeleteLessonUseCase>().call(
+        lessonName: lessonName,
+        chapterName: chapterName,
+      );
       if (context.mounted) {
         res.when(
           success: (_) {
@@ -57,6 +60,9 @@ class LessonDetailsScreen extends StatelessWidget {
       create: (_) => getIt<LessonDetailsCubit>()..loadLessonDetails(lessonName),
       child: Scaffold(
         appBar: AppBar(
+          leading: BackButton(
+            color: Theme.of(context).colorScheme.primary,
+          ),
           title: Text(context.l10n.lessonMaterial),
           actions: [
             BlocBuilder<LessonDetailsCubit, LessonDetailsState>(
@@ -204,7 +210,14 @@ class _LessonDetailsView extends StatelessWidget {
             ),
             SizedBox(height: 24.h),
             // Editor.js content renderer
-            EditorJsRenderer(content: lesson.content),
+            EditorJsRenderer(
+              content: lesson.content,
+              onRemoveQuiz: (quizName) {
+                context.read<LessonDetailsCubit>().removeQuizFromLesson(
+                  quizName,
+                );
+              },
+            ),
 
             // Instructor notes or files if present
             if (lesson.instructorNotes != null &&

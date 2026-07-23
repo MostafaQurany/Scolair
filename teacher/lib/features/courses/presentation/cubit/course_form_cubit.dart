@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/usecases/upload_file_usecase.dart';
 import '../../domain/usecases/courses_usecases.dart';
 import 'course_form_state.dart';
 
@@ -99,9 +100,6 @@ class CourseFormCubit extends Cubit<CourseFormState> {
     final result = await _uploadFileUseCase(
       file: imageFile,
       isPrivate: 0,
-      doctype: 'LMS Course',
-      docname: courseName,
-      fieldname: 'image',
     );
 
     return result.when(

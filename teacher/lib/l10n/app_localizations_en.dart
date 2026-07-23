@@ -491,6 +491,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lessonDeletedSuccess => 'Lesson deleted successfully';
 
   @override
+  String get confirmRemoveQuizFromLessonTitle => 'Remove Quiz';
+
+  @override
+  String get confirmRemoveQuizFromLesson =>
+      'Are you sure you want to remove this quiz from the lesson?';
+
+  @override
+  String get selectQuizTitle => 'Select Quiz';
+
+  @override
+  String get searchQuizHint => 'Search quizzes...';
+
+  @override
+  String get noQuizzesFound => 'No quizzes found';
+
+  @override
   String get lessonTitleLabel => 'Lesson Title';
 
   @override
@@ -1627,5 +1643,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String questionsToDeleteAndAdd(int deleteCount, int addCount) {
     return 'You have $deleteCount questions to delete and $addCount questions to add/update. Proceed?';
+  }
+
+  @override
+  String get questionMarksMinError => 'Minimum value is 1';
+
+  @override
+  String get fieldInvalidNumber => 'Invalid number';
+
+  @override
+  String questionsChangesConfirm(
+    int marksCount,
+    int addCount,
+    int deleteCount,
+  ) {
+    return 'You have $marksCount marks updated, $addCount questions added/modified, and $deleteCount questions deleted. Proceed?';
   }
 }

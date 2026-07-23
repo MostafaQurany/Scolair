@@ -956,6 +956,36 @@ abstract class AppLocalizations {
   /// **'Lesson deleted successfully'**
   String get lessonDeletedSuccess;
 
+  /// No description provided for @confirmRemoveQuizFromLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Quiz'**
+  String get confirmRemoveQuizFromLessonTitle;
+
+  /// No description provided for @confirmRemoveQuizFromLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to remove this quiz from the lesson?'**
+  String get confirmRemoveQuizFromLesson;
+
+  /// No description provided for @selectQuizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Quiz'**
+  String get selectQuizTitle;
+
+  /// No description provided for @searchQuizHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search quizzes...'**
+  String get searchQuizHint;
+
+  /// No description provided for @noQuizzesFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No quizzes found'**
+  String get noQuizzesFound;
+
   /// No description provided for @lessonTitleLabel.
   ///
   /// In en, this message translates to:
@@ -3013,6 +3043,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have {deleteCount} questions to delete and {addCount} questions to add/update. Proceed?'**
   String questionsToDeleteAndAdd(int deleteCount, int addCount);
+
+  /// No description provided for @questionMarksMinError.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum value is 1'**
+  String get questionMarksMinError;
+
+  /// No description provided for @fieldInvalidNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid number'**
+  String get fieldInvalidNumber;
+
+  /// No description provided for @questionsChangesConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'You have {marksCount} marks updated, {addCount} questions added/modified, and {deleteCount} questions deleted. Proceed?'**
+  String questionsChangesConfirm(int marksCount, int addCount, int deleteCount);
 }
 
 class _AppLocalizationsDelegate

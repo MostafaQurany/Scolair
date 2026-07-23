@@ -178,6 +178,11 @@
   "lessonCreatedSuccess": "تم إنشاء الدرس بنجاح",
   "lessonUpdatedSuccess": "تم تحديث الدرس بنجاح",
   "lessonDeletedSuccess": "تم حذف الدرس بنجاح",
+  "confirmRemoveQuizFromLessonTitle": "إزالة الاختبار",
+  "confirmRemoveQuizFromLesson": "هل أنت متأكد من رغبتتك في إزالة هذا الاختبار من الدرس؟",
+  "selectQuizTitle": "اختيار اختبار",
+  "searchQuizHint": "البحث عن اختبارات...",
+  "noQuizzesFound": "لا توجد اختبارات",
   "lessonTitleLabel": "عنوان الدرس",
   "lessonTitleRequired": "العنوان مطلوب",
   "includeInPreviewLabel": "تضمين في المعاينة",
@@ -775,6 +780,22 @@
         "type": "int"
       },
       "addCount": {
+        "type": "int"
+      }
+    }
+  },
+  "questionMarksMinError": "الحد الأدنى هو 1",
+  "fieldInvalidNumber": "رقم غير صحيح",
+  "questionsChangesConfirm": "لديك {marksCount} درجات معدلة، و {addCount} أسئلة مضافة/معدلة، و {deleteCount} أسئلة محذوفة. هل تريد المتابعة؟",
+  "@questionsChangesConfirm": {
+    "placeholders": {
+      "marksCount": {
+        "type": "int"
+      },
+      "addCount": {
+        "type": "int"
+      },
+      "deleteCount": {
         "type": "int"
       }
     }

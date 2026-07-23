@@ -22,9 +22,14 @@ import 'lesson_content/upload_video_block_widget.dart';
 import 'lesson_content/youtube_embed_block_widget.dart';
 
 class EditorJsRenderer extends StatelessWidget {
-  const EditorJsRenderer({this.content, super.key});
+  const EditorJsRenderer({
+    this.content,
+    this.onRemoveQuiz,
+    super.key,
+  });
 
   final String? content;
+  final void Function(String quizName)? onRemoveQuiz;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +93,12 @@ class EditorJsRenderer extends StatelessWidget {
             }
             return UploadVideoBlockWidget(fileUrl: fileUrl, fileType: fileType);
           case 'quiz':
-            return QuizBlockWidget(quizName: data['quiz'] as String? ?? '');
+            final quizName = data['quiz'] as String? ?? '';
+            return QuizBlockWidget(
+              quizName: quizName,
+              onRemoveQuiz:
+                  onRemoveQuiz != null ? () => onRemoveQuiz!(quizName) : null,
+            );
           case 'table':
             return TableBlockWidget(
               content: data['content'] as List<dynamic>? ?? const [],

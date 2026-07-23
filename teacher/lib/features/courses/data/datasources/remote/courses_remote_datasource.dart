@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 
 import '../../../../../core/network/api_client.dart';
 import '../../models/courses_models.dart';
@@ -33,16 +31,17 @@ abstract class CoursesRemoteDataSource {
   });
   Future<GetLessonResponseData> getLesson(String lessonName);
   Future<CreateLessonResponseData> createLesson(Map<String, dynamic> body);
-  Future<UploadFileResponseData> uploadFile({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  });
+
   Future<void> updateLesson(Map<String, dynamic> body);
   Future<void> deleteLesson(Map<String, dynamic> body);
   Future<MyCoursesResponseData> myCourses();
+  Future<MyCoursesResponseData> sharedCourses();
+  Future<GetStudentsResponseData> getStudents(String courseName);
+  Future<void> addStudent(Map<String, dynamic> body);
+  Future<void> removeStudent(Map<String, dynamic> body);
+  Future<GetInstructorsResponseData> getInstructors(String courseName);
+  Future<void> addInstructor(Map<String, dynamic> body);
+  Future<void> removeInstructor(Map<String, dynamic> body);
 }
 
 class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
@@ -124,27 +123,6 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
   Future<CreateLessonResponseData> createLesson(Map<String, dynamic> body) =>
       _apiClient.createLesson(body);
 
-  @override
-  Future<UploadFileResponseData> uploadFile({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  }) async {
-    final fileName = file.path.split(Platform.pathSeparator).last;
-    final multipartFile = await MultipartFile.fromFile(
-      file.path,
-      filename: fileName,
-    );
-    return _apiClient.uploadFile(
-      file: multipartFile,
-      isPrivate: isPrivate,
-      doctype: doctype,
-      docname: docname,
-      fieldname: fieldname,
-    );
-  }
 
   @override
   Future<void> updateLesson(Map<String, dynamic> body) =>
@@ -156,4 +134,31 @@ class CoursesRemoteDataSourceImpl implements CoursesRemoteDataSource {
 
   @override
   Future<MyCoursesResponseData> myCourses() => _apiClient.myCourses();
+
+  @override
+  Future<MyCoursesResponseData> sharedCourses() => _apiClient.sharedCourses();
+
+  @override
+  Future<GetStudentsResponseData> getStudents(String courseName) =>
+      _apiClient.getStudents(courseName);
+
+  @override
+  Future<void> addStudent(Map<String, dynamic> body) =>
+      _apiClient.addStudent(body);
+
+  @override
+  Future<void> removeStudent(Map<String, dynamic> body) =>
+      _apiClient.removeStudent(body);
+
+  @override
+  Future<GetInstructorsResponseData> getInstructors(String courseName) =>
+      _apiClient.getInstructors(courseName);
+
+  @override
+  Future<void> addInstructor(Map<String, dynamic> body) =>
+      _apiClient.addInstructor(body);
+
+  @override
+  Future<void> removeInstructor(Map<String, dynamic> body) =>
+      _apiClient.removeInstructor(body);
 }

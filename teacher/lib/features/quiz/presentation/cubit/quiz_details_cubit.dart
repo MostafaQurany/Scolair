@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/usecases/upload_file_usecase.dart';
 import '../../domain/usecases/quiz_usecases.dart';
 import 'quiz_details_state.dart';
 
@@ -9,12 +12,14 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
     this._updateQuizUseCase,
     this._addQuestionToQuizUseCase,
     this._removeQuestionFromQuizUseCase,
+    this._uploadFileUseCase,
   ) : super(const QuizDetailsState());
 
   final GetQuizUseCase _getQuizUseCase;
   final UpdateQuizUseCase _updateQuizUseCase;
   final AddQuestionToQuizUseCase _addQuestionToQuizUseCase;
   final RemoveQuestionFromQuizUseCase _removeQuestionFromQuizUseCase;
+  final UploadFileUseCase _uploadFileUseCase;
 
   Future<void> loadQuiz(String quizName) async {
     emit(
@@ -136,8 +141,9 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
 
   Future<void> saveQuizQuestions(
     List<Map<String, dynamic>> additions,
-    Set<String> deletions,
-  ) async {
+    Set<String> deletions, {
+    List<Map<String, dynamic>> marksUpdates = const [],
+  }) async {
     final currentQuiz = state.quiz;
     if (currentQuiz == null) return;
 
@@ -151,12 +157,40 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
       ),
     );
 
-    // Phase 1: Additions (Update Quiz)
-    if (additions.isNotEmpty) {
+    final allQuestionUpdates = [...marksUpdates, ...additions];
+
+    // Phase 1: Question Updates & Additions (Update Quiz)
+    if (allQuestionUpdates.isNotEmpty) {
+      for (final update in allQuestionUpdates) {
+        if (update.containsKey('inline')) {
+          final inlineData = update['inline'] as Map<String, dynamic>;
+          if (inlineData.containsKey('local_attachment_path')) {
+            final path = inlineData.remove('local_attachment_path') as String;
+            final uploadResult = await _uploadFileUseCase(file: File(path), isPrivate: 0);
+            var hasError = false;
+            uploadResult.when(
+              success: (url) {
+                inlineData['attachment'] = url;
+              },
+              failure: (failure) {
+                hasError = true;
+                emit(
+                  state.copyWith(
+                    isBatchSaving: false,
+                    mutationError: 'Failed to upload attachment: ${failure.message}',
+                  ),
+                );
+              },
+            );
+            if (hasError) return;
+          }
+        }
+      }
+
       final body = {
         'quiz': currentQuiz.name,
         'title': currentQuiz.title,
-        'questions': additions,
+        'questions': allQuestionUpdates,
       };
 
       final updateResult = await _updateQuizUseCase(body);
@@ -168,7 +202,7 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
           emit(
             state.copyWith(
               isBatchSaving: false,
-              mutationError: 'Failed to add questions: ${failure.message}',
+              mutationError: 'Failed to update questions: ${failure.message}',
             ),
           );
         },

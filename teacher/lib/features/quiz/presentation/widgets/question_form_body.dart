@@ -1,7 +1,11 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/widgets/app_cached_network_image.dart';
 import '../../data/models/quiz_models.dart';
 import 'question_form_sections.dart';
 
@@ -9,13 +13,11 @@ class QuestionFormBody extends StatefulWidget {
   const QuestionFormBody({
     this.initialQuestion,
     this.initialMarks = 1,
-    this.isMarksReadOnly = false,
     super.key,
   });
 
   final QuestionModel? initialQuestion;
   final int initialMarks;
-  final bool isMarksReadOnly;
 
   @override
   State<QuestionFormBody> createState() => QuestionFormBodyState();
@@ -43,6 +45,8 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
   ApiQuestionType _type = ApiQuestionType.choices;
   bool _multiple = false;
   List<int> _correctOptions = [1];
+  File? _selectedImageFile;
+  String? _existingAttachmentUrl;
 
   bool get isEditing => widget.initialQuestion != null;
 
@@ -91,6 +95,7 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
     );
     _type = q?.type ?? ApiQuestionType.choices;
     _multiple = (q?.multiple ?? 0) == 1;
+    _existingAttachmentUrl = q?.attachment;
     if (q != null) {
       _correctOptions = [];
       if (q.isCorrect1 == 1) _correctOptions.add(1);
@@ -149,6 +154,10 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
         ApiQuestionType.openEnded => 'Open Ended',
         ApiQuestionType.fileUpload => 'File Upload',
       },
+      if (_selectedImageFile != null)
+        'local_attachment_path': _selectedImageFile!.path
+      else if (_existingAttachmentUrl != null)
+        'attachment': _existingAttachmentUrl,
     };
 
     if (_type == ApiQuestionType.choices) {
@@ -232,17 +241,18 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                           vertical: 12.h,
                         ),
                         filled: true,
-                        fillColor: widget.isMarksReadOnly
-                            ? colorScheme.surfaceContainerHighest
-                            : colorScheme.surfaceContainerLow,
+                        fillColor: colorScheme.surfaceContainerLow,
                       ),
-                      readOnly: widget.isMarksReadOnly,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'Required';
+                          return context.l10n.questionRequiredLabel;
                         }
-                        if (int.tryParse(value.trim()) == null) {
-                          return 'Invalid';
+                        final parsed = int.tryParse(value.trim());
+                        if (parsed == null) {
+                          return context.l10n.fieldInvalidNumber;
+                        }
+                        if (parsed < 1) {
+                          return context.l10n.questionMarksMinError;
                         }
                         return null;
                       },
@@ -323,20 +333,73 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                                 alpha: 0.4,
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 4.w,
-                                vertical: 2.h,
-                              ),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: TextButton.icon(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.image_outlined),
-                                  label: Text(context.l10n.questionAttachMedia),
+                            if (_selectedImageFile != null || _existingAttachmentUrl != null)
+                              Padding(
+                                padding: EdgeInsets.all(8.r),
+                                child: Stack(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      child: _selectedImageFile != null
+                                          ? Image.file(
+                                              _selectedImageFile!,
+                                              width: double.infinity,
+                                              height: 150.h,
+                                              fit: BoxFit.contain,
+                                            )
+                                          : AppCachedNetworkImage(
+                                              imageUrl: _existingAttachmentUrl!,
+                                              width: double.infinity,
+                                              height: 150.h,
+                                              fit: BoxFit.contain,
+                                            ),
+                                    ),
+                                    Positioned(
+                                      top: 4,
+                                      right: 4,
+                                      child: CircleAvatar(
+                                        radius: 14.r,
+                                        backgroundColor: colorScheme.surface,
+                                        child: IconButton(
+                                          padding: EdgeInsets.zero,
+                                          iconSize: 16.r,
+                                          icon: Icon(Icons.close, color: colorScheme.error),
+                                          onPressed: () {
+                                            setState(() {
+                                              _selectedImageFile = null;
+                                              _existingAttachmentUrl = null;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            else
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 4.w,
+                                  vertical: 2.h,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: TextButton.icon(
+                                    onPressed: () async {
+                                      final result = await FilePicker.platform.pickFiles(
+                                        type: FileType.image,
+                                      );
+                                      if (result != null && result.files.single.path != null) {
+                                        setState(() {
+                                          _selectedImageFile = File(result.files.single.path!);
+                                        });
+                                      }
+                                    },
+                                    icon: const Icon(Icons.image_outlined),
+                                    label: Text(context.l10n.questionAttachMedia),
+                                  ),
                                 ),
                               ),
-                            ),
                           ],
                         ),
                       ),

@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import '../../../../core/errors/error_handler.dart';
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/paginated_list.dart';
@@ -185,23 +185,6 @@ class CoursesRepositoryImpl implements CoursesRepository {
     return response.data;
   });
 
-  @override
-  Future<ApiResult<String>> uploadFile({
-    required File file,
-    required int isPrivate,
-    required String doctype,
-    required String docname,
-    required String fieldname,
-  }) => _getResult(() async {
-    final response = await _remoteDataSource.uploadFile(
-      file: file,
-      isPrivate: isPrivate,
-      doctype: doctype,
-      docname: docname,
-      fieldname: fieldname,
-    );
-    return response.message.fileUrl;
-  });
 
   @override
   Future<ApiResult<void>> updateLesson({
@@ -219,10 +202,77 @@ class CoursesRepositoryImpl implements CoursesRepository {
   );
 
   @override
-  Future<ApiResult<void>> deleteLesson(String lessonName) =>
-      _getResult(() => _remoteDataSource.deleteLesson({'lesson': lessonName}));
+  Future<ApiResult<void>> deleteLesson({
+    required String lessonName,
+    required String chapterName,
+  }) => _getResult(
+    () => _remoteDataSource.deleteLesson({
+      'lesson': lessonName,
+      'chapter': chapterName,
+    }),
+  );
 
   @override
   Future<ApiResult<MyCoursesData>> myCourses() =>
       _getResult(() async => (await _remoteDataSource.myCourses()).data);
+
+  @override
+  Future<ApiResult<MyCoursesData>> sharedCourses() =>
+      _getResult(() async => (await _remoteDataSource.sharedCourses()).data);
+
+  @override
+  Future<ApiResult<List<StudentModel>>> getStudents(String courseName) =>
+      _getResult(
+        () async => (await _remoteDataSource.getStudents(courseName)).data,
+      );
+
+  @override
+  Future<ApiResult<void>> addStudent({
+    required String courseName,
+    required String studentEmail,
+  }) => _getResult(
+    () => _remoteDataSource.addStudent({
+      'course': courseName,
+      'student': studentEmail,
+    }),
+  );
+
+  @override
+  Future<ApiResult<void>> removeStudent({
+    required String courseName,
+    required String studentEmail,
+  }) => _getResult(
+    () => _remoteDataSource.removeStudent({
+      'course': courseName,
+      'student': studentEmail,
+    }),
+  );
+
+  @override
+  Future<ApiResult<List<InstructorModel>>> getInstructors(String courseName) =>
+      _getResult(
+        () async => (await _remoteDataSource.getInstructors(courseName)).data,
+      );
+
+  @override
+  Future<ApiResult<void>> addInstructor({
+    required String courseName,
+    required String instructorEmail,
+  }) => _getResult(
+    () => _remoteDataSource.addInstructor({
+      'course': courseName,
+      'instructor': instructorEmail,
+    }),
+  );
+
+  @override
+  Future<ApiResult<void>> removeInstructor({
+    required String courseName,
+    required String instructorEmail,
+  }) => _getResult(
+    () => _remoteDataSource.removeInstructor({
+      'course': courseName,
+      'instructor': instructorEmail,
+    }),
+  );
 }

@@ -397,21 +397,57 @@ Map<String, dynamic> _$MyCoursesResponseDataToJson(
   'data': instance.data,
 };
 
-UploadFileMessage _$UploadFileMessageFromJson(Map<String, dynamic> json) =>
-    UploadFileMessage(
-      fileUrl: _stringFromJson(json['file_url']),
-      name: _nullableStringFromJson(json['name']),
-    );
-
-Map<String, dynamic> _$UploadFileMessageToJson(UploadFileMessage instance) =>
-    <String, dynamic>{'file_url': instance.fileUrl, 'name': instance.name};
-
-UploadFileResponseData _$UploadFileResponseDataFromJson(
-  Map<String, dynamic> json,
-) => UploadFileResponseData(
-  message: _uploadFileMessageFromJson(json['message']),
+StudentModel _$StudentModelFromJson(Map<String, dynamic> json) => StudentModel(
+  name: _stringFromJson(json['name']),
+  member: _nullableStringFromJson(json['member']),
+  memberName: _nullableStringFromJson(json['member_name']),
+  memberUsername: _nullableStringFromJson(json['member_username']),
+  memberImage: _nullableStringFromJson(json['member_image']),
+  progress: _nullableDoubleFromJson(json['progress']),
+  currentLesson: _nullableStringFromJson(json['current_lesson']),
+  creation: _nullableStringFromJson(json['creation']),
 );
 
-Map<String, dynamic> _$UploadFileResponseDataToJson(
-  UploadFileResponseData instance,
-) => <String, dynamic>{'message': instance.message};
+Map<String, dynamic> _$StudentModelToJson(StudentModel instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'member': instance.member,
+      'member_name': instance.memberName,
+      'member_username': instance.memberUsername,
+      'member_image': instance.memberImage,
+      'progress': instance.progress,
+      'current_lesson': instance.currentLesson,
+      'creation': instance.creation,
+    };
+
+GetStudentsResponseData _$GetStudentsResponseDataFromJson(
+  Map<String, dynamic> json,
+) => GetStudentsResponseData(
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _studentsListFromJson(json['data']),
+);
+
+Map<String, dynamic> _$GetStudentsResponseDataToJson(
+  GetStudentsResponseData instance,
+) => <String, dynamic>{
+  'state': instance.state,
+  'message': instance.message,
+  'data': instance.data,
+};
+
+GetInstructorsResponseData _$GetInstructorsResponseDataFromJson(
+  Map<String, dynamic> json,
+) => GetInstructorsResponseData(
+  state: _stringFromJson(json['state']),
+  message: _stringFromJson(json['message']),
+  data: _instructorsListFromJson(json['data']),
+);
+
+Map<String, dynamic> _$GetInstructorsResponseDataToJson(
+  GetInstructorsResponseData instance,
+) => <String, dynamic>{
+  'state': instance.state,
+  'message': instance.message,
+  'data': instance.data,
+};

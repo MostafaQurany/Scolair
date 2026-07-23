@@ -6,6 +6,7 @@ class QuizQuestionModel {
     required this.name,
     required this.question,
     this.questionDetail,
+    this.attachment,
     this.type,
     this.marks = 0,
     this.multiple = 0,
@@ -37,6 +38,8 @@ class QuizQuestionModel {
   final String question;
   @JsonKey(name: 'question_detail', fromJson: _nullableStringFromJson)
   final String? questionDetail;
+  @JsonKey(fromJson: _nullableStringFromJson)
+  final String? attachment;
 
   final ApiQuestionType? type;
 

@@ -178,6 +178,11 @@
   "lessonCreatedSuccess": "Lesson created successfully",
   "lessonUpdatedSuccess": "Lesson updated successfully",
   "lessonDeletedSuccess": "Lesson deleted successfully",
+  "confirmRemoveQuizFromLessonTitle": "Remove Quiz",
+  "confirmRemoveQuizFromLesson": "Are you sure you want to remove this quiz from the lesson?",
+  "selectQuizTitle": "Select Quiz",
+  "searchQuizHint": "Search quizzes...",
+  "noQuizzesFound": "No quizzes found",
   "lessonTitleLabel": "Lesson Title",
   "lessonTitleRequired": "Title is required",
   "includeInPreviewLabel": "Include in Preview",
@@ -775,6 +780,22 @@
         "type": "int"
       },
       "addCount": {
+        "type": "int"
+      }
+    }
+  },
+  "questionMarksMinError": "Minimum value is 1",
+  "fieldInvalidNumber": "Invalid number",
+  "questionsChangesConfirm": "You have {marksCount} marks updated, {addCount} questions added/modified, and {deleteCount} questions deleted. Proceed?",
+  "@questionsChangesConfirm": {
+    "placeholders": {
+      "marksCount": {
+        "type": "int"
+      },
+      "addCount": {
+        "type": "int"
+      },
+      "deleteCount": {
         "type": "int"
       }
     }

@@ -104,7 +104,8 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
     for (final part in _parts) {
       final isTextPart =
           part.type == LessonPartType.markdown ||
-          part.type == LessonPartType.youtube;
+          part.type == LessonPartType.youtube ||
+          part.type == LessonPartType.quiz;
       final hasText = part.controller.text.trim().isNotEmpty;
       final hasFile = part.file != null || part.existingFileUrl != null;
       if ((isTextPart && !hasText) || (!isTextPart && !hasFile)) {
@@ -144,6 +145,13 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
         id: '${_nextPartId++}',
         type: LessonPartType.youtube,
         text: data['source'] as String? ?? '',
+      );
+    }
+    if (type == 'quiz') {
+      return LessonPartDraft(
+        id: '${_nextPartId++}',
+        type: LessonPartType.quiz,
+        text: data['quiz'] as String? ?? '',
       );
     }
     if (type == 'upload') {

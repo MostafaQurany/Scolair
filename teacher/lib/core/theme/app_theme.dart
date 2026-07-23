@@ -33,9 +33,7 @@ abstract final class AppTheme {
 
       actionIconTheme: ActionIconThemeData(
         backButtonIconBuilder: (BuildContext context) {
-          return Icon(
-            Icons.arrow_back_ios_new,
-          );
+          return Icon(Icons.arrow_back_ios_new);
         },
       ),
 
@@ -46,6 +44,12 @@ abstract final class AppTheme {
         foregroundColor: colorScheme.onSurface,
         titleTextStyle: textTheme.titleMedium,
         iconTheme: IconThemeData(color: colorScheme.onSurface),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20.r),
+            bottomRight: Radius.circular(20.r),
+          ),
+        ),
       ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: surface,

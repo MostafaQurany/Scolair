@@ -489,6 +489,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get lessonDeletedSuccess => 'تم حذف الدرس بنجاح';
 
   @override
+  String get confirmRemoveQuizFromLessonTitle => 'إزالة الاختبار';
+
+  @override
+  String get confirmRemoveQuizFromLesson =>
+      'هل أنت متأكد من رغبتتك في إزالة هذا الاختبار من الدرس؟';
+
+  @override
+  String get selectQuizTitle => 'اختيار اختبار';
+
+  @override
+  String get searchQuizHint => 'البحث عن اختبارات...';
+
+  @override
+  String get noQuizzesFound => 'لا توجد اختبارات';
+
+  @override
   String get lessonTitleLabel => 'عنوان الدرس';
 
   @override
@@ -1623,5 +1639,20 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String questionsToDeleteAndAdd(int deleteCount, int addCount) {
     return 'لديك $deleteCount أسئلة لحذفها و $addCount أسئلة لإضافتها/تحديثها. هل تريد المتابعة؟';
+  }
+
+  @override
+  String get questionMarksMinError => 'الحد الأدنى هو 1';
+
+  @override
+  String get fieldInvalidNumber => 'رقم غير صحيح';
+
+  @override
+  String questionsChangesConfirm(
+    int marksCount,
+    int addCount,
+    int deleteCount,
+  ) {
+    return 'لديك $marksCount درجات معدلة، و $addCount أسئلة مضافة/معدلة، و $deleteCount أسئلة محذوفة. هل تريد المتابعة؟';
   }
 }

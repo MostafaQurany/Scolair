@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/usecases/upload_file_usecase.dart';
 import '../../domain/usecases/courses_usecases.dart';
 import '../widgets/lesson_content/editor_js_content_builder.dart';
 import '../widgets/lesson_form/lesson_part_data.dart';
@@ -75,6 +76,9 @@ class LessonFormCubit extends Cubit<LessonFormState> {
         case LessonPartType.youtube:
           blocks.add(EditorJsContentBuilder.youtubeBlockData(part.text ?? ''));
           break;
+        case LessonPartType.quiz:
+          blocks.add(EditorJsContentBuilder.quizBlockData(part.text ?? ''));
+          break;
         case LessonPartType.video:
         case LessonPartType.pdf:
           final fileUrl = await _resolveUpload(part, lessonName);
@@ -99,9 +103,6 @@ class LessonFormCubit extends Cubit<LessonFormState> {
     final result = await _uploadFileUseCase(
       file: part.uploadFile!,
       isPrivate: 1,
-      doctype: 'Course Lesson',
-      docname: lessonName,
-      fieldname: 'content',
     );
 
     return result.when(

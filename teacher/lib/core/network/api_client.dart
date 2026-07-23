@@ -16,6 +16,7 @@ import '../../features/auth/data/models/register_request_data.dart';
 import '../../features/auth/data/models/register_response_data.dart';
 import '../../features/auth/data/models/reset_password_request_data.dart';
 import '../../features/courses/data/models/courses_models.dart';
+import '../models/upload_file_response.dart';
 import '../../features/quiz/data/models/quiz_models.dart';
 import 'api_endpoints.dart';
 
@@ -126,9 +127,6 @@ abstract class ApiClient {
   Future<UploadFileResponseData> uploadFile({
     @Part(name: 'file') required MultipartFile file,
     @Part(name: 'is_private') required int isPrivate,
-    @Part(name: 'doctype') required String doctype,
-    @Part(name: 'docname') required String docname,
-    @Part(name: 'fieldname') required String fieldname,
   });
 
   @PUT(ApiEndpoints.updateLesson)
@@ -139,6 +137,31 @@ abstract class ApiClient {
 
   @GET(ApiEndpoints.myCourses)
   Future<MyCoursesResponseData> myCourses();
+
+  @GET(ApiEndpoints.sharedCourses)
+  Future<MyCoursesResponseData> sharedCourses();
+
+  @GET(ApiEndpoints.getStudents)
+  Future<GetStudentsResponseData> getStudents(
+    @Query('course') String courseName,
+  );
+
+  @POST(ApiEndpoints.addStudent)
+  Future<void> addStudent(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApiEndpoints.removeStudent)
+  Future<void> removeStudent(@Body() Map<String, dynamic> body);
+
+  @GET(ApiEndpoints.getInstructors)
+  Future<GetInstructorsResponseData> getInstructors(
+    @Query('course') String courseName,
+  );
+
+  @POST(ApiEndpoints.addInstructor)
+  Future<void> addInstructor(@Body() Map<String, dynamic> body);
+
+  @DELETE(ApiEndpoints.removeInstructor)
+  Future<void> removeInstructor(@Body() Map<String, dynamic> body);
 
   // === Quiz — Questions ===
 
