@@ -32,10 +32,13 @@ import '../../features/home/domain/usecases/toggle_wall_post_like_usecase.dart';
 import '../../features/home/presentation/cubit/home_cubit.dart';
 import '../../features/onboarding/presentation/cubit/onboarding_cubit.dart';
 import '../../features/splash/presentation/cubit/splash_cubit.dart';
+import '../navigation/navigation_service.dart';
 import '../network/api_client.dart';
 import '../network/dio_factory.dart';
 import '../storage/app_secure_storage.dart';
 import '../storage/app_shared_preferences.dart';
+import '../theme/cubit/theme_cubit.dart';
+import '../localization/cubit/locale_cubit.dart';
 import '../repositories/upload_repository.dart';
 import '../usecases/upload_file_usecase.dart';
 import '../../features/courses/data/datasources/remote/courses_remote_datasource.dart';
@@ -75,6 +78,15 @@ import '../../features/homework/domain/repositories/homework_repository.dart';
 import '../../features/homework/domain/usecases/homework_usecases.dart';
 import '../../features/homework/presentation/cubit/homework_list_cubit.dart';
 import '../../features/homework/presentation/cubit/homework_form_cubit.dart';
+import '../../features/homework/presentation/cubit/details/homework_details_cubit.dart';
+import '../../features/homework/presentation/cubit/submissions/homework_submissions_cubit.dart';
+import '../../features/homework/presentation/cubit/grading/homework_grading_cubit.dart';
+import '../../features/profile_settings/data/datasources/remote/profile_settings_remote_datasource.dart';
+import '../../features/profile_settings/data/repositories/profile_settings_repository_impl.dart';
+import '../../features/profile_settings/domain/repositories/profile_settings_repository.dart';
+import '../../features/profile_settings/domain/usecases/profile_usecases.dart';
+import '../../features/profile_settings/presentation/cubit/authenticated_user_cubit.dart';
+import '../../features/profile_settings/presentation/cubit/notification_preferences_cubit.dart';
 
 final getIt = GetIt.instance;
 
@@ -86,14 +98,18 @@ Future<void> setupDependencyInjection() async {
   }
 
   getIt
+    // Navigation
+    ..registerLazySingleton<NavigationService>(NavigationService.new)
     // Storage
     ..registerLazySingleton<SharedPreferences>(() => sharedPreferences)
     ..registerLazySingleton<AppSharedPreferences>(
       () => AppSharedPreferences(getIt()),
     )
     ..registerLazySingleton<AppSecureStorage>(AppSecureStorage.new)
+    ..registerLazySingleton<ThemeCubit>(() => ThemeCubit(getIt()))
+    ..registerLazySingleton<LocaleCubit>(() => LocaleCubit(getIt()))
     // Network
-    ..registerLazySingleton<Dio>(() => DioFactory.create(getIt()))
+    ..registerLazySingleton<Dio>(() => DioFactory.create(getIt(), getIt()))
     ..registerLazySingleton<ApiClient>(() => ApiClient(getIt()))
     // Home feature
     ..registerLazySingleton<TeacherHomeLocalDataSource>(
@@ -217,9 +233,7 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<GetStudentsUseCase>(
       () => GetStudentsUseCase(getIt()),
     )
-    ..registerLazySingleton<AddStudentUseCase>(
-      () => AddStudentUseCase(getIt()),
-    )
+    ..registerLazySingleton<AddStudentUseCase>(() => AddStudentUseCase(getIt()))
     ..registerLazySingleton<RemoveStudentUseCase>(
       () => RemoveStudentUseCase(getIt()),
     )
@@ -355,5 +369,79 @@ Future<void> setupDependencyInjection() async {
     )
     ..registerFactory<HomeworkFormCubit>(
       () => HomeworkFormCubit(getIt(), getIt()),
+    )
+    ..registerLazySingleton<GetHomeworkDetailsUseCase>(
+      () => GetHomeworkDetailsUseCase(getIt()),
+    )
+    ..registerLazySingleton<CreateHomeworkRemoteUseCase>(
+      () => CreateHomeworkRemoteUseCase(getIt()),
+    )
+    ..registerLazySingleton<UpdateHomeworkRemoteUseCase>(
+      () => UpdateHomeworkRemoteUseCase(getIt()),
+    )
+    ..registerLazySingleton<AddHomeworkQuestionUseCase>(
+      () => AddHomeworkQuestionUseCase(getIt()),
+    )
+    ..registerLazySingleton<RemoveHomeworkQuestionUseCase>(
+      () => RemoveHomeworkQuestionUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetHomeworkSubmissionsUseCase>(
+      () => GetHomeworkSubmissionsUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetSubmissionDetailsUseCase>(
+      () => GetSubmissionDetailsUseCase(getIt()),
+    )
+    ..registerLazySingleton<DownloadAnswerFileUseCase>(
+      () => DownloadAnswerFileUseCase(getIt()),
+    )
+    ..registerLazySingleton<GradeSubmissionUseCase>(
+      () => GradeSubmissionUseCase(getIt()),
+    )
+    ..registerFactory<HomeworkDetailsCubit>(
+      () => HomeworkDetailsCubit(
+        getDetailsUseCase: getIt(),
+        updateRemoteUseCase: getIt(),
+        deleteUseCase: getIt(),
+        addQuestionUseCase: getIt(),
+        removeQuestionUseCase: getIt(),
+        getSubmissionsUseCase: getIt(),
+        uploadFileUseCase: getIt(),
+      ),
+    )
+    ..registerFactory<HomeworkSubmissionsCubit>(
+      () => HomeworkSubmissionsCubit(getIt()),
+    )
+    ..registerFactory<HomeworkGradingCubit>(
+      () => HomeworkGradingCubit(
+        getDetailsUseCase: getIt(),
+        gradeUseCase: getIt(),
+        downloadUseCase: getIt(),
+      ),
+    )
+    // Profile Settings Feature
+    ..registerLazySingleton<ProfileSettingsRemoteDataSource>(
+      () => ProfileSettingsRemoteDataSourceImpl(getIt()),
+    )
+    ..registerLazySingleton<ProfileSettingsRepository>(
+      () => ProfileSettingsRepositoryImpl(getIt(), getIt()),
+    )
+    ..registerLazySingleton<GetUserProfileUseCase>(
+      () => GetUserProfileUseCase(getIt()),
+    )
+    ..registerLazySingleton<EditUserProfileUseCase>(
+      () => EditUserProfileUseCase(getIt()),
+    )
+    ..registerLazySingleton<UploadProfileImageUseCase>(
+      () => UploadProfileImageUseCase(getIt()),
+    )
+    ..registerLazySingleton<AuthenticatedUserCubit>(
+      () => AuthenticatedUserCubit(
+        getUserProfileUseCase: getIt(),
+        editUserProfileUseCase: getIt(),
+        uploadProfileImageUseCase: getIt(),
+      ),
+    )
+    ..registerLazySingleton<NotificationPreferencesCubit>(
+      () => NotificationPreferencesCubit(getIt()),
     );
 }

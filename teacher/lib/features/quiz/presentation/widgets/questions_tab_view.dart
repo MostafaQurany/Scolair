@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/extensions/adaptive_layout_extension.dart';
 import '../../data/models/quiz_models.dart';
 import '../cubit/quiz_details_cubit.dart';
@@ -66,13 +67,13 @@ class QuestionsTabView extends StatelessWidget {
   }
 
   void _navigateToSlider(BuildContext context, int index) {
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => BlocProvider.value(
-          value: context.read<QuizDetailsCubit>(),
-          child: QuizQuestionsSliderScreen(quiz: quiz, initialIndex: index),
-        ),
+      AppRouteNames.quizQuestionsSlider,
+      arguments: QuizQuestionsSliderScreenArgs(
+        cubit: context.read<QuizDetailsCubit>(),
+        quiz: quiz,
+        initialIndex: index,
       ),
     );
   }

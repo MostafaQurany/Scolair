@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
@@ -11,6 +12,16 @@ import '../cubit/lesson_details_state.dart';
 import '../widgets/editorjs_renderer.dart';
 import '../screens/lesson_form_screen.dart';
 import '../widgets/forms/delete_confirmation_dialog.dart';
+
+class LessonDetailsScreenArgs {
+  const LessonDetailsScreenArgs({
+    required this.lessonName,
+    required this.chapterName,
+  });
+
+  final String lessonName;
+  final String chapterName;
+}
 
 class LessonDetailsScreen extends StatelessWidget {
   const LessonDetailsScreen({
@@ -74,13 +85,12 @@ class LessonDetailsScreen extends StatelessWidget {
                 return PopupMenuButton<String>(
                   onSelected: (value) async {
                     if (value == 'edit') {
-                      final updated = await Navigator.push<bool>(
+                      final updated = await Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => LessonFormScreen(
-                            chapterName: chapterName,
-                            editingLesson: lesson,
-                          ),
+                        AppRouteNames.lessonForm,
+                        arguments: LessonFormScreenArgs(
+                          chapterName: chapterName,
+                          editingLesson: lesson,
                         ),
                       );
                       if (updated == true && context.mounted) {

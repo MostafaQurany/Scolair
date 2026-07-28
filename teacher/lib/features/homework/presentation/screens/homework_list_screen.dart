@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
@@ -11,7 +12,6 @@ import '../cubit/homework_list_state.dart';
 import '../widgets/homework_card.dart';
 import '../widgets/homework_list_shimmer.dart';
 import '../widgets/homework_status_dropdown.dart';
-import 'homework_form_screen.dart';
 
 class HomeworkListScreen extends StatefulWidget {
   const HomeworkListScreen({super.key});
@@ -47,44 +47,29 @@ class _HomeworkListScreenState extends State<HomeworkListScreen> {
   }
 
   Future<void> _createHomework() async {
-    final created = await Navigator.push<bool>(
+    final created = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(builder: (_) => const HomeworkFormScreen()),
+      AppRouteNames.homeworkCreate,
     );
     if (created == true && mounted) await _cubit.refresh();
   }
 
-  void _showDetails(HomeworkListItem item) {
-    final plainInstructions = item.instructions
-        .replaceAll(RegExp(r'<[^>]*>'), ' ')
-        .replaceAll(RegExp(r'\s+'), ' ')
-        .trim();
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      isScrollControlled: true,
-      builder: (context) => SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsetsDirectional.fromSTEB(24.w, 0, 24.w, 24.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                item.title.isEmpty ? context.l10n.homeworkUntitled : item.title,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              SizedBox(height: 12.h),
-              Text(
-                plainInstructions.isEmpty
-                    ? context.l10n.homeworkInstructionsUnavailable
-                    : plainInstructions,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ],
-          ),
-        ),
-      ),
+  Future<void> _openDetails(HomeworkListItem item) async {
+    final changed = await Navigator.pushNamed(
+      context,
+      AppRouteNames.homeworkDetails,
+      arguments: item.name,
     );
+    if (changed == true && mounted) await _cubit.refresh();
+  }
+
+  Future<void> _editHomework(HomeworkListItem item) async {
+    final changed = await Navigator.pushNamed(
+      context,
+      AppRouteNames.homeworkEdit,
+      arguments: item,
+    );
+    if (changed == true && mounted) await _cubit.refresh();
   }
 
   Future<void> _confirmDelete(HomeworkListItem item) async {
@@ -225,7 +210,9 @@ class _HomeworkListScreenState extends State<HomeworkListScreen> {
                                 itemBuilder: (context, index) => HomeworkCard(
                                   homework: state.items[index],
                                   onViewDetails: () =>
-                                      _showDetails(state.items[index]),
+                                      _openDetails(state.items[index]),
+                                  onEdit: () =>
+                                      _editHomework(state.items[index]),
                                   onDelete: () =>
                                       _confirmDelete(state.items[index]),
                                   isDeleting: state.deletingNames.contains(
@@ -238,7 +225,9 @@ class _HomeworkListScreenState extends State<HomeworkListScreen> {
                                 itemBuilder: (context, index) => HomeworkCard(
                                   homework: state.items[index],
                                   onViewDetails: () =>
-                                      _showDetails(state.items[index]),
+                                      _openDetails(state.items[index]),
+                                  onEdit: () =>
+                                      _editHomework(state.items[index]),
                                   onDelete: () =>
                                       _confirmDelete(state.items[index]),
                                   isDeleting: state.deletingNames.contains(

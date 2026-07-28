@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/storage/app_shared_preferences.dart';
@@ -72,13 +73,10 @@ class CourseDetailsScreen extends StatelessWidget {
                 return PopupMenuButton<String>(
                   onSelected: (value) async {
                     if (value == 'edit') {
-                      final updated = await Navigator.push<bool>(
+                      final updated = await Navigator.pushNamed(
                         context,
-                        MaterialPageRoute(
-                          builder: (_) => CourseFormScreen(
-                            editingCourse: course,
-                          ),
-                        ),
+                        AppRouteNames.courseForm,
+                        arguments: course,
                       );
                       if (updated == true && context.mounted) {
                         context.read<CourseDetailsCubit>().loadCourseDetails(courseName);
@@ -170,13 +168,12 @@ class _CourseDetailsViewState extends State<_CourseDetailsView> {
             SizedBox(height: 16.h),
             OutlinedButton.icon(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => CourseStudentsScreen(
-                      courseName: course.name,
-                      courseTitle: course.title,
-                    ),
+                  AppRouteNames.courseStudents,
+                  arguments: CourseStudentsScreenArgs(
+                    courseName: course.name,
+                    courseTitle: course.title,
                   ),
                 );
               },

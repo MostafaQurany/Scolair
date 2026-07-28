@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/storage/app_shared_preferences.dart';
@@ -67,11 +68,10 @@ class _CoursesListViewState extends State<_CoursesListView>
   }
 
   Future<void> _navigateToCourseDetails(CourseModel course) async {
-    final deletedOrUpdated = await Navigator.push<bool>(
+    final deletedOrUpdated = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => CourseDetailsScreen(courseName: course.name),
-      ),
+      AppRouteNames.courseDetails,
+      arguments: course.name,
     );
     if (deletedOrUpdated == true && mounted) {
       context.read<CoursesCubit>().loadCourses();
@@ -79,9 +79,9 @@ class _CoursesListViewState extends State<_CoursesListView>
   }
 
   Future<void> _createNewCourse() async {
-    final created = await Navigator.push<bool>(
+    final created = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(builder: (context) => const CourseFormScreen()),
+      AppRouteNames.courseForm,
     );
     if (created == true && mounted) {
       context.read<CoursesCubit>().loadCourses();

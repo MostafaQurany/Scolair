@@ -13,6 +13,16 @@ import '../cubit/lesson_form_state.dart';
 import '../widgets/lesson_form/lesson_part_data.dart';
 import '../widgets/lesson_form/lesson_parts_editor.dart';
 
+class LessonFormScreenArgs {
+  const LessonFormScreenArgs({
+    required this.chapterName,
+    this.editingLesson,
+  });
+
+  final String chapterName;
+  final LessonDetailModel? editingLesson;
+}
+
 class LessonFormScreen extends StatefulWidget {
   const LessonFormScreen({
     required this.chapterName,

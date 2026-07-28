@@ -238,6 +238,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get changePasswordTitle => 'تغيير كلمة المرور';
 
   @override
+  String get changePasswordSubtitle =>
+      'استخدم كلمة المرور الحالية لاختيار كلمة مرور جديدة.';
+
+  @override
   String get currentPasswordLabel => 'كلمة المرور الحالية';
 
   @override
@@ -1261,7 +1265,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get search => 'بحث...';
 
   @override
-  String get addToQuiz => 'أضف إلى الاختبار';
+  String get addToQuiz => 'إضافة';
 
   @override
   String get quizTabOverview => 'نظرة عامة';
@@ -1444,13 +1448,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get homeworkFilterDrafts => 'مسودات';
 
   @override
-  String get homeworkViewDetails => 'عرض التفاصيل';
+  String get homeworkViewDetails => 'تفاصيل الواجب';
 
   @override
   String get homeworkNoCourse => 'لا توجد دورة';
 
   @override
-  String get homeworkNoDueDate => 'لا يوجد موعد تسليم';
+  String get homeworkNoDueDate => 'لم يتم تحديد تاريخ التسليم';
 
   @override
   String get homeworkUntitled => 'واجب بلا عنوان';
@@ -1469,6 +1473,163 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeworkInstructionsUnavailable => 'لم تتم إضافة تعليمات.';
+
+  @override
+  String get yes => 'نعم';
+
+  @override
+  String get no => 'لا';
+
+  @override
+  String get errorOccurred => 'حدث خطأ';
+
+  @override
+  String get previous => 'السابق';
+
+  @override
+  String get add => 'إضافة';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get title => 'العنوان';
+
+  @override
+  String get marks => 'الدرجات';
+
+  @override
+  String get download => 'تحميل';
+
+  @override
+  String get courseLesson => 'الدرس';
+
+  @override
+  String get homeworkTotalMarks => 'إجمالي الدرجات';
+
+  @override
+  String get homeworkQuestionsTab => 'الأسئلة';
+
+  @override
+  String get homeworkSubmissionsTab => 'التسليمات';
+
+  @override
+  String get homeworkSaveDraft => 'حفظ كمسودة';
+
+  @override
+  String get homeworkPublish => 'نشر';
+
+  @override
+  String get homeworkUnpublish => 'إلغاء النشر';
+
+  @override
+  String get homeworkQuestionTab => 'سؤال';
+
+  @override
+  String get homeworkAnswer => 'الإجابة';
+
+  @override
+  String get homeworkNoAnswer => 'لم يتم تقديم إجابة.';
+
+  @override
+  String get homeworkAutoGraded => 'تم التقييم تلقائياً';
+
+  @override
+  String get homeworkAssignMarks => 'تحديد الدرجة';
+
+  @override
+  String get homeworkQuestionNote => 'ملاحظة';
+
+  @override
+  String get homeworkAddNoteHint => 'إضافة ملاحظة...';
+
+  @override
+  String get homeworkLate => 'تسليم متأخر';
+
+  @override
+  String get homeworkOverview => 'نظرة عامة';
+
+  @override
+  String get homeworkCreatedSuccess => 'تم إنشاء الواجب بنجاح';
+
+  @override
+  String get homeworkBasicInfo => 'المعلومات الأساسية';
+
+  @override
+  String get homeworkReviewTitle => 'مراجعة الواجب';
+
+  @override
+  String get homeworkFileDownloaded => 'تم تحميل الملف بنجاح';
+
+  @override
+  String get homeworkGradedSuccess => 'تم تقييم التسليم بنجاح';
+
+  @override
+  String get homeworkGradeSubmissionTitle => 'تقييم التسليم';
+
+  @override
+  String get homeworkOverallFeedback => 'الملاحظات العامة';
+
+  @override
+  String get homeworkFeedbackHint => 'أدخل الملاحظات العامة هنا...';
+
+  @override
+  String get homeworkSubmitGrade => 'اعتماد التقييم';
+
+  @override
+  String get homeworkPublished => 'منشور';
+
+  @override
+  String get homeworkDraft => 'مسودة';
+
+  @override
+  String get homeworkDueDate => 'تاريخ الاستحقاق';
+
+  @override
+  String get homeworkAllowLate => 'السماح بالتسليم المتأخر';
+
+  @override
+  String get homeworkDeleteConfirm => 'هل أنت متأكد أنك تريد حذف هذا الواجب؟';
+
+  @override
+  String get homeworkQuestionsLocked =>
+      'لا يمكن تعديل الأسئلة بعد استلام التسليمات.';
+
+  @override
+  String get homeworkNoQuestions => 'لم تتم إضافة أسئلة بعد.';
+
+  @override
+  String get homeworkAddQuestion => 'إضافة سؤال';
+
+  @override
+  String get homeworkQuestionIdOrTitle => 'معرف السؤال أو العنوان';
+
+  @override
+  String get homeworkSubmitted => 'تم التسليم';
+
+  @override
+  String get homeworkGraded => 'تم التقييم';
+
+  @override
+  String get homeworkNeedsGrading => 'بانتظار التقييم';
+
+  @override
+  String get homeworkNoSubmissions => 'لم يتم العثور على تسليمات.';
+
+  @override
+  String get homeworkReview => 'مراجعة';
+
+  @override
+  String get homeworkGrade => 'تقييم';
+
+  @override
+  String get homeworkSelectDate => 'اختر التاريخ';
+
+  @override
+  String get homeworkInstructions => 'التعليمات';
+
+  @override
+  String get homeworkInstructionsHint => 'أدخل تعليمات الواجب هنا...';
 
   @override
   String get homeGreetingMorning => 'صباح الخير';
@@ -1655,4 +1816,321 @@ class AppLocalizationsAr extends AppLocalizations {
   ) {
     return 'لديك $marksCount درجات معدلة، و $addCount أسئلة مضافة/معدلة، و $deleteCount أسئلة محذوفة. هل تريد المتابعة؟';
   }
+
+  @override
+  String get addToHomework => 'أضف إلى الواجب';
+
+  @override
+  String get homeworkManageQuestions => 'إدارة الأسئلة';
+
+  @override
+  String get homeworkViewSubmissions => 'عرض التسليمات';
+
+  @override
+  String homeworkQuestionsCount(int count) {
+    return '$count أسئلة';
+  }
+
+  @override
+  String homeworkSubmissionsCount(int count) {
+    return '$count تسليمات';
+  }
+
+  @override
+  String get homeworkAssignMarksTitle => 'تعيين الدرجات';
+
+  @override
+  String get homeworkEditMode => 'تعديل';
+
+  @override
+  String get homeworkSaveChanges => 'حفظ التغييرات';
+
+  @override
+  String get homeworkPublishAndContinue => 'نشر ومتابعة';
+
+  @override
+  String get homeworkCancelEdit => 'إلغاء';
+
+  @override
+  String get homeworkSavingQuestions => 'جاري حفظ الأسئلة...';
+
+  @override
+  String get homeworkQuestionsSliderTitle => 'الأسئلة';
+
+  @override
+  String get homeworkMarksHint => 'الدرجات';
+
+  @override
+  String get homeworkConfirmRemoveQuestion =>
+      'هل تريد حذف هذا السؤال من الواجب؟';
+
+  @override
+  String get homeworkQuestionRemovedSuccess => 'تم حذف السؤال';
+
+  @override
+  String get homeworkQuestionsUpdatedSuccess => 'تم حفظ الأسئلة بنجاح';
+
+  @override
+  String homeworkQuestionsUpdatedWithErrors(int count) {
+    return 'تم الحفظ مع $count أخطاء';
+  }
+
+  @override
+  String get homeworkMaxMarksLabel => 'مجموع الدرجات';
+
+  @override
+  String get profileSettingsTitle => 'الملف الشخصي والإعدادات';
+
+  @override
+  String get profileEditBadge => 'تعديل';
+
+  @override
+  String get profileSectionAccount => 'الحساب والملف الشخصي';
+
+  @override
+  String get profileSectionPreferences => 'التفضيلات';
+
+  @override
+  String get profileSectionSecurity => 'الأمان والأدوات';
+
+  @override
+  String get profileSectionSupport => 'الدعم وحول التطبيق';
+
+  @override
+  String get profileEditProfileItem => 'تعديل الملف الشخصي';
+
+  @override
+  String get profileAccountInfoItem => 'معلومات الحساب';
+
+  @override
+  String get profileLanguageItem => 'اللغة';
+
+  @override
+  String get profileThemeItem => 'المظهر';
+
+  @override
+  String get profileNotificationsItem => 'تفضيلات التنبيهات';
+
+  @override
+  String get profileSecurityItem => 'الأمان وكلمة المرور';
+
+  @override
+  String get profileToolkitItem => 'الأدوات والسبورة';
+
+  @override
+  String get profileHelpSupportItem => 'الدعم والمساعدة';
+
+  @override
+  String get profileLogoutButton => 'تسجيل الخروج';
+
+  @override
+  String get profileLogoutConfirmTitle => 'تسجيل الخروج';
+
+  @override
+  String get profileLogoutConfirmMessage =>
+      'هل أنت متأكد أنك تريد تسجيل الخروج من حسابك؟';
+
+  @override
+  String get profileLogoutConfirmYes => 'نعم، تسجيل الخروج';
+
+  @override
+  String get profileLogoutConfirmNo => 'إلغاء';
+
+  @override
+  String get editProfileScreenTitle => 'تعديل الملف الشخصي';
+
+  @override
+  String get editProfileFirstName => 'الاسم الأول';
+
+  @override
+  String get editProfileLastName => 'اسم العائلة';
+
+  @override
+  String get editProfileHeadline => 'المسمى المهني';
+
+  @override
+  String get editProfileBio => 'السيرة الذاتية';
+
+  @override
+  String get editProfileOpenTo => 'متاح لـ';
+
+  @override
+  String get editProfileOpenToWork => 'العمل';
+
+  @override
+  String get editProfileOpenToHiring => 'التوظيف';
+
+  @override
+  String get editProfileOpenToNone => 'لا شيء';
+
+  @override
+  String get editProfileImageTooLarge => 'يجب ألا يتجاوز حجم الصورة 5 ميجابايت';
+
+  @override
+  String get editProfileLinkedin => 'لينكد إن';
+
+  @override
+  String get editProfileGithub => 'جيت هاب';
+
+  @override
+  String get editProfileTwitter => 'تويتر / X';
+
+  @override
+  String get editProfileSaveButton => 'حفظ التغييرات';
+
+  @override
+  String get editProfileSaving => 'جاري حفظ الملف الشخصي...';
+
+  @override
+  String get editProfileSavedSuccess => 'تم تحديث الملف الشخصي بنجاح';
+
+  @override
+  String get editProfileDirtyWarningTitle => 'تغييرات غير محفوظة';
+
+  @override
+  String get editProfileDirtyWarningMessage =>
+      'لديك تغييرات غير محفوظة. هل أنت متأكد أنك تريد تجاهلها؟';
+
+  @override
+  String get editProfileDirtyWarningDiscard => 'تجاهل';
+
+  @override
+  String get editProfileDirtyWarningKeep => 'متابعة التعديل';
+
+  @override
+  String get accountInfoScreenTitle => 'معلومات الحساب';
+
+  @override
+  String get accountInfoName => 'الاسم';
+
+  @override
+  String get accountInfoEmail => 'البريد الإلكتروني';
+
+  @override
+  String get accountInfoUsername => 'اسم المستخدم';
+
+  @override
+  String get accountInfoRoles => 'الأدوار المعينة';
+
+  @override
+  String get accountInfoNotice =>
+      'تتم إدارة معلومات الحساب من قبل مسؤول المؤسسة. لطلب تغيير عنوان البريد الإلكتروني الأساسي أو الأدوار، يرجى الاتصال بالدعم الفني.';
+
+  @override
+  String get languageScreenTitle => 'اختيار اللغة';
+
+  @override
+  String get languageEnglish => 'الإنجليزية';
+
+  @override
+  String get languageArabic => 'العربية';
+
+  @override
+  String get languageConfirmButton => 'تأكيد الاختيار';
+
+  @override
+  String get languageUpdating => 'جاري تحديث اللغة...';
+
+  @override
+  String get themeScreenTitle => 'اختيار المظهر';
+
+  @override
+  String get themeLight => 'الوضع الفاتح';
+
+  @override
+  String get themeDark => 'الوضع الداكن';
+
+  @override
+  String get themeSystem => 'النظام الافتراضي';
+
+  @override
+  String get notificationsScreenTitle => 'تفضيلات التنبيهات';
+
+  @override
+  String get notifCourseAnnouncementsTitle => 'إعلانات الفصول الدراسية';
+
+  @override
+  String get notifCourseAnnouncementsSub =>
+      'تلقي إشعارات عند نشر إعلانات جديدة في فصولك الدراسية.';
+
+  @override
+  String get notifAssignmentUpdatesTitle => 'تحديثات الواجبات والمهام';
+
+  @override
+  String get notifAssignmentUpdatesSub =>
+      'تلقي تنبيهات عند قيام الطلاب بتسليم الواجبات أو عند الحاجة للتصحيح.';
+
+  @override
+  String get notifMessagesTitle => 'الرسائل المباشرة';
+
+  @override
+  String get notifMessagesSub =>
+      'إشعارات للرسائل الخاصة الواردة من الطلاب أو الإدارة.';
+
+  @override
+  String get notifRemindersTitle => 'تذكيرات الجدول الدراسي';
+
+  @override
+  String get notifRemindersSub =>
+      'ملخص يومي وتذكيرات بالحصص والاجتماعات القادمة.';
+
+  @override
+  String get notifProductUpdatesTitle => 'تحديثات النظام والتطبيق';
+
+  @override
+  String get notifProductUpdatesSub =>
+      'ابق على اطلاع بالميزات الجديدة والتحسينات والصيانة المجدولة.';
+
+  @override
+  String get securityScreenTitle => 'الأمان وكلمة المرور';
+
+  @override
+  String get securityChangePasswordItem => 'تغيير كلمة المرور';
+
+  @override
+  String get securityChangePasswordSub =>
+      'قم بتحديث كلمة مرور حسابك بانتظام للحفاظ على أمان حسابك.';
+
+  @override
+  String get securityPolicyNotice =>
+      'تُطبّق مؤسستك سياسات الأمان والمصادقة. تواصل مع الدعم إذا لاحظت نشاطاً مشبوهاً على حسابك.';
+
+  @override
+  String get securityLogoutAllSessions => 'تسجيل الخروج من جميع الجلسات الأخرى';
+
+  @override
+  String get securityLogoutAllSessionsSub =>
+      'إنهاء الجلسات النشطة على الأجهزة والمتصفحات الأخرى.';
+
+  @override
+  String get helpSupportScreenTitle => 'الدعم والمساعدة';
+
+  @override
+  String get helpFaqItem => 'الأسئلة الشائعة';
+
+  @override
+  String get helpContactItem => 'الاتصال بالدعم الفني';
+
+  @override
+  String get helpReportItem => 'الإبلاغ عن مشكلة';
+
+  @override
+  String get helpPrivacyItem => 'سياسة الخصوصية';
+
+  @override
+  String get helpTermsItem => 'شروط الخدمة';
+
+  @override
+  String get helpUrgentNotice =>
+      'للحصول على مساعدة تقنية عاجلة أثناء ساعات الدراسة، يرجى التواصل مباشرة مع منسق تقنية المعلومات في مؤسستك.';
+
+  @override
+  String get toolkitScreenTitle => 'الأدوات والسبورة';
+
+  @override
+  String get toolkitUnderDevTitle => 'قيد التطوير';
+
+  @override
+  String get toolkitUnderDevMessage =>
+      'السبورة التفاعلية وأدوات المعلم قيد التطوير النشط حالياً. ترقبوا التحديثات في الإصدارات القادمة.';
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../../core/constants/app_route_names.dart';
 import '../../../../../core/di/dependency_injection.dart';
 import '../../../../../core/localization/localization_extension.dart';
 import '../../../../../core/widgets/app_snack_bar.dart';
@@ -106,12 +107,10 @@ class ChapterExpansionTile extends StatelessWidget {
                       } else if (value == 'delete') {
                         _deleteChapter(context);
                       } else if (value == 'create_lesson') {
-                        final res = await Navigator.push<bool>(
+                        final res = await Navigator.pushNamed(
                           context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                LessonFormScreen(chapterName: chapter.name),
-                          ),
+                          AppRouteNames.lessonForm,
+                          arguments: LessonFormScreenArgs(chapterName: chapter.name),
                         );
                         if (res == true && context.mounted) {
                           cubit.loadCourseDetails(courseName);
@@ -234,13 +233,12 @@ class ChapterExpansionTile extends StatelessWidget {
                     lessonRes.when(
                       success: (fullLesson) async {
                         if (context.mounted) {
-                          final updated = await Navigator.push<bool>(
+                          final updated = await Navigator.pushNamed(
                             context,
-                            MaterialPageRoute(
-                              builder: (_) => LessonFormScreen(
-                                chapterName: chapterName,
-                                editingLesson: fullLesson,
-                              ),
+                            AppRouteNames.lessonForm,
+                            arguments: LessonFormScreenArgs(
+                              chapterName: chapterName,
+                              editingLesson: fullLesson,
                             ),
                           );
                           if (updated == true && context.mounted) {
@@ -276,13 +274,12 @@ class ChapterExpansionTile extends StatelessWidget {
           ],
         ),
         onTap: () {
-          Navigator.push(
+          Navigator.pushNamed(
             context,
-            MaterialPageRoute(
-              builder: (context) => LessonDetailsScreen(
-                lessonName: lesson.name,
-                chapterName: chapterName,
-              ),
+            AppRouteNames.lessonDetails,
+            arguments: LessonDetailsScreenArgs(
+              lessonName: lesson.name,
+              chapterName: chapterName,
             ),
           );
         },

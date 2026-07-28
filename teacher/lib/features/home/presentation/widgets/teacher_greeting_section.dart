@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/di/dependency_injection.dart';
+import '../../../profile_settings/presentation/cubit/authenticated_user_cubit.dart';
+import '../../../profile_settings/presentation/cubit/authenticated_user_state.dart';
 
 class TeacherGreetingSection extends StatelessWidget {
   const TeacherGreetingSection({
@@ -15,6 +19,23 @@ class TeacherGreetingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<AuthenticatedUserCubit, AuthenticatedUserState>(
+      bloc: getIt<AuthenticatedUserCubit>(),
+      builder: (context, state) {
+        final currentProfile = state.maybeWhen(
+          loaded: (profile, _) => profile,
+          error: (_, profile) => profile,
+          orElse: () => null,
+        );
+        return _buildGreeting(
+          context,
+          currentProfile?.displayedName ?? teacherName,
+        );
+      },
+    );
+  }
+
+  Widget _buildGreeting(BuildContext context, String teacherName) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 

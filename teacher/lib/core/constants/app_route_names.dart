@@ -14,4 +14,44 @@ abstract final class AppRouteNames {
   static const String teacherProfile = '/teacher-profile';
   static const String wallPostDetails = '/wall-post-details';
   static const String wallPostComments = '/wall-post-comments';
+  static const String homeworkDetails = '/homework-details';
+  static const String homeworkCreate = '/homework-create';
+  static const String homeworkEdit = '/homework-edit';
+  static const String homeworkQuestions = '/homework-questions';
+  static const String homeworkStudentPreview = '/homework-student-preview';
+  static const String homeworkSubmissions = '/homework-submissions';
+  static const String homeworkSubmissionDetails =
+      '/homework-submission-details';
+  static const String homeworkAnswerFileViewer = '/homework-answer-file-viewer';
+  static const String homeworkQuestionBank = '/homework-question-bank';
+  static const String homeworkQuestionsSlider = '/homework-questions-slider';
+
+  static const String myCourses = '/my-courses';
+  static const String quizzesList = '/quizzes-list';
+  static const String homeworkList = '/homework-list';
+  static const String classDetail = '/class-detail';
+  static const String courseForm = '/course-form';
+  static const String courseStudents = '/course-students';
+  static const String courseDetails = '/course-details';
+  static const String lessonForm = '/lesson-form';
+  static const String lessonDetails = '/lesson-details';
+  static const String quizDetails = '/quiz-details';
+  static const String pdfViewer = '/pdf-viewer';
+  static const String quizQuestionsSlider = '/quiz-questions-slider';
+  static const String quizSettings = '/quiz-settings';
+  static const String questionBank = '/question-bank';
+  static const String questionForm = '/question-form';
+  static const String quizForm = '/quiz-form';
+
+  // Profile and Settings routes
+  static const String profileSettings = '/profile-settings';
+  static const String editProfile = '/edit-profile';
+  static const String languageSettings = '/language-settings';
+  static const String themeSettings = '/theme-settings';
+  static const String accountInformation = '/account-information';
+  static const String notificationPreferences = '/notification-preferences';
+  static const String securitySettings = '/security-settings';
+  static const String changePassword = '/change-password';
+  static const String helpSupport = '/help-support';
+  static const String toolkitWhiteboard = '/toolkit-whiteboard';
 }

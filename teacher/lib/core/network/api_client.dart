@@ -18,6 +18,9 @@ import '../../features/auth/data/models/reset_password_request_data.dart';
 import '../../features/courses/data/models/courses_models.dart';
 import '../models/upload_file_response.dart';
 import '../../features/quiz/data/models/quiz_models.dart';
+import '../../features/profile_settings/data/models/user_profile_response_data.dart';
+import '../../features/profile_settings/data/models/edit_profile_request_data.dart';
+import '../../features/profile_settings/data/models/upload_profile_image_response_data.dart';
 import 'api_endpoints.dart';
 
 part 'api_client.g.dart';
@@ -60,6 +63,20 @@ abstract class ApiClient {
 
   @POST(ApiEndpoints.changePassword)
   Future<void> changePassword(@Body() ChangePasswordRequestData request);
+
+  @GET(ApiEndpoints.getUserInfo)
+  Future<UserProfileResponseData> getUserInfo();
+
+  @PUT(ApiEndpoints.editProfile)
+  Future<UserProfileResponseData> editProfile(
+    @Body() EditProfileRequestData request,
+  );
+
+  @POST(ApiEndpoints.uploadProfileImage)
+  @MultiPart()
+  Future<UploadProfileImageResponseData> uploadProfileImage({
+    @Part(name: 'file') required MultipartFile file,
+  });
 
   @GET(ApiEndpoints.listCourses)
   Future<ListCoursesResponseData> listCourses(

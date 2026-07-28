@@ -5,10 +5,10 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../cubit/change_password/change_password_cubit.dart';
 import '../cubit/change_password/change_password_state.dart';
 import '../widgets/auth_primary_button.dart';
-import '../widgets/auth_surface.dart';
 import '../widgets/auth_text_field.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
@@ -71,30 +71,36 @@ class _ChangePasswordViewState extends State<_ChangePasswordView>
     return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
-        body: AuthSurface(
-          isBack: true,
-          centered: true,
+        appBar: AppBar(
+          leading: BackButton(color: Theme.of(context).colorScheme.primary),
+          title: Text(context.l10n.changePasswordTitle),
+          centerTitle: true,
+        ),
+        body: SafeArea(
           child: FadeTransition(
             opacity: _fade,
             child: SlideTransition(
               position: _slide,
-              child: _ChangePasswordBody(
-                formKey: _formKey,
-                oldPasswordController: _oldPasswordController,
-                newPasswordController: _newPasswordController,
-                confirmPasswordController: _confirmPasswordController,
-                obscureOld: _obscureOld,
-                obscureNew: _obscureNew,
-                obscureConfirm: _obscureConfirm,
-                isLoading: state.maybeWhen(
-                  loading: () => true,
-                  orElse: () => false,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
+                child: _ChangePasswordBody(
+                  formKey: _formKey,
+                  oldPasswordController: _oldPasswordController,
+                  newPasswordController: _newPasswordController,
+                  confirmPasswordController: _confirmPasswordController,
+                  obscureOld: _obscureOld,
+                  obscureNew: _obscureNew,
+                  obscureConfirm: _obscureConfirm,
+                  isLoading: state.maybeWhen(
+                    loading: () => true,
+                    orElse: () => false,
+                  ),
+                  onToggleOld: () => setState(() => _obscureOld = !_obscureOld),
+                  onToggleNew: () => setState(() => _obscureNew = !_obscureNew),
+                  onToggleConfirm: () =>
+                      setState(() => _obscureConfirm = !_obscureConfirm),
+                  onSubmit: _submit,
                 ),
-                onToggleOld: () => setState(() => _obscureOld = !_obscureOld),
-                onToggleNew: () => setState(() => _obscureNew = !_obscureNew),
-                onToggleConfirm: () =>
-                    setState(() => _obscureConfirm = !_obscureConfirm),
-                onSubmit: _submit,
               ),
             ),
           ),
@@ -154,93 +160,118 @@ class _ChangePasswordBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthCard(
-      padding: EdgeInsetsDirectional.all(24.r),
-      child: Form(
-        key: formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AuthHeader(
-              title: context.l10n.changePasswordTitle,
-              subtitle: context.l10n.forgotPasswordSubtitle,
-              icon: Icons.lock_reset_outlined,
-            ),
-            SizedBox(height: 24.h),
-            AuthTextField(
-              label: context.l10n.currentPasswordLabel,
-              hint: context.l10n.passwordHint,
-              controller: oldPasswordController,
-              obscureText: obscureOld,
-              textInputAction: TextInputAction.next,
-              prefixIcon: const Icon(Icons.lock_outline),
-              suffixIcon: IconButton(
-                onPressed: onToggleOld,
-                icon: Icon(
-                  obscureOld
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                ),
+    final colors = Theme.of(context).colorScheme;
+    return Form(
+      key: formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 64.r,
+              height: 64.r,
+              decoration: BoxDecoration(
+                color: colors.primaryContainer,
+                shape: BoxShape.circle,
+                border: Border.all(color: colors.outlineVariant),
               ),
-              validator: (v) => (v == null || v.trim().isEmpty)
-                  ? context.l10n.authErrorGeneric
-                  : null,
-            ),
-            SizedBox(height: 14.h),
-            AuthTextField(
-              label: context.l10n.newPasswordLabel,
-              hint: context.l10n.newPasswordHint,
-              controller: newPasswordController,
-              obscureText: obscureNew,
-              textInputAction: TextInputAction.next,
-              prefixIcon: const Icon(Icons.lock_outline),
-              suffixIcon: IconButton(
-                onPressed: onToggleNew,
-                icon: Icon(
-                  obscureNew
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                ),
+              child: Icon(
+                Icons.lock_reset_rounded,
+                color: AppColors.primary,
+                size: 30.r,
               ),
-              validator: (v) => (v == null || v.trim().isEmpty)
-                  ? context.l10n.authErrorGeneric
-                  : null,
             ),
-            SizedBox(height: 14.h),
-            AuthTextField(
-              label: context.l10n.confirmPasswordLabel,
-              hint: context.l10n.confirmPasswordHint,
-              controller: confirmPasswordController,
-              obscureText: obscureConfirm,
-              textInputAction: TextInputAction.done,
-              prefixIcon: const Icon(Icons.lock_outline),
-              suffixIcon: IconButton(
-                onPressed: onToggleConfirm,
-                icon: Icon(
-                  obscureConfirm
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                ),
+          ),
+          SizedBox(height: 20.h),
+          Text(
+            context.l10n.changePasswordTitle,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.4,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            context.l10n.changePasswordSubtitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: colors.onSurfaceVariant,
+              height: 1.45,
+            ),
+          ),
+          SizedBox(height: 28.h),
+          AuthTextField(
+            label: context.l10n.currentPasswordLabel,
+            hint: context.l10n.passwordHint,
+            controller: oldPasswordController,
+            obscureText: obscureOld,
+            textInputAction: TextInputAction.next,
+            prefixIcon: const Icon(Icons.lock_outline),
+            suffixIcon: IconButton(
+              onPressed: onToggleOld,
+              icon: Icon(
+                obscureOld
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
               ),
-              validator: (v) {
-                if (v == null || v.trim().isEmpty) {
-                  return context.l10n.authErrorGeneric;
-                }
-                if (v != newPasswordController.text) {
-                  return context.l10n.passwordMismatch;
-                }
-                return null;
-              },
             ),
-            SizedBox(height: 22.h),
-            AuthPrimaryButton(
-              label: context.l10n.updatePasswordButton,
-              onPressed: onSubmit,
-              isLoading: isLoading,
+            validator: (v) => (v == null || v.trim().isEmpty)
+                ? context.l10n.authErrorGeneric
+                : null,
+          ),
+          SizedBox(height: 14.h),
+          AuthTextField(
+            label: context.l10n.newPasswordLabel,
+            hint: context.l10n.newPasswordHint,
+            controller: newPasswordController,
+            obscureText: obscureNew,
+            textInputAction: TextInputAction.next,
+            prefixIcon: const Icon(Icons.lock_outline),
+            suffixIcon: IconButton(
+              onPressed: onToggleNew,
+              icon: Icon(
+                obscureNew
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+              ),
             ),
-          ],
-        ),
+            validator: (v) => (v == null || v.trim().isEmpty)
+                ? context.l10n.authErrorGeneric
+                : null,
+          ),
+          SizedBox(height: 14.h),
+          AuthTextField(
+            label: context.l10n.confirmPasswordLabel,
+            hint: context.l10n.confirmPasswordHint,
+            controller: confirmPasswordController,
+            obscureText: obscureConfirm,
+            textInputAction: TextInputAction.done,
+            prefixIcon: const Icon(Icons.lock_outline),
+            suffixIcon: IconButton(
+              onPressed: onToggleConfirm,
+              icon: Icon(
+                obscureConfirm
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+              ),
+            ),
+            validator: (v) {
+              if (v == null || v.trim().isEmpty) {
+                return context.l10n.authErrorGeneric;
+              }
+              if (v != newPasswordController.text) {
+                return context.l10n.passwordMismatch;
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 28.h),
+          AuthPrimaryButton(
+            label: context.l10n.updatePasswordButton,
+            onPressed: onSubmit,
+            isLoading: isLoading,
+          ),
+        ],
       ),
     );
   }

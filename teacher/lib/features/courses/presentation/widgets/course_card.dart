@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/network/api_endpoints.dart';
@@ -30,11 +31,10 @@ class CourseCard extends StatelessWidget {
   final VoidCallback? onEdited;
 
   Future<void> _onEdit(BuildContext context) async {
-    final updated = await Navigator.push<bool>(
+    final updated = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => CourseFormScreen(editingCourse: course),
-      ),
+      AppRouteNames.courseForm,
+      arguments: course,
     );
     if (updated == true) onEdited?.call();
   }
@@ -99,12 +99,10 @@ class CourseCard extends StatelessWidget {
         onTap:
             onTap ??
             () {
-              Navigator.push(
+              Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      CourseDetailsScreen(courseName: course.name),
-                ),
+                AppRouteNames.courseDetails,
+                arguments: course.name,
               );
             },
         child: Column(

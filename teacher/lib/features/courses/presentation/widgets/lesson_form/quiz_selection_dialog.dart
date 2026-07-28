@@ -102,7 +102,7 @@ class _QuizSelectionDialogState extends State<QuizSelectionDialog> {
                     return ListView.separated(
                       shrinkWrap: true,
                       itemCount: filteredQuizzes.length,
-                      separatorBuilder: (_, __) => const Divider(),
+                      separatorBuilder: (_, _) => const Divider(),
                       itemBuilder: (context, index) {
                         final quiz = filteredQuizzes[index];
                         return ListTile(

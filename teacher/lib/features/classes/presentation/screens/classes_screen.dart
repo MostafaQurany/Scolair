@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/localization/localization_extension.dart';
-import '../../../courses/presentation/screens/my_courses_screen.dart';
-import '../../../homework/presentation/screens/homework_list_screen.dart';
-import '../../../quiz/presentation/screens/quizzes_list_screen.dart';
 import '../../data/mock_classes_data.dart';
 import '../../data/models/class_model.dart';
 import '../widgets/category_chips.dart';
 import '../widgets/class_card.dart';
 import '../widgets/class_search_bar.dart';
-import 'class_detail_screen.dart';
 
 /// Main "My Classes" screen showing the teacher's active classes with
 /// search, category filters and a shortcut to their courses.
@@ -47,19 +44,15 @@ class _ClassesScreenState extends State<ClassesScreen> {
   }
 
   void _openClass(ClassModel classData) {
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => ClassDetailScreen(classCode: classData.code),
-      ),
+      AppRouteNames.classDetail,
+      arguments: classData.code,
     );
   }
 
   void _openMyCourses() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const MyCoursesScreen()),
-    );
+    Navigator.pushNamed(context, AppRouteNames.myCourses);
   }
 
   @override
@@ -262,10 +255,7 @@ class _QuickActionsRow extends StatelessWidget {
       children: [
         Expanded(
           child: OutlinedButton.icon(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const QuizzesListScreen()),
-            ),
+            onPressed: () => Navigator.pushNamed(context, AppRouteNames.quizzesList),
             icon: const Icon(Icons.quiz_outlined),
             label: Text(context.l10n.homeQuizzesAction),
           ),
@@ -273,10 +263,7 @@ class _QuickActionsRow extends StatelessWidget {
         SizedBox(width: 12.w),
         Expanded(
           child: OutlinedButton.icon(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const HomeworkListScreen()),
-            ),
+            onPressed: () => Navigator.pushNamed(context, AppRouteNames.homeworkList),
             icon: const Icon(Icons.assignment_outlined),
             label: Text(context.l10n.homeHomeworkAction),
           ),

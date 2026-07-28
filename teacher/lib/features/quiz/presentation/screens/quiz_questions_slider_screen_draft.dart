@@ -7,6 +7,7 @@ class DraftQuestion {
   final QuestionModel? bankData;
   Map<String, dynamic>? inlineData;
   int marks;
+  final int? initialMarks;
 
   DraftQuestion({
     this.existingQuizQuestionId,
@@ -14,6 +15,7 @@ class DraftQuestion {
     this.sourceBankQuestionName,
     this.bankData,
     this.marks = 1,
+    this.initialMarks,
   });
 
   bool get isEdited {
@@ -130,6 +132,9 @@ class DraftQuestion {
           (inlineData!['question'] as String?)?.trim().isEmpty == true);
 
   bool get isMarksChanged {
+    if (initialMarks != null) {
+      return marks != initialMarks;
+    }
     if (originalData != null) {
       return marks != originalData!.marks;
     }

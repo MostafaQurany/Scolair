@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/quiz_models.dart';
@@ -15,6 +16,18 @@ import '../widgets/quiz_slider_app_bar.dart';
 import '../widgets/quiz_slider_body.dart';
 import '../widgets/quiz_slider_bottom_bar.dart';
 import 'quiz_questions_slider_screen_draft.dart';
+
+class QuizQuestionsSliderScreenArgs {
+  const QuizQuestionsSliderScreenArgs({
+    required this.cubit,
+    required this.quiz,
+    required this.initialIndex,
+  });
+
+  final QuizDetailsCubit cubit;
+  final QuizModel quiz;
+  final int initialIndex;
+}
 
 class QuizQuestionsSliderScreen extends StatefulWidget {
   const QuizQuestionsSliderScreen({
@@ -84,15 +97,14 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
         .whereType<String>()
         .toSet();
 
-    final selected = await Navigator.push<List<QuestionModel>>(
+    final selected = (await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => QuestionBankScreen(
-          blockedTypes: _blockedBankTypes(),
-          blockedQuestionNames: blocked,
-        ),
+      AppRouteNames.questionBank,
+      arguments: QuestionBankScreenArgs(
+        blockedTypes: _blockedBankTypes(),
+        blockedQuestionNames: blocked,
       ),
-    );
+    )) as List<QuestionModel>?;
 
     if (selected != null && selected.isNotEmpty && mounted) {
       setState(() {

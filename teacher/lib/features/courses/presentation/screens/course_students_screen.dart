@@ -10,6 +10,16 @@ import '../widgets/add_email_dialog.dart';
 import '../widgets/forms/delete_confirmation_dialog.dart';
 import '../widgets/student_list_item.dart';
 
+class CourseStudentsScreenArgs {
+  const CourseStudentsScreenArgs({
+    required this.courseName,
+    required this.courseTitle,
+  });
+
+  final String courseName;
+  final String courseTitle;
+}
+
 class CourseStudentsScreen extends StatelessWidget {
   const CourseStudentsScreen({
     required this.courseName,

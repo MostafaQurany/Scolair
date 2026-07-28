@@ -70,7 +70,8 @@ class _AppCachedNetworkImageState extends State<AppCachedNetworkImage> {
         width: widget.width,
         height: widget.height,
         fit: widget.fit,
-        placeholderBuilder: (_) => widget.placeholder ?? _shimmerPlaceholder(context),
+        placeholderBuilder: (_) =>
+            widget.placeholder ?? _shimmerPlaceholder(context),
       );
     } else {
       image = CachedNetworkImage(
@@ -79,7 +80,8 @@ class _AppCachedNetworkImageState extends State<AppCachedNetworkImage> {
         width: widget.width,
         height: widget.height,
         fit: widget.fit,
-        placeholder: (_, _) => widget.placeholder ?? _shimmerPlaceholder(context),
+        placeholder: (_, _) =>
+            widget.placeholder ?? _shimmerPlaceholder(context),
         errorWidget: (_, _, _) => widget.errorWidget ?? _fallback(context),
       );
     }

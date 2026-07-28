@@ -1,17 +1,21 @@
 import 'package:dio/dio.dart';
 
+import '../navigation/navigation_service.dart';
 import '../storage/app_secure_storage.dart';
 import 'api_endpoints.dart';
 import 'interceptors/auth_interceptor.dart';
 import 'interceptors/logging_interceptor.dart';
 
 abstract final class DioFactory {
-  static Dio create(AppSecureStorage secureStorage) {
+  static Dio create(
+    AppSecureStorage secureStorage, [
+    NavigationService? navigationService,
+  ]) {
     final refreshDio = _buildBaseDio();
 
     final dio = _buildBaseDio();
     dio.interceptors.addAll([
-      AuthInterceptor(secureStorage, refreshDio),
+      AuthInterceptor(secureStorage, refreshDio, navigationService),
       getDioLogger(),
     ]);
 

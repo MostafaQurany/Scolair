@@ -3,10 +3,7 @@ import 'package:dio/dio.dart';
 import '../network/api_client.dart';
 
 abstract class UploadRepository {
-  Future<String> uploadFile({
-    required File file,
-    required int isPrivate,
-  });
+  Future<String> uploadFile({required File file, required int isPrivate});
 }
 
 class UploadRepositoryImpl implements UploadRepository {

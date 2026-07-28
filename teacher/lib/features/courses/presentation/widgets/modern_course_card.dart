@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:scolair_teacher/core/widgets/app_cached_network_image.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -29,11 +30,10 @@ class ModernCourseCard extends StatelessWidget {
   final VoidCallback? onChanged;
 
   Future<void> _onEdit(BuildContext context) async {
-    final updated = await Navigator.push<bool>(
+    final updated = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => CourseFormScreen(editingCourse: course),
-      ),
+      AppRouteNames.courseForm,
+      arguments: course,
     );
     if (updated == true) onChanged?.call();
   }

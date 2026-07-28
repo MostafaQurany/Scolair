@@ -14,6 +14,18 @@ import '../widgets/question_bank_state_views.dart';
 import '../widgets/question_filter_bar.dart';
 import '../widgets/question_type_label.dart';
 
+class QuestionBankScreenArgs {
+  const QuestionBankScreenArgs({
+    this.blockedTypes = const {},
+    this.blockedQuestionNames = const {},
+    this.confirmLabel,
+  });
+
+  final Set<ApiQuestionType> blockedTypes;
+  final Set<String> blockedQuestionNames;
+  final String? confirmLabel;
+}
+
 class QuestionBankScreen extends StatefulWidget {
   const QuestionBankScreen({
     this.blockedTypes = const {},

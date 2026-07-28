@@ -10,6 +10,7 @@ class HomeworkCard extends StatelessWidget {
     required this.homework,
     required this.onViewDetails,
     required this.onDelete,
+    this.onEdit,
     this.isDeleting = false,
     super.key,
   });
@@ -17,6 +18,7 @@ class HomeworkCard extends StatelessWidget {
   final HomeworkListItem homework;
   final VoidCallback onViewDetails;
   final VoidCallback onDelete;
+  final VoidCallback? onEdit;
   final bool isDeleting;
 
   String _plainInstructions(String value) => value
@@ -72,6 +74,7 @@ class HomeworkCard extends StatelessWidget {
                       enabled: !isDeleting,
                       onSelected: (action) {
                         if (action == 'view') onViewDetails();
+                        if (action == 'edit') onEdit?.call();
                         if (action == 'delete') onDelete();
                       },
                       itemBuilder: (context) => [
@@ -83,6 +86,15 @@ class HomeworkCard extends StatelessWidget {
                             title: Text(context.l10n.homeworkViewDetails),
                           ),
                         ),
+                        if (onEdit != null)
+                          PopupMenuItem<String>(
+                            value: 'edit',
+                            child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: const Icon(Icons.edit_outlined),
+                              title: Text(context.l10n.edit),
+                            ),
+                          ),
                         PopupMenuItem<String>(
                           value: 'delete',
                           child: ListTile(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
@@ -11,7 +12,6 @@ import '../widgets/question_bank_list.dart';
 import '../widgets/question_bank_list_shimmer.dart';
 import '../widgets/question_bank_state_views.dart';
 import '../widgets/question_filter_bar.dart';
-import 'question_form_screen.dart';
 
 class QuestionCenterScreen extends StatefulWidget {
   const QuestionCenterScreen({super.key});
@@ -116,11 +116,10 @@ class _QuestionCenterScreenState extends State<QuestionCenterScreen> {
     BuildContext context, {
     QuestionModel? question,
   }) async {
-    final changed = await Navigator.push<QuestionModel>(
+    final changed = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => QuestionFormScreen(editingQuestion: question),
-      ),
+      AppRouteNames.questionForm,
+      arguments: question,
     );
     if (changed != null) {
       await _cubit.refresh();

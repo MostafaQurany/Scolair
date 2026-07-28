@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
-
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/quiz_models.dart';
 import '../cubit/quiz_details_cubit.dart';
@@ -12,7 +12,6 @@ import '../cubit/quiz_details_state.dart';
 import '../widgets/questions_tab_view.dart';
 import '../widgets/quiz_state_widgets.dart';
 import 'quiz_questions_slider_screen.dart';
-import 'quiz_settings_screen.dart';
 
 class QuizDetailsScreen extends StatelessWidget {
   const QuizDetailsScreen({required this.quizName, super.key});
@@ -268,28 +267,23 @@ class _QuizDetailsBodyState extends State<_QuizDetailsBody> {
 
   void _addQuestion(BuildContext context, QuizModel quiz) {
     final cubit = context.read<QuizDetailsCubit>();
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => BlocProvider.value(
-          value: cubit,
-          child: QuizQuestionsSliderScreen(
-            quiz: quiz,
-            initialIndex: quiz.questions.length,
-          ),
-        ),
+      AppRouteNames.quizQuestionsSlider,
+      arguments: QuizQuestionsSliderScreenArgs(
+        cubit: cubit,
+        quiz: quiz,
+        initialIndex: quiz.questions.length,
       ),
     );
   }
 
   void _openSettings(BuildContext context) {
     final cubit = context.read<QuizDetailsCubit>();
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) =>
-            BlocProvider.value(value: cubit, child: const QuizSettingsScreen()),
-      ),
+      AppRouteNames.quizSettings,
+      arguments: cubit,
     );
   }
 }
@@ -320,16 +314,13 @@ class _QuizFab extends StatelessWidget {
 
   void _addQuestion(BuildContext context, QuizModel quiz) {
     final cubit = context.read<QuizDetailsCubit>();
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => BlocProvider.value(
-          value: cubit,
-          child: QuizQuestionsSliderScreen(
-            quiz: quiz,
-            initialIndex: quiz.questions.length,
-          ),
-        ),
+      AppRouteNames.quizQuestionsSlider,
+      arguments: QuizQuestionsSliderScreenArgs(
+        cubit: cubit,
+        quiz: quiz,
+        initialIndex: quiz.questions.length,
       ),
     );
   }

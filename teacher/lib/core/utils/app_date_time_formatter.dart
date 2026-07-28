@@ -7,6 +7,10 @@ abstract final class AppDateTimeFormatter {
     return DateTime.tryParse(normalized);
   }
 
+  static String formatForApi(DateTime value) {
+    return value.toIso8601String();
+  }
+
   static String formatDateTime(DateTime value, {required String locale}) {
     return DateFormat.yMMMd(locale).add_jm().format(value);
   }

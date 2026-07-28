@@ -500,6 +500,12 @@ abstract class AppLocalizations {
   /// **'Change password'**
   String get changePasswordTitle;
 
+  /// No description provided for @changePasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your current password to choose a new one.'**
+  String get changePasswordSubtitle;
+
   /// No description provided for @currentPasswordLabel.
   ///
   /// In en, this message translates to:
@@ -2387,7 +2393,7 @@ abstract class AppLocalizations {
   /// No description provided for @addToQuiz.
   ///
   /// In en, this message translates to:
-  /// **'Add to Quiz'**
+  /// **'Add'**
   String get addToQuiz;
 
   /// No description provided for @quizTabOverview.
@@ -2693,7 +2699,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeworkViewDetails.
   ///
   /// In en, this message translates to:
-  /// **'View Details'**
+  /// **'Homework Details'**
   String get homeworkViewDetails;
 
   /// No description provided for @homeworkNoCourse.
@@ -2705,7 +2711,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeworkNoDueDate.
   ///
   /// In en, this message translates to:
-  /// **'No due date'**
+  /// **'No due date set'**
   String get homeworkNoDueDate;
 
   /// No description provided for @homeworkUntitled.
@@ -2743,6 +2749,318 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No instructions provided.'**
   String get homeworkInstructionsUnavailable;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @errorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred'**
+  String get errorOccurred;
+
+  /// No description provided for @previous.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous'**
+  String get previous;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get title;
+
+  /// No description provided for @marks.
+  ///
+  /// In en, this message translates to:
+  /// **'Marks'**
+  String get marks;
+
+  /// No description provided for @download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get download;
+
+  /// No description provided for @courseLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson'**
+  String get courseLesson;
+
+  /// No description provided for @homeworkTotalMarks.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Marks'**
+  String get homeworkTotalMarks;
+
+  /// No description provided for @homeworkQuestionsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions'**
+  String get homeworkQuestionsTab;
+
+  /// No description provided for @homeworkSubmissionsTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Submissions'**
+  String get homeworkSubmissionsTab;
+
+  /// No description provided for @homeworkSaveDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Save as Draft'**
+  String get homeworkSaveDraft;
+
+  /// No description provided for @homeworkPublish.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish'**
+  String get homeworkPublish;
+
+  /// No description provided for @homeworkUnpublish.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpublish'**
+  String get homeworkUnpublish;
+
+  /// No description provided for @homeworkQuestionTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get homeworkQuestionTab;
+
+  /// No description provided for @homeworkAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get homeworkAnswer;
+
+  /// No description provided for @homeworkNoAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'No answer provided.'**
+  String get homeworkNoAnswer;
+
+  /// No description provided for @homeworkAutoGraded.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-graded'**
+  String get homeworkAutoGraded;
+
+  /// No description provided for @homeworkAssignMarks.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Marks'**
+  String get homeworkAssignMarks;
+
+  /// No description provided for @homeworkQuestionNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get homeworkQuestionNote;
+
+  /// No description provided for @homeworkAddNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add feedback note...'**
+  String get homeworkAddNoteHint;
+
+  /// No description provided for @homeworkLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Late Submission'**
+  String get homeworkLate;
+
+  /// No description provided for @homeworkOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get homeworkOverview;
+
+  /// No description provided for @homeworkCreatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Homework created successfully'**
+  String get homeworkCreatedSuccess;
+
+  /// No description provided for @homeworkBasicInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Info'**
+  String get homeworkBasicInfo;
+
+  /// No description provided for @homeworkReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review Homework'**
+  String get homeworkReviewTitle;
+
+  /// No description provided for @homeworkFileDownloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'File downloaded successfully'**
+  String get homeworkFileDownloaded;
+
+  /// No description provided for @homeworkGradedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Submission graded successfully'**
+  String get homeworkGradedSuccess;
+
+  /// No description provided for @homeworkGradeSubmissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Grade Submission'**
+  String get homeworkGradeSubmissionTitle;
+
+  /// No description provided for @homeworkOverallFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Overall Feedback'**
+  String get homeworkOverallFeedback;
+
+  /// No description provided for @homeworkFeedbackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter overall feedback here...'**
+  String get homeworkFeedbackHint;
+
+  /// No description provided for @homeworkSubmitGrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Grade'**
+  String get homeworkSubmitGrade;
+
+  /// No description provided for @homeworkPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Published'**
+  String get homeworkPublished;
+
+  /// No description provided for @homeworkDraft.
+  ///
+  /// In en, this message translates to:
+  /// **'Draft'**
+  String get homeworkDraft;
+
+  /// No description provided for @homeworkDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get homeworkDueDate;
+
+  /// No description provided for @homeworkAllowLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Late Submission'**
+  String get homeworkAllowLate;
+
+  /// No description provided for @homeworkDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this homework?'**
+  String get homeworkDeleteConfirm;
+
+  /// No description provided for @homeworkQuestionsLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions cannot be modified after submissions are received.'**
+  String get homeworkQuestionsLocked;
+
+  /// No description provided for @homeworkNoQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'No questions added yet.'**
+  String get homeworkNoQuestions;
+
+  /// No description provided for @homeworkAddQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Question'**
+  String get homeworkAddQuestion;
+
+  /// No description provided for @homeworkQuestionIdOrTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Question ID or Title'**
+  String get homeworkQuestionIdOrTitle;
+
+  /// No description provided for @homeworkSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted'**
+  String get homeworkSubmitted;
+
+  /// No description provided for @homeworkGraded.
+  ///
+  /// In en, this message translates to:
+  /// **'Graded'**
+  String get homeworkGraded;
+
+  /// No description provided for @homeworkNeedsGrading.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs Grading'**
+  String get homeworkNeedsGrading;
+
+  /// No description provided for @homeworkNoSubmissions.
+  ///
+  /// In en, this message translates to:
+  /// **'No submissions found.'**
+  String get homeworkNoSubmissions;
+
+  /// No description provided for @homeworkReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get homeworkReview;
+
+  /// No description provided for @homeworkGrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Grade'**
+  String get homeworkGrade;
+
+  /// No description provided for @homeworkSelectDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get homeworkSelectDate;
+
+  /// No description provided for @homeworkInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Instructions'**
+  String get homeworkInstructions;
+
+  /// No description provided for @homeworkInstructionsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter homework instructions here...'**
+  String get homeworkInstructionsHint;
 
   /// No description provided for @homeGreetingMorning.
   ///
@@ -3061,6 +3379,600 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have {marksCount} marks updated, {addCount} questions added/modified, and {deleteCount} questions deleted. Proceed?'**
   String questionsChangesConfirm(int marksCount, int addCount, int deleteCount);
+
+  /// No description provided for @addToHomework.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Homework'**
+  String get addToHomework;
+
+  /// No description provided for @homeworkManageQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage Questions'**
+  String get homeworkManageQuestions;
+
+  /// No description provided for @homeworkViewSubmissions.
+  ///
+  /// In en, this message translates to:
+  /// **'View Submissions'**
+  String get homeworkViewSubmissions;
+
+  /// No description provided for @homeworkQuestionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Questions'**
+  String homeworkQuestionsCount(int count);
+
+  /// No description provided for @homeworkSubmissionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Submissions'**
+  String homeworkSubmissionsCount(int count);
+
+  /// No description provided for @homeworkAssignMarksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Marks'**
+  String get homeworkAssignMarksTitle;
+
+  /// No description provided for @homeworkEditMode.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get homeworkEditMode;
+
+  /// No description provided for @homeworkSaveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get homeworkSaveChanges;
+
+  /// No description provided for @homeworkPublishAndContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish & Continue'**
+  String get homeworkPublishAndContinue;
+
+  /// No description provided for @homeworkCancelEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get homeworkCancelEdit;
+
+  /// No description provided for @homeworkSavingQuestions.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving questions...'**
+  String get homeworkSavingQuestions;
+
+  /// No description provided for @homeworkQuestionsSliderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions'**
+  String get homeworkQuestionsSliderTitle;
+
+  /// No description provided for @homeworkMarksHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Marks'**
+  String get homeworkMarksHint;
+
+  /// No description provided for @homeworkConfirmRemoveQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this question from the homework?'**
+  String get homeworkConfirmRemoveQuestion;
+
+  /// No description provided for @homeworkQuestionRemovedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Question removed'**
+  String get homeworkQuestionRemovedSuccess;
+
+  /// No description provided for @homeworkQuestionsUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions saved successfully'**
+  String get homeworkQuestionsUpdatedSuccess;
+
+  /// No description provided for @homeworkQuestionsUpdatedWithErrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved with {count} errors'**
+  String homeworkQuestionsUpdatedWithErrors(int count);
+
+  /// No description provided for @homeworkMaxMarksLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Marks'**
+  String get homeworkMaxMarksLabel;
+
+  /// No description provided for @profileSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile & Settings'**
+  String get profileSettingsTitle;
+
+  /// No description provided for @profileEditBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get profileEditBadge;
+
+  /// No description provided for @profileSectionAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account & Profile'**
+  String get profileSectionAccount;
+
+  /// No description provided for @profileSectionPreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get profileSectionPreferences;
+
+  /// No description provided for @profileSectionSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Security & Tools'**
+  String get profileSectionSecurity;
+
+  /// No description provided for @profileSectionSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Support & About'**
+  String get profileSectionSupport;
+
+  /// No description provided for @profileEditProfileItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get profileEditProfileItem;
+
+  /// No description provided for @profileAccountInfoItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get profileAccountInfoItem;
+
+  /// No description provided for @profileLanguageItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get profileLanguageItem;
+
+  /// No description provided for @profileThemeItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get profileThemeItem;
+
+  /// No description provided for @profileNotificationsItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Preferences'**
+  String get profileNotificationsItem;
+
+  /// No description provided for @profileSecurityItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Security and Password'**
+  String get profileSecurityItem;
+
+  /// No description provided for @profileToolkitItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Toolkit & Whiteboard'**
+  String get profileToolkitItem;
+
+  /// No description provided for @profileHelpSupportItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Help and Support'**
+  String get profileHelpSupportItem;
+
+  /// No description provided for @profileLogoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get profileLogoutButton;
+
+  /// No description provided for @profileLogoutConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out'**
+  String get profileLogoutConfirmTitle;
+
+  /// No description provided for @profileLogoutConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out of your account?'**
+  String get profileLogoutConfirmMessage;
+
+  /// No description provided for @profileLogoutConfirmYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, Log out'**
+  String get profileLogoutConfirmYes;
+
+  /// No description provided for @profileLogoutConfirmNo.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get profileLogoutConfirmNo;
+
+  /// No description provided for @editProfileScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Profile'**
+  String get editProfileScreenTitle;
+
+  /// No description provided for @editProfileFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get editProfileFirstName;
+
+  /// No description provided for @editProfileLastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get editProfileLastName;
+
+  /// No description provided for @editProfileHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Headline'**
+  String get editProfileHeadline;
+
+  /// No description provided for @editProfileBio.
+  ///
+  /// In en, this message translates to:
+  /// **'Biography'**
+  String get editProfileBio;
+
+  /// No description provided for @editProfileOpenTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Open To'**
+  String get editProfileOpenTo;
+
+  /// No description provided for @editProfileOpenToWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get editProfileOpenToWork;
+
+  /// No description provided for @editProfileOpenToHiring.
+  ///
+  /// In en, this message translates to:
+  /// **'Hiring'**
+  String get editProfileOpenToHiring;
+
+  /// No description provided for @editProfileOpenToNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get editProfileOpenToNone;
+
+  /// No description provided for @editProfileImageTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Image file size must be under 5MB'**
+  String get editProfileImageTooLarge;
+
+  /// No description provided for @editProfileLinkedin.
+  ///
+  /// In en, this message translates to:
+  /// **'LinkedIn'**
+  String get editProfileLinkedin;
+
+  /// No description provided for @editProfileGithub.
+  ///
+  /// In en, this message translates to:
+  /// **'GitHub'**
+  String get editProfileGithub;
+
+  /// No description provided for @editProfileTwitter.
+  ///
+  /// In en, this message translates to:
+  /// **'Twitter / X'**
+  String get editProfileTwitter;
+
+  /// No description provided for @editProfileSaveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get editProfileSaveButton;
+
+  /// No description provided for @editProfileSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving profile...'**
+  String get editProfileSaving;
+
+  /// No description provided for @editProfileSavedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated successfully'**
+  String get editProfileSavedSuccess;
+
+  /// No description provided for @editProfileDirtyWarningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsaved Changes'**
+  String get editProfileDirtyWarningTitle;
+
+  /// No description provided for @editProfileDirtyWarningMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have unsaved changes. Are you sure you want to discard them?'**
+  String get editProfileDirtyWarningMessage;
+
+  /// No description provided for @editProfileDirtyWarningDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get editProfileDirtyWarningDiscard;
+
+  /// No description provided for @editProfileDirtyWarningKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep Editing'**
+  String get editProfileDirtyWarningKeep;
+
+  /// No description provided for @accountInfoScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get accountInfoScreenTitle;
+
+  /// No description provided for @accountInfoName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get accountInfoName;
+
+  /// No description provided for @accountInfoEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get accountInfoEmail;
+
+  /// No description provided for @accountInfoUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get accountInfoUsername;
+
+  /// No description provided for @accountInfoRoles.
+  ///
+  /// In en, this message translates to:
+  /// **'Assigned Roles'**
+  String get accountInfoRoles;
+
+  /// No description provided for @accountInfoNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Account information is managed by your institution administrator. To request a change to your primary email address or roles, please contact technical support.'**
+  String get accountInfoNotice;
+
+  /// No description provided for @languageScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Selection'**
+  String get languageScreenTitle;
+
+  /// No description provided for @languageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// No description provided for @languageArabic.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic (العربية)'**
+  String get languageArabic;
+
+  /// No description provided for @languageConfirmButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Selection'**
+  String get languageConfirmButton;
+
+  /// No description provided for @languageUpdating.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating language...'**
+  String get languageUpdating;
+
+  /// No description provided for @themeScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme Selection'**
+  String get themeScreenTitle;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light Mode'**
+  String get themeLight;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark Mode'**
+  String get themeDark;
+
+  /// No description provided for @themeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System Default'**
+  String get themeSystem;
+
+  /// No description provided for @notificationsScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification Preferences'**
+  String get notificationsScreenTitle;
+
+  /// No description provided for @notifCourseAnnouncementsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Course Announcements'**
+  String get notifCourseAnnouncementsTitle;
+
+  /// No description provided for @notifCourseAnnouncementsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive notifications when new announcements are posted in your courses.'**
+  String get notifCourseAnnouncementsSub;
+
+  /// No description provided for @notifAssignmentUpdatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignment & Homework Updates'**
+  String get notifAssignmentUpdatesTitle;
+
+  /// No description provided for @notifAssignmentUpdatesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Get alerted when students submit homework or when grading is required.'**
+  String get notifAssignmentUpdatesSub;
+
+  /// No description provided for @notifMessagesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Direct Messages'**
+  String get notifMessagesTitle;
+
+  /// No description provided for @notifMessagesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications for incoming private messages from students or administration.'**
+  String get notifMessagesSub;
+
+  /// No description provided for @notifRemindersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule Reminders'**
+  String get notifRemindersTitle;
+
+  /// No description provided for @notifRemindersSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily digest and reminders for upcoming classes and meetings.'**
+  String get notifRemindersSub;
+
+  /// No description provided for @notifProductUpdatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Product & System Updates'**
+  String get notifProductUpdatesTitle;
+
+  /// No description provided for @notifProductUpdatesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay informed about new features, improvements, and scheduled maintenance.'**
+  String get notifProductUpdatesSub;
+
+  /// No description provided for @securityScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Security & Password'**
+  String get securityScreenTitle;
+
+  /// No description provided for @securityChangePasswordItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password'**
+  String get securityChangePasswordItem;
+
+  /// No description provided for @securityChangePasswordSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your account password regularly to keep your account secure.'**
+  String get securityChangePasswordSub;
+
+  /// No description provided for @securityPolicyNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Security and authentication policies are enforced by your institution administrator. Contact support if you notice suspicious account activity.'**
+  String get securityPolicyNotice;
+
+  /// No description provided for @securityLogoutAllSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Log out all other sessions'**
+  String get securityLogoutAllSessions;
+
+  /// No description provided for @securityLogoutAllSessionsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'End your active sessions on other devices and browsers.'**
+  String get securityLogoutAllSessionsSub;
+
+  /// No description provided for @helpSupportScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help & Support'**
+  String get helpSupportScreenTitle;
+
+  /// No description provided for @helpFaqItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently Asked Questions'**
+  String get helpFaqItem;
+
+  /// No description provided for @helpContactItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Support'**
+  String get helpContactItem;
+
+  /// No description provided for @helpReportItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Report a Problem'**
+  String get helpReportItem;
+
+  /// No description provided for @helpPrivacyItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get helpPrivacyItem;
+
+  /// No description provided for @helpTermsItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get helpTermsItem;
+
+  /// No description provided for @helpUrgentNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'For urgent technical assistance during classroom hours, please contact your institutional IT coordinator directly.'**
+  String get helpUrgentNotice;
+
+  /// No description provided for @toolkitScreenTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Toolkit & Whiteboard'**
+  String get toolkitScreenTitle;
+
+  /// No description provided for @toolkitUnderDevTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Under Development'**
+  String get toolkitUnderDevTitle;
+
+  /// No description provided for @toolkitUnderDevMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The interactive whiteboard and teacher toolkit are currently under active development. Stay tuned for updates in upcoming releases.'**
+  String get toolkitUnderDevMessage;
 }
 
 class _AppLocalizationsDelegate

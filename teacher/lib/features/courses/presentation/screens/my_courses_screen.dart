@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../data/models/courses_models.dart';
@@ -29,11 +30,10 @@ class _MyCoursesView extends StatelessWidget {
   const _MyCoursesView();
 
   Future<void> _openCourse(BuildContext context, CourseModel course) async {
-    await Navigator.push<bool>(
+    await Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (_) => CourseDetailsScreen(courseName: course.name),
-      ),
+      AppRouteNames.courseDetails,
+      arguments: course.name,
     );
     if (context.mounted) {
       context.read<CoursesCubit>().loadCourses();

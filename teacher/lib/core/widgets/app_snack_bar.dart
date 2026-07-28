@@ -32,4 +32,13 @@ abstract final class AppSnackBar {
         ),
       );
   }
+
+  static void showInfo(BuildContext context, String message) {
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
+      );
+  }
 }

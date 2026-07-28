@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:scolair_teacher/core/theme/app_colors.dart';
 
+import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
@@ -10,8 +11,6 @@ import '../../../../core/widgets/app_snack_bar.dart';
 import '../cubit/quizzes_cubit.dart';
 import '../cubit/quizzes_state.dart';
 import '../widgets/quiz_card.dart';
-import 'quiz_details_screen.dart';
-import 'quiz_form_screen.dart';
 
 class QuizzesListScreen extends StatelessWidget {
   const QuizzesListScreen({super.key});
@@ -29,9 +28,9 @@ class _QuizzesListView extends StatelessWidget {
   const _QuizzesListView();
 
   Future<void> _createQuiz(BuildContext context) async {
-    final created = await Navigator.push<bool>(
+    final created = await Navigator.pushNamed(
       context,
-      MaterialPageRoute(builder: (_) => const QuizFormScreen()),
+      AppRouteNames.quizForm,
     );
     if (created == true && context.mounted) {
       context.read<QuizzesCubit>().loadQuizzes();
@@ -131,18 +130,16 @@ class _QuizzesBody extends StatelessWidget {
             final quiz = quizzes[index];
             return QuizCard(
               quiz: quiz,
-              onTap: () => Navigator.push(
+              onTap: () => Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => QuizDetailsScreen(quizName: quiz.name),
-                ),
+                AppRouteNames.quizDetails,
+                arguments: quiz.name,
               ),
               onEdit: () async {
-                final updated = await Navigator.push<bool>(
+                final updated = await Navigator.pushNamed(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => QuizFormScreen(editingQuiz: quiz),
-                  ),
+                  AppRouteNames.quizForm,
+                  arguments: quiz,
                 );
                 if (updated == true && context.mounted) {
                   context.read<QuizzesCubit>().loadQuizzes();

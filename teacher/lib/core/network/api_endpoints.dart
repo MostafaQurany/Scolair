@@ -87,6 +87,30 @@ abstract final class ApiEndpoints {
       '/api/method/lms.quiz.controllers.remove_question';
   static const String listHomeworks =
       '/api/method/lms.homework.controllers.list_homeworks';
+  static const String getHomework =
+      '/api/method/lms.homework.controllers.get_homework';
+  static const String createHomework =
+      '/api/method/lms.homework.controllers.create_homework';
+  static const String updateHomework =
+      '/api/method/lms.homework.controllers.update_homework';
   static const String deleteHomework =
       '/api/method/lms.homework.controllers.delete_homework';
+  static const String addHomeworkQuestion =
+      '/api/method/lms.homework.controllers.add_question';
+  static const String removeHomeworkQuestion =
+      '/api/method/lms.homework.controllers.remove_question';
+  static const String getHomeworkSubmissions =
+      '/api/method/lms.homework.controllers.get_submissions';
+  static const String getHomeworkSubmission =
+      '/api/method/lms.homework.controllers.get_submission';
+  static const String downloadAnswerFile =
+      '/api/method/lms.homework.controllers.download_answer_file';
+  static const String gradeHomeworkSubmission =
+      '/api/method/lms.homework.controllers.grade_submission';
+
+  // Profile and Settings
+  static const String getUserInfo = '/api/method/lms.mobile.get_profile';
+  static const String editProfile = '/api/method/lms.mobile.edit_profile';
+  static const String uploadProfileImage =
+      '/api/method/lms.mobile.upload_profile_image';
 }

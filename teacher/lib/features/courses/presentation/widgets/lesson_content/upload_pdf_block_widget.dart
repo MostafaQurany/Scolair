@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
+import '../../../../../core/constants/app_route_names.dart';
 import '../../../../../core/localization/localization_extension.dart';
 import '../../screens/pdf_viewer_screen.dart';
 import 'frappe_file_url_resolver.dart';
@@ -62,11 +63,10 @@ class UploadPdfBlockWidget extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () => Navigator.push<void>(
+              onPressed: () => Navigator.pushNamed(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => PdfViewerScreen(fileUrl: resolvedUrl),
-                ),
+                AppRouteNames.pdfViewer,
+                arguments: resolvedUrl,
               ),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

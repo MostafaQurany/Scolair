@@ -239,6 +239,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changePasswordTitle => 'Change password';
 
   @override
+  String get changePasswordSubtitle =>
+      'Use your current password to choose a new one.';
+
+  @override
   String get currentPasswordLabel => 'Current password';
 
   @override
@@ -1264,7 +1268,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get search => 'Search...';
 
   @override
-  String get addToQuiz => 'Add to Quiz';
+  String get addToQuiz => 'Add';
 
   @override
   String get quizTabOverview => 'Overview';
@@ -1448,13 +1452,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeworkFilterDrafts => 'Drafts';
 
   @override
-  String get homeworkViewDetails => 'View Details';
+  String get homeworkViewDetails => 'Homework Details';
 
   @override
   String get homeworkNoCourse => 'No course';
 
   @override
-  String get homeworkNoDueDate => 'No due date';
+  String get homeworkNoDueDate => 'No due date set';
 
   @override
   String get homeworkUntitled => 'Untitled homework';
@@ -1473,6 +1477,164 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeworkInstructionsUnavailable => 'No instructions provided.';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get errorOccurred => 'An error occurred';
+
+  @override
+  String get previous => 'Previous';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get title => 'Title';
+
+  @override
+  String get marks => 'Marks';
+
+  @override
+  String get download => 'Download';
+
+  @override
+  String get courseLesson => 'Lesson';
+
+  @override
+  String get homeworkTotalMarks => 'Total Marks';
+
+  @override
+  String get homeworkQuestionsTab => 'Questions';
+
+  @override
+  String get homeworkSubmissionsTab => 'Submissions';
+
+  @override
+  String get homeworkSaveDraft => 'Save as Draft';
+
+  @override
+  String get homeworkPublish => 'Publish';
+
+  @override
+  String get homeworkUnpublish => 'Unpublish';
+
+  @override
+  String get homeworkQuestionTab => 'Question';
+
+  @override
+  String get homeworkAnswer => 'Answer';
+
+  @override
+  String get homeworkNoAnswer => 'No answer provided.';
+
+  @override
+  String get homeworkAutoGraded => 'Auto-graded';
+
+  @override
+  String get homeworkAssignMarks => 'Assign Marks';
+
+  @override
+  String get homeworkQuestionNote => 'Note';
+
+  @override
+  String get homeworkAddNoteHint => 'Add feedback note...';
+
+  @override
+  String get homeworkLate => 'Late Submission';
+
+  @override
+  String get homeworkOverview => 'Overview';
+
+  @override
+  String get homeworkCreatedSuccess => 'Homework created successfully';
+
+  @override
+  String get homeworkBasicInfo => 'Basic Info';
+
+  @override
+  String get homeworkReviewTitle => 'Review Homework';
+
+  @override
+  String get homeworkFileDownloaded => 'File downloaded successfully';
+
+  @override
+  String get homeworkGradedSuccess => 'Submission graded successfully';
+
+  @override
+  String get homeworkGradeSubmissionTitle => 'Grade Submission';
+
+  @override
+  String get homeworkOverallFeedback => 'Overall Feedback';
+
+  @override
+  String get homeworkFeedbackHint => 'Enter overall feedback here...';
+
+  @override
+  String get homeworkSubmitGrade => 'Submit Grade';
+
+  @override
+  String get homeworkPublished => 'Published';
+
+  @override
+  String get homeworkDraft => 'Draft';
+
+  @override
+  String get homeworkDueDate => 'Due Date';
+
+  @override
+  String get homeworkAllowLate => 'Allow Late Submission';
+
+  @override
+  String get homeworkDeleteConfirm =>
+      'Are you sure you want to delete this homework?';
+
+  @override
+  String get homeworkQuestionsLocked =>
+      'Questions cannot be modified after submissions are received.';
+
+  @override
+  String get homeworkNoQuestions => 'No questions added yet.';
+
+  @override
+  String get homeworkAddQuestion => 'Add Question';
+
+  @override
+  String get homeworkQuestionIdOrTitle => 'Question ID or Title';
+
+  @override
+  String get homeworkSubmitted => 'Submitted';
+
+  @override
+  String get homeworkGraded => 'Graded';
+
+  @override
+  String get homeworkNeedsGrading => 'Needs Grading';
+
+  @override
+  String get homeworkNoSubmissions => 'No submissions found.';
+
+  @override
+  String get homeworkReview => 'Review';
+
+  @override
+  String get homeworkGrade => 'Grade';
+
+  @override
+  String get homeworkSelectDate => 'Select Date';
+
+  @override
+  String get homeworkInstructions => 'Instructions';
+
+  @override
+  String get homeworkInstructionsHint => 'Enter homework instructions here...';
 
   @override
   String get homeGreetingMorning => 'Good Morning';
@@ -1659,4 +1821,321 @@ class AppLocalizationsEn extends AppLocalizations {
   ) {
     return 'You have $marksCount marks updated, $addCount questions added/modified, and $deleteCount questions deleted. Proceed?';
   }
+
+  @override
+  String get addToHomework => 'Add to Homework';
+
+  @override
+  String get homeworkManageQuestions => 'Manage Questions';
+
+  @override
+  String get homeworkViewSubmissions => 'View Submissions';
+
+  @override
+  String homeworkQuestionsCount(int count) {
+    return '$count Questions';
+  }
+
+  @override
+  String homeworkSubmissionsCount(int count) {
+    return '$count Submissions';
+  }
+
+  @override
+  String get homeworkAssignMarksTitle => 'Assign Marks';
+
+  @override
+  String get homeworkEditMode => 'Edit';
+
+  @override
+  String get homeworkSaveChanges => 'Save Changes';
+
+  @override
+  String get homeworkPublishAndContinue => 'Publish & Continue';
+
+  @override
+  String get homeworkCancelEdit => 'Cancel';
+
+  @override
+  String get homeworkSavingQuestions => 'Saving questions...';
+
+  @override
+  String get homeworkQuestionsSliderTitle => 'Questions';
+
+  @override
+  String get homeworkMarksHint => 'Marks';
+
+  @override
+  String get homeworkConfirmRemoveQuestion =>
+      'Remove this question from the homework?';
+
+  @override
+  String get homeworkQuestionRemovedSuccess => 'Question removed';
+
+  @override
+  String get homeworkQuestionsUpdatedSuccess => 'Questions saved successfully';
+
+  @override
+  String homeworkQuestionsUpdatedWithErrors(int count) {
+    return 'Saved with $count errors';
+  }
+
+  @override
+  String get homeworkMaxMarksLabel => 'Total Marks';
+
+  @override
+  String get profileSettingsTitle => 'Profile & Settings';
+
+  @override
+  String get profileEditBadge => 'Edit';
+
+  @override
+  String get profileSectionAccount => 'Account & Profile';
+
+  @override
+  String get profileSectionPreferences => 'Preferences';
+
+  @override
+  String get profileSectionSecurity => 'Security & Tools';
+
+  @override
+  String get profileSectionSupport => 'Support & About';
+
+  @override
+  String get profileEditProfileItem => 'Edit Profile';
+
+  @override
+  String get profileAccountInfoItem => 'Account Information';
+
+  @override
+  String get profileLanguageItem => 'Language';
+
+  @override
+  String get profileThemeItem => 'Theme';
+
+  @override
+  String get profileNotificationsItem => 'Notification Preferences';
+
+  @override
+  String get profileSecurityItem => 'Security and Password';
+
+  @override
+  String get profileToolkitItem => 'Toolkit & Whiteboard';
+
+  @override
+  String get profileHelpSupportItem => 'Help and Support';
+
+  @override
+  String get profileLogoutButton => 'Log out';
+
+  @override
+  String get profileLogoutConfirmTitle => 'Log out';
+
+  @override
+  String get profileLogoutConfirmMessage =>
+      'Are you sure you want to log out of your account?';
+
+  @override
+  String get profileLogoutConfirmYes => 'Yes, Log out';
+
+  @override
+  String get profileLogoutConfirmNo => 'Cancel';
+
+  @override
+  String get editProfileScreenTitle => 'Edit Profile';
+
+  @override
+  String get editProfileFirstName => 'First Name';
+
+  @override
+  String get editProfileLastName => 'Last Name';
+
+  @override
+  String get editProfileHeadline => 'Headline';
+
+  @override
+  String get editProfileBio => 'Biography';
+
+  @override
+  String get editProfileOpenTo => 'Open To';
+
+  @override
+  String get editProfileOpenToWork => 'Work';
+
+  @override
+  String get editProfileOpenToHiring => 'Hiring';
+
+  @override
+  String get editProfileOpenToNone => 'None';
+
+  @override
+  String get editProfileImageTooLarge => 'Image file size must be under 5MB';
+
+  @override
+  String get editProfileLinkedin => 'LinkedIn';
+
+  @override
+  String get editProfileGithub => 'GitHub';
+
+  @override
+  String get editProfileTwitter => 'Twitter / X';
+
+  @override
+  String get editProfileSaveButton => 'Save Changes';
+
+  @override
+  String get editProfileSaving => 'Saving profile...';
+
+  @override
+  String get editProfileSavedSuccess => 'Profile updated successfully';
+
+  @override
+  String get editProfileDirtyWarningTitle => 'Unsaved Changes';
+
+  @override
+  String get editProfileDirtyWarningMessage =>
+      'You have unsaved changes. Are you sure you want to discard them?';
+
+  @override
+  String get editProfileDirtyWarningDiscard => 'Discard';
+
+  @override
+  String get editProfileDirtyWarningKeep => 'Keep Editing';
+
+  @override
+  String get accountInfoScreenTitle => 'Account Information';
+
+  @override
+  String get accountInfoName => 'Name';
+
+  @override
+  String get accountInfoEmail => 'Email Address';
+
+  @override
+  String get accountInfoUsername => 'Username';
+
+  @override
+  String get accountInfoRoles => 'Assigned Roles';
+
+  @override
+  String get accountInfoNotice =>
+      'Account information is managed by your institution administrator. To request a change to your primary email address or roles, please contact technical support.';
+
+  @override
+  String get languageScreenTitle => 'Language Selection';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageArabic => 'Arabic (العربية)';
+
+  @override
+  String get languageConfirmButton => 'Confirm Selection';
+
+  @override
+  String get languageUpdating => 'Updating language...';
+
+  @override
+  String get themeScreenTitle => 'Theme Selection';
+
+  @override
+  String get themeLight => 'Light Mode';
+
+  @override
+  String get themeDark => 'Dark Mode';
+
+  @override
+  String get themeSystem => 'System Default';
+
+  @override
+  String get notificationsScreenTitle => 'Notification Preferences';
+
+  @override
+  String get notifCourseAnnouncementsTitle => 'Course Announcements';
+
+  @override
+  String get notifCourseAnnouncementsSub =>
+      'Receive notifications when new announcements are posted in your courses.';
+
+  @override
+  String get notifAssignmentUpdatesTitle => 'Assignment & Homework Updates';
+
+  @override
+  String get notifAssignmentUpdatesSub =>
+      'Get alerted when students submit homework or when grading is required.';
+
+  @override
+  String get notifMessagesTitle => 'Direct Messages';
+
+  @override
+  String get notifMessagesSub =>
+      'Notifications for incoming private messages from students or administration.';
+
+  @override
+  String get notifRemindersTitle => 'Schedule Reminders';
+
+  @override
+  String get notifRemindersSub =>
+      'Daily digest and reminders for upcoming classes and meetings.';
+
+  @override
+  String get notifProductUpdatesTitle => 'Product & System Updates';
+
+  @override
+  String get notifProductUpdatesSub =>
+      'Stay informed about new features, improvements, and scheduled maintenance.';
+
+  @override
+  String get securityScreenTitle => 'Security & Password';
+
+  @override
+  String get securityChangePasswordItem => 'Change Password';
+
+  @override
+  String get securityChangePasswordSub =>
+      'Update your account password regularly to keep your account secure.';
+
+  @override
+  String get securityPolicyNotice =>
+      'Security and authentication policies are enforced by your institution administrator. Contact support if you notice suspicious account activity.';
+
+  @override
+  String get securityLogoutAllSessions => 'Log out all other sessions';
+
+  @override
+  String get securityLogoutAllSessionsSub =>
+      'End your active sessions on other devices and browsers.';
+
+  @override
+  String get helpSupportScreenTitle => 'Help & Support';
+
+  @override
+  String get helpFaqItem => 'Frequently Asked Questions';
+
+  @override
+  String get helpContactItem => 'Contact Support';
+
+  @override
+  String get helpReportItem => 'Report a Problem';
+
+  @override
+  String get helpPrivacyItem => 'Privacy Policy';
+
+  @override
+  String get helpTermsItem => 'Terms of Service';
+
+  @override
+  String get helpUrgentNotice =>
+      'For urgent technical assistance during classroom hours, please contact your institutional IT coordinator directly.';
+
+  @override
+  String get toolkitScreenTitle => 'Toolkit & Whiteboard';
+
+  @override
+  String get toolkitUnderDevTitle => 'Under Development';
+
+  @override
+  String get toolkitUnderDevMessage =>
+      'The interactive whiteboard and teacher toolkit are currently under active development. Stay tuned for updates in upcoming releases.';
 }

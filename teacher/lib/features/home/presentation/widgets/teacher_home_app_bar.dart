@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/constants/app_assets.dart';
 import '../../../../core/constants/app_route_names.dart';
+import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_user_avatar.dart';
+import '../../../profile_settings/presentation/cubit/authenticated_user_cubit.dart';
+import '../../../profile_settings/presentation/cubit/authenticated_user_state.dart';
 import '../../domain/entities/teacher_profile.dart';
 
 class TeacherHomeAppBar extends StatelessWidget {
@@ -22,6 +26,27 @@ class TeacherHomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<AuthenticatedUserCubit, AuthenticatedUserState>(
+      bloc: getIt<AuthenticatedUserCubit>(),
+      builder: (context, state) {
+        final currentProfile = state.maybeWhen(
+          loaded: (profile, _) => profile,
+          error: (_, profile) => profile,
+          orElse: () => null,
+        );
+        final currentTeacher = currentProfile == null
+            ? teacher
+            : TeacherProfile(
+                id: currentProfile.id ?? teacher.id,
+                displayName: currentProfile.displayedName,
+                imageUrl: currentProfile.displayImageUrl,
+              );
+        return _buildAppBar(context, currentTeacher);
+      },
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context, TeacherProfile teacher) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return SliverAppBar(
@@ -87,7 +112,7 @@ class TeacherHomeAppBar extends StatelessWidget {
           padding: EdgeInsetsDirectional.only(end: 16.w, start: 8.w),
           child: GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, AppRouteNames.teacherProfile);
+              Navigator.pushNamed(context, AppRouteNames.profileSettings);
             },
             child: Semantics(
               label: context.l10n.teacherAvatarSemantic,

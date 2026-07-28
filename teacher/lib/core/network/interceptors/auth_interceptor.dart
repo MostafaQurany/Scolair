@@ -3,17 +3,24 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 
 import '../../errors/app_logger.dart';
+import '../../navigation/navigation_service.dart';
 import '../../storage/app_secure_storage.dart';
 import '../api_endpoints.dart';
 
 class AuthInterceptor extends Interceptor {
-  AuthInterceptor(this._secureStorage, this._refreshDio);
+  AuthInterceptor(
+    this._secureStorage,
+    this._refreshDio, [
+    this._navigationService,
+  ]);
 
   final AppSecureStorage _secureStorage;
 
   /// Plain Dio with no interceptors — used exclusively for token refresh
   /// to prevent circular 401 handling.
   final Dio _refreshDio;
+
+  final NavigationService? _navigationService;
 
   static const _retryHeader = 'X-Retry-After-Refresh';
 
@@ -41,6 +48,9 @@ class AuthInterceptor extends Interceptor {
     final alreadyRetried = err.requestOptions.headers.containsKey(_retryHeader);
 
     if (!isUnauthorized || alreadyRetried) {
+      if (isUnauthorized && alreadyRetried) {
+        await _handleUnauthorized();
+      }
       return handler.next(err);
     }
 
@@ -51,12 +61,13 @@ class AuthInterceptor extends Interceptor {
       if (newToken != null) {
         return handler.resolve(await _retry(err.requestOptions, newToken));
       }
+      await _handleUnauthorized();
       return handler.next(err);
     }
 
     final refreshToken = await _secureStorage.readRefreshToken();
     if (refreshToken == null || refreshToken.isEmpty) {
-      await _secureStorage.clearAll();
+      await _handleUnauthorized();
       return handler.next(err);
     }
 
@@ -85,11 +96,16 @@ class AuthInterceptor extends Interceptor {
       handler.resolve(await _retry(err.requestOptions, newAccess));
     } catch (e, st) {
       AppLogger.error('Token refresh failed — clearing session', e, st);
-      await _secureStorage.clearAll();
+      await _handleUnauthorized();
       _refreshLock?.completeError('refresh_failed');
       _refreshLock = null;
       handler.next(err);
     }
+  }
+
+  Future<void> _handleUnauthorized() async {
+    await _secureStorage.clearAll();
+    _navigationService?.navigateToLogin();
   }
 
   Future<Response<dynamic>> _retry(RequestOptions options, String newToken) {
