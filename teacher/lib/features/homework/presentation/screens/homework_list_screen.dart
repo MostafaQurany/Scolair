@@ -6,6 +6,7 @@ import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
 import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
+import '../../data/models/list_homeworks_request_data.dart';
 import '../../domain/entities/homework_list_item.dart';
 import '../cubit/homework_list_cubit.dart';
 import '../cubit/homework_list_state.dart';
@@ -27,7 +28,9 @@ class _HomeworkListScreenState extends State<HomeworkListScreen> {
   @override
   void initState() {
     super.initState();
-    _cubit = getIt<HomeworkListCubit>()..loadInitial();
+    _cubit = getIt<HomeworkListCubit>()
+      ..loadInitial()
+      ..loadCourses();
     _scrollController.addListener(_handleScroll);
   }
 
@@ -124,135 +127,160 @@ class _HomeworkListScreenState extends State<HomeworkListScreen> {
               AppSnackBar.showError(context, message);
             }
           },
-          builder: (context, state) => LayoutBuilder(
-            builder: (context, constraints) {
-              final useGrid = constraints.maxWidth >= 700;
-              return RefreshIndicator(
-                onRefresh: _cubit.refresh,
-                child: CustomScrollView(
-                  controller: _scrollController,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  slivers: [
-                    SliverAppBar(
-                      floating: true,
-                      title: Text(context.l10n.homeworkManagementTitle),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Center(
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(maxWidth: 1100),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                              16.w,
-                              16.h,
-                              16.w,
-                              12.h,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                HomeworkStatusDropdown(
-                                  value: state.filter,
-                                  onChanged: _cubit.changeFilter,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+          builder: (context, state) {
+            final itemsByStatus = switch (state.filter) {
+              HomeworkPublishedFilter.all => state.items,
+              HomeworkPublishedFilter.published =>
+                  state.items.where((i) => i.isPublished).toList(growable: false),
+              HomeworkPublishedFilter.drafts =>
+                  state.items.where((i) => !i.isPublished).toList(growable: false),
+            };
+
+            final filteredItems = state.searchQuery.trim().isEmpty
+                ? itemsByStatus
+                : itemsByStatus
+                    .where((item) => item.title
+                        .toLowerCase()
+                        .contains(state.searchQuery.trim().toLowerCase()))
+                    .toList(growable: false);
+
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                final useGrid = constraints.maxWidth >= 700;
+                return RefreshIndicator(
+                  onRefresh: _cubit.refresh,
+                  child: CustomScrollView(
+                    controller: _scrollController,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    slivers: [
+                      SliverAppBar(
+                        floating: true,
+                        title: Text(context.l10n.homeworkManagementTitle),
                       ),
-                    ),
-                    if (state.isInitialLoading && state.items.isEmpty)
-                      SliverPadding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                          16.w,
-                          4.h,
-                          16.w,
-                          96.h,
-                        ),
-                        sliver: HomeworkListShimmer(useGrid: useGrid),
-                      )
-                    else if (state.hasBlockingError)
-                      _HomeworkErrorSliver(
-                        message: state.errorMessage!,
-                        onRetry: _cubit.retry,
-                      )
-                    else if (state.items.isEmpty)
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.all(24.r),
-                            child: Text(
-                              context.l10n.homeworkEmptyMessage,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      )
-                    else
-                      SliverPadding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                          16.w,
-                          4.h,
-                          16.w,
-                          16.h,
-                        ),
-                        sliver: useGrid
-                            ? SliverGrid.builder(
-                                itemCount: state.items.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                      maxCrossAxisExtent: 520.w,
-                                      mainAxisExtent: 390.h,
-                                      crossAxisSpacing: 16.w,
-                                      mainAxisSpacing: 16.h,
-                                    ),
-                                itemBuilder: (context, index) => HomeworkCard(
-                                  homework: state.items[index],
-                                  onViewDetails: () =>
-                                      _openDetails(state.items[index]),
-                                  onEdit: () =>
-                                      _editHomework(state.items[index]),
-                                  onDelete: () =>
-                                      _confirmDelete(state.items[index]),
-                                  isDeleting: state.deletingNames.contains(
-                                    state.items[index].name,
-                                  ),
-                                ),
-                              )
-                            : SliverList.separated(
-                                itemCount: state.items.length,
-                                itemBuilder: (context, index) => HomeworkCard(
-                                  homework: state.items[index],
-                                  onViewDetails: () =>
-                                      _openDetails(state.items[index]),
-                                  onEdit: () =>
-                                      _editHomework(state.items[index]),
-                                  onDelete: () =>
-                                      _confirmDelete(state.items[index]),
-                                  isDeleting: state.deletingNames.contains(
-                                    state.items[index].name,
-                                  ),
-                                ),
-                                separatorBuilder: (_, _) =>
-                                    SizedBox(height: 14.h),
-                              ),
-                      ),
-                    if (state.items.isNotEmpty)
                       SliverToBoxAdapter(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.only(bottom: 96.h),
-                          child: _PaginationFooter(
-                            state: state,
-                            onRetry: _cubit.loadMore,
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                            16.w,
+                            16.h,
+                            16.w,
+                            12.h,
+                          ),
+                          child: HomeworkStatusDropdown(
+                            value: state.filter,
+                            onChanged: _cubit.changeFilter,
+                            searchQuery: state.searchQuery,
+                            onSearchQueryChanged: _cubit.changeSearchQuery,
+                            selectedCourse: state.selectedCourse,
+                            selectedChapter: state.selectedChapter,
+                            selectedLesson: state.selectedLesson,
+                            courses: state.courses,
+                            chapters: state.chapters,
+                            lessons: state.lessons,
+                            isLoadingCourses: state.isLoadingCourses,
+                            isLoadingChapters: state.isLoadingChapters,
+                            isLoadingLessons: state.isLoadingLessons,
+                            onCourseSelected: _cubit.selectCourse,
+                            onChapterSelected: _cubit.selectChapter,
+                            onLessonSelected: _cubit.selectLesson,
+                            onClearFilters: _cubit.clearFilters,
                           ),
                         ),
                       ),
-                  ],
-                ),
-              );
-            },
-          ),
+                      if (state.isInitialLoading && state.items.isEmpty)
+                        SliverPadding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                            16.w,
+                            4.h,
+                            16.w,
+                            96.h,
+                          ),
+                          sliver: HomeworkListShimmer(useGrid: useGrid),
+                        )
+                      else if (state.hasBlockingError)
+                        _HomeworkErrorSliver(
+                          message: state.errorMessage!,
+                          onRetry: _cubit.retry,
+                        )
+                      else if (filteredItems.isEmpty)
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.all(24.r),
+                              child: Text(
+                                state.items.isEmpty
+                                    ? context.l10n.homeworkEmptyMessage
+                                    : context.l10n.search, // Fallback if no specific translation for search no matches
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        )
+                      else
+                        SliverPadding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                            16.w,
+                            4.h,
+                            16.w,
+                            16.h,
+                          ),
+                          sliver: useGrid
+                              ? SliverGrid.builder(
+                                  itemCount: filteredItems.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                        maxCrossAxisExtent: 520.w,
+                                        mainAxisExtent: 390.h,
+                                        crossAxisSpacing: 16.w,
+                                        mainAxisSpacing: 16.h,
+                                      ),
+                                  itemBuilder: (context, index) => HomeworkCard(
+                                    homework: filteredItems[index],
+                                    onViewDetails: () =>
+                                        _openDetails(filteredItems[index]),
+                                    onEdit: () =>
+                                        _editHomework(filteredItems[index]),
+                                    onDelete: () =>
+                                        _confirmDelete(filteredItems[index]),
+                                    isDeleting: state.deletingNames.contains(
+                                      filteredItems[index].name,
+                                    ),
+                                  ),
+                                )
+                              : SliverList.separated(
+                                  itemCount: filteredItems.length,
+                                  itemBuilder: (context, index) => HomeworkCard(
+                                    homework: filteredItems[index],
+                                    onViewDetails: () =>
+                                        _openDetails(filteredItems[index]),
+                                    onEdit: () =>
+                                        _editHomework(filteredItems[index]),
+                                    onDelete: () =>
+                                        _confirmDelete(filteredItems[index]),
+                                    isDeleting: state.deletingNames.contains(
+                                      filteredItems[index].name,
+                                    ),
+                                  ),
+                                  separatorBuilder: (_, _) =>
+                                      SizedBox(height: 14.h),
+                                ),
+                        ),
+                      if (filteredItems.isNotEmpty)
+                        SliverToBoxAdapter(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.only(bottom: 96.h),
+                            child: _PaginationFooter(
+                              state: state,
+                              onRetry: _cubit.loadMore,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
         ),
       ),
     ),

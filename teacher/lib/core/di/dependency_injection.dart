@@ -365,7 +365,7 @@ Future<void> setupDependencyInjection() async {
       () => DuplicateHomeworkUseCase(getIt()),
     )
     ..registerFactory<HomeworkListCubit>(
-      () => HomeworkListCubit(getIt(), getIt()),
+      () => HomeworkListCubit(getIt(), getIt(), getIt()),
     )
     ..registerFactory<HomeworkFormCubit>(
       () => HomeworkFormCubit(getIt(), getIt()),

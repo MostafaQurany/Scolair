@@ -22,11 +22,17 @@ class ListHomeworkPageUseCase {
     required int start,
     required int pageSize,
     required HomeworkPublishedFilter publishedFilter,
+    String? course,
+    String? chapter,
+    String? lesson,
   }) => _repository.listHomeworkPage(
     ListHomeworksRequestData(
       start: start,
       pageSize: pageSize,
       publishedFilter: publishedFilter,
+      course: course,
+      chapter: chapter,
+      lesson: lesson,
     ),
   );
 }

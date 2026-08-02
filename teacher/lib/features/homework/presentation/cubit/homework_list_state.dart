@@ -1,3 +1,4 @@
+import '../../../courses/data/models/courses_models.dart';
 import '../../data/models/list_homeworks_request_data.dart';
 import '../../domain/entities/homework_list_item.dart';
 
@@ -16,6 +17,16 @@ class HomeworkListState {
     this.paginationErrorMessage,
     this.deletingNames = const <String>{},
     this.errorSerial = 0,
+    this.searchQuery = '',
+    this.selectedCourse,
+    this.selectedChapter,
+    this.selectedLesson,
+    this.courses = const [],
+    this.chapters = const [],
+    this.lessons = const [],
+    this.isLoadingCourses = false,
+    this.isLoadingChapters = false,
+    this.isLoadingLessons = false,
   });
 
   final List<HomeworkListItem> items;
@@ -31,6 +42,16 @@ class HomeworkListState {
   final String? paginationErrorMessage;
   final Set<String> deletingNames;
   final int errorSerial;
+  final String searchQuery;
+  final String? selectedCourse;
+  final String? selectedChapter;
+  final String? selectedLesson;
+  final List<CourseModel> courses;
+  final List<ChapterSummaryModel> chapters;
+  final List<LessonSummaryModel> lessons;
+  final bool isLoadingCourses;
+  final bool isLoadingChapters;
+  final bool isLoadingLessons;
 
   bool get hasBlockingError => errorMessage != null && items.isEmpty;
 
@@ -50,6 +71,19 @@ class HomeworkListState {
     bool clearPaginationError = false,
     Set<String>? deletingNames,
     int? errorSerial,
+    String? searchQuery,
+    String? selectedCourse,
+    bool clearCourse = false,
+    String? selectedChapter,
+    bool clearChapter = false,
+    String? selectedLesson,
+    bool clearLesson = false,
+    List<CourseModel>? courses,
+    List<ChapterSummaryModel>? chapters,
+    List<LessonSummaryModel>? lessons,
+    bool? isLoadingCourses,
+    bool? isLoadingChapters,
+    bool? isLoadingLessons,
   }) => HomeworkListState(
     items: items ?? this.items,
     start: start ?? this.start,
@@ -66,5 +100,15 @@ class HomeworkListState {
         : paginationErrorMessage ?? this.paginationErrorMessage,
     deletingNames: deletingNames ?? this.deletingNames,
     errorSerial: errorSerial ?? this.errorSerial,
+    searchQuery: searchQuery ?? this.searchQuery,
+    selectedCourse: clearCourse ? null : selectedCourse ?? this.selectedCourse,
+    selectedChapter: clearChapter ? null : selectedChapter ?? this.selectedChapter,
+    selectedLesson: clearLesson ? null : selectedLesson ?? this.selectedLesson,
+    courses: courses ?? this.courses,
+    chapters: chapters ?? this.chapters,
+    lessons: lessons ?? this.lessons,
+    isLoadingCourses: isLoadingCourses ?? this.isLoadingCourses,
+    isLoadingChapters: isLoadingChapters ?? this.isLoadingChapters,
+    isLoadingLessons: isLoadingLessons ?? this.isLoadingLessons,
   );
 }
