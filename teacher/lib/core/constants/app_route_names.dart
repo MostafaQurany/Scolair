@@ -54,4 +54,8 @@ abstract final class AppRouteNames {
   static const String changePassword = '/change-password';
   static const String helpSupport = '/help-support';
   static const String toolkitWhiteboard = '/toolkit-whiteboard';
+
+  // Notifications
+  static const String notifications = '/notifications';
+  static const String archivedNotifications = '/archived-notifications';
 }

@@ -9,22 +9,15 @@ import '../../../domain/usecases/homework_usecases.dart';
 import 'homework_details_state.dart';
 
 class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
-  HomeworkDetailsCubit({
-    required GetHomeworkDetailsUseCase getDetailsUseCase,
-    required UpdateHomeworkRemoteUseCase updateRemoteUseCase,
-    required DeleteHomeworkUseCase deleteUseCase,
-    required AddHomeworkQuestionUseCase addQuestionUseCase,
-    required RemoveHomeworkQuestionUseCase removeQuestionUseCase,
-    required GetHomeworkSubmissionsUseCase getSubmissionsUseCase,
-    required UploadFileUseCase uploadFileUseCase,
-  }) : _getDetailsUseCase = getDetailsUseCase,
-       _updateRemoteUseCase = updateRemoteUseCase,
-       _deleteUseCase = deleteUseCase,
-       _addQuestionUseCase = addQuestionUseCase,
-       _removeQuestionUseCase = removeQuestionUseCase,
-       _getSubmissionsUseCase = getSubmissionsUseCase,
-       _uploadFileUseCase = uploadFileUseCase,
-       super(const HomeworkDetailsState());
+  HomeworkDetailsCubit(
+    this._getDetailsUseCase,
+    this._updateRemoteUseCase,
+    this._deleteUseCase,
+    this._addQuestionUseCase,
+    this._removeQuestionUseCase,
+    this._getSubmissionsUseCase,
+    this._uploadFileUseCase,
+  ) : super(const HomeworkDetailsState());
 
   final GetHomeworkDetailsUseCase _getDetailsUseCase;
   final UpdateHomeworkRemoteUseCase _updateRemoteUseCase;

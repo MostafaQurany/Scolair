@@ -86,6 +86,48 @@ abstract final class AppTextStyles {
     );
   }
 
+  static TextStyle get bodyLarge => _style(
+        size: 16,
+        weight: FontWeight.w500,
+        color: AppColors.lightTextPrimary,
+        height: 1.45,
+      );
+
+  static TextStyle get bodyMedium => _style(
+        size: 14,
+        weight: FontWeight.w500,
+        color: AppColors.lightTextPrimary,
+        height: 1.42,
+      );
+
+  static TextStyle get bodySmall => _style(
+        size: 12,
+        weight: FontWeight.w500,
+        color: AppColors.lightTextSecondary,
+        height: 1.35,
+      );
+
+  static TextStyle get labelLarge => _style(
+        size: 14,
+        weight: FontWeight.w700,
+        color: AppColors.lightTextPrimary,
+        height: 1.2,
+      );
+
+  static TextStyle get labelMedium => _style(
+        size: 12,
+        weight: FontWeight.w700,
+        color: AppColors.lightTextSecondary,
+        height: 1.2,
+      );
+
+  static TextStyle get labelSmall => _style(
+        size: 11,
+        weight: FontWeight.w700,
+        color: AppColors.lightTextSecondary,
+        height: 1.18,
+      );
+
   static TextStyle _style({
     required double size,
     required FontWeight weight,

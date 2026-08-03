@@ -197,7 +197,6 @@ class _BottomNavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isCenterItem = index == 2;
     final colorScheme = Theme.of(context).colorScheme; //[cite: 3]
 
     // Set colors using the primary color from your theme

@@ -6,14 +6,11 @@ import '../../../domain/usecases/homework_usecases.dart';
 import 'homework_grading_state.dart';
 
 class HomeworkGradingCubit extends Cubit<HomeworkGradingState> {
-  HomeworkGradingCubit({
-    required GetSubmissionDetailsUseCase getDetailsUseCase,
-    required GradeSubmissionUseCase gradeUseCase,
-    required DownloadAnswerFileUseCase downloadUseCase,
-  }) : _getDetailsUseCase = getDetailsUseCase,
-       _gradeUseCase = gradeUseCase,
-       _downloadUseCase = downloadUseCase,
-       super(const HomeworkGradingState());
+  HomeworkGradingCubit(
+    this._getDetailsUseCase,
+    this._gradeUseCase,
+    this._downloadUseCase,
+  ) : super(const HomeworkGradingState());
 
   final GetSubmissionDetailsUseCase _getDetailsUseCase;
   final GradeSubmissionUseCase _gradeUseCase;

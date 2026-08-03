@@ -2138,4 +2138,182 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get toolkitUnderDevMessage =>
       'The interactive whiteboard and teacher toolkit are currently under active development. Stay tuned for updates in upcoming releases.';
+
+  @override
+  String get notificationTitle => 'Notifications';
+
+  @override
+  String get notificationFilterAll => 'All';
+
+  @override
+  String get notificationFilterUnread => 'Unread';
+
+  @override
+  String get notificationFilterActionRequired => 'Action Required';
+
+  @override
+  String get notificationFilterSubmissions => 'Submissions';
+
+  @override
+  String get notificationGroupPinned => 'PINNED';
+
+  @override
+  String get notificationGroupToday => 'TODAY';
+
+  @override
+  String get notificationGroupYesterday => 'YESTERDAY';
+
+  @override
+  String get notificationGroupEarlierThisWeek => 'EARLIER THIS WEEK';
+
+  @override
+  String get notificationGroupEarlierThisMonth => 'EARLIER THIS MONTH';
+
+  @override
+  String get notificationGroupOlder => 'OLDER';
+
+  @override
+  String get notificationMarkAllRead => 'Mark all as read';
+
+  @override
+  String get notificationViewArchived => 'View archived';
+
+  @override
+  String get notificationSettings => 'Notification settings';
+
+  @override
+  String get notificationSearchHint => 'Search notifications...';
+
+  @override
+  String get notificationEmptyTitle => 'You\'re all caught up';
+
+  @override
+  String get notificationEmptyAction => 'Browse courses';
+
+  @override
+  String get notificationEmptyFilteredTitle => 'Nothing here';
+
+  @override
+  String get notificationEmptyFilteredAction => 'Clear filters';
+
+  @override
+  String notificationEmptySearchTitle(String query) {
+    return 'No matches for \'$query\'';
+  }
+
+  @override
+  String get notificationEmptySearchAction => 'Clear search';
+
+  @override
+  String get notificationOfflineBanner =>
+      'You\'re offline. Showing cached notifications.';
+
+  @override
+  String notificationUnreadCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count unread',
+      one: '1 unread',
+      zero: 'No unread',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationNewPill => 'New notifications';
+
+  @override
+  String get notificationMarkRead => 'Mark as read';
+
+  @override
+  String get notificationMarkUnread => 'Mark as unread';
+
+  @override
+  String get notificationArchive => 'Archive';
+
+  @override
+  String get notificationPin => 'Pin';
+
+  @override
+  String get notificationUnpin => 'Unpin';
+
+  @override
+  String get notificationMuteCategory => 'Mute this category';
+
+  @override
+  String get notificationMuteCourse => 'Mute this course';
+
+  @override
+  String get notificationDelete => 'Delete';
+
+  @override
+  String get notificationDone => 'Done ✓';
+
+  @override
+  String get notificationCategoryAssignment => 'Assignment Submission';
+
+  @override
+  String get notificationCategoryQuiz => 'Quiz Submission';
+
+  @override
+  String get notificationCategoryGrading => 'Manual Grading Required';
+
+  @override
+  String get notificationCategoryGradesPublished => 'Grades Published';
+
+  @override
+  String get notificationCategoryPost => 'Collaboration Post';
+
+  @override
+  String get notificationCategoryComment => 'Collaboration Comment';
+
+  @override
+  String get notificationCategoryStudyGroup => 'Study Group Activity';
+
+  @override
+  String get notificationCategoryModeration => 'Moderation';
+
+  @override
+  String get notificationCategorySmartNotes => 'Smart Notes';
+
+  @override
+  String get notificationCategoryEnrollment => 'Enrollment';
+
+  @override
+  String get notificationCategoryStudentRisk => 'Student Risk';
+
+  @override
+  String get notificationCategoryWorkload => 'Workload / Capacity';
+
+  @override
+  String get notificationCategorySync => 'Integration / Sync';
+
+  @override
+  String get notificationCategorySecurity => 'Security';
+
+  @override
+  String get notificationUrgent => 'Urgent';
+
+  @override
+  String get notificationRequiresAction => 'Requires Action';
+
+  @override
+  String get notificationLockedPreference =>
+      'Required notifications cannot be disabled.';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get archivedNotifications => 'Archived Notifications';
+
+  @override
+  String get noNotifications => 'No notifications';
+
+  @override
+  String get unread => 'Unread';
+
+  @override
+  String get actionRequired => 'Action Required';
 }

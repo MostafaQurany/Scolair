@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
     return [
       TeacherHomeAppBar(
         teacher: home.teacher,
-        hasUnreadNotifications: home.organizationNoticeCount > 0,
+        hasUnreadNotifications: home.noticficationCount > 0,
         showBackButton: !embedded,
       ),
       SliverToBoxAdapter(
@@ -50,7 +50,7 @@ class HomeView extends StatelessWidget {
           child: Container(
             constraints: BoxConstraints(maxWidth: 600.w),
             child: OrganizationNoticeCard(
-              noticeCount: home.organizationNoticeCount,
+              noticeCount: home.noticficationCount,
             ),
           ),
         ),

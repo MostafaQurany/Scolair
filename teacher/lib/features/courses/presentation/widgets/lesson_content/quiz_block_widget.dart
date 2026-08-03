@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../../core/constants/app_route_names.dart';
 import '../../../../../core/localization/localization_extension.dart';
-import '../../../../quiz/presentation/screens/quiz_details_screen.dart';
 
 class QuizBlockWidget extends StatelessWidget {
   const QuizBlockWidget({

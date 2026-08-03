@@ -183,38 +183,4 @@ class AuthRepositoryImpl implements AuthRepository {
       userImage: user.userImage,
     );
   }
-
-  @override
-  Future<ApiResult<void>> forgotPassword(String email) {
-    // TODO: implement forgotPassword
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ApiResult<AuthToken>> orgLogin(String email, String password) {
-    // TODO: implement orgLogin
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ApiResult<void>> resetPassword(
-    String token,
-    String newPassword,
-    String confirmPassword,
-  ) {
-    // TODO: implement resetPassword
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ApiResult<void>> sendOtp(String countryCode, String phone) {
-    // TODO: implement sendOtp
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<ApiResult<AuthToken>> verifyOtp(String identifier, String otp) {
-    // TODO: implement verifyOtp
-    throw UnimplementedError();
-  }
 }

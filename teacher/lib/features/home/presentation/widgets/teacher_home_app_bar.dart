@@ -90,7 +90,7 @@ class TeacherHomeAppBar extends StatelessWidget {
               icon: Icon(Icons.notifications_none_outlined, size: 24.r),
               tooltip: context.l10n.notificationsBadgeSemantic,
               onPressed: () {
-                Navigator.pushNamed(context, AppRouteNames.organizationNotices);
+                Navigator.pushNamed(context, AppRouteNames.notifications);
               },
             ),
             if (hasUnreadNotifications)

@@ -29,7 +29,7 @@ abstract final class TeacherHomeMapper {
     return TeacherHome(
       teacher: mapProfile(data.teacher),
       greetingActivityTitle: data.greetingActivityTitle,
-      organizationNoticeCount: data.organizationNoticeCount,
+      noticficationCount: data.organizationNoticeCount,
       filters: data.filters.map(mapFilter).toList(),
     );
   }

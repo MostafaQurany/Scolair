@@ -113,4 +113,26 @@ abstract final class ApiEndpoints {
   static const String editProfile = '/api/method/lms.mobile.edit_profile';
   static const String uploadProfileImage =
       '/api/method/lms.mobile.upload_profile_image';
+
+  // Notifications
+  static const String listNotifications =
+      '/api/method/lms.notifications.controllers.list_notifications';
+  static const String markNotificationRead =
+      '/api/method/lms.notifications.controllers.mark_read';
+  static const String markNotificationUnread =
+      '/api/method/lms.notifications.controllers.mark_unread';
+  static const String markAllNotificationsRead =
+      '/api/method/lms.notifications.controllers.mark_all_read';
+  static const String toggleNotificationPin =
+      '/api/method/lms.notifications.controllers.toggle_pin';
+  static const String archiveNotification =
+      '/api/method/lms.notifications.controllers.archive';
+  static const String unarchiveNotification =
+      '/api/method/lms.notifications.controllers.unarchive';
+  static const String deleteNotification =
+      '/api/method/lms.notifications.controllers.delete';
+  static const String muteCategory =
+      '/api/method/lms.notifications.controllers.mute_category';
+  static const String muteCourse =
+      '/api/method/lms.notifications.controllers.mute_course';
 }

@@ -115,7 +115,7 @@ class EditProfileForm extends StatelessWidget {
           ),
           _gap,
           DropdownButtonFormField<String>(
-            value: selectedOpenTo,
+            initialValue: selectedOpenTo,
             decoration: InputDecoration(
               labelText: context.l10n.editProfileOpenTo,
               prefixIcon: const Icon(Icons.handshake_outlined),
