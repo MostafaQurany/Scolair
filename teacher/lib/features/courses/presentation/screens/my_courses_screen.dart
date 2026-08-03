@@ -10,7 +10,6 @@ import '../cubit/courses_cubit.dart';
 import '../cubit/courses_state.dart';
 import '../widgets/courses_list_shimmer.dart';
 import '../widgets/modern_course_card.dart';
-import 'course_details_screen.dart';
 
 /// Standalone screen listing only the teacher's own courses, using the
 /// redesigned [ModernCourseCard] visual style.

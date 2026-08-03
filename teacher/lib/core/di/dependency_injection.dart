@@ -58,6 +58,12 @@ import '../../features/quiz/domain/repositories/quiz_repository.dart';
 import '../../features/quiz/domain/usecases/quiz_usecases.dart';
 import '../../features/quiz/presentation/cubit/quizzes_cubit.dart';
 import '../../features/quiz/presentation/cubit/quiz_form_cubit.dart';
+import '../../features/notifications/data/datasources/local/notification_mock_datasource.dart';
+import '../../features/notifications/data/datasources/remote/notification_remote_data_source.dart';
+import '../../features/notifications/data/repositories/notification_repository_impl.dart';
+import '../../features/notifications/domain/repositories/notification_repository.dart';
+import '../../features/notifications/domain/usecases/notification_usecases.dart';
+import '../../features/notifications/presentation/cubit/notification_feed_cubit.dart';
 import '../../features/quiz/presentation/cubit/quiz_details_cubit.dart';
 import '../../features/question/data/datasources/remote/question_remote_datasource.dart'
     as question_data;
@@ -399,13 +405,13 @@ Future<void> setupDependencyInjection() async {
     )
     ..registerFactory<HomeworkDetailsCubit>(
       () => HomeworkDetailsCubit(
-        getDetailsUseCase: getIt(),
-        updateRemoteUseCase: getIt(),
-        deleteUseCase: getIt(),
-        addQuestionUseCase: getIt(),
-        removeQuestionUseCase: getIt(),
-        getSubmissionsUseCase: getIt(),
-        uploadFileUseCase: getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
       ),
     )
     ..registerFactory<HomeworkSubmissionsCubit>(
@@ -413,9 +419,9 @@ Future<void> setupDependencyInjection() async {
     )
     ..registerFactory<HomeworkGradingCubit>(
       () => HomeworkGradingCubit(
-        getDetailsUseCase: getIt(),
-        gradeUseCase: getIt(),
-        downloadUseCase: getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
       ),
     )
     // Profile Settings Feature
@@ -443,5 +449,52 @@ Future<void> setupDependencyInjection() async {
     )
     ..registerLazySingleton<NotificationPreferencesCubit>(
       () => NotificationPreferencesCubit(getIt()),
+    )
+    // Notifications Feature
+    ..registerLazySingleton<NotificationRemoteDataSource>(
+      () => NotificationMockDataSourceImpl(),
+    )
+    ..registerLazySingleton<NotificationRepository>(
+      () => NotificationRepositoryImpl(getIt()),
+    )
+    ..registerLazySingleton<GetNotificationsUseCase>(
+      () => GetNotificationsUseCase(getIt()),
+    )
+    ..registerLazySingleton<MarkNotificationAsReadUseCase>(
+      () => MarkNotificationAsReadUseCase(getIt()),
+    )
+    ..registerLazySingleton<MarkNotificationAsUnreadUseCase>(
+      () => MarkNotificationAsUnreadUseCase(getIt()),
+    )
+    ..registerLazySingleton<MarkAllNotificationsAsReadUseCase>(
+      () => MarkAllNotificationsAsReadUseCase(getIt()),
+    )
+    ..registerLazySingleton<ToggleNotificationPinUseCase>(
+      () => ToggleNotificationPinUseCase(getIt()),
+    )
+    ..registerLazySingleton<ArchiveNotificationUseCase>(
+      () => ArchiveNotificationUseCase(getIt()),
+    )
+    ..registerLazySingleton<UnarchiveNotificationUseCase>(
+      () => UnarchiveNotificationUseCase(getIt()),
+    )
+    ..registerLazySingleton<DeleteNotificationUseCase>(
+      () => DeleteNotificationUseCase(getIt()),
+    )
+    ..registerLazySingleton<MuteNotificationCategoryUseCase>(
+      () => MuteNotificationCategoryUseCase(getIt()),
+    )
+    ..registerLazySingleton<MuteCourseNotificationsUseCase>(
+      () => MuteCourseNotificationsUseCase(getIt()),
+    )
+    ..registerFactory<NotificationFeedCubit>(
+      () => NotificationFeedCubit(
+        getNotificationsUseCase: getIt(),
+        markAsReadUseCase: getIt(),
+        markAllAsReadUseCase: getIt(),
+        archiveNotificationUseCase: getIt(),
+        unarchiveNotificationUseCase: getIt(),
+        toggleNotificationPinUseCase: getIt(),
+      ),
     );
 }

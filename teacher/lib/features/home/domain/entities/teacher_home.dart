@@ -5,12 +5,12 @@ class TeacherHome {
   const TeacherHome({
     required this.teacher,
     this.greetingActivityTitle,
-    required this.organizationNoticeCount,
+    required this.noticficationCount,
     required this.filters,
   });
 
   final TeacherProfile teacher;
   final String? greetingActivityTitle;
-  final int organizationNoticeCount;
+  final int noticficationCount;
   final List<TeacherFeedFilter> filters;
 }

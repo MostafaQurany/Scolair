@@ -12,7 +12,6 @@ import '../../domain/usecases/courses_usecases.dart';
 import '../cubit/course_details_cubit.dart';
 import '../cubit/course_details_state.dart';
 import '../screens/chapter_form_screen.dart';
-import '../screens/course_form_screen.dart';
 import '../screens/course_students_screen.dart';
 import '../widgets/add_email_dialog.dart';
 import '../widgets/course_details/chapter_expansion_tile.dart';

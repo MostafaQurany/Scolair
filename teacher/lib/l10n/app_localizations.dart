@@ -3973,6 +3973,336 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The interactive whiteboard and teacher toolkit are currently under active development. Stay tuned for updates in upcoming releases.'**
   String get toolkitUnderDevMessage;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationTitle;
+
+  /// No description provided for @notificationFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get notificationFilterAll;
+
+  /// No description provided for @notificationFilterUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread'**
+  String get notificationFilterUnread;
+
+  /// No description provided for @notificationFilterActionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Action Required'**
+  String get notificationFilterActionRequired;
+
+  /// No description provided for @notificationFilterSubmissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Submissions'**
+  String get notificationFilterSubmissions;
+
+  /// No description provided for @notificationGroupPinned.
+  ///
+  /// In en, this message translates to:
+  /// **'PINNED'**
+  String get notificationGroupPinned;
+
+  /// No description provided for @notificationGroupToday.
+  ///
+  /// In en, this message translates to:
+  /// **'TODAY'**
+  String get notificationGroupToday;
+
+  /// No description provided for @notificationGroupYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'YESTERDAY'**
+  String get notificationGroupYesterday;
+
+  /// No description provided for @notificationGroupEarlierThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'EARLIER THIS WEEK'**
+  String get notificationGroupEarlierThisWeek;
+
+  /// No description provided for @notificationGroupEarlierThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'EARLIER THIS MONTH'**
+  String get notificationGroupEarlierThisMonth;
+
+  /// No description provided for @notificationGroupOlder.
+  ///
+  /// In en, this message translates to:
+  /// **'OLDER'**
+  String get notificationGroupOlder;
+
+  /// No description provided for @notificationMarkAllRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get notificationMarkAllRead;
+
+  /// No description provided for @notificationViewArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'View archived'**
+  String get notificationViewArchived;
+
+  /// No description provided for @notificationSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification settings'**
+  String get notificationSettings;
+
+  /// No description provided for @notificationSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search notifications...'**
+  String get notificationSearchHint;
+
+  /// No description provided for @notificationEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re all caught up'**
+  String get notificationEmptyTitle;
+
+  /// No description provided for @notificationEmptyAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse courses'**
+  String get notificationEmptyAction;
+
+  /// No description provided for @notificationEmptyFilteredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here'**
+  String get notificationEmptyFilteredTitle;
+
+  /// No description provided for @notificationEmptyFilteredAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filters'**
+  String get notificationEmptyFilteredAction;
+
+  /// No description provided for @notificationEmptySearchTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No matches for \'{query}\''**
+  String notificationEmptySearchTitle(String query);
+
+  /// No description provided for @notificationEmptySearchAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get notificationEmptySearchAction;
+
+  /// No description provided for @notificationOfflineBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re offline. Showing cached notifications.'**
+  String get notificationOfflineBanner;
+
+  /// No description provided for @notificationUnreadCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No unread} =1{1 unread} other{{count} unread}}'**
+  String notificationUnreadCount(int count);
+
+  /// No description provided for @notificationNewPill.
+  ///
+  /// In en, this message translates to:
+  /// **'New notifications'**
+  String get notificationNewPill;
+
+  /// No description provided for @notificationMarkRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as read'**
+  String get notificationMarkRead;
+
+  /// No description provided for @notificationMarkUnread.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark as unread'**
+  String get notificationMarkUnread;
+
+  /// No description provided for @notificationArchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get notificationArchive;
+
+  /// No description provided for @notificationPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Pin'**
+  String get notificationPin;
+
+  /// No description provided for @notificationUnpin.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpin'**
+  String get notificationUnpin;
+
+  /// No description provided for @notificationMuteCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute this category'**
+  String get notificationMuteCategory;
+
+  /// No description provided for @notificationMuteCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute this course'**
+  String get notificationMuteCourse;
+
+  /// No description provided for @notificationDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get notificationDelete;
+
+  /// No description provided for @notificationDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done ✓'**
+  String get notificationDone;
+
+  /// No description provided for @notificationCategoryAssignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Assignment Submission'**
+  String get notificationCategoryAssignment;
+
+  /// No description provided for @notificationCategoryQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Submission'**
+  String get notificationCategoryQuiz;
+
+  /// No description provided for @notificationCategoryGrading.
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Grading Required'**
+  String get notificationCategoryGrading;
+
+  /// No description provided for @notificationCategoryGradesPublished.
+  ///
+  /// In en, this message translates to:
+  /// **'Grades Published'**
+  String get notificationCategoryGradesPublished;
+
+  /// No description provided for @notificationCategoryPost.
+  ///
+  /// In en, this message translates to:
+  /// **'Collaboration Post'**
+  String get notificationCategoryPost;
+
+  /// No description provided for @notificationCategoryComment.
+  ///
+  /// In en, this message translates to:
+  /// **'Collaboration Comment'**
+  String get notificationCategoryComment;
+
+  /// No description provided for @notificationCategoryStudyGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Study Group Activity'**
+  String get notificationCategoryStudyGroup;
+
+  /// No description provided for @notificationCategoryModeration.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderation'**
+  String get notificationCategoryModeration;
+
+  /// No description provided for @notificationCategorySmartNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Notes'**
+  String get notificationCategorySmartNotes;
+
+  /// No description provided for @notificationCategoryEnrollment.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrollment'**
+  String get notificationCategoryEnrollment;
+
+  /// No description provided for @notificationCategoryStudentRisk.
+  ///
+  /// In en, this message translates to:
+  /// **'Student Risk'**
+  String get notificationCategoryStudentRisk;
+
+  /// No description provided for @notificationCategoryWorkload.
+  ///
+  /// In en, this message translates to:
+  /// **'Workload / Capacity'**
+  String get notificationCategoryWorkload;
+
+  /// No description provided for @notificationCategorySync.
+  ///
+  /// In en, this message translates to:
+  /// **'Integration / Sync'**
+  String get notificationCategorySync;
+
+  /// No description provided for @notificationCategorySecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get notificationCategorySecurity;
+
+  /// No description provided for @notificationUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent'**
+  String get notificationUrgent;
+
+  /// No description provided for @notificationRequiresAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Requires Action'**
+  String get notificationRequiresAction;
+
+  /// No description provided for @notificationLockedPreference.
+  ///
+  /// In en, this message translates to:
+  /// **'Required notifications cannot be disabled.'**
+  String get notificationLockedPreference;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @archivedNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived Notifications'**
+  String get archivedNotifications;
+
+  /// No description provided for @noNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get noNotifications;
+
+  /// No description provided for @unread.
+  ///
+  /// In en, this message translates to:
+  /// **'Unread'**
+  String get unread;
+
+  /// No description provided for @actionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Action Required'**
+  String get actionRequired;
 }
 
 class _AppLocalizationsDelegate

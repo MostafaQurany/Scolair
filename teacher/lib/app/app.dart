@@ -30,12 +30,10 @@ import '../l10n/app_localizations.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../features/classes/presentation/screens/class_detail_screen.dart';
-import '../features/classes/presentation/screens/classes_screen.dart';
 import '../features/courses/data/models/courses_models.dart';
 import '../features/courses/presentation/screens/course_details_screen.dart';
 import '../features/courses/presentation/screens/course_form_screen.dart';
 import '../features/courses/presentation/screens/course_students_screen.dart';
-import '../features/courses/presentation/screens/courses_list_screen.dart';
 import '../features/courses/presentation/screens/lesson_details_screen.dart';
 import '../features/courses/presentation/screens/lesson_form_screen.dart';
 import '../features/courses/presentation/screens/my_courses_screen.dart';
@@ -60,6 +58,8 @@ import '../features/quiz/presentation/screens/quiz_form_screen.dart';
 import '../features/quiz/presentation/screens/quiz_questions_slider_screen.dart';
 import '../features/quiz/presentation/screens/quiz_settings_screen.dart';
 import '../features/quiz/presentation/screens/quizzes_list_screen.dart';
+import '../features/notifications/presentation/screens/notification_feed_screen.dart';
+import '../features/notifications/presentation/screens/archived_notifications_screen.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -131,6 +131,10 @@ class App extends StatelessWidget {
                 AppRouteNames.helpSupport: (_) => const HelpSupportScreen(),
                 AppRouteNames.toolkitWhiteboard: (_) =>
                     const ToolkitWhiteboardScreen(),
+                AppRouteNames.notifications: (_) =>
+                    const NotificationFeedScreen(),
+                AppRouteNames.archivedNotifications: (_) =>
+                    const ArchivedNotificationsScreen(),
               },
               onGenerateRoute: (settings) {
                 switch (settings.name) {

@@ -10,8 +10,6 @@ import '../../../../core/widgets/app_cached_network_image.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/courses_models.dart';
 import '../../domain/usecases/courses_usecases.dart';
-import '../screens/course_details_screen.dart';
-import '../screens/course_form_screen.dart';
 import 'forms/delete_confirmation_dialog.dart';
 
 class CourseCard extends StatelessWidget {

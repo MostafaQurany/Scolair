@@ -75,7 +75,7 @@ class LessonPartsEditor extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: parts.length,
-          onReorder: onReorder,
+          onReorderItem: onReorder,
           itemBuilder: (context, index) {
             final part = parts[index];
             return _LessonPartCard(

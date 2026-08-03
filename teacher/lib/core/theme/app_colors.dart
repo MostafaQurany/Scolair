@@ -59,6 +59,7 @@ abstract final class AppColors {
   static const Color textPrimary = lightTextPrimary;
   static const Color textSecondary = lightTextSecondary;
   static const Color textMuted = lightTextMuted;
+  static const Color textTertiary = lightTextMuted;
   static const Color iconPrimary = lightTextPrimary;
   static const Color disabled = lightDisabled;
   static const Color border = lightBorder;

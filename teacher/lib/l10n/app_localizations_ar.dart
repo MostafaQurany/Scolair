@@ -2133,4 +2133,185 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get toolkitUnderDevMessage =>
       'السبورة التفاعلية وأدوات المعلم قيد التطوير النشط حالياً. ترقبوا التحديثات في الإصدارات القادمة.';
+
+  @override
+  String get notificationTitle => 'التنبيهات';
+
+  @override
+  String get notificationFilterAll => 'الكل';
+
+  @override
+  String get notificationFilterUnread => 'غير مقروء';
+
+  @override
+  String get notificationFilterActionRequired => 'يتطلب إجراء';
+
+  @override
+  String get notificationFilterSubmissions => 'التسليمات';
+
+  @override
+  String get notificationGroupPinned => 'مثبت';
+
+  @override
+  String get notificationGroupToday => 'اليوم';
+
+  @override
+  String get notificationGroupYesterday => 'أمس';
+
+  @override
+  String get notificationGroupEarlierThisWeek => 'في وقت سابق من هذا الأسبوع';
+
+  @override
+  String get notificationGroupEarlierThisMonth => 'في وقت سابق من هذا الشهر';
+
+  @override
+  String get notificationGroupOlder => 'أقدم';
+
+  @override
+  String get notificationMarkAllRead => 'تحديد الكل كمقروء';
+
+  @override
+  String get notificationViewArchived => 'عرض المؤرشفة';
+
+  @override
+  String get notificationSettings => 'إعدادات التنبيهات';
+
+  @override
+  String get notificationSearchHint => 'البحث في التنبيهات...';
+
+  @override
+  String get notificationEmptyTitle => 'لا يوجد شيء هنا';
+
+  @override
+  String get notificationEmptyAction => 'تصفح الفصول الدراسية';
+
+  @override
+  String get notificationEmptyFilteredTitle => 'لا يوجد نتائج';
+
+  @override
+  String get notificationEmptyFilteredAction => 'مسح الفلاتر';
+
+  @override
+  String notificationEmptySearchTitle(String query) {
+    return 'لا توجد تطابقات لـ \'$query\'';
+  }
+
+  @override
+  String get notificationEmptySearchAction => 'مسح البحث';
+
+  @override
+  String get notificationOfflineBanner =>
+      'أنت غير متصل بالإنترنت. يتم عرض التنبيهات المخزنة.';
+
+  @override
+  String notificationUnreadCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count تنبيه غير مقروء',
+      many: '$count تنبيهًا غير مقروء',
+      few: '$count تنبيهات غير مقروءة',
+      two: 'تنبيهان غير مقروءان',
+      one: 'تنبيه واحد غير مقروء',
+      zero: 'لا توجد تنبيهات غير مقروءة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get notificationNewPill => 'تنبيهات جديدة';
+
+  @override
+  String get notificationMarkRead => 'تحديد كمقروء';
+
+  @override
+  String get notificationMarkUnread => 'تحديد كغير مقروء';
+
+  @override
+  String get notificationArchive => 'أرشفة';
+
+  @override
+  String get notificationPin => 'تثبيت';
+
+  @override
+  String get notificationUnpin => 'إلغاء التثبيت';
+
+  @override
+  String get notificationMuteCategory => 'كتم هذه الفئة';
+
+  @override
+  String get notificationMuteCourse => 'كتم هذه الدورة';
+
+  @override
+  String get notificationDelete => 'حذف';
+
+  @override
+  String get notificationDone => 'تم ✓';
+
+  @override
+  String get notificationCategoryAssignment => 'تسليم واجب';
+
+  @override
+  String get notificationCategoryQuiz => 'تسليم اختبار';
+
+  @override
+  String get notificationCategoryGrading => 'يتطلب تصحيح يدوي';
+
+  @override
+  String get notificationCategoryGradesPublished => 'تم نشر الدرجات';
+
+  @override
+  String get notificationCategoryPost => 'منشور';
+
+  @override
+  String get notificationCategoryComment => 'تعليق';
+
+  @override
+  String get notificationCategoryStudyGroup => 'نشاط مجموعة دراسة';
+
+  @override
+  String get notificationCategoryModeration => 'إشراف';
+
+  @override
+  String get notificationCategorySmartNotes => 'ملاحظات ذكية';
+
+  @override
+  String get notificationCategoryEnrollment => 'تسجيل';
+
+  @override
+  String get notificationCategoryStudentRisk => 'خطر طالب';
+
+  @override
+  String get notificationCategoryWorkload => 'عبء العمل / القدرة';
+
+  @override
+  String get notificationCategorySync => 'تزامن';
+
+  @override
+  String get notificationCategorySecurity => 'أمان';
+
+  @override
+  String get notificationUrgent => 'عاجل';
+
+  @override
+  String get notificationRequiresAction => 'يتطلب إجراء';
+
+  @override
+  String get notificationLockedPreference =>
+      'لا يمكن تعطيل الإشعارات المطلوبة.';
+
+  @override
+  String get notifications => 'الإشعارات';
+
+  @override
+  String get archivedNotifications => 'الإشعارات المؤرشفة';
+
+  @override
+  String get noNotifications => 'لا توجد إشعارات';
+
+  @override
+  String get unread => 'غير مقروءة';
+
+  @override
+  String get actionRequired => 'يتطلب إجراء';
 }

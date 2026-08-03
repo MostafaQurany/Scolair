@@ -14,25 +14,11 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
-    return Container(
-      // padding: EdgeInsets.all(20.w),
-      // decoration: BoxDecoration(
-      //   gradient: LinearGradient(
-      //     colors: [
-      //       colors.primaryContainer.withValues(alpha: 0.4),
-      //       colors.surface,
-      //     ],
-      //     begin: Alignment.topLeft,
-      //     end: Alignment.bottomRight,
-      //   ),
-      //   borderRadius: BorderRadius.circular(20.r),
-      //   border: Border.all(color: colors.primary.withValues(alpha: 0.15)),
-      // ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
           Stack(
             children: [
               CircleAvatar(
@@ -117,7 +103,7 @@ class ProfileCard extends StatelessWidget {
           //   ),
           // ),
         ],
-      ),
+      
     );
   }
 }

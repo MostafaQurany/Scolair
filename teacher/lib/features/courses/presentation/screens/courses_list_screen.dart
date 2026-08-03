@@ -12,8 +12,6 @@ import '../cubit/courses_cubit.dart';
 import '../cubit/courses_state.dart';
 import '../widgets/courses_browse_tab.dart';
 import '../widgets/courses_list_shimmer.dart';
-import 'course_details_screen.dart';
-import 'course_form_screen.dart';
 
 class CoursesListScreen extends StatelessWidget {
   const CoursesListScreen({super.key});

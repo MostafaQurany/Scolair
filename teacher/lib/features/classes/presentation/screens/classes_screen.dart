@@ -118,41 +118,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
   }
 }
 
-class _ClassesTopBar extends StatelessWidget {
-  const _ClassesTopBar();
 
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Padding(
-      padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 4.h),
-      child: Row(
-        children: [
-          Image.asset('assets/images/logo_header.png', height: 30.h),
-          const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications_none_rounded,
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ),
-          SizedBox(width: 4.w),
-          CircleAvatar(
-            radius: 18.r,
-            backgroundColor: colorScheme.primaryContainer,
-            child: Icon(
-              Icons.person_outline,
-              size: 20.r,
-              color: colorScheme.onPrimaryContainer,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _MyCoursesButton extends StatelessWidget {
   const _MyCoursesButton({required this.onTap});

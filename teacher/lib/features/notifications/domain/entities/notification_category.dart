@@ -1,0 +1,16 @@
+enum NotificationCategory {
+  assignmentSubmission,
+  quizSubmission,
+  manualGradingRequired,
+  gradesPublished,
+  collaborationPost,
+  collaborationComment,
+  studyGroupActivity,
+  moderation,
+  smartNotes,
+  enrollment,
+  studentRisk,
+  workloadCapacity,
+  integrationSync,
+  security,
+}

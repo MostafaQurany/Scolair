@@ -9,7 +9,6 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/widgets/app_snack_bar.dart';
 import '../../data/models/courses_models.dart';
 import '../../domain/usecases/courses_usecases.dart';
-import '../screens/course_form_screen.dart';
 import 'forms/delete_confirmation_dialog.dart';
 
 /// A redesigned course card matching the "My Courses" mockup — a colored

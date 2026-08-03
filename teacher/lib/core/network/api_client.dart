@@ -17,6 +17,7 @@ import '../../features/auth/data/models/register_response_data.dart';
 import '../../features/auth/data/models/reset_password_request_data.dart';
 import '../../features/courses/data/models/courses_models.dart';
 import '../models/upload_file_response.dart';
+import '../../features/notifications/data/models/notification_response_models.dart';
 import '../../features/quiz/data/models/quiz_models.dart';
 import '../../features/profile_settings/data/models/user_profile_response_data.dart';
 import '../../features/profile_settings/data/models/edit_profile_request_data.dart';
@@ -243,6 +244,59 @@ abstract class ApiClient {
 
   @DELETE(ApiEndpoints.removeQuestionFromQuiz)
   Future<RemoveQuestionFromQuizResponseData> removeQuestionFromQuiz(
+    @Body() Map<String, dynamic> body,
+  );
+
+  // === Notifications ===
+
+  @GET(ApiEndpoints.listNotifications)
+  Future<GetNotificationsResponseData> listNotifications(
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+    @Query('filter') String? filter,
+    @Query('search') String? searchQuery,
+  );
+
+  @POST(ApiEndpoints.markNotificationRead)
+  Future<GenericNotificationResponseData> markNotificationRead(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(ApiEndpoints.markNotificationUnread)
+  Future<GenericNotificationResponseData> markNotificationUnread(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(ApiEndpoints.markAllNotificationsRead)
+  Future<GenericNotificationResponseData> markAllNotificationsRead();
+
+  @POST(ApiEndpoints.toggleNotificationPin)
+  Future<GenericNotificationResponseData> toggleNotificationPin(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(ApiEndpoints.archiveNotification)
+  Future<GenericNotificationResponseData> archiveNotification(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(ApiEndpoints.unarchiveNotification)
+  Future<GenericNotificationResponseData> unarchiveNotification(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @DELETE(ApiEndpoints.deleteNotification)
+  Future<GenericNotificationResponseData> deleteNotification(
+    @Query('id') String id,
+  );
+
+  @POST(ApiEndpoints.muteCategory)
+  Future<GenericNotificationResponseData> muteCategory(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @POST(ApiEndpoints.muteCourse)
+  Future<GenericNotificationResponseData> muteCourse(
     @Body() Map<String, dynamic> body,
   );
 }
