@@ -105,7 +105,7 @@ class HomeworkGradingCubit extends Cubit<HomeworkGradingState> {
       case ApiSuccess(data: final updated):
         emit(
           state.copyWith(
-            status: HomeworkGradingStatus.success,
+            status: HomeworkGradingStatus.submittedSuccess,
             submission: updated,
             errorMessage: null,
           ),

@@ -6,7 +6,7 @@ import '../screens/quiz_questions_slider_screen_draft.dart';
 import 'question_form_body.dart';
 
 class SliderBody extends StatelessWidget {
-  const SliderBody({
+  const SliderBody({super.key, 
     required this.pageController,
     required this.onPageChanged,
     required this.drafts,

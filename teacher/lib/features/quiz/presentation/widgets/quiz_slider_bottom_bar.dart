@@ -3,7 +3,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/localization/localization_extension.dart';
 
 class SliderBottomBar extends StatelessWidget {
-  const SliderBottomBar({
+  const SliderBottomBar({super.key, 
     required this.currentIndex,
     required this.isLastSlide,
     required this.onBack,

@@ -7,6 +7,7 @@ enum HomeworkGradingStatus {
   failure,
   submitting,
   downloading,
+  submittedSuccess,
 }
 
 class HomeworkGradingState {

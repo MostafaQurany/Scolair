@@ -58,7 +58,7 @@ class _QuizzesListView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back_ios_new_rounded),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
               ),
               actions: [
                 Padding(

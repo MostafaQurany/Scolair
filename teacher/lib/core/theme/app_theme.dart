@@ -33,7 +33,7 @@ abstract final class AppTheme {
 
       actionIconTheme: ActionIconThemeData(
         backButtonIconBuilder: (BuildContext context) {
-          return Icon(Icons.arrow_back_ios_new);
+          return const Icon(Icons.arrow_back_ios_new);
         },
       ),
 

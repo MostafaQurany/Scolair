@@ -15,5 +15,5 @@ Interceptor getDioLogger() {
       maxWidth: 90,
     );
   }
-  return Interceptor(); // Dummy interceptor for production that does nothing
+  return const Interceptor(); // Dummy interceptor for production that does nothing
 }

@@ -47,7 +47,7 @@ class HomeworkCard extends StatelessWidget {
           end: BorderSide(color: colors.primary, width: 1),
         ),
       ),
-      padding: EdgeInsets.all(1),
+      padding: const EdgeInsets.all(1),
       child: Card(
         child: InkWell(
           onTap: isDeleting ? null : onViewDetails,

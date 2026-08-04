@@ -128,7 +128,7 @@ class HomeworkQuestionGradingCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(context.l10n.homeworkAssignMarks, style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(context.l10n.homeworkAssignMarks, style: const TextStyle(fontWeight: FontWeight.w600)),
                 const Spacer(),
                 SizedBox(
                   width: 100.w,
