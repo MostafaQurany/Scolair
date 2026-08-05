@@ -98,8 +98,7 @@ class _QuizFormScreenState extends State<QuizFormScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<QuizFormCubit>(),
       child: Builder(
         builder: (context) => Scaffold(
@@ -155,7 +154,6 @@ class _QuizFormScreenState extends State<QuizFormScreen> {
         ),
       ),
     );
-  }
 }
 
 class _QuizFormBody extends StatelessWidget {
@@ -219,8 +217,7 @@ class _QuizFormBody extends StatelessWidget {
     );
   }
 
-  Widget _mobileLayout(BuildContext context) {
-    return Column(
+  Widget _mobileLayout(BuildContext context) => Column(
       children: [
         _buildGeneralSection(context),
         SizedBox(height: 16.h),
@@ -229,10 +226,8 @@ class _QuizFormBody extends StatelessWidget {
         _buildBehaviorSection(context),
       ],
     );
-  }
 
-  Widget _tabletLayout(BuildContext context) {
-    return Row(
+  Widget _tabletLayout(BuildContext context) => Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
@@ -249,10 +244,8 @@ class _QuizFormBody extends StatelessWidget {
         Expanded(flex: 4, child: _buildGradingSection(context)),
       ],
     );
-  }
 
-  Widget _buildGeneralSection(BuildContext context) {
-    return QuizSectionCard(
+  Widget _buildGeneralSection(BuildContext context) => QuizSectionCard(
       title: context.l10n.quizGeneralDetails,
       children: [
         TextFormField(
@@ -276,10 +269,8 @@ class _QuizFormBody extends StatelessWidget {
         ),
       ],
     );
-  }
 
-  Widget _buildGradingSection(BuildContext context) {
-    return QuizSectionCard(
+  Widget _buildGradingSection(BuildContext context) => QuizSectionCard(
       title: context.l10n.quizGradingLimits,
       children: [
         TextFormField(
@@ -310,10 +301,8 @@ class _QuizFormBody extends StatelessWidget {
         ),
       ],
     );
-  }
 
-  Widget _buildBehaviorSection(BuildContext context) {
-    return QuizSectionCard(
+  Widget _buildBehaviorSection(BuildContext context) => QuizSectionCard(
       title: context.l10n.quizBehavior,
       children: [
         SwitchListTile(
@@ -347,7 +336,6 @@ class _QuizFormBody extends StatelessWidget {
           ),
       ],
     );
-  }
 }
 
 class _BottomAction extends StatelessWidget {

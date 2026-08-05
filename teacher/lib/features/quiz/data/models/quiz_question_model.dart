@@ -32,6 +32,9 @@ class QuizQuestionModel {
     this.possibility5,
   });
 
+  factory QuizQuestionModel.fromJson(Map<String, dynamic> json) =>
+      _$QuizQuestionModelFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String name;
   @JsonKey(fromJson: _stringFromJson)
@@ -91,9 +94,6 @@ class QuizQuestionModel {
 
   /// Display text: prefer question_detail, fall back to question name.
   String get displayText => questionDetail ?? question;
-
-  factory QuizQuestionModel.fromJson(Map<String, dynamic> json) =>
-      _$QuizQuestionModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$QuizQuestionModelToJson(this);
 }

@@ -9,14 +9,14 @@ class ResetPasswordRequestData {
     required this.newPassword,
   });
 
+  factory ResetPasswordRequestData.fromJson(Map<String, dynamic> json) =>
+      _$ResetPasswordRequestDataFromJson(json);
+
   @JsonKey(name: 'reset_token')
   final String resetToken;
 
   @JsonKey(name: 'new_password')
   final String newPassword;
-
-  factory ResetPasswordRequestData.fromJson(Map<String, dynamic> json) =>
-      _$ResetPasswordRequestDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$ResetPasswordRequestDataToJson(this);
 }

@@ -65,8 +65,7 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
     );
   }
 
-  Widget _buildFilterBar(BuildContext context, HomeworkSubmissionsState state) {
-    return SingleChildScrollView(
+  Widget _buildFilterBar(BuildContext context, HomeworkSubmissionsState state) => SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 12.r),
       child: Row(
@@ -83,7 +82,6 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
         }).toList(),
       ),
     );
-  }
 
   String _getFilterLabel(BuildContext context, SubmissionFilter filter) {
     switch (filter) {
@@ -100,8 +98,7 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
     }
   }
 
-  Widget _buildEmptyState(BuildContext context, TextTheme textTheme) {
-    return Center(
+  Widget _buildEmptyState(BuildContext context, TextTheme textTheme) => Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -111,7 +108,6 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
         ],
       ),
     );
-  }
 
   Widget _buildSubmissionCard(
     BuildContext context,

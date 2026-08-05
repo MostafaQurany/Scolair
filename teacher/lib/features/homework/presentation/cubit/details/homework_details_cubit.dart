@@ -42,7 +42,7 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
   }) async {
     final current = state.homework;
     if (current == null) return;
-    emit(state.copyWith(status: HomeworkDetailsStatus.mutating, errorMessage: null));
+    emit(state.copyWith(status: HomeworkDetailsStatus.mutating));
 
     final dueDateStr = dueDate != null ? _formatDate(dueDate) : null;
 
@@ -64,7 +64,6 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
           status: HomeworkDetailsStatus.success,
           homework: updated,
           isEditMode: false,
-          errorMessage: null,
         ));
       case ApiFailure(error: final error):
         emit(state.copyWith(
@@ -77,15 +76,14 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
   // ── Load ─────────────────────────────────────────────────────────────────────
 
   Future<void> loadHomework(String homeworkName) async {
-    emit(state.copyWith(status: HomeworkDetailsStatus.loading, errorMessage: null));
+    emit(state.copyWith(status: HomeworkDetailsStatus.loading));
 
     final result = await _getDetailsUseCase(homeworkName);
     switch (result) {
       case ApiSuccess(data: final homework):
-        bool hasSubmissions = false;
+        var hasSubmissions = false;
         final subResult = await _getSubmissionsUseCase(
           homeworkName: homeworkName,
-          start: 0,
           pageSize: 1,
         );
         if (subResult case ApiSuccess(data: final subData)) {
@@ -98,7 +96,6 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
             status: HomeworkDetailsStatus.success,
             homework: homework,
             hasSubmissions: hasSubmissions,
-            errorMessage: null,
           ),
         );
       case ApiFailure(error: final error):
@@ -116,7 +113,7 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
   Future<void> publishHomework() async {
     final current = state.homework;
     if (current == null) return;
-    emit(state.copyWith(status: HomeworkDetailsStatus.mutating, errorMessage: null));
+    emit(state.copyWith(status: HomeworkDetailsStatus.mutating));
 
     final result = await _updateRemoteUseCase(
       UpdateHomeworkRequestData(homeworkName: current.name, published: 1),
@@ -132,7 +129,7 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
   Future<void> unpublishHomework() async {
     final current = state.homework;
     if (current == null) return;
-    emit(state.copyWith(status: HomeworkDetailsStatus.mutating, errorMessage: null));
+    emit(state.copyWith(status: HomeworkDetailsStatus.mutating));
 
     final result = await _updateRemoteUseCase(
       UpdateHomeworkRequestData(homeworkName: current.name, published: 0),
@@ -150,7 +147,7 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
   Future<bool> deleteHomework() async {
     final current = state.homework;
     if (current == null) return false;
-    emit(state.copyWith(status: HomeworkDetailsStatus.mutating, errorMessage: null));
+    emit(state.copyWith(status: HomeworkDetailsStatus.mutating));
 
     final result = await _deleteUseCase(current.name);
     switch (result) {
@@ -178,7 +175,7 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
 
     final total = additions.length + deletions.length + marksUpdates.length;
     final errors = <String>[];
-    int progress = 0;
+    var progress = 0;
 
     emit(state.copyWith(
       isBatchSaving: true,
@@ -253,7 +250,7 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
   Future<void> addBankQuestion(String questionName, int marks) async {
     final current = state.homework;
     if (current == null) return;
-    emit(state.copyWith(status: HomeworkDetailsStatus.mutating, errorMessage: null));
+    emit(state.copyWith(status: HomeworkDetailsStatus.mutating));
 
     final result = await _addQuestionUseCase(
       homeworkName: current.name,
@@ -271,7 +268,7 @@ class HomeworkDetailsCubit extends Cubit<HomeworkDetailsState> {
   Future<void> removeQuestion(String questionName) async {
     final current = state.homework;
     if (current == null) return;
-    emit(state.copyWith(status: HomeworkDetailsStatus.mutating, errorMessage: null));
+    emit(state.copyWith(status: HomeworkDetailsStatus.mutating));
 
     final result = await _removeQuestionUseCase(
       homeworkName: current.name,

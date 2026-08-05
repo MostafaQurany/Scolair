@@ -24,8 +24,7 @@ class CourseFormCubit extends Cubit<CourseFormState> {
     required bool published,
     required String videoLink,
     required String image,
-    File? imageFile,
-    required bool enableCertification,
+    required bool enableCertification, File? imageFile,
   }) async {
     emit(const CourseFormState.submitting());
     final resolvedImage = await _resolveImage(

@@ -120,7 +120,7 @@ abstract final class MockClassesData {
         itemNumber: '1',
       ),
       CurriculumItem(
-        title: 'Newton\'s Laws',
+        title: "Newton's Laws",
         subtitle: '4 Lessons • Starts Nov 01',
         status: CurriculumStatus.upcoming,
         type: CurriculumType.chapter,

@@ -31,13 +31,11 @@ class CourseStudentsScreen extends StatelessWidget {
   final String courseTitle;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (context) =>
           getIt<CourseStudentsCubit>()..loadStudents(courseName),
       child: _CourseStudentsView(courseTitle: courseTitle),
     );
-  }
 }
 
 class _CourseStudentsView extends StatelessWidget {
@@ -56,7 +54,7 @@ class _CourseStudentsView extends StatelessWidget {
     );
   }
 
-  void _onRemoveStudent(
+  Future<void> _onRemoveStudent(
     BuildContext context,
     String email,
     String name,
@@ -69,7 +67,7 @@ class _CourseStudentsView extends StatelessWidget {
       ),
     );
 
-    if (confirm == true && context.mounted) {
+    if ((confirm ?? false) && context.mounted) {
       context.read<CourseStudentsCubit>().removeStudent(email);
     }
   }

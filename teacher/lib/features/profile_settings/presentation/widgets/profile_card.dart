@@ -15,19 +15,17 @@ class ProfileCard extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
       children: [
           Stack(
             children: [
               CircleAvatar(
                 radius: 36.r,
                 backgroundColor: colors.primary,
-                child: profile.displayImageUrl?.isNotEmpty == true
+                child: profile.displayImageUrl?.isNotEmpty ?? false
                     ? ClipOval(
                         child: AppCachedNetworkImage(
-                          imageUrl: profile.displayImageUrl!,
+                          imageUrl: profile.displayImageUrl,
                           width: 72.r,
                           height: 72.r,
                         ),

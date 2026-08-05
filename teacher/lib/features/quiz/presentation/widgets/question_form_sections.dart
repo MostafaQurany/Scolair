@@ -16,29 +16,18 @@ class QuestionTypeSelector extends StatelessWidget {
   final ApiQuestionType value;
   final ValueChanged<ApiQuestionType> onChanged;
 
-  IconData _iconFor(ApiQuestionType type) {
-    return switch (type) {
+  IconData _iconFor(ApiQuestionType type) => switch (type) {
       ApiQuestionType.choices => Icons.check_circle_outline,
       ApiQuestionType.userInput => Icons.keyboard_alt_outlined,
       ApiQuestionType.openEnded => Icons.notes_outlined,
       ApiQuestionType.fileUpload => Icons.upload_file_outlined,
     };
-  }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return LayoutBuilder(
       builder: (context, constraints) {
-        final double itemWidth;
-        if (constraints.maxWidth < 360) {
-          itemWidth = (constraints.maxWidth - 8.w) / 2;
-        } else if (constraints.maxWidth < 600) {
-          itemWidth = (constraints.maxWidth - 8.w) / 2;
-        } else {
-          itemWidth = (constraints.maxWidth - 24.w) / 4;
-        }
-
         return Container(
           padding: EdgeInsets.all(6.r),
           decoration: BoxDecoration(
@@ -152,8 +141,7 @@ class ChoicesSection extends StatelessWidget {
   final ValueChanged<bool> onMultipleChanged;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SwitchListTile(
@@ -200,7 +188,6 @@ class ChoicesSection extends StatelessWidget {
         ),
       ],
     );
-  }
 }
 
 class OptionTile extends StatelessWidget {
@@ -222,7 +209,7 @@ class OptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12.r),
@@ -344,8 +331,7 @@ class UserInputSection extends StatelessWidget {
   final TextEditingController possibility5;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -366,7 +352,6 @@ class UserInputSection extends StatelessWidget {
         _PossibilityField(index: 5, controller: possibility5),
       ],
     );
-  }
 }
 
 class _PossibilityField extends StatelessWidget {
@@ -378,13 +363,12 @@ class _PossibilityField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(
           color: colorScheme.outlineVariant.withValues(alpha: 0.4),
-          width: 1,
         ),
         boxShadow: [
           BoxShadow(

@@ -18,8 +18,7 @@ class AddEmailDialog extends StatefulWidget {
     required String title,
     required String hintText,
     required ValueChanged<String> onAdd,
-  }) {
-    return showDialog<void>(
+  }) => showDialog<void>(
       context: context,
       builder: (context) => AddEmailDialog(
         title: title,
@@ -27,7 +26,6 @@ class AddEmailDialog extends StatefulWidget {
         onAdd: onAdd,
       ),
     );
-  }
 
   @override
   State<AddEmailDialog> createState() => _AddEmailDialogState();

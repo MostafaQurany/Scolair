@@ -3,14 +3,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../core/localization/localization_extension.dart';
 
 class SliderBottomBar extends StatelessWidget {
-  const SliderBottomBar({super.key, 
-    required this.currentIndex,
-    required this.isLastSlide,
-    required this.onBack,
-    required this.onNext,
-    required this.onAddNew,
-    required this.onDone,
-    required this.onSave,
+  const SliderBottomBar({required this.currentIndex, required this.isLastSlide, required this.onBack, required this.onNext, required this.onAddNew, required this.onDone, required this.onSave, super.key,
   });
 
   final int currentIndex;
@@ -22,8 +15,7 @@ class SliderBottomBar extends StatelessWidget {
   final VoidCallback onSave;
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
+  Widget build(BuildContext context) => SafeArea(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         decoration: BoxDecoration(
@@ -62,5 +54,4 @@ class SliderBottomBar extends StatelessWidget {
         ),
       ),
     );
-  }
 }

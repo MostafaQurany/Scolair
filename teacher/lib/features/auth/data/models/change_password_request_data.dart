@@ -10,6 +10,9 @@ class ChangePasswordRequestData {
     this.logoutAllSessions = 0,
   });
 
+  factory ChangePasswordRequestData.fromJson(Map<String, dynamic> json) =>
+      _$ChangePasswordRequestDataFromJson(json);
+
   @JsonKey(name: 'new_password')
   final String newPassword;
 
@@ -18,9 +21,6 @@ class ChangePasswordRequestData {
 
   @JsonKey(name: 'logout_all_sessions')
   final int logoutAllSessions;
-
-  factory ChangePasswordRequestData.fromJson(Map<String, dynamic> json) =>
-      _$ChangePasswordRequestDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$ChangePasswordRequestDataToJson(this);
 }

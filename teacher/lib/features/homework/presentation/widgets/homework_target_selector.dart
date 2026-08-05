@@ -17,8 +17,7 @@ class HomeworkTargetSelector extends StatelessWidget {
   final TextEditingController targetNameController;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _TargetOptionCard(
@@ -50,7 +49,6 @@ class HomeworkTargetSelector extends StatelessWidget {
         ),
       ],
     );
-  }
 }
 
 class _TargetOptionCard extends StatelessWidget {

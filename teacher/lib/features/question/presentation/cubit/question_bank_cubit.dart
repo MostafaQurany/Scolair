@@ -204,7 +204,6 @@ class QuestionBankCubit extends Cubit<QuestionBankState> {
     final nextFilters = filters ?? state.filters;
     final result = await _listQuestionsUseCase(
       filters: nextFilters,
-      start: 0,
       pageSize: state.pageSize,
     );
     if (requestId != _requestId) return;

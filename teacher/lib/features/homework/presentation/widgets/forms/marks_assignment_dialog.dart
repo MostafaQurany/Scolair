@@ -53,7 +53,7 @@ class _MarksAssignmentDialogState extends State<MarksAssignmentDialog> {
 
   void _onConfirm() {
     final results = <MarksAssignmentResult>[];
-    for (int i = 0; i < widget.selectedQuestions.length; i++) {
+    for (var i = 0; i < widget.selectedQuestions.length; i++) {
       final marks = int.tryParse(_controllers[i].text.trim()) ?? 0;
       if (marks < 1) {
         ScaffoldMessenger.of(context).showSnackBar(

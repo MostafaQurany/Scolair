@@ -37,9 +37,7 @@ class _YoutubeEmbedBlockWidgetState extends State<YoutubeEmbedBlockWidget> {
       _controller = YoutubePlayerController.fromVideoId(
         videoId: videoId,
         params: const YoutubePlayerParams(
-          showControls: true,
           showFullscreenButton: true,
-          mute: false,
         ),
       );
     }
@@ -93,7 +91,6 @@ class _YoutubeEmbedBlockWidgetState extends State<YoutubeEmbedBlockWidget> {
           borderRadius: BorderRadius.circular(12.r),
           child: YoutubePlayer(
             controller: controller,
-            aspectRatio: 16 / 9,
           ),
         ),
         if (widget.caption != null && widget.caption!.trim().isNotEmpty) ...[

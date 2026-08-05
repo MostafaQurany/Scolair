@@ -27,8 +27,7 @@ class AuthTextField extends StatelessWidget {
   final Widget? suffixIcon;
 
   @override
-  Widget build(BuildContext context) {
-    return TextFormField(
+  Widget build(BuildContext context) => TextFormField(
       controller: controller,
       keyboardType: keyboardType,
       textInputAction: textInputAction,
@@ -42,5 +41,4 @@ class AuthTextField extends StatelessWidget {
         suffixIcon: suffixIcon,
       ),
     );
-  }
 }

@@ -18,8 +18,7 @@ abstract class CoursesRepository {
     required String tags,
     required bool published,
     required String videoLink,
-    String? image,
-    required bool enableCertification,
+    required bool enableCertification, String? image,
   });
   Future<ApiResult<CourseModel>> updateCourse({
     required String courseName,

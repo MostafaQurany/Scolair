@@ -72,8 +72,7 @@ class _ChapterFormScreenState extends State<ChapterFormScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Dialog(
+  Widget build(BuildContext context) => Dialog(
       insetPadding: EdgeInsets.symmetric(horizontal: 24.w),
       child: Padding(
         padding: EdgeInsets.all(20.r),
@@ -127,5 +126,4 @@ class _ChapterFormScreenState extends State<ChapterFormScreen> {
         ),
       ),
     );
-  }
 }

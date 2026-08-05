@@ -32,7 +32,7 @@ class _AuthPrimaryButtonState extends State<AuthPrimaryButton>
       duration: const Duration(milliseconds: 100),
     );
     _scale = Tween<double>(
-      begin: 1.0,
+      begin: 1,
       end: 0.96,
     ).animate(CurvedAnimation(parent: _pressCtrl, curve: Curves.easeInOut));
   }
@@ -44,8 +44,7 @@ class _AuthPrimaryButtonState extends State<AuthPrimaryButton>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Listener(
+  Widget build(BuildContext context) => Listener(
       onPointerDown: (_) => _pressCtrl.forward(),
       onPointerUp: (_) => _pressCtrl.reverse(),
       onPointerCancel: (_) => _pressCtrl.reverse(),
@@ -70,5 +69,4 @@ class _AuthPrimaryButtonState extends State<AuthPrimaryButton>
         ),
       ),
     );
-  }
 }

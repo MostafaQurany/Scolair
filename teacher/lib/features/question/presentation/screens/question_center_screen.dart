@@ -49,16 +49,14 @@ class _QuestionCenterScreenState extends State<QuestionCenterScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
+  Widget build(BuildContext context) => BlocProvider.value(
       value: _cubit,
       child: BlocConsumer<QuestionBankCubit, QuestionBankState>(
         listenWhen: (previous, current) =>
             previous.mutationError != current.mutationError ||
             previous.mutationSuccess != current.mutationSuccess,
         listener: _handleState,
-        builder: (context, state) {
-          return Scaffold(
+        builder: (context, state) => Scaffold(
             appBar: AppBar(title: Text(context.l10n.questionCenterTitle)),
             body: RefreshIndicator(
               onRefresh: _cubit.refresh,
@@ -96,11 +94,9 @@ class _QuestionCenterScreenState extends State<QuestionCenterScreen> {
               icon: const Icon(Icons.add),
               label: Text(context.l10n.questionAddTitle),
             ),
-          );
-        },
+          ),
       ),
     );
-  }
 
   void _handleState(BuildContext context, QuestionBankState state) {
     if (state.mutationError != null) {

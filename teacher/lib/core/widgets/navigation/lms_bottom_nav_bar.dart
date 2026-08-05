@@ -240,8 +240,7 @@ class _BottomNavItem extends StatelessWidget {
   }
 
   // Scaling animations for the icons[cite: 3]
-  Widget _buildIcon(Color color) {
-    return AnimatedScale(
+  Widget _buildIcon(Color color) => AnimatedScale(
       scale: selected ? 1.15 : 1, //[cite: 3]
       duration: _duration, //[cite: 3]
       curve: _popCurve, //[cite: 3]
@@ -257,5 +256,4 @@ class _BottomNavItem extends StatelessWidget {
         ),
       ),
     );
-  }
 }

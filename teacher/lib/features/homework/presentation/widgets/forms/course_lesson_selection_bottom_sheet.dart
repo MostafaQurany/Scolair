@@ -364,9 +364,8 @@ class _CourseLessonSelectionBottomSheetState
     BuildContext context, {
     required IconData icon,
     required String title,
-    String? subtitle,
+    required VoidCallback onTap, String? subtitle,
     bool isLastStep = false,
-    required VoidCallback onTap,
   }) {
     final colors = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;

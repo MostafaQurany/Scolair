@@ -32,9 +32,7 @@ abstract final class AppTheme {
           : AppColors.lightBackground,
 
       actionIconTheme: ActionIconThemeData(
-        backButtonIconBuilder: (BuildContext context) {
-          return const Icon(Icons.arrow_back_ios_new);
-        },
+        backButtonIconBuilder: (context) => const Icon(Icons.arrow_back_ios_new),
       ),
 
       appBarTheme: AppBarTheme(
@@ -193,12 +191,10 @@ abstract final class AppTheme {
     );
   }
 
-  static OutlineInputBorder _inputBorder(Color color) {
-    return OutlineInputBorder(
+  static OutlineInputBorder _inputBorder(Color color) => OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
       borderSide: BorderSide(color: color),
     );
-  }
 
   static const ColorScheme _lightColorScheme = ColorScheme(
     brightness: Brightness.light,

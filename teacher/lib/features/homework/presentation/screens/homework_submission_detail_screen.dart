@@ -17,8 +17,7 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
   final String submissionName;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<HomeworkGradingCubit>()..loadSubmission(submissionName),
       child: BlocConsumer<HomeworkGradingCubit, HomeworkGradingState>(
         listener: (context, state) {
@@ -50,12 +49,10 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   HomeworkSubmissionInfoCard(submission: sub),
-                                  ...List.generate(sub.questions.length, (index) {
-                                    return HomeworkQuestionGradingCard(
+                                  ...List.generate(sub.questions.length, (index) => HomeworkQuestionGradingCard(
                                       question: sub.questions[index],
                                       index: index,
-                                    );
-                                  }),
+                                    )),
                                   SizedBox(height: 16.h),
                                   _buildOverallFeedbackSection(context, state),
                                   SizedBox(height: 32.h),
@@ -70,7 +67,6 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
         },
       ),
     );
-  }
 
   Widget _buildOverallFeedbackSection(BuildContext context, HomeworkGradingState state) {
     final textTheme = Theme.of(context).textTheme;

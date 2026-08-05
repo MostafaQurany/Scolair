@@ -57,8 +57,7 @@ class QuestionBankErrorView extends StatelessWidget {
   final VoidCallback onRetry;
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
+  Widget build(BuildContext context) => Center(
       child: Padding(
         padding: EdgeInsets.all(32.r),
         child: Column(
@@ -85,5 +84,4 @@ class QuestionBankErrorView extends StatelessWidget {
         ),
       ),
     );
-  }
 }

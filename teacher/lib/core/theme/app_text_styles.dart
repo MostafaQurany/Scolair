@@ -133,12 +133,10 @@ abstract final class AppTextStyles {
     required FontWeight weight,
     required Color color,
     required double height,
-  }) {
-    return GoogleFonts.dmSans(
+  }) => GoogleFonts.dmSans(
       fontSize: size.sp,
       fontWeight: weight,
       color: color,
       height: height,
     );
-  }
 }

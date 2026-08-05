@@ -65,8 +65,7 @@ class AccountInformationScreen extends StatelessWidget {
                   Wrap(
                     spacing: 8.w,
                     runSpacing: 8.h,
-                    children: (profile?.roles ?? const <String>[]).map((role) {
-                      return Container(
+                    children: (profile?.roles ?? const <String>[]).map((role) => Container(
                         padding: EdgeInsets.symmetric(
                           horizontal: 14.w,
                           vertical: 8.h,
@@ -87,8 +86,7 @@ class AccountInformationScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                      );
-                    }).toList(),
+                      )).toList(),
                   ),
                   SizedBox(height: 32.h),
                   Container(

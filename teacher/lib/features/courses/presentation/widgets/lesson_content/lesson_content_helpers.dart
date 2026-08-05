@@ -16,26 +16,26 @@ class LessonContentHelpers {
     text = text.replaceAll('&gt;', '>');
     text = text.replaceAll('&quot;', '"');
     text = text.replaceAll('&#39;', "'");
-    final exp = RegExp(r'<[^>]*>', multiLine: true, caseSensitive: true);
+    final exp = RegExp('<[^>]*>', multiLine: true);
     return text.replaceAll(exp, '');
   }
 
   /// Parses inline HTML tags (<b>, <i>, <u>, <a>, <br>, <mark>,
   /// <code>) into Flutter [InlineSpan] widgets.
   static List<InlineSpan> parseHtmlToSpans(BuildContext context, String html) {
-    final List<InlineSpan> spans = [];
+    spans = <InlineSpan>[];
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     final regex = RegExp(
       r'(<br\s*/?>)'
-      r'|(<b>|<strong>)(.*?)(</b>|</strong>)'
-      r'|(<i>|<em>)(.*?)(</i>|</em>)'
-      r'|(<u>)(.*?)(</u>)'
-      r'|(<mark>)(.*?)(</mark>)'
-      r'|(<code>)(.*?)(</code>)'
+      '|(<b>|<strong>)(.*?)(</b>|</strong>)'
+      '|(<i>|<em>)(.*?)(</i>|</em>)'
+      '|(<u>)(.*?)(</u>)'
+      '|(<mark>)(.*?)(</mark>)'
+      '|(<code>)(.*?)(</code>)'
       r'|<a\s+href="([^"]+)"[^>]*>(.*?)</a>'
-      r'|([^<]+)',
+      '|([^<]+)',
       caseSensitive: false,
     );
 

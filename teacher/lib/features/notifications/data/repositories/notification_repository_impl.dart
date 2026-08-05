@@ -51,7 +51,7 @@ class NotificationRepositoryImpl implements NotificationRepository {
 
   @override
   Future<ApiResult<void>> markAllAsRead() =>
-      _getResult(() => _remoteDataSource.markAllAsRead());
+      _getResult(_remoteDataSource.markAllAsRead);
 
   @override
   Future<ApiResult<void>> togglePin(String id, {required bool isPinned}) =>

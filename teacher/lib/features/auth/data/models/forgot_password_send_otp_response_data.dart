@@ -6,11 +6,11 @@ part 'forgot_password_send_otp_response_data.g.dart';
 class ForgotPasswordSessionData {
   const ForgotPasswordSessionData({required this.sessionId});
 
-  @JsonKey(name: 'session_id')
-  final String sessionId;
-
   factory ForgotPasswordSessionData.fromJson(Map<String, dynamic> json) =>
       _$ForgotPasswordSessionDataFromJson(json);
+
+  @JsonKey(name: 'session_id')
+  final String sessionId;
 
   Map<String, dynamic> toJson() => _$ForgotPasswordSessionDataToJson(this);
 }
@@ -23,13 +23,13 @@ class ForgotPasswordSendOtpResponseData {
     required this.data,
   });
 
-  final String state;
-  final String message;
-  final ForgotPasswordSessionData data;
-
   factory ForgotPasswordSendOtpResponseData.fromJson(
     Map<String, dynamic> json,
   ) => _$ForgotPasswordSendOtpResponseDataFromJson(json);
+
+  final String state;
+  final String message;
+  final ForgotPasswordSessionData data;
 
   Map<String, dynamic> toJson() =>
       _$ForgotPasswordSendOtpResponseDataToJson(this);

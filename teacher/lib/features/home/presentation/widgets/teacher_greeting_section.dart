@@ -18,8 +18,7 @@ class TeacherGreetingSection extends StatelessWidget {
   final String? greetingActivityTitle;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticatedUserCubit, AuthenticatedUserState>(
+  Widget build(BuildContext context) => BlocBuilder<AuthenticatedUserCubit, AuthenticatedUserState>(
       bloc: getIt<AuthenticatedUserCubit>(),
       builder: (context, state) {
         final currentProfile = state.maybeWhen(
@@ -33,14 +32,13 @@ class TeacherGreetingSection extends StatelessWidget {
         );
       },
     );
-  }
 
   Widget _buildGreeting(BuildContext context, String teacherName) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
     final hour = DateTime.now().hour;
-    final String greetingText;
+    String greetingText;
     if (hour >= 0 && hour < 12) {
       greetingText = context.l10n.homeGreetingMorning;
     } else if (hour >= 12 && hour < 17) {

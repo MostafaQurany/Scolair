@@ -13,6 +13,9 @@ class RegisterRequestData {
     this.userType = 'parent',
   });
 
+  factory RegisterRequestData.fromJson(Map<String, dynamic> json) =>
+      _$RegisterRequestDataFromJson(json);
+
   final String email;
 
   @JsonKey(name: 'full_name')
@@ -28,9 +31,6 @@ class RegisterRequestData {
 
   @JsonKey(name: 'user_type')
   final String userType;
-
-  factory RegisterRequestData.fromJson(Map<String, dynamic> json) =>
-      _$RegisterRequestDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$RegisterRequestDataToJson(this);
 }

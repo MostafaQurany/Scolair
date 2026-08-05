@@ -10,13 +10,11 @@ class HomeworkSubmissionsListShimmer extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     
     return Skeletonizer(
-      enabled: true,
       child: ListView.separated(
         padding: EdgeInsets.all(16.r),
         itemCount: 5,
         separatorBuilder: (_, _) => SizedBox(height: 12.h),
-        itemBuilder: (context, index) {
-          return Card(
+        itemBuilder: (context, index) => Card(
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12.r),
@@ -73,8 +71,7 @@ class HomeworkSubmissionsListShimmer extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        },
+          ),
       ),
     );
   }

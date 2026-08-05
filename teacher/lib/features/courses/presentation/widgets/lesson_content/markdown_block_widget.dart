@@ -7,11 +7,9 @@ class MarkdownBlockWidget extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) {
-    return MarkdownBody(
+  Widget build(BuildContext context) => MarkdownBody(
       data: text,
       selectable: true,
       styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context)),
     );
-  }
 }

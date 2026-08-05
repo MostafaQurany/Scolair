@@ -18,7 +18,7 @@ class HomeworkGradingCubit extends Cubit<HomeworkGradingState> {
 
   Future<void> loadSubmission(String submissionName) async {
     emit(
-      state.copyWith(status: HomeworkGradingStatus.loading, errorMessage: null),
+      state.copyWith(status: HomeworkGradingStatus.loading),
     );
 
     final result = await _getDetailsUseCase(submissionName);
@@ -41,7 +41,6 @@ class HomeworkGradingCubit extends Cubit<HomeworkGradingState> {
             questionMarks: initialMarks,
             questionNotes: initialNotes,
             overallFeedback: sub.feedback ?? '',
-            errorMessage: null,
           ),
         );
       case ApiFailure(error: final error):
@@ -78,7 +77,6 @@ class HomeworkGradingCubit extends Cubit<HomeworkGradingState> {
     emit(
       state.copyWith(
         status: HomeworkGradingStatus.submitting,
-        errorMessage: null,
       ),
     );
 
@@ -107,7 +105,6 @@ class HomeworkGradingCubit extends Cubit<HomeworkGradingState> {
           state.copyWith(
             status: HomeworkGradingStatus.submittedSuccess,
             submission: updated,
-            errorMessage: null,
           ),
         );
       case ApiFailure(error: final error):
@@ -127,7 +124,6 @@ class HomeworkGradingCubit extends Cubit<HomeworkGradingState> {
     emit(
       state.copyWith(
         status: HomeworkGradingStatus.downloading,
-        errorMessage: null,
       ),
     );
 

@@ -31,7 +31,8 @@ class TeacherHomeLocalDataSourceImpl implements TeacherHomeLocalDataSource {
       ),
       type: 'announcement',
       body:
-          """Don't forget the upcoming Calculus mid-term next Tuesday. I've uploaded the practice worksheets in the Resources section. Please review the derivatives section thoroughly.
+          """
+Don't forget the upcoming Calculus mid-term next Tuesday. I've uploaded the practice worksheets in the Resources section. Please review the derivatives section thoroughly.
           Don't forget the upcoming Calculus mid-term next Tuesday. I've uploaded the practice worksheets in the Resources section. Please review the derivatives section thoroughly.
           Don't forget the upcoming Calculus mid-term next Tuesday. I've uploaded the practice worksheets in the Resources section. Please review the derivatives section thoroughly.
           Don't forget the upcoming Calculus mid-term next Tuesday. I've uploaded the practice worksheets in the Resources section. Please review the derivatives section thoroughly.
@@ -45,7 +46,6 @@ class TeacherHomeLocalDataSourceImpl implements TeacherHomeLocalDataSource {
         label: 'Grade 10-A',
       ),
       privacy: 'class_room',
-      attachment: null,
       likeCount: 24,
       commentCount: 5,
       isLikedByCurrentUser: false,
@@ -117,7 +117,6 @@ class TeacherHomeLocalDataSourceImpl implements TeacherHomeLocalDataSource {
         label: 'Grade 10-B',
       ),
       privacy: 'class_room',
-      attachment: null,
       likeCount: 18,
       commentCount: 2,
       isLikedByCurrentUser: false,
@@ -150,7 +149,6 @@ class TeacherHomeLocalDataSourceImpl implements TeacherHomeLocalDataSource {
         label: 'Grade 10-A',
       ),
       privacy: 'class_room',
-      attachment: null,
       likeCount: 9,
       commentCount: 0,
       isLikedByCurrentUser: false,
@@ -183,7 +181,6 @@ class TeacherHomeLocalDataSourceImpl implements TeacherHomeLocalDataSource {
         label: 'Grade 10-A',
       ),
       privacy: 'class_room',
-      attachment: null,
       likeCount: 42,
       commentCount: 14,
       isLikedByCurrentUser: false,
@@ -213,7 +210,6 @@ class TeacherHomeLocalDataSourceImpl implements TeacherHomeLocalDataSource {
       createdAt: '2026-07-17T12:00:00Z',
       audience: WallPostAudienceResponseData(id: 'all', label: 'All Classes'),
       privacy: 'institution',
-      attachment: null,
       likeCount: 5,
       commentCount: 1,
       isLikedByCurrentUser: false,
@@ -237,9 +233,7 @@ class TeacherHomeLocalDataSourceImpl implements TeacherHomeLocalDataSource {
       teacher: TeacherProfileResponseData(
         id: 'teacher_001',
         displayName: 'Alex Johnson',
-        imageUrl: null, // Forces initials avatar
       ),
-      greetingActivityTitle: null, // Forces fallback sentence
       organizationNoticeCount: 2,
       filters: [
         TeacherFeedFilterResponseData(

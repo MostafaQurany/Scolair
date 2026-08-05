@@ -41,8 +41,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<QuestionFormCubit>(),
       child: Builder(
         builder: (context) => Scaffold(
@@ -71,7 +70,6 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
         ),
       ),
     );
-  }
 }
 
 class _FormBody extends StatelessWidget {
@@ -94,8 +92,7 @@ class _FormBody extends StatelessWidget {
           error: (message) => AppSnackBar.showError(context, message),
         );
       },
-      builder: (context, state) {
-        return Center(
+      builder: (context, state) => Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: isTablet ? 720.w : double.infinity,
@@ -105,8 +102,7 @@ class _FormBody extends StatelessWidget {
               initialQuestion: editingQuestion,
             ),
           ),
-        );
-      },
+        ),
     );
   }
 }

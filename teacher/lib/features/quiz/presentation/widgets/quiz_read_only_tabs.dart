@@ -96,18 +96,15 @@ class _QuizSettingsTabState extends State<QuizSettingsTab> {
     );
   }
 
-  Widget _mobileLayout() {
-    return Column(
+  Widget _mobileLayout() => Column(
       children: [
         _buildGradingSection(),
         SizedBox(height: 16.h),
         _buildBehaviorSection(),
       ],
     );
-  }
 
-  Widget _tabletLayout() {
-    return Row(
+  Widget _tabletLayout() => Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(child: _buildGradingSection()),
@@ -115,10 +112,8 @@ class _QuizSettingsTabState extends State<QuizSettingsTab> {
         Expanded(child: _buildBehaviorSection()),
       ],
     );
-  }
 
-  Widget _buildGradingSection() {
-    return QuizSectionCard(
+  Widget _buildGradingSection() => QuizSectionCard(
       title: context.l10n.quizGradingLimits,
       children: [
         TextFormField(
@@ -146,10 +141,8 @@ class _QuizSettingsTabState extends State<QuizSettingsTab> {
         ),
       ],
     );
-  }
 
-  Widget _buildBehaviorSection() {
-    return QuizSectionCard(
+  Widget _buildBehaviorSection() => QuizSectionCard(
       title: context.l10n.quizBehavior,
       children: [
         SwitchListTile(
@@ -172,5 +165,4 @@ class _QuizSettingsTabState extends State<QuizSettingsTab> {
         ),
       ],
     );
-  }
 }

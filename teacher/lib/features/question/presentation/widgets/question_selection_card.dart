@@ -41,11 +41,9 @@ class QuestionSelectionCard extends StatelessWidget {
               ? BorderDirectional(
                   end: BorderSide(
                     color: colorScheme.primary.withValues(alpha: 0.5),
-                    width: 1,
                   ),
                   bottom: BorderSide(
                     color: colorScheme.primary.withValues(alpha: 0.5),
-                    width: 1,
                   ),
                 )
               : Border.all(color: colorScheme.primary, width: 1.5),
@@ -133,8 +131,7 @@ class _ActionsMenu extends StatelessWidget {
   final VoidCallback? onDelete;
 
   @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<_QuestionAction>(
+  Widget build(BuildContext context) => PopupMenuButton<_QuestionAction>(
       itemBuilder: (context) => [
         if (onEdit != null)
           PopupMenuItem(
@@ -156,7 +153,6 @@ class _ActionsMenu extends StatelessWidget {
         }
       },
     );
-  }
 }
 
 enum _QuestionAction { edit, delete }

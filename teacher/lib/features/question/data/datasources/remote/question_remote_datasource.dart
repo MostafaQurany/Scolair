@@ -25,8 +25,7 @@ class QuestionRemoteDataSourceImpl implements QuestionRemoteDataSource {
     QuestionFilterData filters = const QuestionFilterData(),
     int start = 0,
     int pageSize = 30,
-  }) {
-    return _apiClient.listQuestions(
+  }) => _apiClient.listQuestions(
       apiQuestionTypeValue(filters.type),
       filters.quiz,
       filters.homework,
@@ -36,7 +35,6 @@ class QuestionRemoteDataSourceImpl implements QuestionRemoteDataSource {
       start,
       pageSize,
     );
-  }
 
   @override
   Future<GetQuestionResponseData> getQuestion(String questionName) =>

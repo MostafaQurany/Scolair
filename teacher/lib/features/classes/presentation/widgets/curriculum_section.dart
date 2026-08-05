@@ -199,8 +199,7 @@ class _DueBadge extends StatelessWidget {
   final Color color;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.12),
@@ -214,5 +213,4 @@ class _DueBadge extends StatelessWidget {
         ),
       ),
     );
-  }
 }

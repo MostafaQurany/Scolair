@@ -121,7 +121,7 @@ class _HomeworkQuestionsSliderScreenState
     setState(() => _currentIndex = index);
   }
 
-  void _goToBank() async {
+  Future<void> _goToBank() async {
     final blocked = _drafts
         .map((d) => d.existingQuizQuestionId ?? d.sourceBankQuestionName)
         .whereType<String>()
@@ -214,7 +214,7 @@ class _HomeworkQuestionsSliderScreenState
     final marksUpdates = <Map<String, dynamic>>[];
     final deletions = Set<String>.from(_pendingDeletions);
 
-    for (int i = 0; i < _drafts.length; i++) {
+    for (var i = 0; i < _drafts.length; i++) {
       final draft = _drafts[i];
       if (draft.isEmptyDraft) continue;
 
@@ -240,7 +240,7 @@ class _HomeworkQuestionsSliderScreenState
         if (marksPayload != null) {
           marksUpdates.add(marksPayload);
         }
-        deletions.remove(draft.existingQuizQuestionId!);
+        deletions.remove(draft.existingQuizQuestionId);
       }
     }
 
@@ -376,7 +376,7 @@ class _HomeworkQuestionsSliderScreenState
 
   @override
   Widget build(BuildContext context) {
-    final bool hasPendingChanges = _pendingDeletions.isNotEmpty ||
+    hasPendingChanges = _pendingDeletions.isNotEmpty ||
         _drafts.any((d) => d.toPayload() != null || d.toMarksPayload() != null);
 
     return PopScope(
@@ -400,7 +400,7 @@ class _HomeworkQuestionsSliderScreenState
             ],
           ),
         );
-        if (confirm == true && context.mounted) {
+        if ((confirm ?? false) && context.mounted) {
           Navigator.pop(context);
         }
       },
@@ -494,7 +494,7 @@ class _HomeworkQuestionsSliderScreenState
                       ),
               ),
               if (detailsState.isBatchSaving)
-                Container(
+                ColoredBox(
                   color: Colors.black54,
                   child: Center(
                     child: Card(

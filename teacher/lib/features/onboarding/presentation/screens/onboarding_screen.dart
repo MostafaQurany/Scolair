@@ -14,12 +14,10 @@ class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<OnboardingCubit>(),
       child: const _OnboardingView(),
     );
-  }
 }
 
 class _OnboardingView extends StatefulWidget {
@@ -62,8 +60,7 @@ class _OnboardingViewState extends State<_OnboardingView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<OnboardingCubit, OnboardingState>(
+  Widget build(BuildContext context) => BlocConsumer<OnboardingCubit, OnboardingState>(
       listener: (context, state) => state.whenOrNull(
         navigate: (r) => Navigator.pushReplacementNamed(context, r),
       ),
@@ -177,7 +174,6 @@ class _OnboardingViewState extends State<_OnboardingView>
         );
       },
     );
-  }
 }
 
 class _IllustrationCard extends StatelessWidget {
@@ -185,8 +181,7 @@ class _IllustrationCard extends StatelessWidget {
   final String assetPath;
 
   @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
+  Widget build(BuildContext context) => DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24.r),
         boxShadow: [
@@ -203,7 +198,6 @@ class _IllustrationCard extends StatelessWidget {
         child: Image.asset(assetPath, fit: BoxFit.contain),
       ),
     );
-  }
 }
 
 class _TopBar extends StatelessWidget {
@@ -212,8 +206,7 @@ class _TopBar extends StatelessWidget {
   final VoidCallback onSkip;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+  Widget build(BuildContext context) => SizedBox(
       height: 60.h,
       child: Row(
         children: [
@@ -246,7 +239,6 @@ class _TopBar extends StatelessWidget {
         ],
       ),
     );
-  }
 }
 
 class _DotIndicator extends StatelessWidget {
@@ -255,8 +247,7 @@ class _DotIndicator extends StatelessWidget {
   final int count;
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget build(BuildContext context) => Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(count, (index) {
         final isActive = index == currentPage;
@@ -275,7 +266,6 @@ class _DotIndicator extends StatelessWidget {
         );
       }),
     );
-  }
 }
 
 class _AnimatedButton extends StatefulWidget {
@@ -299,7 +289,7 @@ class _AnimatedButtonState extends State<_AnimatedButton>
       vsync: this,
       duration: const Duration(milliseconds: 80),
     );
-    _scale = Tween<double>(begin: 1.0, end: 0.97).animate(_ctrl);
+    _scale = Tween<double>(begin: 1, end: 0.97).animate(_ctrl);
   }
 
   @override
@@ -309,8 +299,7 @@ class _AnimatedButtonState extends State<_AnimatedButton>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Listener(
+  Widget build(BuildContext context) => Listener(
       onPointerDown: (_) => _ctrl.forward(),
       onPointerUp: (_) => _ctrl.reverse(),
       onPointerCancel: (_) => _ctrl.reverse(),
@@ -339,5 +328,4 @@ class _AnimatedButtonState extends State<_AnimatedButton>
         ),
       ),
     );
-  }
 }

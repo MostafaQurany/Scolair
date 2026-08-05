@@ -130,10 +130,8 @@ class EditorJsRenderer extends StatelessWidget {
     );
   }
 
-  Widget _renderHtmlFallback(BuildContext context, String content) {
-    return Text(
+  Widget _renderHtmlFallback(BuildContext context, String content) => Text(
       LessonContentHelpers.stripHtml(content),
       style: Theme.of(context).textTheme.bodyLarge,
     );
-  }
 }

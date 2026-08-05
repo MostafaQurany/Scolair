@@ -65,13 +65,11 @@ class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ScreenUtilPlusInit(
+  Widget build(BuildContext context) => ScreenUtilPlusInit(
       designSize: const Size(360, 780),
       minTextAdapt: true,
       splitScreenMode: true,
-      builder: (context, child) {
-        return BlocBuilder<ThemeCubit, ThemeMode>(
+      builder: (context, child) => BlocBuilder<ThemeCubit, ThemeMode>(
           bloc: getIt<ThemeCubit>(),
           builder: (context, themeMode) => BlocBuilder<LocaleCubit, Locale>(
             bloc: getIt<LocaleCubit>(),
@@ -149,12 +147,12 @@ class App extends StatelessWidget {
                   case AppRouteNames.homeworkDetails:
                     return MaterialPageRoute(
                       builder: (_) => HomeworkDetailsScreen(
-                        homeworkName: settings.arguments as String,
+                        homeworkName: settings.arguments! as String,
                       ),
                     );
                   case AppRouteNames.homeworkQuestionsSlider:
                     final args =
-                        settings.arguments as HomeworkQuestionsSliderScreenArgs;
+                        settings.arguments! as HomeworkQuestionsSliderScreenArgs;
                     return MaterialPageRoute(
                       builder: (_) => BlocProvider.value(
                         value: args.cubit,
@@ -166,13 +164,13 @@ class App extends StatelessWidget {
                   case AppRouteNames.homeworkSubmissionDetails:
                     return MaterialPageRoute(
                       builder: (_) => HomeworkSubmissionDetailScreen(
-                        submissionName: settings.arguments as String,
+                        submissionName: settings.arguments! as String,
                       ),
                     );
                   case AppRouteNames.classDetail:
                     return MaterialPageRoute(
                       builder: (_) => ClassDetailScreen(
-                        classCode: settings.arguments as String,
+                        classCode: settings.arguments! as String,
                       ),
                     );
                   case AppRouteNames.courseForm:
@@ -182,7 +180,7 @@ class App extends StatelessWidget {
                       ),
                     );
                   case AppRouteNames.courseStudents:
-                    final args = settings.arguments as CourseStudentsScreenArgs;
+                    final args = settings.arguments! as CourseStudentsScreenArgs;
                     return MaterialPageRoute(
                       builder: (_) => CourseStudentsScreen(
                         courseName: args.courseName,
@@ -192,11 +190,11 @@ class App extends StatelessWidget {
                   case AppRouteNames.courseDetails:
                     return MaterialPageRoute(
                       builder: (_) => CourseDetailsScreen(
-                        courseName: settings.arguments as String,
+                        courseName: settings.arguments! as String,
                       ),
                     );
                   case AppRouteNames.lessonForm:
-                    final args = settings.arguments as LessonFormScreenArgs;
+                    final args = settings.arguments! as LessonFormScreenArgs;
                     return MaterialPageRoute(
                       builder: (_) => LessonFormScreen(
                         chapterName: args.chapterName,
@@ -204,7 +202,7 @@ class App extends StatelessWidget {
                       ),
                     );
                   case AppRouteNames.lessonDetails:
-                    final args = settings.arguments as LessonDetailsScreenArgs;
+                    final args = settings.arguments! as LessonDetailsScreenArgs;
                     return MaterialPageRoute(
                       builder: (_) => LessonDetailsScreen(
                         lessonName: args.lessonName,
@@ -214,18 +212,18 @@ class App extends StatelessWidget {
                   case AppRouteNames.quizDetails:
                     return MaterialPageRoute(
                       builder: (_) => QuizDetailsScreen(
-                        quizName: settings.arguments as String,
+                        quizName: settings.arguments! as String,
                       ),
                     );
                   case AppRouteNames.pdfViewer:
                     return MaterialPageRoute(
                       builder: (_) => PdfViewerScreen(
-                        fileUrl: settings.arguments as String,
+                        fileUrl: settings.arguments! as String,
                       ),
                     );
                   case AppRouteNames.quizQuestionsSlider:
                     final args =
-                        settings.arguments as QuizQuestionsSliderScreenArgs;
+                        settings.arguments! as QuizQuestionsSliderScreenArgs;
                     return MaterialPageRoute(
                       builder: (_) => BlocProvider.value(
                         value: args.cubit,
@@ -236,7 +234,7 @@ class App extends StatelessWidget {
                       ),
                     );
                   case AppRouteNames.quizSettings:
-                    final cubit = settings.arguments as QuizDetailsCubit;
+                    final cubit = settings.arguments! as QuizDetailsCubit;
                     return MaterialPageRoute(
                       builder: (_) => BlocProvider.value(
                         value: cubit,
@@ -244,7 +242,7 @@ class App extends StatelessWidget {
                       ),
                     );
                   case AppRouteNames.questionBank:
-                    final args = settings.arguments as QuestionBankScreenArgs;
+                    final args = settings.arguments! as QuestionBankScreenArgs;
                     return MaterialPageRoute(
                       builder: (_) => QuestionBankScreen(
                         blockedTypes: args.blockedTypes,
@@ -271,20 +269,16 @@ class App extends StatelessWidget {
               localizationsDelegates: AppLocalizations.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
 
-              builder: (context, child) {
-                return GestureDetector(
+              builder: (context, child) => GestureDetector(
                   onTap: () {
                     // Using FocusManager inside the global builder context to guarantee
                     // it hits the correct scope regardless of the current context state.
                     FocusManager.instance.primaryFocus?.unfocus();
                   },
-                  child: child!,
-                );
-              },
+                  child: child,
+                ),
             ),
           ),
-        );
-      },
+        ),
     );
-  }
 }

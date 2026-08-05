@@ -4,10 +4,7 @@ import '../../../../core/localization/localization_extension.dart';
 
 class SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SliderAppBar({
-    super.key,
-    required this.currentIndex,
-    required this.total,
-    required this.onDelete,
+    required this.currentIndex, required this.total, required this.onDelete, super.key,
     this.onBank,
   });
 
@@ -20,8 +17,7 @@ class SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
-  Widget build(BuildContext context) {
-    return AppBar(
+  Widget build(BuildContext context) => AppBar(
       leading: IconButton(
         icon: const Icon(Icons.close),
 
@@ -49,5 +45,4 @@ class SliderAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ],
     );
-  }
 }

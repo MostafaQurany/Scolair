@@ -11,7 +11,6 @@ class HomeworkListShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     final cards = List.generate(6, (_) => const _HomeworkSkeletonCard());
     return Skeletonizer.sliver(
-      enabled: true,
       child: useGrid
           ? SliverGrid(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

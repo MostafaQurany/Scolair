@@ -122,8 +122,7 @@ class UserProfile extends Equatable {
     String? linkedin,
     String? github,
     String? twitter,
-  }) {
-    return UserProfile(
+  }) => UserProfile(
       id: id ?? this.id,
       name: name ?? this.name,
       username: username ?? this.username,
@@ -145,7 +144,6 @@ class UserProfile extends Equatable {
       github: github ?? this.github,
       twitter: twitter ?? this.twitter,
     );
-  }
 
   @override
   List<Object?> get props => [

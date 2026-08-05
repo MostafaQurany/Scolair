@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:scolair_teacher/core/di/dependency_injection.dart';
-import 'package:scolair_teacher/core/localization/localization_extension.dart';
-import 'package:scolair_teacher/core/theme/app_colors.dart';
-import 'package:scolair_teacher/core/theme/app_text_styles.dart';
+import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/notification_feed_cubit.dart';
 import '../widgets/notification_card.dart';
 import '../utils/notification_navigation_helper.dart';
@@ -33,8 +33,7 @@ class _ArchivedNotificationsScreenState extends State<ArchivedNotificationsScree
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
+  Widget build(BuildContext context) => BlocProvider.value(
       value: _cubit,
       child: Scaffold(
         appBar: AppBar(
@@ -104,10 +103,9 @@ class _ArchivedNotificationsScreenState extends State<ArchivedNotificationsScree
         ),
       ),
     );
-  }
 
   List<Object> _buildGroupedList(List<NotificationEntity> notifications) {
-    final Map<String, List<NotificationEntity>> grouped = {
+    final grouped = <String, List<NotificationEntity>>{
       context.l10n.notificationGroupPinned: [],
       context.l10n.notificationGroupToday: [],
       context.l10n.notificationGroupYesterday: [],
@@ -120,9 +118,9 @@ class _ArchivedNotificationsScreenState extends State<ArchivedNotificationsScree
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
     final thisWeek = today.subtract(Duration(days: today.weekday - 1));
-    final thisMonth = DateTime(now.year, now.month, 1);
+    final thisMonth = DateTime(now.year, now.month);
 
-    for (var notification in notifications) {
+    for (final notification in notifications) {
       if (notification.isPinned) {
         grouped[context.l10n.notificationGroupPinned]!.add(notification);
         continue;
@@ -144,7 +142,7 @@ class _ArchivedNotificationsScreenState extends State<ArchivedNotificationsScree
       }
     }
 
-    final List<Object> flatList = [];
+    final flatList = <Object>[];
     grouped.forEach((header, items) {
       if (items.isNotEmpty) {
         flatList.add(header);

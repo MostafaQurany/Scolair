@@ -27,8 +27,7 @@ class HomeView extends StatelessWidget {
     required String selectedFilterId,
     required double bottomSpacing,
     bool isFiltering = false,
-  }) {
-    return [
+  }) => [
       TeacherHomeAppBar(
         teacher: home.teacher,
         hasUnreadNotifications: home.noticficationCount > 0,
@@ -80,11 +79,9 @@ class HomeView extends StatelessWidget {
         ),
       ),
     ];
-  }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<TeacherHomeCubit, TeacherHomeState>(
+  Widget build(BuildContext context) => BlocConsumer<TeacherHomeCubit, TeacherHomeState>(
       listener: (context, state) {
         state.maybeMap(
           success: (s) {
@@ -103,8 +100,7 @@ class HomeView extends StatelessWidget {
           orElse: () {},
         );
       },
-      builder: (context, state) {
-        return state.map(
+      builder: (context, state) => state.map(
           initial: (_) => const TeacherHomeSkeletonView(),
           loading: (_) => const TeacherHomeSkeletonView(),
           error: (e) => TeacherHomeErrorView(
@@ -133,7 +129,7 @@ class HomeView extends StatelessWidget {
           ),
           success: (s) => Scaffold(
             body: NotificationListener<ScrollNotification>(
-              onNotification: (ScrollNotification scrollInfo) {
+              onNotification: (scrollInfo) {
                 if (scrollInfo.depth == 0 &&
                     scrollInfo is ScrollUpdateNotification) {
                   final metrics = scrollInfo.metrics;
@@ -223,8 +219,6 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
-        );
-      },
+        ),
     );
-  }
 }

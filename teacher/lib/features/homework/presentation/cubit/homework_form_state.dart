@@ -33,9 +33,7 @@ class HomeworkFormState {
 
   bool get isEditing => editingHomeworkName != null;
 
-  bool get isFormValid {
-    return title.trim().isNotEmpty && dueDate != null && (lesson != null || course != null);
-  }
+  bool get isFormValid => title.trim().isNotEmpty && dueDate != null && (lesson != null || course != null);
 
   HomeworkFormState copyWith({
     HomeworkFormStatus? status,
@@ -52,8 +50,7 @@ class HomeworkFormState {
     String? instructions,
     bool? allowLateSubmission,
     String? errorMessage,
-  }) {
-    return HomeworkFormState(
+  }) => HomeworkFormState(
       status: status ?? this.status,
       editingHomeworkName: editingHomeworkName ?? this.editingHomeworkName,
       createdHomeworkName: createdHomeworkName ?? this.createdHomeworkName,
@@ -68,5 +65,4 @@ class HomeworkFormState {
       allowLateSubmission: allowLateSubmission ?? this.allowLateSubmission,
       errorMessage: errorMessage ?? this.errorMessage,
     );
-  }
 }

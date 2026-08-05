@@ -95,7 +95,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                   return BlocBuilder<ThemeCubit, ThemeMode>(
                     bloc: getIt<ThemeCubit>(),
                     builder: (context, themeMode) {
-                      String themeText = context.l10n.themeSystem;
+                      var themeText = context.l10n.themeSystem;
                       if (themeMode == ThemeMode.light) {
                         themeText = context.l10n.themeLight;
                       } else if (themeMode == ThemeMode.dark) {

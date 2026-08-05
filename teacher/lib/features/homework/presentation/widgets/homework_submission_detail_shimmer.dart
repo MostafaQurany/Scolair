@@ -10,7 +10,6 @@ class HomeworkSubmissionDetailShimmer extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
     
     return Skeletonizer(
-      enabled: true,
       child: Column(
         children: [
           Expanded(

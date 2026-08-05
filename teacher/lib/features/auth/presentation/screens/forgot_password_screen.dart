@@ -63,8 +63,7 @@ class _ForgotPasswordViewState extends State<_ForgotPasswordView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
+  Widget build(BuildContext context) => BlocConsumer<ForgotPasswordCubit, ForgotPasswordState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
         body: AuthSurface(
@@ -89,7 +88,6 @@ class _ForgotPasswordViewState extends State<_ForgotPasswordView>
         ),
       ),
     );
-  }
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -131,8 +129,7 @@ class _ForgotPasswordBody extends StatelessWidget {
   final VoidCallback onBack;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         const AuthBrandMark(compact: true),
@@ -183,11 +180,8 @@ class _ForgotPasswordBody extends StatelessWidget {
         ),
       ],
     );
-  }
 
-  FormFieldValidator<String> _requiredValidator(BuildContext context) {
-    return (value) => (value == null || value.trim().isEmpty)
+  FormFieldValidator<String> _requiredValidator(BuildContext context) => (value) => (value == null || value.trim().isEmpty)
         ? context.l10n.authErrorGeneric
         : null;
-  }
 }

@@ -8,7 +8,7 @@ part 'notification_response_models.g.dart';
 PaginatedList<NotificationModel> _paginatedNotificationsFromJson(Object? json) =>
     PaginatedList.fromJson<NotificationModel>(
       json,
-      (map) => NotificationModel.fromJson(map),
+      NotificationModel.fromJson,
     );
 
 Map<String, dynamic> _paginatedNotificationsToJson(

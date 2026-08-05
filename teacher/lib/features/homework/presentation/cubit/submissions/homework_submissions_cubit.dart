@@ -19,13 +19,11 @@ class HomeworkSubmissionsCubit extends Cubit<HomeworkSubmissionsState> {
     emit(
       state.copyWith(
         status: HomeworkSubmissionsStatus.loading,
-        errorMessage: null,
       ),
     );
 
     final result = await _getSubmissionsUseCase(
       homeworkName: homeworkName,
-      start: 0,
       pageSize: 100,
     );
     switch (result) {
@@ -34,7 +32,6 @@ class HomeworkSubmissionsCubit extends Cubit<HomeworkSubmissionsState> {
           state.copyWith(
             status: HomeworkSubmissionsStatus.success,
             submissions: page.items,
-            errorMessage: null,
           ),
         );
       case ApiFailure(error: final error):

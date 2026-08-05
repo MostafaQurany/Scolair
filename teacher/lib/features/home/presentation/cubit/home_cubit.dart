@@ -180,7 +180,6 @@ class TeacherHomeCubit extends Cubit<TeacherHomeState> {
             TeacherHomeState.empty(
               home: safeHome, 
               selectedFilterId: filterId,
-              isFiltering: false,
             ),
           );
         } else {
@@ -192,7 +191,6 @@ class TeacherHomeCubit extends Cubit<TeacherHomeState> {
               hasMore: pageData.hasMore,
               isLoadingMore: false,
               isRefreshing: false,
-              isFiltering: false,
             ),
           );
         }

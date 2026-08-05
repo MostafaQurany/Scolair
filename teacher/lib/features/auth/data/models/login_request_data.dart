@@ -6,11 +6,11 @@ part 'login_request_data.g.dart';
 class LoginRequestData {
   const LoginRequestData({required this.username, required this.password});
 
-  final String username;
-  final String password;
-
   factory LoginRequestData.fromJson(Map<String, dynamic> json) =>
       _$LoginRequestDataFromJson(json);
+
+  final String username;
+  final String password;
 
   Map<String, dynamic> toJson() => _$LoginRequestDataToJson(this);
 }

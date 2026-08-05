@@ -10,7 +10,7 @@ import '../../domain/usecases/courses_usecases.dart';
 import '../cubit/lesson_details_cubit.dart';
 import '../cubit/lesson_details_state.dart';
 import '../widgets/editorjs_renderer.dart';
-import '../screens/lesson_form_screen.dart';
+import 'lesson_form_screen.dart';
 import '../widgets/forms/delete_confirmation_dialog.dart';
 
 class LessonDetailsScreenArgs {
@@ -45,7 +45,7 @@ class LessonDetailsScreen extends StatelessWidget {
       ),
     );
 
-    if (confirmed == true && context.mounted) {
+    if ((confirmed ?? false) && context.mounted) {
       final res = await getIt<DeleteLessonUseCase>().call(
         lessonName: lessonName,
         chapterName: chapterName,
@@ -66,8 +66,7 @@ class LessonDetailsScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<LessonDetailsCubit>()..loadLessonDetails(lessonName),
       child: Scaffold(
         appBar: AppBar(
@@ -123,7 +122,6 @@ class LessonDetailsScreen extends StatelessWidget {
         body: _LessonDetailsView(chapterName: chapterName),
       ),
     );
-  }
 }
 
 class _LessonDetailsView extends StatelessWidget {

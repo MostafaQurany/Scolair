@@ -62,8 +62,7 @@ class HomeworkQuestionGradingCard extends StatelessWidget {
     );
   }
 
-  Widget _buildAnswerSection(BuildContext context, ColorScheme colors, TextTheme textTheme) {
-    return Container(
+  Widget _buildAnswerSection(BuildContext context, ColorScheme colors, TextTheme textTheme) => Container(
       width: double.infinity,
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
@@ -95,10 +94,8 @@ class HomeworkQuestionGradingCard extends StatelessWidget {
         ],
       ),
     );
-  }
 
-  Widget _buildAutoGradedSection(BuildContext context, ColorScheme colors) {
-    return Container(
+  Widget _buildAutoGradedSection(BuildContext context, ColorScheme colors) => Container(
       padding: EdgeInsets.all(8.r),
       decoration: BoxDecoration(
         color: colors.secondaryContainer.withAlpha(80),
@@ -115,10 +112,8 @@ class HomeworkQuestionGradingCard extends StatelessWidget {
         ],
       ),
     );
-  }
 
-  Widget _buildManualGradingSection(BuildContext context) {
-    return BlocBuilder<HomeworkGradingCubit, HomeworkGradingState>(
+  Widget _buildManualGradingSection(BuildContext context) => BlocBuilder<HomeworkGradingCubit, HomeworkGradingState>(
       builder: (context, state) {
         final currentMark = state.questionMarks[question.question] ?? (question.marksAwarded ?? 0);
         final currentNote = state.questionNotes[question.question] ?? (question.note ?? '');
@@ -164,5 +159,4 @@ class HomeworkQuestionGradingCard extends StatelessWidget {
         );
       },
     );
-  }
 }

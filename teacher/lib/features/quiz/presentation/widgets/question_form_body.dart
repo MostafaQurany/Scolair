@@ -187,9 +187,7 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
     return body;
   }
 
-  int getMarks() {
-    return int.tryParse(_marksController.text.trim()) ?? 1;
-  }
+  int getMarks() => int.tryParse(_marksController.text.trim()) ?? 1;
 
   void _addNonEmpty(
     Map<String, dynamic> body,
@@ -265,7 +263,7 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
             sliver: SliverToBoxAdapter(
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(12.r),
@@ -294,7 +292,7 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                             ),
                       ),
                       SizedBox(height: 12.h),
-                      Container(
+                      DecoratedBox(
                         decoration: BoxDecoration(
                           color: colorScheme.surfaceContainerLow,
                           borderRadius: BorderRadius.circular(8.r),
@@ -348,7 +346,7 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                                               fit: BoxFit.contain,
                                             )
                                           : AppCachedNetworkImage(
-                                              imageUrl: _existingAttachmentUrl!,
+                                              imageUrl: _existingAttachmentUrl,
                                               width: double.infinity,
                                               height: 150.h,
                                               fit: BoxFit.contain,

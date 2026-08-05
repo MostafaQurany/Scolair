@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
@@ -7,10 +9,9 @@ import '../../../../core/localization/localization_extension.dart';
 import '../../../../core/storage/app_secure_storage.dart';
 import '../../../../core/storage/app_shared_preferences.dart';
 import '../cubit/authenticated_user_cubit.dart';
-import '../../../../features/auth/domain/usecases/logout_usecase.dart';
+import '../../../auth/domain/usecases/logout_usecase.dart';
 
-Future<void> showProfileLogoutDialog(BuildContext context) {
-  return showDialog<void>(
+Future<void> showProfileLogoutDialog(BuildContext context) => showDialog<void>(
     context: context,
     builder: (dialogContext) {
       final colors = Theme.of(dialogContext).colorScheme;
@@ -37,11 +38,11 @@ Future<void> showProfileLogoutDialog(BuildContext context) {
               await secureStorage.clearAll();
               getIt<AuthenticatedUserCubit>().clear();
               if (context.mounted) {
-                Navigator.pushNamedAndRemoveUntil(
+                unawaited(Navigator.pushNamedAndRemoveUntil(
                   context,
                   AppRouteNames.login,
                   (route) => false,
-                );
+                ));
               }
             },
             style: ElevatedButton.styleFrom(
@@ -54,4 +55,3 @@ Future<void> showProfileLogoutDialog(BuildContext context) {
       );
     },
   );
-}

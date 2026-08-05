@@ -53,10 +53,10 @@ class EditProfileForm extends StatelessWidget {
                   CircleAvatar(
                     radius: 46.r,
                     backgroundColor: colors.primaryContainer,
-                    child: profile?.displayImageUrl?.isNotEmpty == true
+                    child: profile?.displayImageUrl?.isNotEmpty ?? false
                         ? ClipOval(
                             child: AppCachedNetworkImage(
-                              imageUrl: profile!.displayImageUrl!,
+                              imageUrl: profile!.displayImageUrl,
                               width: 92.r,
                               height: 92.r,
                             ),
@@ -201,8 +201,7 @@ class EditProfileForm extends StatelessWidget {
     IconData icon,
     TextEditingController controller, {
     int maxLines = 1,
-  }) {
-    return TextFormField(
+  }) => TextFormField(
       controller: controller,
       maxLines: maxLines,
       decoration: InputDecoration(
@@ -211,5 +210,4 @@ class EditProfileForm extends StatelessWidget {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.r)),
       ),
     );
-  }
 }

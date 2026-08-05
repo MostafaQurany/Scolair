@@ -27,15 +27,11 @@ class AppSharedPreferences {
 
   String? getString(String key) => _preferences.getString(key);
 
-  Future<bool> setString(String key, String value) {
-    return _preferences.setString(key, value);
-  }
+  Future<bool> setString(String key, String value) => _preferences.setString(key, value);
 
   bool? getBool(String key) => _preferences.getBool(key);
 
-  Future<bool> setBool(String key, bool value) {
-    return _preferences.setBool(key, value);
-  }
+  Future<bool> setBool(String key, bool value) => _preferences.setBool(key, value);
 
   String? getThemeMode() => _preferences.getString(_themeModeKey);
 
@@ -71,13 +67,9 @@ class AppSharedPreferences {
 
   Future<bool> remove(String key) => _preferences.remove(key);
 
-  bool get isFirstTime {
-    return _preferences.getBool('isFirstTime') ?? true;
-  }
+  bool get isFirstTime => _preferences.getBool('isFirstTime') ?? true;
 
-  Future<bool> setFirstTime(bool value) {
-    return _preferences.setBool('isFirstTime', value);
-  }
+  Future<bool> setFirstTime(bool value) => _preferences.setBool('isFirstTime', value);
 
   Future<void> saveUserData({
     required String name,

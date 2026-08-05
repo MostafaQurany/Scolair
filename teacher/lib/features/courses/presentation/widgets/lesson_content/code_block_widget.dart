@@ -16,8 +16,7 @@ class CodeBlockWidget extends StatelessWidget {
   final String language;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => DecoratedBox(
       decoration: BoxDecoration(
         color: const Color(0xFF1E1E1E),
         borderRadius: BorderRadius.circular(12.r),
@@ -84,5 +83,4 @@ class CodeBlockWidget extends StatelessWidget {
         ],
       ),
     );
-  }
 }

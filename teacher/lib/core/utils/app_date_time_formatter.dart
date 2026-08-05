@@ -7,21 +7,13 @@ abstract final class AppDateTimeFormatter {
     return DateTime.tryParse(normalized);
   }
 
-  static String formatForApi(DateTime value) {
-    return value.toIso8601String();
-  }
+  static String formatForApi(DateTime value) => value.toIso8601String();
 
-  static String formatDateTime(DateTime value, {required String locale}) {
-    return DateFormat.yMMMd(locale).add_jm().format(value);
-  }
+  static String formatDateTime(DateTime value, {required String locale}) => DateFormat.yMMMd(locale).add_jm().format(value);
 
-  static String formatDate(DateTime value, {required String locale}) {
-    return DateFormat.yMMMd(locale).format(value);
-  }
+  static String formatDate(DateTime value, {required String locale}) => DateFormat.yMMMd(locale).format(value);
 
-  static String formatTime(DateTime value, {required String locale}) {
-    return DateFormat.jm(locale).format(value);
-  }
+  static String formatTime(DateTime value, {required String locale}) => DateFormat.jm(locale).format(value);
 
   static String formatRelativeTime(DateTime value, {required String locale}) {
     final now = DateTime.now();

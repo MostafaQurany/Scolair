@@ -6,9 +6,7 @@ class QuestionBankListShimmer extends StatelessWidget {
   const QuestionBankListShimmer({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Skeletonizer.sliver(
-      enabled: true,
+  Widget build(BuildContext context) => Skeletonizer.sliver(
       child: SliverPadding(
         padding: EdgeInsets.all(16.r),
         sliver: SliverList.builder(
@@ -94,5 +92,4 @@ class QuestionBankListShimmer extends StatelessWidget {
         ),
       ),
     );
-  }
 }

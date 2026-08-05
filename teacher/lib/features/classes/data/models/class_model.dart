@@ -55,9 +55,7 @@ class SubmissionStatus {
 class CurriculumItem {
   const CurriculumItem({
     required this.title,
-    this.subtitle,
-    required this.status,
-    required this.type,
+    required this.status, required this.type, this.subtitle,
     this.dueDate,
     this.itemNumber,
   });

@@ -4,10 +4,7 @@ import 'lms_navigation_item.dart';
 
 class LmsTabletNavigationDrawer extends StatelessWidget {
   const LmsTabletNavigationDrawer({
-    super.key,
-    required this.currentIndex,
-    required this.onTap,
-    required this.items,
+    required this.currentIndex, required this.onTap, required this.items, super.key,
   });
 
   final int currentIndex;

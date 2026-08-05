@@ -6,10 +6,10 @@ part 'forgot_password_request_data.g.dart';
 class ForgotPasswordRequestData {
   const ForgotPasswordRequestData({required this.email});
 
-  final String email;
-
   factory ForgotPasswordRequestData.fromJson(Map<String, dynamic> json) =>
       _$ForgotPasswordRequestDataFromJson(json);
+
+  final String email;
 
   Map<String, dynamic> toJson() => _$ForgotPasswordRequestDataToJson(this);
 }

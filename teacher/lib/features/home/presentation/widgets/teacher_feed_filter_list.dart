@@ -17,8 +17,7 @@ class TeacherFeedFilterList extends StatelessWidget {
   final ValueChanged<String> onFilterSelected;
 
   @override
-  Widget build(BuildContext context) {
-    return SizedBox(
+  Widget build(BuildContext context) => SizedBox(
       height: 38.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
@@ -41,7 +40,6 @@ class TeacherFeedFilterList extends StatelessWidget {
         },
       ),
     );
-  }
 }
 
 class TeacherFeedFilterChip extends StatelessWidget {

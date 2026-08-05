@@ -11,13 +11,13 @@ class WallPostAuthorResponseData {
     this.roleLabel,
   });
 
+  factory WallPostAuthorResponseData.fromJson(Map<String, dynamic> json) =>
+      _$WallPostAuthorResponseDataFromJson(json);
+
   final String id;
   final String displayName;
   final String? imageUrl;
   final String? roleLabel;
-
-  factory WallPostAuthorResponseData.fromJson(Map<String, dynamic> json) =>
-      _$WallPostAuthorResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$WallPostAuthorResponseDataToJson(this);
 }
@@ -33,15 +33,15 @@ class WallPostAttachmentResponseData {
     this.aspectRatio,
   });
 
+  factory WallPostAttachmentResponseData.fromJson(Map<String, dynamic> json) =>
+      _$WallPostAttachmentResponseDataFromJson(json);
+
   final String id;
   final String type;
   final String url;
   final String? thumbnailUrl;
   final String? title;
   final double? aspectRatio;
-
-  factory WallPostAttachmentResponseData.fromJson(Map<String, dynamic> json) =>
-      _$WallPostAttachmentResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$WallPostAttachmentResponseDataToJson(this);
 }
@@ -50,11 +50,11 @@ class WallPostAttachmentResponseData {
 class WallPostAudienceResponseData {
   const WallPostAudienceResponseData({required this.id, required this.label});
 
-  final String id;
-  final String label;
-
   factory WallPostAudienceResponseData.fromJson(Map<String, dynamic> json) =>
       _$WallPostAudienceResponseDataFromJson(json);
+
+  final String id;
+  final String label;
 
   Map<String, dynamic> toJson() => _$WallPostAudienceResponseDataToJson(this);
 }
@@ -69,14 +69,14 @@ class WallPostPermissionsResponseData {
     required this.canModerate,
   });
 
+  factory WallPostPermissionsResponseData.fromJson(Map<String, dynamic> json) =>
+      _$WallPostPermissionsResponseDataFromJson(json);
+
   final bool canEdit;
   final bool canDelete;
   final bool canPin;
   final bool canReport;
   final bool canModerate;
-
-  factory WallPostPermissionsResponseData.fromJson(Map<String, dynamic> json) =>
-      _$WallPostPermissionsResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$WallPostPermissionsResponseDataToJson(this);
@@ -91,18 +91,12 @@ class TeacherWallPostResponseData {
     required this.body,
     required this.hashtags,
     required this.createdAt,
-    this.updatedAt,
-    required this.audience,
-    required this.privacy,
+    required this.audience, required this.privacy, required this.likeCount, required this.commentCount, required this.isLikedByCurrentUser, required this.isOwnedByCurrentUser, required this.isPinned, required this.isAnswered, required this.permissions, this.updatedAt,
     this.attachment,
-    required this.likeCount,
-    required this.commentCount,
-    required this.isLikedByCurrentUser,
-    required this.isOwnedByCurrentUser,
-    required this.isPinned,
-    required this.isAnswered,
-    required this.permissions,
   });
+
+  factory TeacherWallPostResponseData.fromJson(Map<String, dynamic> json) =>
+      _$TeacherWallPostResponseDataFromJson(json);
 
   final String id;
   final WallPostAuthorResponseData author;
@@ -122,9 +116,6 @@ class TeacherWallPostResponseData {
   final bool isAnswered;
   final WallPostPermissionsResponseData permissions;
 
-  factory TeacherWallPostResponseData.fromJson(Map<String, dynamic> json) =>
-      _$TeacherWallPostResponseDataFromJson(json);
-
   Map<String, dynamic> toJson() => _$TeacherWallPostResponseDataToJson(this);
 }
 
@@ -136,12 +127,12 @@ class TeacherFeedPageResponseData {
     required this.nextPage,
   });
 
+  factory TeacherFeedPageResponseData.fromJson(Map<String, dynamic> json) =>
+      _$TeacherFeedPageResponseDataFromJson(json);
+
   final List<TeacherWallPostResponseData> posts;
   final bool hasMore;
   final int nextPage;
-
-  factory TeacherFeedPageResponseData.fromJson(Map<String, dynamic> json) =>
-      _$TeacherFeedPageResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$TeacherFeedPageResponseDataToJson(this);
 }

@@ -10,8 +10,7 @@ class QuizSettingsScreen extends StatelessWidget {
   const QuizSettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text(context.l10n.quizTabSettings)),
       body: BlocBuilder<QuizDetailsCubit, QuizDetailsState>(
         builder: (context, state) {
@@ -33,5 +32,4 @@ class QuizSettingsScreen extends StatelessWidget {
         },
       ),
     );
-  }
 }

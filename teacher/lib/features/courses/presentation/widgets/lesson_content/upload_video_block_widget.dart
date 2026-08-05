@@ -93,9 +93,6 @@ class _UploadVideoBlockWidgetState extends State<UploadVideoBlockWidget> {
         resolvedUrl,
         headers: _authHeaders(token),
         videoExtension: _videoExtension(resolvedUrl),
-        notificationConfiguration: const BetterPlayerNotificationConfiguration(
-          showNotification: false,
-        ),
         bufferingConfiguration: const BetterPlayerBufferingConfiguration(
           minBufferMs: 15000,
           maxBufferMs: 50000,
@@ -107,27 +104,17 @@ class _UploadVideoBlockWidgetState extends State<UploadVideoBlockWidget> {
         BetterPlayerConfiguration(
           aspectRatio: 16 / 9,
           fullScreenAspectRatio: 16 / 9,
-          autoPlay: false,
-          looping: false,
           fit: BoxFit.contain,
           autoDispose: false,
-          handleLifecycle: true,
           allowedScreenSleep: false,
           expandToFill: false,
           placeholder: const _PlayerLoader(),
           controlsConfiguration: BetterPlayerControlsConfiguration(
-            enableFullscreen: true,
             enableSkips: false,
-            enableMute: true,
-            enableRetry: true,
-            enablePlaybackSpeed: true,
-            enableProgressText: true,
             progressBarPlayedColor: AppColors.primary,
             progressBarHandleColor: AppColors.primary,
             progressBarBufferedColor: AppColors.primary.withValues(alpha: 0.35),
             progressBarBackgroundColor: Colors.white.withValues(alpha: 0.25),
-            loadingColor: Colors.white,
-            backgroundColor: Colors.black,
             loadingWidget: const _PlayerLoader(),
           ),
           eventListener: (event) => _handlePlayerEvent(event, requestId),
@@ -249,24 +236,20 @@ class _VideoLoadingPlaceholder extends StatelessWidget {
   const _VideoLoadingPlaceholder();
 
   @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
+  Widget build(BuildContext context) => ClipRRect(
       borderRadius: BorderRadius.circular(16.r),
       child: const AspectRatio(
         aspectRatio: 16 / 9,
         child: ColoredBox(color: Colors.black, child: _PlayerLoader()),
       ),
     );
-  }
 }
 
 class _PlayerLoader extends StatelessWidget {
   const _PlayerLoader();
 
   @override
-  Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator(color: Colors.white));
-  }
+  Widget build(BuildContext context) => const Center(child: CircularProgressIndicator(color: Colors.white));
 }
 
 class _ErrorCard extends StatelessWidget {

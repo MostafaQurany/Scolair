@@ -40,7 +40,6 @@ class AppUserAvatar extends StatelessWidget {
         imageUrl: imageUrl,
         width: size.r,
         height: size.r,
-        fit: BoxFit.cover,
         borderRadius: BorderRadius.circular(radius.r),
         errorWidget: _buildInitialsAvatar(context),
       );
@@ -90,8 +89,8 @@ class AppUserAvatar extends StatelessWidget {
     if (seed.isEmpty) return _avatarColors.first;
 
     // Deterministic hash function
-    int hash = 0;
-    for (int i = 0; i < seed.length; i++) {
+    var hash = 0;
+    for (var i = 0; i < seed.length; i++) {
       hash = seed.codeUnitAt(i) + ((hash << 5) - hash);
     }
 

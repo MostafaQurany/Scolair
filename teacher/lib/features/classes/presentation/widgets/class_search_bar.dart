@@ -21,7 +21,7 @@ class ClassSearchBar extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Container(
+          child: DecoratedBox(
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(12.r),

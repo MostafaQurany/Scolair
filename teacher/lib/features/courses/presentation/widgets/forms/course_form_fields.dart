@@ -20,8 +20,7 @@ class CourseRequiredField extends StatelessWidget {
   final int maxLines;
 
   @override
-  Widget build(BuildContext context) {
-    return TextFormField(
+  Widget build(BuildContext context) => TextFormField(
       controller: controller,
       decoration: InputDecoration(labelText: label),
       maxLines: maxLines,
@@ -29,7 +28,6 @@ class CourseRequiredField extends StatelessWidget {
       validator: (value) =>
           value == null || value.trim().isEmpty ? error : null,
     );
-  }
 }
 
 class CourseImagePicker extends StatelessWidget {
@@ -47,8 +45,7 @@ class CourseImagePicker extends StatelessWidget {
   final VoidCallback onClearImage;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         TextFormField(
@@ -74,5 +71,4 @@ class CourseImagePicker extends StatelessWidget {
         ],
       ],
     );
-  }
 }

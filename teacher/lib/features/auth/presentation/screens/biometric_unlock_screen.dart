@@ -64,8 +64,7 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<BiometricCubit, BiometricState>(
+  Widget build(BuildContext context) => BlocConsumer<BiometricCubit, BiometricState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
         body: AuthSurface(
@@ -92,7 +91,6 @@ class _BiometricUnlockViewState extends State<_BiometricUnlockView>
         ),
       ),
     );
-  }
 
   void _handleState(BuildContext context, BiometricState state) {
     state.whenOrNull(
@@ -123,8 +121,7 @@ class _BiometricBody extends StatelessWidget {
   final VoidCallback onUsePassword;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
@@ -170,5 +167,4 @@ class _BiometricBody extends StatelessWidget {
         ),
       ],
     );
-  }
 }

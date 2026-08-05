@@ -17,12 +17,10 @@ class CoursesListScreen extends StatelessWidget {
   const CoursesListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<CoursesCubit>()..loadCourses(),
       child: const _CoursesListView(),
     );
-  }
 }
 
 class _CoursesListView extends StatefulWidget {

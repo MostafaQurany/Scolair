@@ -18,6 +18,9 @@ class InstructorModel {
     this.instructor,
   });
 
+  factory InstructorModel.fromJson(Map<String, dynamic> json) =>
+      _$InstructorModelFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String name;
   @JsonKey(fromJson: _nullableStringFromJson)
@@ -33,9 +36,6 @@ class InstructorModel {
   @JsonKey(fromJson: _nullableStringFromJson)
   final String? instructor;
 
-  factory InstructorModel.fromJson(Map<String, dynamic> json) =>
-      _$InstructorModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$InstructorModelToJson(this);
 }
 
@@ -43,13 +43,12 @@ class InstructorModel {
 class MembershipModel {
   const MembershipModel({
     required this.name,
-    this.currentLesson,
-    required this.progress,
-    required this.member,
-    required this.course,
-    required this.purchasedCertificate,
+    required this.progress, required this.member, required this.course, required this.purchasedCertificate, this.currentLesson,
     this.certificate,
   });
+
+  factory MembershipModel.fromJson(Map<String, dynamic> json) =>
+      _$MembershipModelFromJson(json);
 
   @JsonKey(fromJson: _stringFromJson)
   final String name;
@@ -65,9 +64,6 @@ class MembershipModel {
   final int purchasedCertificate;
   @JsonKey(fromJson: _nullableStringFromJson)
   final String? certificate;
-
-  factory MembershipModel.fromJson(Map<String, dynamic> json) =>
-      _$MembershipModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MembershipModelToJson(this);
 }
@@ -105,6 +101,9 @@ class CourseModel {
     this.owner,
     this.creation,
   });
+
+  factory CourseModel.fromJson(Map<String, dynamic> json) =>
+      _$CourseModelFromJson(json);
 
   @JsonKey(fromJson: _stringFromJson)
   final String name;
@@ -164,9 +163,6 @@ class CourseModel {
   @JsonKey(fromJson: _nullableStringFromJson)
   final String? creation;
 
-  factory CourseModel.fromJson(Map<String, dynamic> json) =>
-      _$CourseModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$CourseModelToJson(this);
 }
 
@@ -180,6 +176,9 @@ class ChapterSummaryModel {
     required this.lessonCount,
   });
 
+  factory ChapterSummaryModel.fromJson(Map<String, dynamic> json) =>
+      _$ChapterSummaryModelFromJson(json);
+
   @JsonKey(fromJson: _intFromJson)
   final int idx;
   @JsonKey(fromJson: _stringFromJson)
@@ -191,9 +190,6 @@ class ChapterSummaryModel {
   @JsonKey(name: 'lesson_count', fromJson: _intFromJson)
   final int lessonCount;
 
-  factory ChapterSummaryModel.fromJson(Map<String, dynamic> json) =>
-      _$ChapterSummaryModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$ChapterSummaryModelToJson(this);
 }
 
@@ -204,15 +200,16 @@ class LessonSummaryModel {
     required this.name,
     required this.title,
     required this.includeInPreview,
-    this.body,
+    required this.fileType, required this.icon, this.body,
     this.content,
     this.youtube,
     this.quizId,
     this.question,
-    required this.fileType,
-    required this.icon,
     this.course,
   });
+
+  factory LessonSummaryModel.fromJson(Map<String, dynamic> json) =>
+      _$LessonSummaryModelFromJson(json);
 
   @JsonKey(fromJson: _intFromJson)
   final int idx;
@@ -239,9 +236,6 @@ class LessonSummaryModel {
   @JsonKey(fromJson: _nullableStringFromJson)
   final String? course;
 
-  factory LessonSummaryModel.fromJson(Map<String, dynamic> json) =>
-      _$LessonSummaryModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$LessonSummaryModelToJson(this);
 }
 
@@ -252,10 +246,12 @@ class ChapterDetailModel {
     required this.title,
     required this.course,
     required this.isScormPackage,
-    this.scormPackagePath,
+    required this.lessons, this.scormPackagePath,
     this.launchFile,
-    required this.lessons,
   });
+
+  factory ChapterDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$ChapterDetailModelFromJson(json);
 
   @JsonKey(fromJson: _stringFromJson)
   final String name;
@@ -272,9 +268,6 @@ class ChapterDetailModel {
   @JsonKey(fromJson: _lessonSummaryListFromJson)
   final List<LessonSummaryModel> lessons;
 
-  factory ChapterDetailModel.fromJson(Map<String, dynamic> json) =>
-      _$ChapterDetailModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$ChapterDetailModelToJson(this);
 }
 
@@ -286,18 +279,17 @@ class LessonDetailModel {
     required this.chapter,
     required this.course,
     required this.includeInPreview,
-    this.body,
+    required this.fileType, required this.creation, required this.icon, required this.idx, this.body,
     this.content,
     this.instructorContent,
     this.instructorNotes,
     this.youtube,
     this.quizId,
     this.question,
-    required this.fileType,
-    required this.creation,
-    required this.icon,
-    required this.idx,
   });
+
+  factory LessonDetailModel.fromJson(Map<String, dynamic> json) =>
+      _$LessonDetailModelFromJson(json);
 
   @JsonKey(fromJson: _stringFromJson)
   final String name;
@@ -332,9 +324,6 @@ class LessonDetailModel {
   @JsonKey(fromJson: _intFromJson)
   final int idx;
 
-  factory LessonDetailModel.fromJson(Map<String, dynamic> json) =>
-      _$LessonDetailModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$LessonDetailModelToJson(this);
 }
 
@@ -348,15 +337,15 @@ class ListCoursesResponseData {
     required this.data,
   });
 
+  factory ListCoursesResponseData.fromJson(Map<String, dynamic> json) =>
+      _$ListCoursesResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _paginatedCoursesFromJson, toJson: _paginatedCoursesToJson)
   final PaginatedList<CourseModel> data;
-
-  factory ListCoursesResponseData.fromJson(Map<String, dynamic> json) =>
-      _$ListCoursesResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$ListCoursesResponseDataToJson(this);
 }
@@ -369,15 +358,15 @@ class GetCourseResponseData {
     required this.data,
   });
 
+  factory GetCourseResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetCourseResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _courseFromJson)
   final CourseModel data;
-
-  factory GetCourseResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetCourseResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetCourseResponseDataToJson(this);
 }
@@ -390,15 +379,15 @@ class CreateCourseResponseData {
     required this.data,
   });
 
+  factory CreateCourseResponseData.fromJson(Map<String, dynamic> json) =>
+      _$CreateCourseResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _courseFromJson)
   final CourseModel data;
-
-  factory CreateCourseResponseData.fromJson(Map<String, dynamic> json) =>
-      _$CreateCourseResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateCourseResponseDataToJson(this);
 }
@@ -411,6 +400,9 @@ class GetChaptersResponseData {
     required this.data,
   });
 
+  factory GetChaptersResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetChaptersResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
@@ -420,9 +412,6 @@ class GetChaptersResponseData {
     toJson: _paginatedChaptersToJson,
   )
   final PaginatedList<ChapterSummaryModel> data;
-
-  factory GetChaptersResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetChaptersResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetChaptersResponseDataToJson(this);
 }
@@ -435,15 +424,15 @@ class GetChapterResponseData {
     required this.data,
   });
 
+  factory GetChapterResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetChapterResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _chapterDetailFromJson)
   final ChapterDetailModel data;
-
-  factory GetChapterResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetChapterResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetChapterResponseDataToJson(this);
 }
@@ -456,15 +445,15 @@ class CreateChapterResponseData {
     required this.data,
   });
 
+  factory CreateChapterResponseData.fromJson(Map<String, dynamic> json) =>
+      _$CreateChapterResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _chapterSummaryFromJson)
   final ChapterSummaryModel data;
-
-  factory CreateChapterResponseData.fromJson(Map<String, dynamic> json) =>
-      _$CreateChapterResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateChapterResponseDataToJson(this);
 }
@@ -477,15 +466,15 @@ class GetLessonsResponseData {
     required this.data,
   });
 
+  factory GetLessonsResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetLessonsResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _paginatedLessonsFromJson, toJson: _paginatedLessonsToJson)
   final PaginatedList<LessonSummaryModel> data;
-
-  factory GetLessonsResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetLessonsResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetLessonsResponseDataToJson(this);
 }
@@ -498,15 +487,15 @@ class GetLessonResponseData {
     required this.data,
   });
 
+  factory GetLessonResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetLessonResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _lessonDetailFromJson)
   final LessonDetailModel data;
-
-  factory GetLessonResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetLessonResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetLessonResponseDataToJson(this);
 }
@@ -519,15 +508,15 @@ class CreateLessonResponseData {
     required this.data,
   });
 
+  factory CreateLessonResponseData.fromJson(Map<String, dynamic> json) =>
+      _$CreateLessonResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _lessonSummaryFromJson)
   final LessonSummaryModel data;
-
-  factory CreateLessonResponseData.fromJson(Map<String, dynamic> json) =>
-      _$CreateLessonResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateLessonResponseDataToJson(this);
 }
@@ -536,13 +525,13 @@ class CreateLessonResponseData {
 class MyCoursesData {
   const MyCoursesData({required this.role, required this.courses});
 
+  factory MyCoursesData.fromJson(Map<String, dynamic> json) =>
+      _$MyCoursesDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String role;
   @JsonKey(fromJson: _courseListFromJson)
   final List<CourseModel> courses;
-
-  factory MyCoursesData.fromJson(Map<String, dynamic> json) =>
-      _$MyCoursesDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$MyCoursesDataToJson(this);
 }
@@ -555,15 +544,15 @@ class MyCoursesResponseData {
     required this.data,
   });
 
+  factory MyCoursesResponseData.fromJson(Map<String, dynamic> json) =>
+      _$MyCoursesResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _myCoursesDataFromJson)
   final MyCoursesData data;
-
-  factory MyCoursesResponseData.fromJson(Map<String, dynamic> json) =>
-      _$MyCoursesResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$MyCoursesResponseDataToJson(this);
 }
@@ -580,6 +569,9 @@ class StudentModel {
     this.currentLesson,
     this.creation,
   });
+
+  factory StudentModel.fromJson(Map<String, dynamic> json) =>
+      _$StudentModelFromJson(json);
 
   @JsonKey(fromJson: _stringFromJson)
   final String name;
@@ -598,9 +590,6 @@ class StudentModel {
   @JsonKey(fromJson: _nullableStringFromJson)
   final String? creation;
 
-  factory StudentModel.fromJson(Map<String, dynamic> json) =>
-      _$StudentModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$StudentModelToJson(this);
 }
 
@@ -612,15 +601,15 @@ class GetStudentsResponseData {
     required this.data,
   });
 
+  factory GetStudentsResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetStudentsResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _studentsListFromJson)
   final List<StudentModel> data;
-
-  factory GetStudentsResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetStudentsResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetStudentsResponseDataToJson(this);
 }
@@ -633,15 +622,15 @@ class GetInstructorsResponseData {
     required this.data,
   });
 
+  factory GetInstructorsResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetInstructorsResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _instructorsListFromJson)
   final List<InstructorModel> data;
-
-  factory GetInstructorsResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetInstructorsResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetInstructorsResponseDataToJson(this);
 }
@@ -690,16 +679,16 @@ int? _nullableIntFromJson(Object? value) {
 }
 
 double _doubleFromJson(Object? value) {
-  if (value == null) return 0.0;
+  if (value == null) return 0;
   if (value is double) return value;
   if (value is num) return value.toDouble();
   if (value is bool) return value ? 1.0 : 0.0;
   if (value is String) {
     final trimmed = value.trim();
-    if (trimmed.isEmpty) return 0.0;
+    if (trimmed.isEmpty) return 0;
     return double.tryParse(trimmed) ?? 0.0;
   }
-  return 0.0;
+  return 0;
 }
 
 double? _nullableDoubleFromJson(Object? value) {

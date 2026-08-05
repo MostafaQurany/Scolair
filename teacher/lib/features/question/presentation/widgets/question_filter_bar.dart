@@ -49,7 +49,7 @@ class _QuestionFilterBarState extends State<QuestionFilterBar> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final double fieldWidth = constraints.maxWidth * 0.4;
+        final fieldWidth = constraints.maxWidth * 0.4;
 
         final hasActiveFilters = widget.state.filters.hasActiveFilters;
 
@@ -66,10 +66,9 @@ class _QuestionFilterBarState extends State<QuestionFilterBar> {
                         border: BorderDirectional(
                           start: BorderSide(
                             color: colorScheme.primary,
-                            width: 1,
                           ),
-                          end: BorderSide(color: colorScheme.primary, width: 1),
-                          top: BorderSide(color: colorScheme.primary, width: 1),
+                          end: BorderSide(color: colorScheme.primary),
+                          top: BorderSide(color: colorScheme.primary),
                         ),
                         borderRadius: BorderRadiusDirectional.only(
                           topStart: Radius.circular(12.r),
@@ -82,8 +81,7 @@ class _QuestionFilterBarState extends State<QuestionFilterBar> {
                     Expanded(
                       child: ValueListenableBuilder<TextEditingValue>(
                         valueListenable: widget.searchController,
-                        builder: (context, value, _) {
-                          return SizedBox(
+                        builder: (context, value, _) => SizedBox(
                             height: 48.h,
                             child: TextField(
                               controller: widget.searchController,
@@ -118,8 +116,7 @@ class _QuestionFilterBarState extends State<QuestionFilterBar> {
                                 ),
                               ),
                             ),
-                          );
-                        },
+                          ),
                       ),
                     ),
                     SizedBox(width: 8.w),
@@ -165,15 +162,12 @@ class _QuestionFilterBarState extends State<QuestionFilterBar> {
                           border: BorderDirectional(
                             start: BorderSide(
                               color: colorScheme.primary,
-                              width: 1,
                             ),
                             end: BorderSide(
                               color: colorScheme.primary,
-                              width: 1,
                             ),
                             bottom: BorderSide(
                               color: colorScheme.primary,
-                              width: 1,
                             ),
                           ),
                           borderRadius: BorderRadiusDirectional.only(

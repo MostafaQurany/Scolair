@@ -25,8 +25,7 @@ class TeacherHomeAppBar extends StatelessWidget {
   final bool showBackButton;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticatedUserCubit, AuthenticatedUserState>(
+  Widget build(BuildContext context) => BlocBuilder<AuthenticatedUserCubit, AuthenticatedUserState>(
       bloc: getIt<AuthenticatedUserCubit>(),
       builder: (context, state) {
         final currentProfile = state.maybeWhen(
@@ -44,13 +43,11 @@ class TeacherHomeAppBar extends StatelessWidget {
         return _buildAppBar(context, currentTeacher);
       },
     );
-  }
 
   Widget _buildAppBar(BuildContext context, TeacherProfile teacher) {
     final colorScheme = Theme.of(context).colorScheme;
 
     return SliverAppBar(
-      pinned: false,
       floating: true,
       elevation: 0,
       scrolledUnderElevation: 1,

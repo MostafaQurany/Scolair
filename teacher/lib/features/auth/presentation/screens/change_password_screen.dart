@@ -67,8 +67,7 @@ class _ChangePasswordViewState extends State<_ChangePasswordView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
+  Widget build(BuildContext context) => BlocConsumer<ChangePasswordCubit, ChangePasswordState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
         appBar: AppBar(
@@ -107,7 +106,6 @@ class _ChangePasswordViewState extends State<_ChangePasswordView>
         ),
       ),
     );
-  }
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {

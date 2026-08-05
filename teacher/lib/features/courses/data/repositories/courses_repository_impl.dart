@@ -48,8 +48,7 @@ class CoursesRepositoryImpl implements CoursesRepository {
     required String tags,
     required bool published,
     required String videoLink,
-    String? image,
-    required bool enableCertification,
+    required bool enableCertification, String? image,
   }) => _getResult(() async {
     final body = {
       'title': title,

@@ -59,8 +59,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocProvider(
+  Widget build(BuildContext context) => MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => getIt<HomeworkDetailsCubit>()..loadHomework(widget.homeworkName)),
         BlocProvider(create: (_) => getIt<HomeworkSubmissionsCubit>()),
@@ -131,7 +130,6 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
         },
       ),
     );
-  }
 
   Widget _buildStatusBanner(BuildContext context, HomeworkDetail homework) {
     final colors = Theme.of(context).colorScheme;
@@ -329,7 +327,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
               children: [
                 Expanded(
                   child: OutlinedButton(
-                    onPressed: isMutating ? null : () => cubit.cancelEditMode(),
+                    onPressed: isMutating ? null : cubit.cancelEditMode,
                     child: Text(context.l10n.homeworkCancelEdit),
                   ),
                 ),
@@ -511,13 +509,13 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
       children: [
         if (!homework.isPublished)
           FilledButton.icon(
-            onPressed: isMutating ? null : () => cubit.publishHomework(),
+            onPressed: isMutating ? null : cubit.publishHomework,
             icon: const Icon(Icons.publish),
             label: Text(context.l10n.homeworkPublish),
           )
         else
           OutlinedButton.icon(
-            onPressed: isMutating ? null : () => cubit.unpublishHomework(),
+            onPressed: isMutating ? null : cubit.unpublishHomework,
             icon: const Icon(Icons.unpublished_outlined),
             label: Text(context.l10n.homeworkUnpublish),
           ),
@@ -541,7 +539,7 @@ class _HomeworkDetailsScreenState extends State<HomeworkDetailsScreen> {
         ],
       ),
     );
-    if (confirm == true && context.mounted) {
+    if ((confirm ?? false) && context.mounted) {
       final success = await cubit.deleteHomework();
       if (success && context.mounted) {
         Navigator.of(context).pop(true);

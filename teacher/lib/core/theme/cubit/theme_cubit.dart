@@ -17,7 +17,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
   Future<void> updateThemeMode(ThemeMode mode) async {
     emit(mode);
-    String value = 'system';
+    var value = 'system';
     if (mode == ThemeMode.light) value = 'light';
     if (mode == ThemeMode.dark) value = 'dark';
     await _preferences.setThemeMode(value);

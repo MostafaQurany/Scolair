@@ -35,7 +35,7 @@ class ChapterExpansionTile extends StatelessWidget {
       ),
     );
 
-    if (confirmed == true && context.mounted) {
+    if ((confirmed ?? false) && context.mounted) {
       context.read<CourseDetailsCubit>().deleteChapter(chapter.name);
     }
   }
@@ -53,7 +53,7 @@ class ChapterExpansionTile extends StatelessWidget {
       ),
     );
 
-    if (confirmed == true && context.mounted) {
+    if ((confirmed ?? false) && context.mounted) {
       context.read<CourseDetailsCubit>().deleteLesson(lessonName, chapterName);
     }
   }
@@ -101,7 +101,7 @@ class ChapterExpansionTile extends StatelessWidget {
                             editingChapter: chapter,
                           ),
                         );
-                        if (res == true && context.mounted) {
+                        if ((res ?? false) && context.mounted) {
                           cubit.loadCourseDetails(courseName);
                         }
                       } else if (value == 'delete') {
@@ -176,8 +176,8 @@ class ChapterExpansionTile extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 
-    IconData icon = Icons.description;
-    Color iconColor = colorScheme.onSurfaceVariant;
+    var icon = Icons.description;
+    var iconColor = colorScheme.onSurfaceVariant;
 
     final nameLower = lesson.icon.toLowerCase();
     if (nameLower.contains('youtube') || lesson.youtube != null) {

@@ -36,7 +36,6 @@ class HomeworkSubmissionInfoCard extends StatelessWidget {
                   imageUrl: null,
                   displayName: submission.displayStudentName,
                   userId: submission.member,
-                  radius: 20,
                 ),
                 SizedBox(width: 12.w),
                 Expanded(

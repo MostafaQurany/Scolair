@@ -31,7 +31,7 @@ class NotificationFeedCubit extends Cubit<NotificationFeedState> {
   final UnarchiveNotificationUseCase _unarchive;
   final ToggleNotificationPinUseCase _togglePin;
 
-  static const int _pageSize = 20;
+
 
   void applyFilter(String filter) {
     emit(state.copyWith(filter: filter, hasReachedMax: false));
@@ -47,8 +47,6 @@ class NotificationFeedCubit extends Cubit<NotificationFeedState> {
     emit(state.copyWith(isLoading: true, error: null));
 
     final result = await _getNotifications(
-      start: 0,
-      pageSize: _pageSize,
       filter: state.filter,
       searchQuery: state.searchQuery,
     );
@@ -79,7 +77,6 @@ class NotificationFeedCubit extends Cubit<NotificationFeedState> {
 
     final result = await _getNotifications(
       start: state.notifications.length,
-      pageSize: _pageSize,
       filter: state.filter,
       searchQuery: state.searchQuery,
     );

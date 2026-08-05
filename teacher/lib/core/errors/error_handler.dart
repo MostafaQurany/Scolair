@@ -14,7 +14,7 @@ abstract final class ErrorHandler {
     );
 
     if (error is DioException) {
-      String message = error.message ?? 'Network request failed';
+      var message = error.message ?? 'Network request failed';
 
       try {
         final responseData = error.response?.data;

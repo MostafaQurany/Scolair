@@ -7,6 +7,8 @@ import '../../domain/entities/notification_entity.dart';
 import '../../../courses/presentation/screens/course_students_screen.dart'; // For CourseStudentsScreenArgs
 
 class NotificationNavigationHelper {
+  NotificationNavigationHelper._();
+
   static void navigateFromNotification(BuildContext context, NotificationEntity notification) {
     final navigator = getIt<NavigationService>();
     final relatedId = notification.relatedEntityId;

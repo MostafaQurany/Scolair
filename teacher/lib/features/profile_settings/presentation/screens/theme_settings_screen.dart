@@ -11,8 +11,7 @@ class ThemeSettingsScreen extends StatelessWidget {
   const ThemeSettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Theme.of(context).colorScheme.primary),
         title: Text(context.l10n.themeScreenTitle),
@@ -21,8 +20,7 @@ class ThemeSettingsScreen extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<ThemeCubit, ThemeMode>(
           bloc: getIt<ThemeCubit>(),
-          builder: (context, currentMode) {
-            return Padding(
+          builder: (context, currentMode) => Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
               child: Column(
                 children: [
@@ -51,12 +49,10 @@ class ThemeSettingsScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            );
-          },
+            ),
         ),
       ),
     );
-  }
 
   Widget _buildThemeOption(
     BuildContext context, {

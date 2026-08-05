@@ -6,11 +6,11 @@ part 'otp_verify_response_data.g.dart';
 class OtpVerifyTokenData {
   const OtpVerifyTokenData({required this.resetToken});
 
-  @JsonKey(name: 'reset_token')
-  final String resetToken;
-
   factory OtpVerifyTokenData.fromJson(Map<String, dynamic> json) =>
       _$OtpVerifyTokenDataFromJson(json);
+
+  @JsonKey(name: 'reset_token')
+  final String resetToken;
 
   Map<String, dynamic> toJson() => _$OtpVerifyTokenDataToJson(this);
 }
@@ -23,12 +23,12 @@ class OtpVerifyResponseData {
     required this.data,
   });
 
+  factory OtpVerifyResponseData.fromJson(Map<String, dynamic> json) =>
+      _$OtpVerifyResponseDataFromJson(json);
+
   final String state;
   final String message;
   final OtpVerifyTokenData data;
-
-  factory OtpVerifyResponseData.fromJson(Map<String, dynamic> json) =>
-      _$OtpVerifyResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$OtpVerifyResponseDataToJson(this);
 }

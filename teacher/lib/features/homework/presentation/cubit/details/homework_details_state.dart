@@ -35,8 +35,7 @@ class HomeworkDetailsState {
     int? batchProgress,
     int? batchTotal,
     List<String>? batchErrors,
-  }) {
-    return HomeworkDetailsState(
+  }) => HomeworkDetailsState(
       status: status ?? this.status,
       homework: homework ?? this.homework,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -47,5 +46,4 @@ class HomeworkDetailsState {
       batchTotal: batchTotal ?? this.batchTotal,
       batchErrors: batchErrors ?? this.batchErrors,
     );
-  }
 }

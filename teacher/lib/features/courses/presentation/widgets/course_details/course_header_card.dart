@@ -63,7 +63,6 @@ class CourseHeaderCard extends StatelessWidget {
                         : '${ApiEndpoints.baseUrl}${course.image!}',
                     width: double.infinity,
                     height: 140.h,
-                    fit: BoxFit.cover,
                     errorWidget: const SizedBox.shrink(),
                   ),
               ],

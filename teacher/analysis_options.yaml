@@ -221,9 +221,21 @@ analyzer:
     avoid_relative_lib_imports: warning
     prefer_const_constructors: warning
     prefer_const_declarations: warning
-    sort_pub_dependencies: warning
+    sort_pub_dependencies: ignore
     use_key_in_widget_constructors: warning
     lines_longer_than_80_chars: ignore
+    public_member_api_docs: ignore
+    always_specify_types: ignore
+    prefer_double_quotes: ignore
+    unnecessary_final: ignore
+    always_use_package_imports: ignore
+    always_put_control_body_on_new_line: ignore
+    avoid_positional_boolean_parameters: ignore
+    inference_failure_on_instance_creation: ignore
+    inference_failure_on_function_invocation: ignore
+    inference_failure_on_untyped_parameter: ignore
+    prefer_expression_function_bodies: ignore
+
     
   exclude:
     # Exclude generated files

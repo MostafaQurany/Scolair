@@ -10,6 +10,9 @@ class RefreshTokenData {
     required this.expiresIn,
   });
 
+  factory RefreshTokenData.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenDataFromJson(json);
+
   @JsonKey(name: 'access_token')
   final String accessToken;
 
@@ -18,9 +21,6 @@ class RefreshTokenData {
 
   @JsonKey(name: 'expires_in')
   final int expiresIn;
-
-  factory RefreshTokenData.fromJson(Map<String, dynamic> json) =>
-      _$RefreshTokenDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$RefreshTokenDataToJson(this);
 }
@@ -33,12 +33,12 @@ class RefreshTokenResponseData {
     required this.data,
   });
 
+  factory RefreshTokenResponseData.fromJson(Map<String, dynamic> json) =>
+      _$RefreshTokenResponseDataFromJson(json);
+
   final String state;
   final String message;
   final RefreshTokenData data;
-
-  factory RefreshTokenResponseData.fromJson(Map<String, dynamic> json) =>
-      _$RefreshTokenResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$RefreshTokenResponseDataToJson(this);
 }
