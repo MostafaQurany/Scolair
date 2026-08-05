@@ -18,7 +18,7 @@ class ClassDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    classData = MockClassesData.getClassByCode(classCode);
+    final classData = MockClassesData.getClassByCode(classCode);
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(

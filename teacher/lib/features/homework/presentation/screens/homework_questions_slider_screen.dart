@@ -330,17 +330,17 @@ class _HomeworkQuestionsSliderScreenState
       question: data['question'] as String ?? '',
       attachment: data['attachment'] as String ?? '',
       type: type,
-      multiple: data['multiple'] ?? 0,
+      multiple: data['multiple'] as int?? 0,
       option1: data['option_1'] as String?,
       option2: data['option_2'] as String?,
       option3: data['option_3'] as String?,
       option4: data['option_4'] as String ?? '',
       option5: data['option_5'] as String ?? '',
-      isCorrect1: data['is_correct_1'] ?? 0,
-      isCorrect2: data['is_correct_2'] ?? 0,
-      isCorrect3: data['is_correct_3'] ?? 0,
-      isCorrect4: data['is_correct_4'] ?? 0,
-      isCorrect5: data['is_correct_5'] ?? 0,
+      isCorrect1: data['is_correct_1'] as int?? 0,
+      isCorrect2: data['is_correct_2'] as int?? 0,
+      isCorrect3: data['is_correct_3'] as int?? 0,
+      isCorrect4: data['is_correct_4'] as int?? 0,
+      isCorrect5: data['is_correct_5'] as int?? 0,
       explanation1: data['explanation_1'] as String?,
       explanation2: data['explanation_2'] as String?,
       explanation3: data['explanation_3'] as String?,
@@ -376,7 +376,7 @@ class _HomeworkQuestionsSliderScreenState
 
   @override
   Widget build(BuildContext context) {
-    hasPendingChanges = _pendingDeletions.isNotEmpty ||
+   final hasPendingChanges = _pendingDeletions.isNotEmpty ||
         _drafts.any((d) => d.toPayload() != null || d.toMarksPayload() != null);
 
     return PopScope(

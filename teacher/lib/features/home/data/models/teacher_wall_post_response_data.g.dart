@@ -90,16 +90,10 @@ TeacherWallPostResponseData _$TeacherWallPostResponseDataFromJson(
       .map((e) => e as String)
       .toList(),
   createdAt: json['created_at'] as String,
-  updatedAt: json['updated_at'] as String?,
   audience: WallPostAudienceResponseData.fromJson(
     json['audience'] as Map<String, dynamic>,
   ),
   privacy: json['privacy'] as String,
-  attachment: json['attachment'] == null
-      ? null
-      : WallPostAttachmentResponseData.fromJson(
-          json['attachment'] as Map<String, dynamic>,
-        ),
   likeCount: (json['like_count'] as num).toInt(),
   commentCount: (json['comment_count'] as num).toInt(),
   isLikedByCurrentUser: json['is_liked_by_current_user'] as bool,
@@ -109,6 +103,12 @@ TeacherWallPostResponseData _$TeacherWallPostResponseDataFromJson(
   permissions: WallPostPermissionsResponseData.fromJson(
     json['permissions'] as Map<String, dynamic>,
   ),
+  updatedAt: json['updated_at'] as String?,
+  attachment: json['attachment'] == null
+      ? null
+      : WallPostAttachmentResponseData.fromJson(
+          json['attachment'] as Map<String, dynamic>,
+        ),
 );
 
 Map<String, dynamic> _$TeacherWallPostResponseDataToJson(

@@ -31,11 +31,11 @@ Map<String, dynamic> _$InstructorModelToJson(InstructorModel instance) =>
 MembershipModel _$MembershipModelFromJson(Map<String, dynamic> json) =>
     MembershipModel(
       name: _stringFromJson(json['name']),
-      currentLesson: _nullableStringFromJson(json['current_lesson']),
       progress: _doubleFromJson(json['progress']),
       member: _stringFromJson(json['member']),
       course: _stringFromJson(json['course']),
       purchasedCertificate: _intFromJson(json['purchased_certificate']),
+      currentLesson: _nullableStringFromJson(json['current_lesson']),
       certificate: _nullableStringFromJson(json['certificate']),
     );
 
@@ -140,13 +140,13 @@ LessonSummaryModel _$LessonSummaryModelFromJson(Map<String, dynamic> json) =>
       name: _stringFromJson(json['name']),
       title: _stringFromJson(json['title']),
       includeInPreview: _intFromJson(json['include_in_preview']),
+      fileType: _stringFromJson(json['file_type']),
+      icon: _stringFromJson(json['icon']),
       body: _nullableStringFromJson(json['body']),
       content: _nullableStringFromJson(json['content']),
       youtube: _nullableStringFromJson(json['youtube']),
       quizId: _nullableStringFromJson(json['quiz_id']),
       question: _nullableStringFromJson(json['question']),
-      fileType: _stringFromJson(json['file_type']),
-      icon: _stringFromJson(json['icon']),
       course: _nullableStringFromJson(json['course']),
     );
 
@@ -172,9 +172,9 @@ ChapterDetailModel _$ChapterDetailModelFromJson(Map<String, dynamic> json) =>
       title: _stringFromJson(json['title']),
       course: _stringFromJson(json['course']),
       isScormPackage: _intFromJson(json['is_scorm_package']),
+      lessons: _lessonSummaryListFromJson(json['lessons']),
       scormPackagePath: _nullableStringFromJson(json['scorm_package_path']),
       launchFile: _nullableStringFromJson(json['launch_file']),
-      lessons: _lessonSummaryListFromJson(json['lessons']),
     );
 
 Map<String, dynamic> _$ChapterDetailModelToJson(ChapterDetailModel instance) =>
@@ -195,6 +195,10 @@ LessonDetailModel _$LessonDetailModelFromJson(Map<String, dynamic> json) =>
       chapter: _stringFromJson(json['chapter']),
       course: _stringFromJson(json['course']),
       includeInPreview: _intFromJson(json['include_in_preview']),
+      fileType: _stringFromJson(json['file_type']),
+      creation: _stringFromJson(json['creation']),
+      icon: _stringFromJson(json['icon']),
+      idx: _intFromJson(json['idx']),
       body: _nullableStringFromJson(json['body']),
       content: _nullableStringFromJson(json['content']),
       instructorContent: _nullableStringFromJson(json['instructor_content']),
@@ -202,10 +206,6 @@ LessonDetailModel _$LessonDetailModelFromJson(Map<String, dynamic> json) =>
       youtube: _nullableStringFromJson(json['youtube']),
       quizId: _nullableStringFromJson(json['quiz_id']),
       question: _nullableStringFromJson(json['question']),
-      fileType: _stringFromJson(json['file_type']),
-      creation: _stringFromJson(json['creation']),
-      icon: _stringFromJson(json['icon']),
-      idx: _intFromJson(json['idx']),
     );
 
 Map<String, dynamic> _$LessonDetailModelToJson(LessonDetailModel instance) =>

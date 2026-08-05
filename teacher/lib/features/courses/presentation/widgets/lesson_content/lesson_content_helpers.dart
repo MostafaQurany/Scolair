@@ -23,7 +23,7 @@ class LessonContentHelpers {
   /// Parses inline HTML tags (<b>, <i>, <u>, <a>, <br>, <mark>,
   /// <code>) into Flutter [InlineSpan] widgets.
   static List<InlineSpan> parseHtmlToSpans(BuildContext context, String html) {
-    spans = <InlineSpan>[];
+   final spans = <InlineSpan>[];
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
 

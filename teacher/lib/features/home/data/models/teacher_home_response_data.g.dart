@@ -44,7 +44,6 @@ TeacherHomeResponseData _$TeacherHomeResponseDataFromJson(
   teacher: TeacherProfileResponseData.fromJson(
     json['teacher'] as Map<String, dynamic>,
   ),
-  greetingActivityTitle: json['greeting_activity_title'] as String?,
   organizationNoticeCount: (json['organization_notice_count'] as num).toInt(),
   filters: (json['filters'] as List<dynamic>)
       .map(
@@ -52,6 +51,7 @@ TeacherHomeResponseData _$TeacherHomeResponseDataFromJson(
             TeacherFeedFilterResponseData.fromJson(e as Map<String, dynamic>),
       )
       .toList(),
+  greetingActivityTitle: json['greeting_activity_title'] as String?,
 );
 
 Map<String, dynamic> _$TeacherHomeResponseDataToJson(

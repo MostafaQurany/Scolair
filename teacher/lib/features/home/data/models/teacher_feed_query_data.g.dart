@@ -9,9 +9,9 @@ part of 'teacher_feed_query_data.dart';
 TeacherFeedQueryData _$TeacherFeedQueryDataFromJson(
   Map<String, dynamic> json,
 ) => TeacherFeedQueryData(
-  filterId: json['filter_id'] as String?,
   page: (json['page'] as num).toInt(),
   pageSize: (json['page_size'] as num).toInt(),
+  filterId: json['filter_id'] as String?,
 );
 
 Map<String, dynamic> _$TeacherFeedQueryDataToJson(
