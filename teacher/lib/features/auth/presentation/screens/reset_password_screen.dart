@@ -72,8 +72,7 @@ class _ResetPasswordViewState extends State<_ResetPasswordView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
+  Widget build(BuildContext context) => BlocConsumer<ResetPasswordCubit, ResetPasswordState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
         body: AuthSurface(
@@ -98,7 +97,6 @@ class _ResetPasswordViewState extends State<_ResetPasswordView>
         ),
       ),
     );
-  }
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -137,8 +135,7 @@ class _ResetPasswordBody extends StatelessWidget {
   final VoidCallback onSubmit;
 
   @override
-  Widget build(BuildContext context) {
-    return AuthCard(
+  Widget build(BuildContext context) => AuthCard(
       padding: EdgeInsetsDirectional.all(24.r),
       child: Form(
         key: formKey,
@@ -190,5 +187,4 @@ class _ResetPasswordBody extends StatelessWidget {
         ),
       ),
     );
-  }
 }

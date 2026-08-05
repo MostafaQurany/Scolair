@@ -215,7 +215,6 @@ class _IconInfoRow extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           width: 34.r,

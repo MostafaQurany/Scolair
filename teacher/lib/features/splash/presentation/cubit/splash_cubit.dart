@@ -16,17 +16,17 @@ class SplashCubit extends Cubit<SplashState> {
 
   Future<void> start() async {
     emit(const SplashState.loading());
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
 
     final isFirstTime = _prefs.isFirstTime;
     if (isFirstTime) {
-      emit(SplashState.navigate(AppRouteNames.onboarding));
+      emit(const SplashState.navigate(AppRouteNames.onboarding));
       return;
     }
 
     final refreshToken = await _secureStorage.readRefreshToken();
     if (refreshToken == null || refreshToken.isEmpty) {
-      emit(SplashState.navigate(AppRouteNames.login));
+      emit(const SplashState.navigate(AppRouteNames.login));
       return;
     }
 
@@ -40,7 +40,7 @@ class SplashCubit extends Cubit<SplashState> {
       },
       failure: (_) {
         _secureStorage.clearAll();
-        emit(SplashState.navigate(AppRouteNames.login));
+        emit(const SplashState.navigate(AppRouteNames.login));
       },
     );
   }

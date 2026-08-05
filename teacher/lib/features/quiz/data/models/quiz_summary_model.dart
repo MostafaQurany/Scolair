@@ -22,6 +22,9 @@ class QuizSummaryModel {
     this.modified,
   });
 
+  factory QuizSummaryModel.fromJson(Map<String, dynamic> json) =>
+      _$QuizSummaryModelFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String name;
   @JsonKey(fromJson: _stringFromJson)
@@ -56,9 +59,6 @@ class QuizSummaryModel {
   final String? creation;
   @JsonKey(fromJson: _nullableStringFromJson)
   final String? modified;
-
-  factory QuizSummaryModel.fromJson(Map<String, dynamic> json) =>
-      _$QuizSummaryModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$QuizSummaryModelToJson(this);
 }

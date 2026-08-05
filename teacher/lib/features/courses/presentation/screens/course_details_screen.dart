@@ -11,8 +11,8 @@ import '../../domain/usecases/courses_usecases.dart';
 
 import '../cubit/course_details_cubit.dart';
 import '../cubit/course_details_state.dart';
-import '../screens/chapter_form_screen.dart';
-import '../screens/course_students_screen.dart';
+import 'chapter_form_screen.dart';
+import 'course_students_screen.dart';
 import '../widgets/add_email_dialog.dart';
 import '../widgets/course_details/chapter_expansion_tile.dart';
 import '../widgets/course_details/course_header_card.dart';
@@ -34,7 +34,7 @@ class CourseDetailsScreen extends StatelessWidget {
       ),
     );
 
-    if (confirmed == true && context.mounted) {
+    if ((confirmed ?? false) && context.mounted) {
       final res = await getIt<DeleteCourseUseCase>().call(name);
       if (context.mounted) {
         res.when(
@@ -201,7 +201,7 @@ class _CourseDetailsViewState extends State<_CourseDetailsView> {
                           body: 'Remove "${inst.fullName ?? email}" from course?',
                         ),
                       );
-                      if (confirm == true && context.mounted) {
+                      if ((confirm ?? false) && context.mounted) {
                         context.read<CourseDetailsCubit>().removeInstructor(email);
                       }
                     }
@@ -224,7 +224,7 @@ class _CourseDetailsViewState extends State<_CourseDetailsView> {
                         context: context,
                         builder: (_) => ChapterFormScreen(courseName: course.name),
                       );
-                      if (res == true && context.mounted) {
+                      if ((res ?? false) && context.mounted) {
                         context.read<CourseDetailsCubit>().loadCourseDetails(course.name);
                       }
                     },
@@ -250,8 +250,7 @@ class _CourseDetailsViewState extends State<_CourseDetailsView> {
     );
   }
 
-  Widget _buildEmptyOutline(BuildContext context) {
-    return Card(
+  Widget _buildEmptyOutline(BuildContext context) => Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.r),
@@ -270,5 +269,4 @@ class _CourseDetailsViewState extends State<_CourseDetailsView> {
         ),
       ),
     );
-  }
 }

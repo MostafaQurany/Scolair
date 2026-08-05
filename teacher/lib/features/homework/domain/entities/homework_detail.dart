@@ -43,8 +43,7 @@ class HomeworkDetail {
     bool? allowLateSubmission,
     bool? isPublished,
     List<HomeworkQuestionItem>? questions,
-  }) {
-    return HomeworkDetail(
+  }) => HomeworkDetail(
       name: name,
       title: title ?? this.title,
       instructions: instructions ?? this.instructions,
@@ -60,7 +59,6 @@ class HomeworkDetail {
       owner: owner,
       questions: questions ?? this.questions,
     );
-  }
 }
 
 class HomeworkQuestionItem {

@@ -60,6 +60,7 @@ This file helps future agents understand the current work state without relying 
 - Added the real homework delete flow with a card overflow action, confirmation dialog, DELETE query request, per-item mutation protection, and localized success/error feedback. Homework editing remains deferred.
 - Hardened homework card constraints for sliver lists and grids by removing vertical flex, accommodating optional metadata on tablets, and matching the skeleton structure to the real card.
 - Implemented the complete Teacher Home & Learning Wall feature: deleted stub folder content, created domain/data/presentation layers, built AppUserAvatar core initials fallback, implemented time-adapted greetings, organization notice plural cards, horizontal filter lists, optimistic likes with rollback, and comprehensive EN/AR RTL translation keys.
+- Implemented the Teacher Homework Submission & Grading feature: built out the UI using existing domain logic, created SubmissionListCubit/Screen and SubmissionDetailCubit/Screen, added `skeletonizer` shimmers, fixed `isManualGraded` for non-Choices questions, and utilized `AppUserAvatar` for student initials.
 
 ## In-Progress Tasks
 

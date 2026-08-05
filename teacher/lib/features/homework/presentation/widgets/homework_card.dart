@@ -22,7 +22,7 @@ class HomeworkCard extends StatelessWidget {
   final bool isDeleting;
 
   String _plainInstructions(String value) => value
-      .replaceAll(RegExp(r'<[^>]*>'), ' ')
+      .replaceAll(RegExp('<[^>]*>'), ' ')
       .replaceAll(RegExp(r'\s+'), ' ')
       .trim();
 
@@ -43,11 +43,11 @@ class HomeworkCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
         border: BorderDirectional(
-          bottom: BorderSide(color: colors.primary, width: 1),
-          end: BorderSide(color: colors.primary, width: 1),
+          bottom: BorderSide(color: colors.primary),
+          end: BorderSide(color: colors.primary),
         ),
       ),
-      padding: EdgeInsets.all(1),
+      padding: const EdgeInsets.all(1),
       child: Card(
         child: InkWell(
           onTap: isDeleting ? null : onViewDetails,
@@ -57,9 +57,7 @@ class HomeworkCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
                       title,

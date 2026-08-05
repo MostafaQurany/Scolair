@@ -6,11 +6,9 @@ part 'home_request_data.g.dart';
 class HomeRequestData {
   const HomeRequestData({required this.userId});
 
-  final String userId;
+  factory HomeRequestData.fromJson(Map<String, dynamic> json) => _$HomeRequestDataFromJson(json);
 
-  factory HomeRequestData.fromJson(Map<String, dynamic> json) {
-    return _$HomeRequestDataFromJson(json);
-  }
+  final String userId;
 
   Map<String, dynamic> toJson() => _$HomeRequestDataToJson(this);
 }

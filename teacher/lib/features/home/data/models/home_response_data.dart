@@ -9,12 +9,10 @@ class HomeResponseData {
     required this.assignmentCount,
   });
 
+  factory HomeResponseData.fromJson(Map<String, dynamic> json) => _$HomeResponseDataFromJson(json);
+
   final int classCount;
   final int assignmentCount;
-
-  factory HomeResponseData.fromJson(Map<String, dynamic> json) {
-    return _$HomeResponseDataFromJson(json);
-  }
 
   Map<String, dynamic> toJson() => _$HomeResponseDataToJson(this);
 }

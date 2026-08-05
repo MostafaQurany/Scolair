@@ -48,7 +48,7 @@ class ImageBlockWidget extends StatelessWidget {
     );
 
     if (withBorder) {
-      imageWidget = Container(
+      imageWidget = DecoratedBox(
         decoration: BoxDecoration(
           border: Border.all(
             color: Theme.of(context).colorScheme.outlineVariant,

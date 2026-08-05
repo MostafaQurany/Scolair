@@ -30,6 +30,9 @@ class QuestionModel {
     this.possibility5,
   });
 
+  factory QuestionModel.fromJson(Map<String, dynamic> json) =>
+      _$QuestionModelFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String name;
   @JsonKey(fromJson: _stringFromJson)
@@ -121,9 +124,6 @@ class QuestionModel {
     if (possibility5 != null) result.add(possibility5!);
     return result;
   }
-
-  factory QuestionModel.fromJson(Map<String, dynamic> json) =>
-      _$QuestionModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$QuestionModelToJson(this);
 }

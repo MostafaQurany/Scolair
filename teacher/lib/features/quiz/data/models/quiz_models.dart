@@ -49,7 +49,7 @@ QuizModel _quizFromJson(Object? json) => QuizModel.fromJson(_asStringMap(json));
 List<QuizQuestionModel> _quizQuestionsFromJson(Object? json) {
   if (json is! List) return <QuizQuestionModel>[];
   return json
-      .whereType<Map>()
+      .whereType<Map<dynamic, dynamic>>()
       .map((item) => QuizQuestionModel.fromJson(_asStringMap(item)))
       .toList();
 }

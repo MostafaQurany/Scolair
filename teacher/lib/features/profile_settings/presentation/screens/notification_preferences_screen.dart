@@ -27,8 +27,7 @@ class NotificationPreferencesScreen extends StatelessWidget {
               NotificationPreferencesState
             >(
               bloc: cubit,
-              builder: (context, state) {
-                return SingleChildScrollView(
+              builder: (context, state) => SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
                     horizontal: 20.w,
                     vertical: 16.h,
@@ -77,8 +76,7 @@ class NotificationPreferencesScreen extends StatelessWidget {
                       SizedBox(height: 24.h),
                     ],
                   ),
-                );
-              },
+                ),
             ),
       ),
     );

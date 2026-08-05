@@ -116,7 +116,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         );
       },
     );
-    if (discard == true && mounted) {
+    if ((discard ?? false) && mounted) {
       Navigator.pop(context);
     }
   }

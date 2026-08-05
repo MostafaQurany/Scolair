@@ -140,8 +140,6 @@ class _MyCoursesButton extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [colorScheme.primary, colorScheme.secondary],
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
             ),
             borderRadius: BorderRadius.circular(16.r),
           ),
@@ -216,8 +214,7 @@ class _QuickActionsRow extends StatelessWidget {
   const _QuickActionsRow();
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget build(BuildContext context) => Row(
       children: [
         Expanded(
           child: OutlinedButton.icon(
@@ -236,5 +233,4 @@ class _QuickActionsRow extends StatelessWidget {
         ),
       ],
     );
-  }
 }

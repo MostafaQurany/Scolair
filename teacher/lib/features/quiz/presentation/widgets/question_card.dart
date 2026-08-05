@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:scolair_teacher/core/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 import '../../../../core/localization/localization_extension.dart';
 import '../../data/models/quiz_models.dart';
@@ -36,7 +36,6 @@ class QuestionCard extends StatelessWidget {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final colorScheme = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       margin: EdgeInsets.only(bottom: 8.h),
@@ -59,7 +58,6 @@ class QuestionCard extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (isSelectionMode)
                   Checkbox(
@@ -84,21 +82,6 @@ class QuestionCard extends StatelessWidget {
     );
   }
 }
-
-class _DragHandle extends StatelessWidget {
-  const _DragHandle();
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Icon(
-      Icons.drag_indicator,
-      size: 20.r,
-      color: isDark ? AppColors.darkTextMuted : AppColors.textMuted,
-    );
-  }
-}
-
 class _CardContent extends StatelessWidget {
   const _CardContent({
     required this.index,

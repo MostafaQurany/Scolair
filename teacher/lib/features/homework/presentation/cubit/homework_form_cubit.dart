@@ -37,7 +37,7 @@ class HomeworkFormCubit extends Cubit<HomeworkFormState> {
 
   void setLesson(String? val) => emit(state.copyWith(lesson: val, clearBatch: true));
 
-  void setBatch(String? val) => emit(state.copyWith(batch: val, lesson: null));
+  void setBatch(String? val) => emit(state.copyWith(batch: val));
 
   void setCourseAndLesson({
     required String course,
@@ -62,7 +62,7 @@ class HomeworkFormCubit extends Cubit<HomeworkFormState> {
   Future<void> submitForm({required bool publish}) async {
     if (!state.isFormValid || state.dueDate == null) return;
 
-    emit(state.copyWith(status: HomeworkFormStatus.submitting, errorMessage: null));
+    emit(state.copyWith(status: HomeworkFormStatus.submitting));
 
     final dueDateStr = AppDateTimeFormatter.formatForApi(state.dueDate!);
     if (state.isEditing) {
@@ -97,7 +97,6 @@ class HomeworkFormCubit extends Cubit<HomeworkFormState> {
         instructions: state.instructions.trim(),
         allowLateSubmission: state.allowLateSubmission ? 1 : 0,
         published: publish ? 1 : 0,
-        questions: const [], // Questions added post-creation on details screen
       );
       final result = await _createRemoteUseCase(request);
       switch (result) {

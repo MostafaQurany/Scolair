@@ -35,8 +35,7 @@ class HomeworkFormBody extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return BlocBuilder<HomeworkFormCubit, HomeworkFormState>(
-      builder: (context, state) {
-        return SingleChildScrollView(
+      builder: (context, state) => SingleChildScrollView(
           padding: EdgeInsets.all(16.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -131,8 +130,7 @@ class HomeworkFormBody extends StatelessWidget {
               ),
             ],
           ),
-        );
-      },
+        ),
     );
   }
 }

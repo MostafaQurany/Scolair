@@ -25,15 +25,13 @@ class QuestionRepositoryImpl implements QuestionRepository {
     QuestionFilterData filters = const QuestionFilterData(),
     int start = 0,
     int pageSize = 30,
-  }) {
-    return _getResult(
+  }) => _getResult(
       () async => (await _remoteDataSource.listQuestions(
         filters: filters,
         start: start,
         pageSize: pageSize,
       )).data,
     );
-  }
 
   @override
   Future<ApiResult<QuestionModel>> getQuestion(String questionName) =>

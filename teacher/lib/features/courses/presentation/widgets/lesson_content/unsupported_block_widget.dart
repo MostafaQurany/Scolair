@@ -13,8 +13,7 @@ class UnsupportedBlockWidget extends StatelessWidget {
   final Map<String, dynamic> data;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.amber.shade200),
@@ -26,5 +25,4 @@ class UnsupportedBlockWidget extends StatelessWidget {
         style: TextStyle(color: Colors.amber.shade900, fontSize: 12.sp),
       ),
     );
-  }
 }

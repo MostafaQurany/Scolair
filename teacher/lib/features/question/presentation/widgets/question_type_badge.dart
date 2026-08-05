@@ -9,14 +9,12 @@ class QuestionTypeBadge extends StatelessWidget {
 
   final ApiQuestionType type;
 
-  Color _typeColor(ColorScheme colorScheme) {
-    return switch (type) {
+  Color _typeColor(ColorScheme colorScheme) => switch (type) {
       ApiQuestionType.choices => colorScheme.primary,
       ApiQuestionType.userInput => colorScheme.tertiary,
       ApiQuestionType.openEnded => colorScheme.secondary,
       ApiQuestionType.fileUpload => colorScheme.error,
     };
-  }
 
   @override
   Widget build(BuildContext context) {

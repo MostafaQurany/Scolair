@@ -17,8 +17,7 @@ class HomeworkFormScreen extends StatelessWidget {
   final HomeworkListItem? editingHomework;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) {
         final cubit = getIt<HomeworkFormCubit>();
         if (editingHomework != null) {
@@ -38,7 +37,7 @@ class HomeworkFormScreen extends StatelessWidget {
               AppSnackBar.showSuccess(context, context.l10n.homeworkCreatedSuccess);
               Navigator.of(context).pushReplacementNamed(
                 AppRouteNames.homeworkDetails,
-                arguments: state.createdHomeworkName!,
+                arguments: state.createdHomeworkName,
               );
             } else {
               AppSnackBar.showSuccess(context, context.l10n.homeworkCreatedSuccess);
@@ -64,7 +63,6 @@ class HomeworkFormScreen extends StatelessWidget {
         },
       ),
     );
-  }
 
   Widget _buildBottomBar(BuildContext context, HomeworkFormState state, bool isSubmitting) {
     final colors = Theme.of(context).colorScheme;

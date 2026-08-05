@@ -21,8 +21,7 @@ class LmsAdaptiveNavigationShell extends StatelessWidget {
   final List<LmsNavigationItem>? items;
 
   @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
+  Widget build(BuildContext context) => LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < AdaptiveLayoutBreakpoints.compact) {
           return Scaffold(
@@ -45,16 +44,14 @@ class LmsAdaptiveNavigationShell extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(title: Text(resolvedItems[activeIndex].label)),
             drawer: Builder(
-              builder: (drawerContext) {
-                return LmsTabletNavigationDrawer(
+              builder: (drawerContext) => LmsTabletNavigationDrawer(
                   currentIndex: currentIndex,
                   onTap: (index) {
                     onTap(index);
                     Scaffold.of(drawerContext).closeDrawer();
                   },
                   items: resolvedItems,
-                );
-              },
+                ),
             ),
             body: body,
           );
@@ -83,5 +80,4 @@ class LmsAdaptiveNavigationShell extends StatelessWidget {
         );
       },
     );
-  }
 }

@@ -7,23 +7,19 @@ class NavigationService {
 
   bool _isNavigatingToLogin = false;
 
-  Future<dynamic>? navigateTo(String routeName, {Object? arguments}) {
-    return navigatorKey.currentState?.pushNamed(
+  Future<dynamic>? navigateTo(String routeName, {Object? arguments}) => navigatorKey.currentState?.pushNamed(
       routeName,
       arguments: arguments,
     );
-  }
 
   Future<dynamic>? navigateToAndRemoveUntil(
     String routeName, {
     Object? arguments,
-  }) {
-    return navigatorKey.currentState?.pushNamedAndRemoveUntil(
+  }) => navigatorKey.currentState?.pushNamedAndRemoveUntil(
       routeName,
       (route) => false,
       arguments: arguments,
     );
-  }
 
   void navigateToLogin() {
     if (_isNavigatingToLogin) return;

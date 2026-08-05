@@ -452,7 +452,7 @@ Future<void> setupDependencyInjection() async {
     )
     // Notifications Feature
     ..registerLazySingleton<NotificationRemoteDataSource>(
-      () => NotificationMockDataSourceImpl(),
+      NotificationMockDataSourceImpl.new,
     )
     ..registerLazySingleton<NotificationRepository>(
       () => NotificationRepositoryImpl(getIt()),

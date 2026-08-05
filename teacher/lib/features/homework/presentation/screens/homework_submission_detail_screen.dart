@@ -9,6 +9,7 @@ import '../cubit/grading/homework_grading_cubit.dart';
 import '../cubit/grading/homework_grading_state.dart';
 import '../widgets/grading/homework_question_grading_card.dart';
 import '../widgets/grading/homework_submission_info_card.dart';
+import '../widgets/homework_submission_detail_shimmer.dart';
 
 class HomeworkSubmissionDetailScreen extends StatelessWidget {
   const HomeworkSubmissionDetailScreen({required this.submissionName, super.key});
@@ -16,8 +17,7 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
   final String submissionName;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<HomeworkGradingCubit>()..loadSubmission(submissionName),
       child: BlocConsumer<HomeworkGradingCubit, HomeworkGradingState>(
         listener: (context, state) {
@@ -25,7 +25,7 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
             AppSnackBar.showError(context, state.errorMessage!);
           } else if (state.status == HomeworkGradingStatus.success && state.downloadedFileBytes != null) {
             AppSnackBar.showSuccess(context, context.l10n.homeworkFileDownloaded);
-          } else if (state.status == HomeworkGradingStatus.success && state.submission != null) {
+          } else if (state.status == HomeworkGradingStatus.submittedSuccess && state.submission != null) {
             AppSnackBar.showSuccess(context, context.l10n.homeworkGradedSuccess);
             Navigator.of(context).pop(true);
           }
@@ -39,7 +39,7 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
               elevation: 0,
             ),
             body: state.status == HomeworkGradingStatus.loading && sub == null
-                ? const Center(child: CircularProgressIndicator())
+                ? const HomeworkSubmissionDetailShimmer()
                 : sub == null
                     ? Center(child: Text(state.errorMessage ?? context.l10n.errorOccurred))
                     : Column(
@@ -49,12 +49,10 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
                               child: Column(
                                 children: [
                                   HomeworkSubmissionInfoCard(submission: sub),
-                                  ...List.generate(sub.questions.length, (index) {
-                                    return HomeworkQuestionGradingCard(
+                                  ...List.generate(sub.questions.length, (index) => HomeworkQuestionGradingCard(
                                       question: sub.questions[index],
                                       index: index,
-                                    );
-                                  }),
+                                    )),
                                   SizedBox(height: 16.h),
                                   _buildOverallFeedbackSection(context, state),
                                   SizedBox(height: 32.h),
@@ -69,7 +67,6 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
         },
       ),
     );
-  }
 
   Widget _buildOverallFeedbackSection(BuildContext context, HomeworkGradingState state) {
     final textTheme = Theme.of(context).textTheme;
@@ -96,6 +93,15 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
 
   Widget _buildBottomBar(BuildContext context, HomeworkGradingState state) {
     final colors = Theme.of(context).colorScheme;
+    final submission = state.submission!;
+          
+    final hasManualQuestions = submission.questions.any((q) => q.isManualGraded);
+    final isAlreadyGraded = submission.status.toLowerCase() == 'graded';
+
+    if (isAlreadyGraded || !hasManualQuestions) {
+      return const SizedBox.shrink();
+    }
+
     final isSubmitting = state.status == HomeworkGradingStatus.submitting;
     final isValid = state.isValidMarks();
 

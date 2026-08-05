@@ -19,8 +19,7 @@ class QuizDetailsScreen extends StatelessWidget {
   final String quizName;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<QuizDetailsCubit>()..loadQuiz(quizName),
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -28,7 +27,6 @@ class QuizDetailsScreen extends StatelessWidget {
         floatingActionButton: const _QuizFab(),
       ),
     );
-  }
 }
 
 class _QuizDetailsBody extends StatefulWidget {
@@ -110,8 +108,7 @@ class _QuizDetailsBodyState extends State<_QuizDetailsBody> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<QuizDetailsCubit, QuizDetailsState>(
+  Widget build(BuildContext context) => BlocConsumer<QuizDetailsCubit, QuizDetailsState>(
       listenWhen: (previous, current) =>
           previous.mutationError != current.mutationError,
       listener: (context, state) {
@@ -263,7 +260,6 @@ class _QuizDetailsBodyState extends State<_QuizDetailsBody> {
         );
       },
     );
-  }
 
   void _addQuestion(BuildContext context, QuizModel quiz) {
     final cubit = context.read<QuizDetailsCubit>();
@@ -292,8 +288,7 @@ class _QuizFab extends StatelessWidget {
   const _QuizFab();
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<QuizDetailsCubit, QuizDetailsState>(
+  Widget build(BuildContext context) => BlocBuilder<QuizDetailsCubit, QuizDetailsState>(
       builder: (context, state) {
         final quiz = state.quiz;
         if (quiz == null || state.isLoading || quiz.questions.isEmpty) {
@@ -310,7 +305,6 @@ class _QuizFab extends StatelessWidget {
         );
       },
     );
-  }
 
   void _addQuestion(BuildContext context, QuizModel quiz) {
     final cubit = context.read<QuizDetailsCubit>();

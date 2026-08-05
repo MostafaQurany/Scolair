@@ -21,7 +21,9 @@ class HomeworkSubmissionItem {
   final String? submittedOn;
   final String? studentName;
 
-  String get displayStudentName => studentName?.isNotEmpty == true ? studentName! : member;
+  String get displayStudentName => studentName?.isNotEmpty ?? false ? studentName! : member;
+  
+  num get totalMarks => autoMarks + marks;
 }
 
 class HomeworkSubmissionDetail {
@@ -51,7 +53,9 @@ class HomeworkSubmissionDetail {
   final String? studentName;
   final List<SubmissionQuestionDetail> questions;
 
-  String get displayStudentName => studentName?.isNotEmpty == true ? studentName! : member;
+  String get displayStudentName => studentName?.isNotEmpty ?? false ? studentName! : member;
+
+  num get totalMarks => autoMarks + marks;
 }
 
 class SubmissionQuestionDetail {
@@ -75,5 +79,5 @@ class SubmissionQuestionDetail {
   final num? marksAwarded;
   final String? note;
 
-  bool get isManualGraded => type.toLowerCase() == 'open ended' || type.toLowerCase() == 'file upload' || type.toLowerCase() == 'fileupload';
+  bool get isManualGraded => type.toLowerCase() != 'choices';
 }

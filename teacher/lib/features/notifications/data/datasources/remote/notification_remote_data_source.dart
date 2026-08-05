@@ -1,5 +1,5 @@
-import 'package:scolair_teacher/core/network/api_client.dart';
-import 'package:scolair_teacher/features/notifications/data/models/notification_response_models.dart';
+import '../../../../../core/network/api_client.dart';
+import '../../models/notification_response_models.dart';
 
 abstract class NotificationRemoteDataSource {
   Future<GetNotificationsResponseData> getNotifications({

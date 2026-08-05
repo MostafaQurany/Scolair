@@ -34,10 +34,8 @@ class _AuthOtpFieldsState extends State<AuthOtpFields> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: List.generate(6, (index) {
-        return Expanded(
+  Widget build(BuildContext context) => Row(
+      children: List.generate(6, (index) => Expanded(
           child: Padding(
             padding: EdgeInsetsDirectional.only(end: index == 5 ? 0 : 6.w),
             child: TextField(
@@ -59,10 +57,8 @@ class _AuthOtpFieldsState extends State<AuthOtpFields> {
               onChanged: (value) => _handleChange(index, value),
             ),
           ),
-        );
-      }),
+        )),
     );
-  }
 
   void _handleChange(int index, String value) {
     if (value.isNotEmpty && index < _focusNodes.length - 1) {

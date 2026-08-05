@@ -37,12 +37,10 @@ class HomeworkSubmissionsState {
     List<HomeworkSubmissionItem>? submissions,
     String? errorMessage,
     SubmissionFilter? filter,
-  }) {
-    return HomeworkSubmissionsState(
+  }) => HomeworkSubmissionsState(
       status: status ?? this.status,
       submissions: submissions ?? this.submissions,
       errorMessage: errorMessage ?? this.errorMessage,
       filter: filter ?? this.filter,
     );
-  }
 }

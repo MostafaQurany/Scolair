@@ -53,8 +53,7 @@ class LessonPartsEditor extends StatelessWidget {
   final VoidCallback onChanged;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Wrap(
@@ -89,7 +88,6 @@ class LessonPartsEditor extends StatelessWidget {
         ),
       ],
     );
-  }
 }
 
 class _LessonPartCard extends StatelessWidget {

@@ -84,17 +84,8 @@ class TeacherWallPost {
     required this.body,
     required this.hashtags,
     required this.createdAt,
-    this.updatedAt,
-    required this.audience,
-    required this.privacy,
+    required this.audience, required this.privacy, required this.likeCount, required this.commentCount, required this.isLikedByCurrentUser, required this.isOwnedByCurrentUser, required this.isPinned, required this.isAnswered, required this.permissions, this.updatedAt,
     this.attachment,
-    required this.likeCount,
-    required this.commentCount,
-    required this.isLikedByCurrentUser,
-    required this.isOwnedByCurrentUser,
-    required this.isPinned,
-    required this.isAnswered,
-    required this.permissions,
   });
 
   final String id;
@@ -133,8 +124,7 @@ class TeacherWallPost {
     bool? isPinned,
     bool? isAnswered,
     WallPostPermissions? permissions,
-  }) {
-    return TeacherWallPost(
+  }) => TeacherWallPost(
       id: id ?? this.id,
       author: author ?? this.author,
       type: type ?? this.type,
@@ -153,5 +143,4 @@ class TeacherWallPost {
       isAnswered: isAnswered ?? this.isAnswered,
       permissions: permissions ?? this.permissions,
     );
-  }
 }

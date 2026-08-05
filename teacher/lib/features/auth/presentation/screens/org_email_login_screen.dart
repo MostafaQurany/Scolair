@@ -62,8 +62,7 @@ class _PhoneLoginViewState extends State<_PhoneLoginView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<PhoneLoginCubit, PhoneLoginState>(
+  Widget build(BuildContext context) => BlocConsumer<PhoneLoginCubit, PhoneLoginState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
         body: AuthSurface(
@@ -87,7 +86,6 @@ class _PhoneLoginViewState extends State<_PhoneLoginView>
         ),
       ),
     );
-  }
 
   void _sendOtp() {
     final phone = _phoneController.text.trim();
@@ -128,8 +126,7 @@ class _PhoneLoginBody extends StatelessWidget {
   final VoidCallback onSendOtp;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       children: [
         AuthCard(
           child: Column(
@@ -174,7 +171,6 @@ class _PhoneLoginBody extends StatelessWidget {
         ),
       ],
     );
-  }
 }
 
 class _PhoneRow extends StatelessWidget {
@@ -192,8 +188,7 @@ class _PhoneRow extends StatelessWidget {
   static const _flags = ['🇺🇸', '🇬🇧', '🇸🇦', '🇪🇬', '🇦🇪'];
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget build(BuildContext context) => Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -232,5 +227,4 @@ class _PhoneRow extends StatelessWidget {
         ),
       ],
     );
-  }
 }

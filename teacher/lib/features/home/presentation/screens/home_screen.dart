@@ -11,10 +11,8 @@ class HomeScreen extends StatelessWidget {
   final bool embedded;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<TeacherHomeCubit>()..load(),
       child: HomeView(embedded: embedded),
     );
-  }
 }

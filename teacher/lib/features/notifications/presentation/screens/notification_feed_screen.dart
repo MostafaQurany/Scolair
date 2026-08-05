@@ -1,11 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:scolair_teacher/core/constants/app_route_names.dart';
-import 'package:scolair_teacher/core/di/dependency_injection.dart';
-import 'package:scolair_teacher/core/localization/localization_extension.dart';
-import 'package:scolair_teacher/core/theme/app_colors.dart';
-import 'package:scolair_teacher/core/theme/app_text_styles.dart';
+import '../../../../core/constants/app_route_names.dart';
+import '../../../../core/di/dependency_injection.dart';
+import '../../../../core/localization/localization_extension.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../cubit/notification_feed_cubit.dart';
 import '../widgets/notification_card.dart';
 import '../utils/notification_navigation_helper.dart';
@@ -50,8 +52,7 @@ class _NotificationFeedScreenState extends State<NotificationFeedScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
+  Widget build(BuildContext context) => BlocProvider.value(
       value: _cubit,
       child: Scaffold(
         appBar: AppBar(
@@ -68,7 +69,7 @@ class _NotificationFeedScreenState extends State<NotificationFeedScreen> {
               onPressed: () async {
                 await Navigator.pushNamed(context, AppRouteNames.archivedNotifications);
                 // Refresh the feed when returning to pick up any unarchived items
-                _cubit.fetchNotifications();
+                unawaited(_cubit.fetchNotifications());
               },
             ),
           ],
@@ -159,10 +160,8 @@ class _NotificationFeedScreenState extends State<NotificationFeedScreen> {
         ),
       ),
     );
-  }
 
-  Widget _buildFilterBar() {
-    return BlocBuilder<NotificationFeedCubit, NotificationFeedState>(
+  Widget _buildFilterBar() => BlocBuilder<NotificationFeedCubit, NotificationFeedState>(
       buildWhen: (previous, current) => previous.filter != current.filter,
       builder: (context, state) {
         final filters = {
@@ -194,10 +193,9 @@ class _NotificationFeedScreenState extends State<NotificationFeedScreen> {
         );
       },
     );
-  }
 
   List<Object> _buildGroupedList(List<NotificationEntity> notifications) {
-    final Map<String, List<NotificationEntity>> grouped = {
+    final grouped = <String, List<NotificationEntity>>{
       context.l10n.notificationGroupPinned: [],
       context.l10n.notificationGroupToday: [],
       context.l10n.notificationGroupYesterday: [],
@@ -210,9 +208,9 @@ class _NotificationFeedScreenState extends State<NotificationFeedScreen> {
     final today = DateTime(now.year, now.month, now.day);
     final yesterday = today.subtract(const Duration(days: 1));
     final thisWeek = today.subtract(Duration(days: today.weekday - 1));
-    final thisMonth = DateTime(now.year, now.month, 1);
+    final thisMonth = DateTime(now.year, now.month);
 
-    for (var notification in notifications) {
+    for (final notification in notifications) {
       if (notification.isPinned) {
         grouped[context.l10n.notificationGroupPinned]!.add(notification);
         continue;
@@ -234,11 +232,12 @@ class _NotificationFeedScreenState extends State<NotificationFeedScreen> {
       }
     }
 
-    final List<Object> flatList = [];
+    final flatList = <Object>[];
     grouped.forEach((header, items) {
       if (items.isNotEmpty) {
-        flatList.add(header);
-        flatList.addAll(items);
+        flatList
+          ..add(header)
+          ..addAll(items);
       }
     });
 

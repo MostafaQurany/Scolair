@@ -10,15 +10,13 @@ class NotificationPreferencesCubit extends Cubit<NotificationPreferencesState> {
 
   static NotificationPreferencesState _getInitialState(
     AppSharedPreferences prefs,
-  ) {
-    return NotificationPreferencesState(
+  ) => NotificationPreferencesState(
       courseAnnouncements: prefs.notificationsCourseAnnouncements,
       assignmentUpdates: prefs.notificationsAssignmentUpdates,
       messages: prefs.notificationsMessages,
       reminders: prefs.notificationsReminders,
       productUpdates: prefs.notificationsProductUpdates,
     );
-  }
 
   Future<void> toggleCourseAnnouncements(bool value) async {
     emit(state.copyWith(courseAnnouncements: value));

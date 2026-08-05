@@ -3,6 +3,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../../../../core/localization/localization_extension.dart';
 import '../../../../../core/utils/app_date_time_formatter.dart';
+import '../../../../../core/widgets/app_user_avatar.dart';
 import '../../../domain/entities/homework_submission.dart';
 
 class HomeworkSubmissionInfoCard extends StatelessWidget {
@@ -31,10 +32,26 @@ class HomeworkSubmissionInfoCard extends StatelessWidget {
           children: [
             Row(
               children: [
+                AppUserAvatar(
+                  imageUrl: null,
+                  displayName: submission.displayStudentName,
+                  userId: submission.member,
+                ),
+                SizedBox(width: 12.w),
                 Expanded(
-                  child: Text(
-                    submission.displayStudentName,
-                    style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        submission.displayStudentName,
+                        style: textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      if (submission.member != submission.displayStudentName)
+                        Text(
+                          submission.member,
+                          style: textTheme.bodySmall?.copyWith(color: colors.onSurfaceVariant),
+                        ),
+                    ],
                   ),
                 ),
                 if (submission.isLate)
@@ -66,7 +83,7 @@ class HomeworkSubmissionInfoCard extends StatelessWidget {
                   style: textTheme.bodySmall?.copyWith(color: colors.onSurfaceVariant),
                 ),
                 Text(
-                  '${submission.marks} / $maxScore',
+                  '${submission.totalMarks} / $maxScore',
                   style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700, color: colors.primary),
                 ),
               ],

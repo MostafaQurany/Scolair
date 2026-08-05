@@ -13,17 +13,6 @@ class LoginTokenData {
     this.user,
   });
 
-  final String accessToken;
-
-  final String refreshToken;
-
-  final int expiresIn;
-
-  final String tokenType;
-
-  final String scope;
-  final LoginUserData? user;
-
   factory LoginTokenData.fromJson(Map<String, dynamic> json) => LoginTokenData(
     accessToken: json['access_token'] as String? ?? '',
     refreshToken: json['refresh_token'] as String? ?? '',
@@ -34,6 +23,17 @@ class LoginTokenData {
         ? LoginUserData.fromJson(json['user'] as Map<String, dynamic>)
         : null,
   );
+
+  final String accessToken;
+
+  final String refreshToken;
+
+  final int expiresIn;
+
+  final String tokenType;
+
+  final String scope;
+  final LoginUserData? user;
 
   Map<String, dynamic> toJson() => {
     'access_token': accessToken,
@@ -64,22 +64,6 @@ class LoginUserData {
     this.language,
   });
 
-  final String name;
-  final String email;
-  final String username;
-  final String fullName;
-  final String? firstName;
-  final String? lastName;
-  final String? headline;
-  final String? bio;
-  final String? userImage;
-  final String? openTo;
-  final String? linkedin;
-  final String? github;
-  final String? twitter;
-  final String? language;
-  final List<String> roles;
-
   factory LoginUserData.fromJson(Map<String, dynamic> json) => LoginUserData(
     name: json['name'] as String? ?? '',
     email: json['email'] as String? ?? '',
@@ -99,6 +83,22 @@ class LoginUserData {
         .whereType<String>()
         .toList(growable: false),
   );
+
+  final String name;
+  final String email;
+  final String username;
+  final String fullName;
+  final String? firstName;
+  final String? lastName;
+  final String? headline;
+  final String? bio;
+  final String? userImage;
+  final String? openTo;
+  final String? linkedin;
+  final String? github;
+  final String? twitter;
+  final String? language;
+  final List<String> roles;
 
   Map<String, dynamic> toJson() => {
     'name': name,
@@ -127,12 +127,12 @@ class LoginResponseData {
     required this.data,
   });
 
+  factory LoginResponseData.fromJson(Map<String, dynamic> json) =>
+      _$LoginResponseDataFromJson(json);
+
   final String state;
   final String message;
   final LoginTokenData data;
-
-  factory LoginResponseData.fromJson(Map<String, dynamic> json) =>
-      _$LoginResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$LoginResponseDataToJson(this);
 }

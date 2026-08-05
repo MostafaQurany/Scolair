@@ -88,10 +88,8 @@ class _QuizSelectionDialogState extends State<QuizSelectionDialog> {
                     }
 
                     final quizzes = state.quizzes?.items ?? [];
-                    final filteredQuizzes = quizzes.where((q) {
-                      return q.title.toLowerCase().contains(_searchQuery) ||
-                          q.name.toLowerCase().contains(_searchQuery);
-                    }).toList();
+                    final filteredQuizzes = quizzes.where((q) => q.title.toLowerCase().contains(_searchQuery) ||
+                          q.name.toLowerCase().contains(_searchQuery)).toList();
 
                     if (filteredQuizzes.isEmpty) {
                       return Center(

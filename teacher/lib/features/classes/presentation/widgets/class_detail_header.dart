@@ -66,7 +66,6 @@ class ClassDetailHeader extends StatelessWidget {
           ),
           SizedBox(height: 6.h),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Text(
@@ -184,8 +183,7 @@ class _CircleIconButton extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
+  Widget build(BuildContext context) => InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20.r),
       child: Container(
@@ -199,5 +197,4 @@ class _CircleIconButton extends StatelessWidget {
         child: Icon(icon, color: Colors.white, size: 20.r),
       ),
     );
-  }
 }

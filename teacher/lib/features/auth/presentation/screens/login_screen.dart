@@ -66,8 +66,7 @@ class _LoginViewState extends State<_LoginView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginState>(
+  Widget build(BuildContext context) => BlocConsumer<LoginCubit, LoginState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
         body: AuthSurface(
@@ -97,7 +96,6 @@ class _LoginViewState extends State<_LoginView>
         ),
       ),
     );
-  }
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
@@ -153,8 +151,7 @@ class _LoginBody extends StatelessWidget {
   final VoidCallback onPhoneLogin;
 
   @override
-  Widget build(BuildContext context) {
-    return Form(
+  Widget build(BuildContext context) => Form(
       key: formKey,
       child: Column(
         children: [
@@ -233,5 +230,4 @@ class _LoginBody extends StatelessWidget {
         ],
       ),
     );
-  }
 }

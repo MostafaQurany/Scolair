@@ -173,12 +173,10 @@ class _RailIcon extends StatelessWidget {
             duration: _duration,
             switchInCurve: _popCurve,
             switchOutCurve: Curves.easeInCubic,
-            transitionBuilder: (child, animation) {
-              return ScaleTransition(
+            transitionBuilder: (child, animation) => ScaleTransition(
                 scale: animation,
                 child: FadeTransition(opacity: animation, child: child),
-              );
-            },
+              ),
             child: Icon(
               selected ? item.activeIcon : item.icon,
               key: ValueKey(selected ? item.activeIcon : item.icon),
@@ -227,8 +225,7 @@ class _RailLabel extends StatelessWidget {
   final bool centered;
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedSlide(
+  Widget build(BuildContext context) => AnimatedSlide(
       duration: _duration,
       curve: _popCurve,
       offset: selected ? Offset(0, -0.08.h) : Offset.zero,
@@ -245,5 +242,4 @@ class _RailLabel extends StatelessWidget {
         child: Text(label),
       ),
     );
-  }
 }

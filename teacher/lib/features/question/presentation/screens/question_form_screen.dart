@@ -26,8 +26,7 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
   bool get _isEditing => widget.editingQuestion != null;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<QuestionFormCubit>(),
       child: Builder(
         builder: (context) => Scaffold(
@@ -52,7 +51,6 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
         ),
       ),
     );
-  }
 
   void _submit(BuildContext context) {
     final bodyData = _bodyKey.currentState?.getFormData();
@@ -73,8 +71,7 @@ class _FormBody extends StatelessWidget {
   final QuestionModel? editingQuestion;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<QuestionFormCubit, QuestionFormState>(
+  Widget build(BuildContext context) => BlocConsumer<QuestionFormCubit, QuestionFormState>(
       listener: (context, state) {
         state.whenOrNull(
           success: (question) {
@@ -84,8 +81,7 @@ class _FormBody extends StatelessWidget {
           error: (message) => AppSnackBar.showError(context, message),
         );
       },
-      builder: (context, state) {
-        return Center(
+      builder: (context, state) => Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: context.isTabletLayout ? 720.w : double.infinity,
@@ -95,10 +91,8 @@ class _FormBody extends StatelessWidget {
               initialQuestion: editingQuestion,
             ),
           ),
-        );
-      },
+        ),
     );
-  }
 }
 
 class _FormBottomBar extends StatelessWidget {

@@ -181,8 +181,7 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<LessonFormCubit>(),
       child: Scaffold(
         appBar: AppBar(
@@ -260,5 +259,4 @@ class _LessonFormScreenState extends State<LessonFormScreen> {
         ),
       ),
     );
-  }
 }

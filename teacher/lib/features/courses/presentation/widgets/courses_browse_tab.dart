@@ -31,8 +31,7 @@ class BrowseCoursesTab extends StatelessWidget {
   final VoidCallback? onCourseChanged;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       children: [
         CoursesFilters(
           state: state,
@@ -60,7 +59,6 @@ class BrowseCoursesTab extends StatelessWidget {
         ),
       ],
     );
-  }
 }
 
 class CoursesFilters extends StatelessWidget {
@@ -93,8 +91,7 @@ class CoursesFilters extends StatelessWidget {
         children: [
           ValueListenableBuilder<TextEditingValue>(
             valueListenable: searchController,
-            builder: (context, value, _) {
-              return TextField(
+            builder: (context, value, _) => TextField(
                 controller: searchController,
                 onChanged: onSearchChanged,
                 textInputAction: TextInputAction.search,
@@ -108,8 +105,7 @@ class CoursesFilters extends StatelessWidget {
                         )
                       : null,
                 ),
-              );
-            },
+              ),
           ),
           SizedBox(height: 10.h),
           Wrap(
@@ -123,7 +119,7 @@ class CoursesFilters extends StatelessWidget {
               ),
               PublishedFilterChip(
                 label: context.l10n.coursesFilterPublished,
-                selected: state.publishedFilter == true,
+                selected: state.publishedFilter ?? false,
                 value: true,
               ),
               PublishedFilterChip(
@@ -152,13 +148,11 @@ class PublishedFilterChip extends StatelessWidget {
   final bool? value;
 
   @override
-  Widget build(BuildContext context) {
-    return ChoiceChip(
+  Widget build(BuildContext context) => ChoiceChip(
       label: Text(label),
       selected: selected,
       onSelected: (_) => context.read<CoursesCubit>().filterByPublished(value),
     );
-  }
 }
 
 class CoursesRefreshList extends StatefulWidget {
@@ -318,8 +312,7 @@ class CoursesErrorState extends StatelessWidget {
   final String message;
 
   @override
-  Widget build(BuildContext context) {
-    return Center(
+  Widget build(BuildContext context) => Center(
       child: Padding(
         padding: EdgeInsets.all(24.r),
         child: Column(
@@ -341,7 +334,6 @@ class CoursesErrorState extends StatelessWidget {
         ),
       ),
     );
-  }
 }
 
 class InlineCoursesError extends StatelessWidget {
@@ -350,8 +342,7 @@ class InlineCoursesError extends StatelessWidget {
   final String message;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
+  Widget build(BuildContext context) => Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 4.h),
       child: Text(
         message,
@@ -361,5 +352,4 @@ class InlineCoursesError extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
     );
-  }
 }

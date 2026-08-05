@@ -10,12 +10,12 @@ class TeacherProfileResponseData {
     this.imageUrl,
   });
 
+  factory TeacherProfileResponseData.fromJson(Map<String, dynamic> json) =>
+      _$TeacherProfileResponseDataFromJson(json);
+
   final String id;
   final String displayName;
   final String? imageUrl;
-
-  factory TeacherProfileResponseData.fromJson(Map<String, dynamic> json) =>
-      _$TeacherProfileResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$TeacherProfileResponseDataToJson(this);
 }
@@ -28,12 +28,12 @@ class TeacherFeedFilterResponseData {
     required this.type,
   });
 
+  factory TeacherFeedFilterResponseData.fromJson(Map<String, dynamic> json) =>
+      _$TeacherFeedFilterResponseDataFromJson(json);
+
   final String id;
   final String label;
   final String type;
-
-  factory TeacherFeedFilterResponseData.fromJson(Map<String, dynamic> json) =>
-      _$TeacherFeedFilterResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$TeacherFeedFilterResponseDataToJson(this);
 }
@@ -42,18 +42,16 @@ class TeacherFeedFilterResponseData {
 class TeacherHomeResponseData {
   const TeacherHomeResponseData({
     required this.teacher,
-    this.greetingActivityTitle,
-    required this.organizationNoticeCount,
-    required this.filters,
+    required this.organizationNoticeCount, required this.filters, this.greetingActivityTitle,
   });
+
+  factory TeacherHomeResponseData.fromJson(Map<String, dynamic> json) =>
+      _$TeacherHomeResponseDataFromJson(json);
 
   final TeacherProfileResponseData teacher;
   final String? greetingActivityTitle;
   final int organizationNoticeCount;
   final List<TeacherFeedFilterResponseData> filters;
-
-  factory TeacherHomeResponseData.fromJson(Map<String, dynamic> json) =>
-      _$TeacherHomeResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$TeacherHomeResponseDataToJson(this);
 }

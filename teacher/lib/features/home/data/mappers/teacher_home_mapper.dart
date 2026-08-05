@@ -9,39 +9,31 @@ import '../models/teacher_home_response_data.dart';
 import '../models/teacher_wall_post_response_data.dart';
 
 abstract final class TeacherHomeMapper {
-  static TeacherProfile mapProfile(TeacherProfileResponseData data) {
-    return TeacherProfile(
+  static TeacherProfile mapProfile(TeacherProfileResponseData data) => TeacherProfile(
       id: data.id,
       displayName: data.displayName,
       imageUrl: data.imageUrl,
     );
-  }
 
-  static TeacherFeedFilter mapFilter(TeacherFeedFilterResponseData data) {
-    return TeacherFeedFilter(
+  static TeacherFeedFilter mapFilter(TeacherFeedFilterResponseData data) => TeacherFeedFilter(
       id: data.id,
       label: data.label,
       type: _mapFilterType(data.type),
     );
-  }
 
-  static TeacherHome mapHome(TeacherHomeResponseData data) {
-    return TeacherHome(
+  static TeacherHome mapHome(TeacherHomeResponseData data) => TeacherHome(
       teacher: mapProfile(data.teacher),
       greetingActivityTitle: data.greetingActivityTitle,
       noticficationCount: data.organizationNoticeCount,
       filters: data.filters.map(mapFilter).toList(),
     );
-  }
 
-  static WallPostAuthor mapAuthor(WallPostAuthorResponseData data) {
-    return WallPostAuthor(
+  static WallPostAuthor mapAuthor(WallPostAuthorResponseData data) => WallPostAuthor(
       id: data.id,
       displayName: data.displayName,
       imageUrl: data.imageUrl,
       roleLabel: data.roleLabel,
     );
-  }
 
   static WallPostAttachment? mapAttachment(
     WallPostAttachmentResponseData? data,
@@ -57,21 +49,17 @@ abstract final class TeacherHomeMapper {
     );
   }
 
-  static WallPostAudience mapAudience(WallPostAudienceResponseData data) {
-    return WallPostAudience(id: data.id, label: data.label);
-  }
+  static WallPostAudience mapAudience(WallPostAudienceResponseData data) => WallPostAudience(id: data.id, label: data.label);
 
   static WallPostPermissions mapPermissions(
     WallPostPermissionsResponseData data,
-  ) {
-    return WallPostPermissions(
+  ) => WallPostPermissions(
       canEdit: data.canEdit,
       canDelete: data.canDelete,
       canPin: data.canPin,
       canReport: data.canReport,
       canModerate: data.canModerate,
     );
-  }
 
   static TeacherWallPost mapPost(TeacherWallPostResponseData data) {
     final parsedCreated = DateTime.tryParse(data.createdAt);
@@ -116,16 +104,13 @@ abstract final class TeacherHomeMapper {
     );
   }
 
-  static TeacherFeedPage mapFeedPage(TeacherFeedPageResponseData data) {
-    return TeacherFeedPage(
+  static TeacherFeedPage mapFeedPage(TeacherFeedPageResponseData data) => TeacherFeedPage(
       posts: data.posts.map(mapPost).toList(),
       hasMore: data.hasMore,
       nextPage: data.nextPage,
     );
-  }
 
-  static TeacherFeedFilterType _mapFilterType(String type) {
-    return switch (type.toLowerCase()) {
+  static TeacherFeedFilterType _mapFilterType(String type) => switch (type.toLowerCase()) {
       'all' => TeacherFeedFilterType.all,
       'classroom' || 'class_room' => TeacherFeedFilterType.classRoom,
       'course' => TeacherFeedFilterType.course,
@@ -133,10 +118,8 @@ abstract final class TeacherHomeMapper {
       'group' => TeacherFeedFilterType.group,
       _ => TeacherFeedFilterType.all,
     };
-  }
 
-  static WallPostType _mapPostType(String type) {
-    return switch (type.toLowerCase()) {
+  static WallPostType _mapPostType(String type) => switch (type.toLowerCase()) {
       'announcement' => WallPostType.announcement,
       'question' => WallPostType.question,
       'discussion' => WallPostType.discussion,
@@ -149,10 +132,8 @@ abstract final class TeacherHomeMapper {
       'system_update' || 'systemupdate' => WallPostType.systemUpdate,
       _ => WallPostType.discussion,
     };
-  }
 
-  static WallPostPrivacy _mapPrivacy(String privacy) {
-    return switch (privacy.toLowerCase()) {
+  static WallPostPrivacy _mapPrivacy(String privacy) => switch (privacy.toLowerCase()) {
       'institution' => WallPostPrivacy.institution,
       'branch' => WallPostPrivacy.branch,
       'classroom' || 'class_room' => WallPostPrivacy.classRoom,
@@ -161,15 +142,12 @@ abstract final class TeacherHomeMapper {
       'private_audience' || 'private' => WallPostPrivacy.privateAudience,
       _ => WallPostPrivacy.classRoom,
     };
-  }
 
-  static WallPostAttachmentType _mapAttachmentType(String type) {
-    return switch (type.toLowerCase()) {
+  static WallPostAttachmentType _mapAttachmentType(String type) => switch (type.toLowerCase()) {
       'image' => WallPostAttachmentType.image,
       'video' => WallPostAttachmentType.video,
       'document' => WallPostAttachmentType.document,
       'link' => WallPostAttachmentType.link,
       _ => WallPostAttachmentType.image,
     };
-  }
 }

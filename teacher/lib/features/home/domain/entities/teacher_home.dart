@@ -4,9 +4,7 @@ import 'teacher_profile.dart';
 class TeacherHome {
   const TeacherHome({
     required this.teacher,
-    this.greetingActivityTitle,
-    required this.noticficationCount,
-    required this.filters,
+    required this.noticficationCount, required this.filters, this.greetingActivityTitle,
   });
 
   final TeacherProfile teacher;

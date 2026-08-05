@@ -2,23 +2,6 @@ import 'notification_category.dart';
 import 'notification_priority.dart';
 
 class NotificationEntity {
-  final String id;
-  final String title;
-  final String message;
-  final NotificationCategory category;
-  final NotificationPriority priority;
-  final DateTime createdAt;
-  final bool isRead;
-  final bool isPinned;
-  final bool isArchived;
-  final bool actionRequired;
-  final bool actionCompleted;
-  final String? courseId;
-  final String? courseName;
-  final String? actionUrl;
-  final String? relatedEntityId;
-  final String? studentId;
-  final String? studentName;
 
   NotificationEntity({
     required this.id,
@@ -39,6 +22,23 @@ class NotificationEntity {
     this.studentId,
     this.studentName,
   });
+  final String id;
+  final String title;
+  final String message;
+  final NotificationCategory category;
+  final NotificationPriority priority;
+  final DateTime createdAt;
+  final bool isRead;
+  final bool isPinned;
+  final bool isArchived;
+  final bool actionRequired;
+  final bool actionCompleted;
+  final String? courseId;
+  final String? courseName;
+  final String? actionUrl;
+  final String? relatedEntityId;
+  final String? studentId;
+  final String? studentName;
 
   NotificationEntity copyWith({
     String? id,
@@ -58,8 +58,7 @@ class NotificationEntity {
     String? relatedEntityId,
     String? studentId,
     String? studentName,
-  }) {
-    return NotificationEntity(
+  }) => NotificationEntity(
       id: id ?? this.id,
       title: title ?? this.title,
       message: message ?? this.message,
@@ -78,5 +77,4 @@ class NotificationEntity {
       studentId: studentId ?? this.studentId,
       studentName: studentName ?? this.studentName,
     );
-  }
 }

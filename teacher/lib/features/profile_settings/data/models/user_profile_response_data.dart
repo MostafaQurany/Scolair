@@ -29,6 +29,13 @@ class UserProfileResponseData {
     this.twitter,
   });
 
+  factory UserProfileResponseData.fromJson(Map<String, dynamic> json) {
+    final data = json['data'] is Map<String, dynamic>
+        ? json['data'] as Map<String, dynamic>
+        : json;
+    return _$UserProfileResponseDataFromJson(data);
+  }
+
   final String? id;
   final String? name;
   final String? username;
@@ -72,13 +79,6 @@ class UserProfileResponseData {
     github: github,
     twitter: twitter,
   );
-
-  factory UserProfileResponseData.fromJson(Map<String, dynamic> json) {
-    final data = json['data'] is Map<String, dynamic>
-        ? json['data'] as Map<String, dynamic>
-        : json;
-    return _$UserProfileResponseDataFromJson(data);
-  }
 
   Map<String, dynamic> toJson() => _$UserProfileResponseDataToJson(this);
 }

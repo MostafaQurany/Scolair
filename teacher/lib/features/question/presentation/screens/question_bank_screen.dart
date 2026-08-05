@@ -71,8 +71,7 @@ class _QuestionBankScreenState extends State<QuestionBankScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
+  Widget build(BuildContext context) => BlocProvider.value(
       value: _cubit,
       child: BlocConsumer<QuestionBankCubit, QuestionBankState>(
         listenWhen: (previous, current) =>
@@ -81,8 +80,7 @@ class _QuestionBankScreenState extends State<QuestionBankScreen> {
           final message = state.errorMessage;
           if (message != null) AppSnackBar.showError(context, message);
         },
-        builder: (context, state) {
-          return Scaffold(
+        builder: (context, state) => Scaffold(
             appBar: AppBar(title: Text(context.l10n.questionBankTitle)),
             body: RefreshIndicator(
               onRefresh: _cubit.refresh,
@@ -125,11 +123,9 @@ class _QuestionBankScreenState extends State<QuestionBankScreen> {
                     ),
               confirmLabel: widget.confirmLabel ?? context.l10n.addToQuiz,
             ),
-          );
-        },
+          ),
       ),
     );
-  }
 
   void _clearSearch() {
     _searchController.clear();

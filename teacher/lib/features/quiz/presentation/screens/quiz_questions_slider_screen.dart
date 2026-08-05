@@ -91,7 +91,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     setState(() => _currentIndex = index);
   }
 
-  void _goToBank() async {
+  Future<void> _goToBank() async {
     final blocked = _drafts
         .map((d) => d.existingQuizQuestionId ?? d.sourceBankQuestionName)
         .whereType<String>()
@@ -116,7 +116,6 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
             DraftQuestion(
               sourceBankQuestionName: q.name,
               bankData: q,
-              marks: 1,
             ),
           );
         }
@@ -176,7 +175,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     final marksUpdates = <Map<String, dynamic>>[];
     final deletions = Set<String>.from(_pendingDeletions);
 
-    for (int i = 0; i < _drafts.length; i++) {
+    for (var i = 0; i < _drafts.length; i++) {
       final draft = _drafts[i];
       if (draft.isEmptyDraft) continue;
 
@@ -206,7 +205,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
         }
         // If it's an existing question that wasn't edited, ensure it's not in pendingDeletions
         // (This handles the case where it might have been restored to original state)
-        deletions.remove(draft.existingQuizQuestionId!);
+        deletions.remove(draft.existingQuizQuestionId);
       }
     }
 
@@ -215,7 +214,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
       return;
     }
 
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(context.l10n.confirm),
@@ -295,30 +294,30 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
 
     return QuestionModel(
       name: draft.existingQuizQuestionId ?? draft.sourceBankQuestionName ?? '',
-      question: data['question'] ?? '',
-      attachment: data['attachment'],
+      question: data['question'] as String? ?? '',
+      attachment: data['attachment'] as String?,
       type: type,
-      multiple: data['multiple'] ?? 0,
-      option1: data['option_1'],
-      option2: data['option_2'],
-      option3: data['option_3'],
-      option4: data['option_4'],
-      option5: data['option_5'],
-      isCorrect1: data['is_correct_1'] ?? 0,
-      isCorrect2: data['is_correct_2'] ?? 0,
-      isCorrect3: data['is_correct_3'] ?? 0,
-      isCorrect4: data['is_correct_4'] ?? 0,
-      isCorrect5: data['is_correct_5'] ?? 0,
-      explanation1: data['explanation_1'],
-      explanation2: data['explanation_2'],
-      explanation3: data['explanation_3'],
-      explanation4: data['explanation_4'],
-      explanation5: data['explanation_5'],
-      possibility1: data['possibility_1'],
-      possibility2: data['possibility_2'],
-      possibility3: data['possibility_3'],
-      possibility4: data['possibility_4'],
-      possibility5: data['possibility_5'],
+      multiple: (data['multiple'] as num?)?.toInt() ?? 0,
+      option1: data['option_1'] as String?,
+      option2: data['option_2'] as String?,
+      option3: data['option_3'] as String?,
+      option4: data['option_4'] as String?,
+      option5: data['option_5'] as String?,
+      isCorrect1: (data['is_correct_1'] as num?)?.toInt() ?? 0,
+      isCorrect2: (data['is_correct_2'] as num?)?.toInt() ?? 0,
+      isCorrect3: (data['is_correct_3'] as num?)?.toInt() ?? 0,
+      isCorrect4: (data['is_correct_4'] as num?)?.toInt() ?? 0,
+      isCorrect5: (data['is_correct_5'] as num?)?.toInt() ?? 0,
+      explanation1: data['explanation_1'] as String?,
+      explanation2: data['explanation_2'] as String?,
+      explanation3: data['explanation_3'] as String?,
+      explanation4: data['explanation_4'] as String?,
+      explanation5: data['explanation_5'] as String?,
+      possibility1: data['possibility_1'] as String?,
+      possibility2: data['possibility_2'] as String?,
+      possibility3: data['possibility_3'] as String?,
+      possibility4: data['possibility_4'] as String?,
+      possibility5: data['possibility_5'] as String?,
     );
   }
 
@@ -337,8 +336,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
     return const {};
   }
 
-  QuestionModel _questionFromOriginal(QuizQuestionModel q) {
-    return QuestionModel(
+  QuestionModel _questionFromOriginal(QuizQuestionModel q) => QuestionModel(
       name: q.question,
       question: q.questionDetail ?? q.question,
       attachment: q.attachment,
@@ -365,11 +363,10 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
       possibility4: q.possibility4,
       possibility5: q.possibility5,
     );
-  }
 
   @override
   Widget build(BuildContext context) {
-    final bool hasPendingChanges =
+    final hasPendingChanges =
         _pendingDeletions.isNotEmpty ||
         _drafts.any((d) => d.toPayload() != null || d.toMarksPayload() != null);
 
@@ -394,7 +391,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
             ],
           ),
         );
-        if (confirm == true && context.mounted) {
+        if ((confirm ?? false) && context.mounted) {
           Navigator.pop(context);
         }
       },
@@ -451,7 +448,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
                 ),
               ),
               if (quizState.isBatchSaving)
-                Container(
+                ColoredBox(
                   color: Colors.black54,
                   child: Center(
                     child: Card(

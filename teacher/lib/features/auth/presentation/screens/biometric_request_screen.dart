@@ -33,8 +33,7 @@ class _BiometricRequestViewState extends State<_BiometricRequestView> {
   bool _dontShowAgain = false;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<BiometricRequestCubit, BiometricRequestState>(
+  Widget build(BuildContext context) => BlocConsumer<BiometricRequestCubit, BiometricRequestState>(
       listener: _handleState,
       builder: (context, state) {
         final isLoading = state.maybeWhen(
@@ -60,7 +59,6 @@ class _BiometricRequestViewState extends State<_BiometricRequestView> {
         );
       },
     );
-  }
 
   void _handleState(BuildContext context, BiometricRequestState state) {
     state.whenOrNull(

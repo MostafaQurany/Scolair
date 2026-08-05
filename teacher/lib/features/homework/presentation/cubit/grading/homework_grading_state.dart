@@ -7,6 +7,7 @@ enum HomeworkGradingStatus {
   failure,
   submitting,
   downloading,
+  submittedSuccess,
 }
 
 class HomeworkGradingState {
@@ -47,8 +48,7 @@ class HomeworkGradingState {
     Map<String, String>? questionNotes,
     String? overallFeedback,
     List<int>? downloadedFileBytes,
-  }) {
-    return HomeworkGradingState(
+  }) => HomeworkGradingState(
       status: status ?? this.status,
       submission: submission ?? this.submission,
       errorMessage: errorMessage ?? this.errorMessage,
@@ -57,5 +57,4 @@ class HomeworkGradingState {
       overallFeedback: overallFeedback ?? this.overallFeedback,
       downloadedFileBytes: downloadedFileBytes ?? this.downloadedFileBytes,
     );
-  }
 }

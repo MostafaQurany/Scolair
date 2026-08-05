@@ -35,7 +35,6 @@ class HomeworkSegmentBar extends StatelessWidget {
         boxShadow: const [
           BoxShadow(
             blurRadius: 8,
-            spreadRadius: 0,
             offset: Offset(0, 2),
             color: Colors.black12,
           ),
@@ -90,11 +89,9 @@ class HomeworkSegmentBar extends StatelessWidget {
     required int index,
     required String label,
     required IconData icon,
-  }) {
-    return ButtonSegment<int>(
+  }) => ButtonSegment<int>(
       value: index,
       label: Text(label, overflow: TextOverflow.ellipsis, maxLines: 1),
       icon: Icon(icon, size: 16.r),
     );
-  }
 }

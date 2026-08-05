@@ -1,13 +1,6 @@
 import '../../data/models/quiz_models.dart';
 
 class DraftQuestion {
-  final String? existingQuizQuestionId;
-  final QuizQuestionModel? originalData;
-  final String? sourceBankQuestionName;
-  final QuestionModel? bankData;
-  Map<String, dynamic>? inlineData;
-  int marks;
-  final int? initialMarks;
 
   DraftQuestion({
     this.existingQuizQuestionId,
@@ -17,10 +10,17 @@ class DraftQuestion {
     this.marks = 1,
     this.initialMarks,
   });
+  final String? existingQuizQuestionId;
+  final QuizQuestionModel? originalData;
+  final String? sourceBankQuestionName;
+  final QuestionModel? bankData;
+  Map<String, dynamic>? inlineData;
+  int marks;
+  final int? initialMarks;
 
   bool get isEdited {
     if (inlineData == null) return false;
-    final Map<String, dynamic> compareTo;
+    Map<String, dynamic> compareTo;
     if (originalData != null) {
       compareTo = {
         'question': originalData!.questionDetail ?? originalData!.question,
@@ -92,13 +92,13 @@ class DraftQuestion {
 
     if (currentType == 'Choices') {
       if (isDifferent('multiple')) return true;
-      for (int i = 1; i <= 5; i++) {
+      for (var i = 1; i <= 5; i++) {
         if (isDifferent('option_$i')) return true;
         if (isDifferent('is_correct_$i')) return true;
         if (isDifferent('explanation_$i')) return true;
       }
     } else if (currentType == 'User Input') {
-      for (int i = 1; i <= 5; i++) {
+      for (var i = 1; i <= 5; i++) {
         if (isDifferent('possibility_$i')) return true;
       }
     }
@@ -106,14 +106,12 @@ class DraftQuestion {
     return false;
   }
 
-  String _typeToString(ApiQuestionType type) {
-    return switch (type) {
+  String _typeToString(ApiQuestionType type) => switch (type) {
       ApiQuestionType.choices => 'Choices',
       ApiQuestionType.userInput => 'User Input',
       ApiQuestionType.openEnded => 'Open Ended',
       ApiQuestionType.fileUpload => 'File Upload',
     };
-  }
 
   dynamic _normalize(dynamic value) {
     if (value == null) return '';
@@ -129,7 +127,7 @@ class DraftQuestion {
       originalData == null &&
       bankData == null &&
       (inlineData == null ||
-          (inlineData!['question'] as String?)?.trim().isEmpty == true);
+          ((inlineData!['question'] as String?)?.trim().isEmpty ?? false));
 
   bool get isMarksChanged {
     if (initialMarks != null) {

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:scolair_teacher/core/theme/app_colors.dart';
-import 'package:scolair_teacher/core/theme/app_text_styles.dart';
+import '../../../../core/theme/app_colors.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../domain/entities/notification_category.dart';
 import '../../domain/entities/notification_entity.dart';
 import '../../domain/entities/notification_priority.dart';
 
 class NotificationCard extends StatelessWidget {
   const NotificationCard({
-    super.key,
-    required this.notification,
+    required this.notification, super.key,
     this.onTap,
     this.onTogglePin,
     this.onArchive,
@@ -22,8 +21,7 @@ class NotificationCard extends StatelessWidget {
   final VoidCallback? onUnarchive;
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
+  Widget build(BuildContext context) => Card(
       elevation: notification.isRead ? 0 : 2,
       color: notification.isRead ? Colors.transparent : AppColors.surface,
       shape: RoundedRectangleBorder(
@@ -125,11 +123,10 @@ class NotificationCard extends StatelessWidget {
         ),
       ),
     );
-  }
 
   Widget _buildIcon() {
-    IconData iconData = Icons.notifications;
-    Color iconColor = AppColors.primary;
+    var iconData = Icons.notifications;
+    var iconColor = AppColors.primary;
 
     switch (notification.category) {
       case NotificationCategory.assignmentSubmission:

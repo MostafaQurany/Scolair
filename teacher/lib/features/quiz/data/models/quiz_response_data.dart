@@ -8,6 +8,9 @@ class ListQuestionsResponseData {
     required this.data,
   });
 
+  factory ListQuestionsResponseData.fromJson(Map<String, dynamic> json) =>
+      _$ListQuestionsResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
@@ -17,9 +20,6 @@ class ListQuestionsResponseData {
     toJson: _paginatedQuestionsToJson,
   )
   final PaginatedList<QuestionModel> data;
-
-  factory ListQuestionsResponseData.fromJson(Map<String, dynamic> json) =>
-      _$ListQuestionsResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$ListQuestionsResponseDataToJson(this);
 }
@@ -32,15 +32,15 @@ class GetQuestionResponseData {
     required this.data,
   });
 
+  factory GetQuestionResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetQuestionResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _questionFromJson)
   final QuestionModel data;
-
-  factory GetQuestionResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetQuestionResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetQuestionResponseDataToJson(this);
 }
@@ -53,15 +53,15 @@ class CreateQuestionResponseData {
     required this.data,
   });
 
+  factory CreateQuestionResponseData.fromJson(Map<String, dynamic> json) =>
+      _$CreateQuestionResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _questionFromJson)
   final QuestionModel data;
-
-  factory CreateQuestionResponseData.fromJson(Map<String, dynamic> json) =>
-      _$CreateQuestionResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateQuestionResponseDataToJson(this);
 }
@@ -74,15 +74,15 @@ class UpdateQuestionResponseData {
     required this.data,
   });
 
+  factory UpdateQuestionResponseData.fromJson(Map<String, dynamic> json) =>
+      _$UpdateQuestionResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _questionFromJson)
   final QuestionModel data;
-
-  factory UpdateQuestionResponseData.fromJson(Map<String, dynamic> json) =>
-      _$UpdateQuestionResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateQuestionResponseDataToJson(this);
 }
@@ -94,13 +94,13 @@ class DeleteQuestionResponseData {
     required this.message,
   });
 
+  factory DeleteQuestionResponseData.fromJson(Map<String, dynamic> json) =>
+      _$DeleteQuestionResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
-
-  factory DeleteQuestionResponseData.fromJson(Map<String, dynamic> json) =>
-      _$DeleteQuestionResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeleteQuestionResponseDataToJson(this);
 }
@@ -113,15 +113,15 @@ class ListQuizzesResponseData {
     required this.data,
   });
 
+  factory ListQuizzesResponseData.fromJson(Map<String, dynamic> json) =>
+      _$ListQuizzesResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _paginatedQuizzesFromJson, toJson: _paginatedQuizzesToJson)
   final PaginatedList<QuizSummaryModel> data;
-
-  factory ListQuizzesResponseData.fromJson(Map<String, dynamic> json) =>
-      _$ListQuizzesResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$ListQuizzesResponseDataToJson(this);
 }
@@ -134,15 +134,15 @@ class GetQuizResponseData {
     required this.data,
   });
 
+  factory GetQuizResponseData.fromJson(Map<String, dynamic> json) =>
+      _$GetQuizResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _quizFromJson)
   final QuizModel data;
-
-  factory GetQuizResponseData.fromJson(Map<String, dynamic> json) =>
-      _$GetQuizResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetQuizResponseDataToJson(this);
 }
@@ -155,15 +155,15 @@ class CreateQuizResponseData {
     required this.data,
   });
 
+  factory CreateQuizResponseData.fromJson(Map<String, dynamic> json) =>
+      _$CreateQuizResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _quizFromJson)
   final QuizModel data;
-
-  factory CreateQuizResponseData.fromJson(Map<String, dynamic> json) =>
-      _$CreateQuizResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CreateQuizResponseDataToJson(this);
 }
@@ -176,15 +176,15 @@ class UpdateQuizResponseData {
     required this.data,
   });
 
+  factory UpdateQuizResponseData.fromJson(Map<String, dynamic> json) =>
+      _$UpdateQuizResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _quizFromJson)
   final QuizModel data;
-
-  factory UpdateQuizResponseData.fromJson(Map<String, dynamic> json) =>
-      _$UpdateQuizResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$UpdateQuizResponseDataToJson(this);
 }
@@ -193,13 +193,13 @@ class UpdateQuizResponseData {
 class DeleteQuizResponseData {
   const DeleteQuizResponseData({required this.state, required this.message});
 
+  factory DeleteQuizResponseData.fromJson(Map<String, dynamic> json) =>
+      _$DeleteQuizResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
-
-  factory DeleteQuizResponseData.fromJson(Map<String, dynamic> json) =>
-      _$DeleteQuizResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeleteQuizResponseDataToJson(this);
 }
@@ -212,15 +212,15 @@ class AddQuestionToQuizResponseData {
     required this.data,
   });
 
+  factory AddQuestionToQuizResponseData.fromJson(Map<String, dynamic> json) =>
+      _$AddQuestionToQuizResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _quizFromJson)
   final QuizModel data;
-
-  factory AddQuestionToQuizResponseData.fromJson(Map<String, dynamic> json) =>
-      _$AddQuestionToQuizResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddQuestionToQuizResponseDataToJson(this);
 }
@@ -233,16 +233,16 @@ class RemoveQuestionFromQuizResponseData {
     required this.data,
   });
 
+  factory RemoveQuestionFromQuizResponseData.fromJson(
+    Map<String, dynamic> json,
+  ) => _$RemoveQuestionFromQuizResponseDataFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String state;
   @JsonKey(fromJson: _stringFromJson)
   final String message;
   @JsonKey(fromJson: _quizFromJson)
   final QuizModel data;
-
-  factory RemoveQuestionFromQuizResponseData.fromJson(
-    Map<String, dynamic> json,
-  ) => _$RemoveQuestionFromQuizResponseDataFromJson(json);
 
   Map<String, dynamic> toJson() =>
       _$RemoveQuestionFromQuizResponseDataToJson(this);

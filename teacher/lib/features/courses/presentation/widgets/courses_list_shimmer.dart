@@ -104,8 +104,7 @@ class _InfoPlaceholder extends StatelessWidget {
   final double width;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       height: 12.h,
       width: width,
       decoration: BoxDecoration(
@@ -113,5 +112,4 @@ class _InfoPlaceholder extends StatelessWidget {
         borderRadius: BorderRadius.circular(4.r),
       ),
     );
-  }
 }

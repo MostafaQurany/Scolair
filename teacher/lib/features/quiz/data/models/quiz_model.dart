@@ -23,6 +23,9 @@ class QuizModel {
     this.questions = const [],
   });
 
+  factory QuizModel.fromJson(Map<String, dynamic> json) =>
+      _$QuizModelFromJson(json);
+
   @JsonKey(fromJson: _stringFromJson)
   final String name;
   @JsonKey(fromJson: _stringFromJson)
@@ -60,9 +63,6 @@ class QuizModel {
   @JsonKey(fromJson: _quizQuestionsFromJson)
   final List<QuizQuestionModel> questions;
 
-  factory QuizModel.fromJson(Map<String, dynamic> json) =>
-      _$QuizModelFromJson(json);
-
   Map<String, dynamic> toJson() => _$QuizModelToJson(this);
 
   QuizModel copyWith({
@@ -84,8 +84,7 @@ class QuizModel {
     String? creation,
     String? modified,
     List<QuizQuestionModel>? questions,
-  }) {
-    return QuizModel(
+  }) => QuizModel(
       name: name ?? this.name,
       title: title ?? this.title,
       maxAttempts: maxAttempts ?? this.maxAttempts,
@@ -107,5 +106,4 @@ class QuizModel {
       modified: modified ?? this.modified,
       questions: questions ?? this.questions,
     );
-  }
 }

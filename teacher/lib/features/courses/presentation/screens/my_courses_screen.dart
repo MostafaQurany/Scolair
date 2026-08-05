@@ -17,12 +17,10 @@ class MyCoursesScreen extends StatelessWidget {
   const MyCoursesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<CoursesCubit>()..loadCourses(),
       child: const _MyCoursesView(),
     );
-  }
 }
 
 class _MyCoursesView extends StatelessWidget {
@@ -40,8 +38,7 @@ class _MyCoursesView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text(context.l10n.myCoursesTitle)),
       body: SafeArea(
         child: BlocBuilder<CoursesCubit, CoursesState>(
@@ -81,7 +78,6 @@ class _MyCoursesView extends StatelessWidget {
         ),
       ),
     );
-  }
 }
 
 class _EmptyMyCourses extends StatelessWidget {

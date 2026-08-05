@@ -8,12 +8,7 @@ Interceptor getDioLogger() {
     return PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
-      responseBody: true,
-      responseHeader: false,
-      error: true,
-      compact: true,
-      maxWidth: 90,
     );
   }
-  return Interceptor(); // Dummy interceptor for production that does nothing
+  return const Interceptor(); // Dummy interceptor for production that does nothing
 }

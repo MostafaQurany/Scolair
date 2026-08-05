@@ -7,9 +7,9 @@ abstract class UploadRepository {
 }
 
 class UploadRepositoryImpl implements UploadRepository {
-  final ApiClient _apiClient;
 
   UploadRepositoryImpl(this._apiClient);
+  final ApiClient _apiClient;
 
   @override
   Future<String> uploadFile({

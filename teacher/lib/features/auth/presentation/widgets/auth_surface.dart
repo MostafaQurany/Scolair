@@ -61,8 +61,7 @@ class AuthCard extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       width: double.infinity,
       padding: padding ?? EdgeInsetsDirectional.all(16.r),
       decoration: BoxDecoration(
@@ -79,7 +78,6 @@ class AuthCard extends StatelessWidget {
       ),
       child: child,
     );
-  }
 }
 
 class AuthBrandMark extends StatelessWidget {
@@ -115,8 +113,7 @@ class AuthHeader extends StatelessWidget {
   final IconData? icon;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       children: [
         if (icon != null) ...[
           Container(
@@ -149,7 +146,6 @@ class AuthHeader extends StatelessWidget {
         ),
       ],
     );
-  }
 }
 
 class AuthSecondaryAction extends StatelessWidget {
@@ -165,11 +161,9 @@ class AuthSecondaryAction extends StatelessWidget {
   final IconData? icon;
 
   @override
-  Widget build(BuildContext context) {
-    return TextButton.icon(
+  Widget build(BuildContext context) => TextButton.icon(
       onPressed: onPressed,
       icon: icon == null ? const SizedBox.shrink() : Icon(icon, size: 18.r),
       label: Text(label),
     );
-  }
 }

@@ -62,7 +62,7 @@ class TableBlockWidget extends StatelessWidget {
                           cellText,
                         ),
                         style: isHeadingRow
-                            ? TextStyle(fontWeight: FontWeight.bold)
+                            ? const TextStyle(fontWeight: FontWeight.bold)
                             : null,
                       ),
                     ),

@@ -6,13 +6,13 @@ part 'upload_file_response.g.dart';
 class UploadFileMessage {
   const UploadFileMessage({required this.fileUrl, this.name});
 
+  factory UploadFileMessage.fromJson(Map<String, dynamic> json) =>
+      _$UploadFileMessageFromJson(json);
+
   @JsonKey(name: 'file_url', fromJson: _stringFromJson)
   final String fileUrl;
   @JsonKey(fromJson: _nullableStringFromJson)
   final String? name;
-
-  factory UploadFileMessage.fromJson(Map<String, dynamic> json) =>
-      _$UploadFileMessageFromJson(json);
 
   Map<String, dynamic> toJson() => _$UploadFileMessageToJson(this);
 }
@@ -21,11 +21,11 @@ class UploadFileMessage {
 class UploadFileResponseData {
   const UploadFileResponseData({required this.message});
 
-  @JsonKey(fromJson: _uploadFileMessageFromJson)
-  final UploadFileMessage message;
-
   factory UploadFileResponseData.fromJson(Map<String, dynamic> json) =>
       _$UploadFileResponseDataFromJson(json);
+
+  @JsonKey(fromJson: _uploadFileMessageFromJson)
+  final UploadFileMessage message;
 
   Map<String, dynamic> toJson() => _$UploadFileResponseDataToJson(this);
 }

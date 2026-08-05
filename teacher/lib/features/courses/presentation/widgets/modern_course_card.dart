@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:scolair_teacher/core/widgets/app_cached_network_image.dart';
+import '../../../../core/widgets/app_cached_network_image.dart';
 
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
@@ -267,8 +267,7 @@ class _StatsRow extends StatelessWidget {
   final Color accent;
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
+  Widget build(BuildContext context) => Row(
       children: [
         Expanded(
           child: _StatTile(
@@ -298,7 +297,6 @@ class _StatsRow extends StatelessWidget {
         ),
       ],
     );
-  }
 
   String _formatRating(dynamic rating) {
     if (rating == null) return '0.0';

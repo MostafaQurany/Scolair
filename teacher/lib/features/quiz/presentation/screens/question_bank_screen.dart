@@ -67,8 +67,7 @@ class _QuestionBankScreenState extends State<QuestionBankScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider.value(
+  Widget build(BuildContext context) => BlocProvider.value(
       value: _cubit,
       child: Scaffold(
         appBar: _BankAppBar(onSearch: _cubit.search),
@@ -86,7 +85,6 @@ class _QuestionBankScreenState extends State<QuestionBankScreen> {
         ),
       ),
     );
-  }
 }
 
 class _BankAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -98,8 +96,7 @@ class _BankAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(kToolbarHeight + 64.h);
 
   @override
-  Widget build(BuildContext context) {
-    return AppBar(
+  Widget build(BuildContext context) => AppBar(
       title: Text(context.l10n.questionBankTitle),
       bottom: PreferredSize(
         preferredSize: Size.fromHeight(64.h),
@@ -120,7 +117,6 @@ class _BankAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
     );
-  }
 }
 
 class _BankBody extends StatelessWidget {
@@ -135,10 +131,8 @@ class _BankBody extends StatelessWidget {
   final ValueChanged<QuestionModel> onToggle;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<QuestionBankCubit, QuestionBankState>(
-      builder: (context, state) {
-        return state.maybeWhen(
+  Widget build(BuildContext context) => BlocBuilder<QuestionBankCubit, QuestionBankState>(
+      builder: (context, state) => state.maybeWhen(
           loading: () => const QuizQuestionsShimmer(),
           error: (msg) => QuizErrorState(
             message: msg,
@@ -158,10 +152,8 @@ class _BankBody extends StatelessWidget {
             );
           },
           orElse: () => const SizedBox.shrink(),
-        );
-      },
+        ),
     );
-  }
 }
 
 class _QuestionsList extends StatelessWidget {

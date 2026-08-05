@@ -32,8 +32,7 @@ class QuestionFilterData {
     Object? lesson = _unset,
     Object? chapter = _unset,
     Object? course = _unset,
-  }) {
-    return QuestionFilterData(
+  }) => QuestionFilterData(
       type: identical(type, _unset) ? this.type : type as ApiQuestionType?,
       quiz: identical(quiz, _unset) ? this.quiz : quiz as String?,
       homework: identical(homework, _unset)
@@ -43,21 +42,16 @@ class QuestionFilterData {
       chapter: identical(chapter, _unset) ? this.chapter : chapter as String?,
       course: identical(course, _unset) ? this.course : course as String?,
     );
-  }
 
-  QuestionFilterData clearCourseTree() {
-    return copyWith(course: null, chapter: null, lesson: null);
-  }
+  QuestionFilterData clearCourseTree() => copyWith(course: null, chapter: null, lesson: null);
 }
 
 const Object _unset = Object();
 
-String? apiQuestionTypeValue(ApiQuestionType? type) {
-  return switch (type) {
+String? apiQuestionTypeValue(ApiQuestionType? type) => switch (type) {
     ApiQuestionType.choices => 'Choices',
     ApiQuestionType.userInput => 'User Input',
     ApiQuestionType.openEnded => 'Open Ended',
     ApiQuestionType.fileUpload => 'File Upload',
     null => null,
   };
-}

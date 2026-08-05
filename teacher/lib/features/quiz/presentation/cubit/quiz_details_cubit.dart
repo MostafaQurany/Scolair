@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -92,7 +93,7 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
 
     emit(state.copyWith(quiz: updatedQuiz, mutationError: null));
 
-    bool hasError = false;
+    var hasError = false;
     // Perform deletions in the background silently
     for (final questionName in questionNames) {
       final result = await _removeQuestionFromQuizUseCase(
@@ -114,7 +115,7 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
           mutationError: 'Failed to delete some questions. Re-syncing...',
         ),
       );
-      loadQuiz(currentQuiz.name);
+      unawaited(loadQuiz(currentQuiz.name));
     }
   }
 
@@ -194,7 +195,7 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
       };
 
       final updateResult = await _updateQuizUseCase(body);
-      bool addFailed = false;
+      var addFailed = false;
       updateResult.when(
         success: (_) {},
         failure: (failure) {
@@ -213,7 +214,7 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
 
     // Phase 2: Deletions
     final failures = <String>[];
-    int completed = 0;
+    var completed = 0;
     for (final questionName in deletions) {
       final result = await _removeQuestionFromQuizUseCase(
         quiz: currentQuiz.name,

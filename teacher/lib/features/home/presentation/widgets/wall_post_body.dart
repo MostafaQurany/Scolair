@@ -57,16 +57,14 @@ class _WallPostBodyState extends State<WallPostBody> {
           Wrap(
             spacing: 6.w,
             runSpacing: 4.h,
-            children: widget.hashtags.map((tag) {
-              return Text(
+            children: widget.hashtags.map((tag) => Text(
                 '#$tag',
                 style: textTheme.bodySmall?.copyWith(
                   color: colorScheme.primary,
                   fontWeight: FontWeight.w600,
                   fontSize: 12.sp,
                 ),
-              );
-            }).toList(),
+              )).toList(),
           ),
         ],
       ],

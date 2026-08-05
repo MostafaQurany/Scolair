@@ -12,20 +12,17 @@ class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<SplashCubit>()..start(),
       child: const _SplashView(),
     );
-  }
 }
 
 class _SplashView extends StatelessWidget {
   const _SplashView();
 
   @override
-  Widget build(BuildContext context) {
-    return BlocListener<SplashCubit, SplashState>(
+  Widget build(BuildContext context) => BlocListener<SplashCubit, SplashState>(
       listener: (context, state) {
         state.whenOrNull(
           navigate: (route) =>
@@ -51,5 +48,4 @@ class _SplashView extends StatelessWidget {
         ),
       ),
     );
-  }
 }

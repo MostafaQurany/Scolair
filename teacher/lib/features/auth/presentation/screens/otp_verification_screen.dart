@@ -85,8 +85,7 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return MultiBlocListener(
+  Widget build(BuildContext context) => MultiBlocListener(
       listeners: [
         BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
           listener: _handleForgotResend,
@@ -118,7 +117,6 @@ class _OtpVerificationViewState extends State<_OtpVerificationView>
         ),
       ),
     );
-  }
 
   void _verify() {
     if (_otp.length == 6) {
@@ -169,8 +167,7 @@ class _OtpBody extends StatelessWidget {
   final VoidCallback onResend;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         AuthHeader(
@@ -201,5 +198,4 @@ class _OtpBody extends StatelessWidget {
         ),
       ],
     );
-  }
 }

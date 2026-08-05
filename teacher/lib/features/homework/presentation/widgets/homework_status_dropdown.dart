@@ -270,13 +270,10 @@ class _HomeworkStatusDropdownState extends State<HomeworkStatusDropdown> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       ),
-      builder: (context) {
-        return DraggableScrollableSheet(
+      builder: (context) => DraggableScrollableSheet(
           expand: false,
           maxChildSize: 0.9,
-          initialChildSize: 0.5,
-          builder: (context, scrollController) {
-            return Column(
+          builder: (context, scrollController) => Column(
               children: [
                 Padding(
                   padding: EdgeInsets.all(16.r),
@@ -312,10 +309,8 @@ class _HomeworkStatusDropdownState extends State<HomeworkStatusDropdown> {
                   ),
                 ),
               ],
-            );
-          },
-        );
-      },
+            ),
+        ),
     );
   }
 }
@@ -397,7 +392,7 @@ class _StatusFilterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: selected ? colors.primaryContainer : colors.surface,
         borderRadius: BorderRadius.circular(12.r),

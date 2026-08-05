@@ -11,7 +11,6 @@ class TeacherHomeSkeletonView extends StatelessWidget {
 
     return Scaffold(
       body: Skeletonizer(
-        enabled: true,
         child: CustomScrollView(
           physics: const NeverScrollableScrollPhysics(),
           slivers: [
@@ -122,8 +121,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
               ),
             ),
             SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return Center(
+              delegate: SliverChildBuilderDelegate((context, index) => Center(
                   child: Container(
                     constraints: BoxConstraints(maxWidth: 600.w),
                     child: Card(
@@ -231,8 +229,7 @@ class TeacherHomeSkeletonView extends StatelessWidget {
                       ),
                     ),
                   ),
-                );
-              }, childCount: 2),
+                ), childCount: 2),
             ),
           ],
         ),

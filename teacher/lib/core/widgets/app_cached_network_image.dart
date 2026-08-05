@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:scolair_teacher/core/network/api_endpoints.dart';
-import 'package:scolair_teacher/core/storage/app_secure_storage.dart';
+import '../network/api_endpoints.dart';
+import '../storage/app_secure_storage.dart';
 
 class AppCachedNetworkImage extends StatefulWidget {
   const AppCachedNetworkImage({
@@ -93,21 +93,18 @@ class _AppCachedNetworkImageState extends State<AppCachedNetworkImage> {
     return image;
   }
 
-  Widget _shimmerPlaceholder(BuildContext context) {
-    return Container(
+  Widget _shimmerPlaceholder(BuildContext context) => Container(
       width: widget.width,
       height: widget.height,
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
     );
-  }
 
-  Widget _fallback(BuildContext context) {
-    return SizedBox(
+  Widget _fallback(BuildContext context) => SizedBox(
       width: widget.width,
       height: widget.height,
       child:
           widget.errorWidget ??
-          Container(
+          ColoredBox(
             color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: Icon(
               Icons.image_not_supported_outlined,
@@ -116,5 +113,4 @@ class _AppCachedNetworkImageState extends State<AppCachedNetworkImage> {
             ),
           ),
     );
-  }
 }

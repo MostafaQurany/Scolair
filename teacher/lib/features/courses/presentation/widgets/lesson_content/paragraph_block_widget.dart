@@ -7,11 +7,9 @@ class ParagraphBlockWidget extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) {
-    return RichText(
+  Widget build(BuildContext context) => RichText(
       text: TextSpan(
         children: LessonContentHelpers.parseHtmlToSpans(context, text),
       ),
     );
-  }
 }

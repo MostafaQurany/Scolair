@@ -8,8 +8,7 @@ class ChecklistBlockWidget extends StatelessWidget {
   final List<dynamic> items;
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
+  Widget build(BuildContext context) => Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: List.generate(items.length, (index) {
         final item = items[index] as Map<String, dynamic>;
@@ -44,5 +43,4 @@ class ChecklistBlockWidget extends StatelessWidget {
         );
       }),
     );
-  }
 }

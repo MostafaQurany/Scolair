@@ -242,7 +242,6 @@ class _CourseBanner extends StatelessWidget {
               imageUrl: imageUrl,
               width: double.infinity,
               height: 120.h,
-              fit: BoxFit.cover,
               errorWidget: const SizedBox.shrink(),
             ),
           Container(color: Colors.black.withValues(alpha: 0.15)),
@@ -269,8 +268,7 @@ class _StatusPill extends StatelessWidget {
   final String? status;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
         color: _statusColor(status).withValues(alpha: 0.9),
@@ -285,7 +283,6 @@ class _StatusPill extends StatelessWidget {
         ),
       ),
     );
-  }
 
   Color _statusColor(String? status) {
     switch (status?.toLowerCase()) {
@@ -305,8 +302,7 @@ class _CategoryPill extends StatelessWidget {
   final String category;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget build(BuildContext context) => Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
       decoration: BoxDecoration(
         color: Colors.black.withValues(alpha: 0.6),
@@ -317,7 +313,6 @@ class _CategoryPill extends StatelessWidget {
         style: TextStyle(color: Colors.white, fontSize: 11.sp),
       ),
     );
-  }
 }
 
 class _InfoTile extends StatelessWidget {

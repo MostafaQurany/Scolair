@@ -78,8 +78,7 @@ class NotificationModel {
 
   Map<String, dynamic> toJson() => _$NotificationModelToJson(this);
 
-  NotificationEntity toEntity() {
-    return NotificationEntity(
+  NotificationEntity toEntity() => NotificationEntity(
       id: id,
       title: title,
       message: message,
@@ -98,5 +97,4 @@ class NotificationModel {
       studentId: studentId,
       studentName: studentName,
     );
-  }
 }

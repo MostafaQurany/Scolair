@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../features/auth/presentation/screens/change_password_screen.dart'
+import '../../../auth/presentation/screens/change_password_screen.dart'
     as auth;
 
 /// Kept as a compatibility entry point for profile-settings navigation.

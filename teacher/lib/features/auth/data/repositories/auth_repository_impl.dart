@@ -50,14 +50,14 @@ class AuthRepositoryImpl implements AuthRepository {
         () => _remoteDataSource.login(
           LoginRequestData(username: username, password: password),
         ),
-        (r) => _tokenFromResponse(r),
+        _tokenFromResponse,
       );
 
   @override
   Future<ApiResult<AuthToken>> googleLogin(String idToken) => _authResult(
     () =>
         _remoteDataSource.googleLogin(GoogleLoginRequestData(idToken: idToken)),
-    (r) => _tokenFromResponse(r),
+    _tokenFromResponse,
   );
 
   @override
@@ -79,7 +79,7 @@ class AuthRepositoryImpl implements AuthRepository {
             scope: '',
           ),
         );
-      }, (r) => _tokenFromResponse(r));
+      }, _tokenFromResponse);
 
   @override
   Future<ApiResult<void>> logout(String accessToken) => _voidResult(

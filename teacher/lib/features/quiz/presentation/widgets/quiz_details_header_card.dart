@@ -24,8 +24,7 @@ class QuizDetailsHeaderCard extends StatelessWidget {
         children: [
           _QuizSubtitle(quiz: quiz),
           SizedBox(height: 12.h),
-          isTablet
-              ? Row(
+          if (isTablet) Row(
                   children: [
                     Expanded(child: _StatBox.questions(context, quiz)),
                     SizedBox(width: 10.w),
@@ -35,8 +34,7 @@ class QuizDetailsHeaderCard extends StatelessWidget {
                     SizedBox(width: 10.w),
                     Expanded(child: _StatBox.passingScore(context, quiz)),
                   ],
-                )
-              : Column(
+                ) else Column(
                   children: [
                     Row(
                       children: [
@@ -115,14 +113,12 @@ class _StatBox extends StatelessWidget {
     required this.iconColor,
   });
 
-  factory _StatBox.questions(BuildContext context, QuizModel quiz) {
-    return _StatBox(
+  factory _StatBox.questions(BuildContext context, QuizModel quiz) => _StatBox(
       icon: Icons.help_outline_rounded,
       value: '${quiz.questions.length}',
       label: context.l10n.quizTabQuestions,
       iconColor: const Color(0xFF2196F3),
     );
-  }
 
   factory _StatBox.totalPoints(BuildContext context, QuizModel quiz) {
     final total = quiz.questions.fold<int>(0, (sum, q) => sum + q.marks);
@@ -147,14 +143,12 @@ class _StatBox extends StatelessWidget {
     );
   }
 
-  factory _StatBox.passingScore(BuildContext context, QuizModel quiz) {
-    return _StatBox(
+  factory _StatBox.passingScore(BuildContext context, QuizModel quiz) => _StatBox(
       icon: Icons.trending_up_rounded,
       value: '${quiz.passingPercentage}%',
       label: context.l10n.quizPassingScoreLabel,
       iconColor: const Color(0xFF9C27B0),
     );
-  }
 
   final IconData icon;
   final String value;

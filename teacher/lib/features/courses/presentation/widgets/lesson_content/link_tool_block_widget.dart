@@ -100,7 +100,7 @@ class LinkToolBlockWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                     placeholder: (context, url) =>
                         Container(color: colorScheme.surfaceContainerHighest),
-                    errorWidget: (context, url, error) => Container(
+                    errorWidget: (context, url, error) => ColoredBox(
                       color: colorScheme.surfaceContainerHighest,
                       child: Icon(Icons.link, color: colorScheme.outline),
                     ),

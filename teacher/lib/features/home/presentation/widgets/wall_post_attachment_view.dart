@@ -47,8 +47,7 @@ class WallPostAttachmentView extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.r),
         child: AppCachedNetworkImage(
           imageUrl: attachment.url,
-          fit: BoxFit.cover,
-          errorWidget: Container(
+          errorWidget: ColoredBox(
             color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: Center(
               child: Icon(

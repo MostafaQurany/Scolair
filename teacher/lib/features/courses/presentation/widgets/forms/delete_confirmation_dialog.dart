@@ -12,8 +12,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
   final String body;
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
+  Widget build(BuildContext context) => AlertDialog(
       title: Text(title),
       content: Text(body),
       actions: [
@@ -31,5 +30,4 @@ class DeleteConfirmationDialog extends StatelessWidget {
         ),
       ],
     );
-  }
 }

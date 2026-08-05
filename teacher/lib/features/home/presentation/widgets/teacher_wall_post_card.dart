@@ -97,8 +97,7 @@ class TeacherWallPostCard extends StatelessWidget {
   void _showDeleteConfirmation(BuildContext context) {
     showDialog(
       context: context,
-      builder: (dialogContext) {
-        return AlertDialog(
+      builder: (dialogContext) => AlertDialog(
           title: Text(dialogContext.l10n.postDeleteConfirmTitle),
           content: Text(dialogContext.l10n.postDeleteConfirmBody),
           actions: [
@@ -117,8 +116,7 @@ class TeacherWallPostCard extends StatelessWidget {
               ),
             ),
           ],
-        );
-      },
+        ),
     );
   }
 }

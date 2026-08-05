@@ -5,9 +5,9 @@ import '../repositories/upload_repository.dart';
 import 'package:dio/dio.dart';
 
 class UploadFileUseCase {
-  final UploadRepository _repository;
 
   UploadFileUseCase(this._repository);
+  final UploadRepository _repository;
 
   Future<ApiResult<String>> call({
     required File file,

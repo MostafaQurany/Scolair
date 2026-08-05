@@ -16,11 +16,9 @@ const _sampleQuestion = QuestionModel(
   option1: 'Lessons',
   option2: 'Issues',
   isCorrect1: 1,
-  isCorrect2: 0,
 );
 
-Widget _previewShell(Widget child) {
-  return ScreenUtilPlusInit(
+Widget _previewShell(Widget child) => ScreenUtilPlusInit(
     designSize: const Size(390, 844),
     builder: (context, _) => MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -28,23 +26,17 @@ Widget _previewShell(Widget child) {
       home: Scaffold(body: child),
     ),
   );
-}
 
 @Preview(name: 'Question bank loading', group: 'Question Bank')
-Widget questionBankLoadingPreview() {
-  return _previewShell(
+Widget questionBankLoadingPreview() => _previewShell(
     const CustomScrollView(slivers: [QuestionBankListShimmer()]),
   );
-}
 
 @Preview(name: 'Question bank empty', group: 'Question Bank')
-Widget questionBankEmptyPreview() {
-  return _previewShell(const QuestionBankEmptyView(hasActiveFilters: false));
-}
+Widget questionBankEmptyPreview() => _previewShell(const QuestionBankEmptyView(hasActiveFilters: false));
 
 @Preview(name: 'Question bank filtered', group: 'Question Bank')
-Widget questionBankFilteredPreview() {
-  return _previewShell(
+Widget questionBankFilteredPreview() => _previewShell(
     CustomScrollView(
       slivers: [
         QuestionBankList(
@@ -60,11 +52,9 @@ Widget questionBankFilteredPreview() {
       ],
     ),
   );
-}
 
 @Preview(name: 'Question bank selected', group: 'Question Bank')
-Widget questionBankSelectedPreview() {
-  return _previewShell(
+Widget questionBankSelectedPreview() => _previewShell(
     CustomScrollView(
       slivers: [
         QuestionBankList(
@@ -80,11 +70,8 @@ Widget questionBankSelectedPreview() {
       ],
     ),
   );
-}
 
 @Preview(name: 'Question bank error', group: 'Question Bank')
-Widget questionBankErrorPreview() {
-  return _previewShell(
+Widget questionBankErrorPreview() => _previewShell(
     QuestionBankErrorView(message: 'Unable to load questions.', onRetry: () {}),
   );
-}

@@ -8,6 +8,8 @@ import '../../../../../core/utils/app_date_time_formatter.dart';
 import '../../../domain/entities/homework_submission.dart';
 import '../../cubit/submissions/homework_submissions_cubit.dart';
 import '../../cubit/submissions/homework_submissions_state.dart';
+import '../homework_submissions_list_shimmer.dart';
+import '../../../../../core/widgets/app_user_avatar.dart';
 
 class HomeworkSubmissionsView extends StatefulWidget {
   const HomeworkSubmissionsView({required this.homeworkName, super.key});
@@ -33,7 +35,7 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
     return BlocBuilder<HomeworkSubmissionsCubit, HomeworkSubmissionsState>(
       builder: (context, state) {
         if (state.status == HomeworkSubmissionsStatus.loading) {
-          return const Center(child: CircularProgressIndicator());
+          return const HomeworkSubmissionsListShimmer();
         }
         if (state.status == HomeworkSubmissionsStatus.failure) {
           return Center(child: Text(state.errorMessage ?? context.l10n.errorOccurred));
@@ -63,8 +65,7 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
     );
   }
 
-  Widget _buildFilterBar(BuildContext context, HomeworkSubmissionsState state) {
-    return SingleChildScrollView(
+  Widget _buildFilterBar(BuildContext context, HomeworkSubmissionsState state) => SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.symmetric(horizontal: 16.r, vertical: 12.r),
       child: Row(
@@ -81,7 +82,6 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
         }).toList(),
       ),
     );
-  }
 
   String _getFilterLabel(BuildContext context, SubmissionFilter filter) {
     switch (filter) {
@@ -98,8 +98,7 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
     }
   }
 
-  Widget _buildEmptyState(BuildContext context, TextTheme textTheme) {
-    return Center(
+  Widget _buildEmptyState(BuildContext context, TextTheme textTheme) => Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -109,7 +108,6 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
         ],
       ),
     );
-  }
 
   Widget _buildSubmissionCard(
     BuildContext context,
@@ -131,6 +129,13 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
           children: [
             Row(
               children: [
+                AppUserAvatar(
+                  imageUrl: null,
+                  displayName: item.displayStudentName,
+                  userId: item.member,
+                  radius: 16,
+                ),
+                SizedBox(width: 12.w),
                 Expanded(
                   child: Text(
                     item.displayStudentName,
@@ -166,7 +171,7 @@ class _HomeworkSubmissionsViewState extends State<HomeworkSubmissionsView> {
                   style: textTheme.bodySmall?.copyWith(color: colors.onSurfaceVariant),
                 ),
                 Text(
-                  isGraded ? '${item.marks}' : '-',
+                  isGraded ? '${item.totalMarks}' : '-',
                   style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                 ),
               ],

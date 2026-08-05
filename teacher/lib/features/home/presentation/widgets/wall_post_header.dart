@@ -122,10 +122,10 @@ class _PostTypeBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    final Color badgeColor;
-    final Color textColor;
-    final String label;
-    final IconData? icon;
+    Color badgeColor;
+    Color textColor;
+    String label;
+    IconData? icon;
 
     if (post.isPinned) {
       badgeColor = colorScheme.primary;

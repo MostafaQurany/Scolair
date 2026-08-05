@@ -67,8 +67,7 @@ class _RegisterViewState extends State<_RegisterView>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<RegisterCubit, RegisterState>(
+  Widget build(BuildContext context) => BlocConsumer<RegisterCubit, RegisterState>(
       listener: _handleState,
       builder: (context, state) => Scaffold(
         body: AuthSurface(
@@ -99,7 +98,6 @@ class _RegisterViewState extends State<_RegisterView>
         ),
       ),
     );
-  }
 
   void _submit() {
     if (!_verifyTerms) return;
@@ -156,8 +154,7 @@ class _RegisterBody extends StatelessWidget {
   final VoidCallback onLogin;
 
   @override
-  Widget build(BuildContext context) {
-    return Form(
+  Widget build(BuildContext context) => Form(
       key: formKey,
       child: Column(
         children: [
@@ -242,7 +239,6 @@ class _RegisterBody extends StatelessWidget {
         ],
       ),
     );
-  }
 
   FormFieldValidator<String> _required(BuildContext context) =>
       (v) => (v == null || v.trim().isEmpty)

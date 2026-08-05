@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
-import 'package:scolair_teacher/core/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 
 import '../../../../core/constants/app_route_names.dart';
 import '../../../../core/di/dependency_injection.dart';
@@ -16,12 +18,10 @@ class QuizzesListScreen extends StatelessWidget {
   const QuizzesListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
+  Widget build(BuildContext context) => BlocProvider(
       create: (_) => getIt<QuizzesCubit>()..loadQuizzes(),
       child: const _QuizzesListView(),
     );
-  }
 }
 
 class _QuizzesListView extends StatelessWidget {
@@ -33,13 +33,12 @@ class _QuizzesListView extends StatelessWidget {
       AppRouteNames.quizForm,
     );
     if (created == true && context.mounted) {
-      context.read<QuizzesCubit>().loadQuizzes();
+      unawaited(context.read<QuizzesCubit>().loadQuizzes());
     }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       body: RefreshIndicator(
         onRefresh: context.read<QuizzesCubit>().loadQuizzes,
         child: CustomScrollView(
@@ -58,7 +57,7 @@ class _QuizzesListView extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back_ios_new_rounded),
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
               ),
               actions: [
                 Padding(
@@ -92,7 +91,6 @@ class _QuizzesListView extends StatelessWidget {
         ),
       ),
     );
-  }
 }
 
 class _QuizzesBody extends StatelessWidget {
@@ -103,8 +101,7 @@ class _QuizzesBody extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<QuizzesCubit, QuizzesState>(
+  Widget build(BuildContext context) => BlocConsumer<QuizzesCubit, QuizzesState>(
       listener: (context, state) {
         final error = state.errorMessage;
         if (error != null) {
@@ -142,7 +139,7 @@ class _QuizzesBody extends StatelessWidget {
                   arguments: quiz,
                 );
                 if (updated == true && context.mounted) {
-                  context.read<QuizzesCubit>().loadQuizzes();
+                  unawaited(context.read<QuizzesCubit>().loadQuizzes());
                 }
               },
               onDelete: () => _onDeleteQuiz(context, quiz.name),
@@ -151,5 +148,4 @@ class _QuizzesBody extends StatelessWidget {
         );
       },
     );
-  }
 }

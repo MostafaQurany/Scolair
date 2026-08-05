@@ -16,6 +16,9 @@ class EditProfileRequestData {
     this.language,
   });
 
+  factory EditProfileRequestData.fromJson(Map<String, dynamic> json) =>
+      _$EditProfileRequestDataFromJson(json);
+
   final String? firstName;
   final String? lastName;
   final String? headline;
@@ -25,9 +28,6 @@ class EditProfileRequestData {
   final String? github;
   final String? twitter;
   final String? language;
-
-  factory EditProfileRequestData.fromJson(Map<String, dynamic> json) =>
-      _$EditProfileRequestDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$EditProfileRequestDataToJson(this);
 }
