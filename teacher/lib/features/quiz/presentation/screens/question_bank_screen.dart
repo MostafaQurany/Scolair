@@ -68,23 +68,23 @@ class _QuestionBankScreenState extends State<QuestionBankScreen> {
 
   @override
   Widget build(BuildContext context) => BlocProvider.value(
-      value: _cubit,
-      child: Scaffold(
-        appBar: _BankAppBar(onSearch: _cubit.search),
-        body: _BankBody(
-          scrollController: _scrollController,
-          selectedNames: _selectedNames,
-          onToggle: _toggleSelection,
-        ),
-        bottomNavigationBar: _BankBottomBar(
-          selectedCount: _selectedQuestions.length,
-          onClear: _clearSelection,
-          onConfirm: _selectedQuestions.isEmpty
-              ? null
-              : () => Navigator.pop(context, _selectedQuestions),
-        ),
+    value: _cubit,
+    child: Scaffold(
+      appBar: _BankAppBar(onSearch: _cubit.search),
+      body: _BankBody(
+        scrollController: _scrollController,
+        selectedNames: _selectedNames,
+        onToggle: _toggleSelection,
       ),
-    );
+      bottomNavigationBar: _BankBottomBar(
+        selectedCount: _selectedQuestions.length,
+        onClear: _clearSelection,
+        onConfirm: _selectedQuestions.isEmpty
+            ? null
+            : () => Navigator.pop(context, _selectedQuestions),
+      ),
+    ),
+  );
 }
 
 class _BankAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -97,26 +97,26 @@ class _BankAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) => AppBar(
-      title: Text(context.l10n.questionBankTitle),
-      bottom: PreferredSize(
-        preferredSize: Size.fromHeight(64.h),
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
-          child: TextField(
-            onChanged: onSearch,
-            decoration: InputDecoration(
-              hintText: context.l10n.search,
-              prefixIcon: const Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.r),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
+    title: Text(context.l10n.questionBankTitle),
+    bottom: PreferredSize(
+      preferredSize: Size.fromHeight(64.h),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(16.w, 0, 16.w, 12.h),
+        child: TextField(
+          onChanged: onSearch,
+          decoration: InputDecoration(
+            hintText: context.l10n.search,
+            prefixIcon: const Icon(Icons.search),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12.r),
+              borderSide: BorderSide.none,
             ),
+            filled: true,
           ),
         ),
       ),
-    );
+    ),
+  );
 }
 
 class _BankBody extends StatelessWidget {
@@ -131,8 +131,9 @@ class _BankBody extends StatelessWidget {
   final ValueChanged<QuestionModel> onToggle;
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<QuestionBankCubit, QuestionBankState>(
-      builder: (context, state) => state.maybeWhen(
+  Widget build(BuildContext context) =>
+      BlocBuilder<QuestionBankCubit, QuestionBankState>(
+        builder: (context, state) => state.maybeWhen(
           loading: () => const QuizQuestionsShimmer(),
           error: (msg) => QuizErrorState(
             message: msg,
@@ -153,7 +154,7 @@ class _BankBody extends StatelessWidget {
           },
           orElse: () => const SizedBox.shrink(),
         ),
-    );
+      );
 }
 
 class _QuestionsList extends StatelessWidget {

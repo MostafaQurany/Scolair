@@ -42,34 +42,34 @@ class _QuestionFormScreenState extends State<QuestionFormScreen> {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-      create: (_) => getIt<QuestionFormCubit>(),
-      child: Builder(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: Text(
-              _isEditing
-                  ? context.l10n.questionEditTitle
-                  : context.l10n.questionAddTitle,
+    create: (_) => getIt<QuestionFormCubit>(),
+    child: Builder(
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            _isEditing
+                ? context.l10n.questionEditTitle
+                : context.l10n.questionAddTitle,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => _submit(context),
+              child: Text(context.l10n.save),
             ),
-            actions: [
-              TextButton(
-                onPressed: () => _submit(context),
-                child: Text(context.l10n.save),
-              ),
-            ],
-          ),
-          body: _FormBody(
-            bodyKey: _bodyKey,
-            editingQuestion: widget.editingQuestion,
-          ),
-          bottomNavigationBar: _FormBottomBar(
-            isEditing: _isEditing,
-            onSave: () => _submit(context),
-            onDelete: _isEditing ? () => Navigator.pop(context) : null,
-          ),
+          ],
+        ),
+        body: _FormBody(
+          bodyKey: _bodyKey,
+          editingQuestion: widget.editingQuestion,
+        ),
+        bottomNavigationBar: _FormBottomBar(
+          isEditing: _isEditing,
+          onSave: () => _submit(context),
+          onDelete: _isEditing ? () => Navigator.pop(context) : null,
         ),
       ),
-    );
+    ),
+  );
 }
 
 class _FormBody extends StatelessWidget {
@@ -93,16 +93,16 @@ class _FormBody extends StatelessWidget {
         );
       },
       builder: (context, state) => Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: isTablet ? 720.w : double.infinity,
-            ),
-            child: QuestionFormBody(
-              key: bodyKey,
-              initialQuestion: editingQuestion,
-            ),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: isTablet ? 720.w : double.infinity,
+          ),
+          child: QuestionFormBody(
+            key: bodyKey,
+            initialQuestion: editingQuestion,
           ),
         ),
+      ),
     );
   }
 }

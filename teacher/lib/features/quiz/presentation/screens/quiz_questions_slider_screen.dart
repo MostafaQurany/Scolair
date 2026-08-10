@@ -97,14 +97,16 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
         .whereType<String>()
         .toSet();
 
-    final selected = (await Navigator.pushNamed(
-      context,
-      AppRouteNames.questionBank,
-      arguments: QuestionBankScreenArgs(
-        blockedTypes: _blockedBankTypes(),
-        blockedQuestionNames: blocked,
-      ),
-    )) as List<QuestionModel>?;
+    final selected =
+        (await Navigator.pushNamed(
+              context,
+              AppRouteNames.questionBank,
+              arguments: QuestionBankScreenArgs(
+                blockedTypes: _blockedBankTypes(),
+                blockedQuestionNames: blocked,
+              ),
+            ))
+            as List<QuestionModel>?;
 
     if (selected != null && selected.isNotEmpty && mounted) {
       setState(() {
@@ -113,10 +115,7 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
         }
         for (final q in selected) {
           _drafts.add(
-            DraftQuestion(
-              sourceBankQuestionName: q.name,
-              bankData: q,
-            ),
+            DraftQuestion(sourceBankQuestionName: q.name, bankData: q),
           );
         }
         _initFormKeys();
@@ -337,32 +336,32 @@ class _QuizQuestionsSliderScreenState extends State<QuizQuestionsSliderScreen> {
   }
 
   QuestionModel _questionFromOriginal(QuizQuestionModel q) => QuestionModel(
-      name: q.question,
-      question: q.questionDetail ?? q.question,
-      attachment: q.attachment,
-      type: q.type ?? ApiQuestionType.choices,
-      multiple: q.multiple,
-      option1: q.option1,
-      option2: q.option2,
-      option3: q.option3,
-      option4: q.option4,
-      option5: q.option5,
-      isCorrect1: q.isCorrect1,
-      isCorrect2: q.isCorrect2,
-      isCorrect3: q.isCorrect3,
-      isCorrect4: q.isCorrect4,
-      isCorrect5: q.isCorrect5,
-      explanation1: q.explanation1,
-      explanation2: q.explanation2,
-      explanation3: q.explanation3,
-      explanation4: q.explanation4,
-      explanation5: q.explanation5,
-      possibility1: q.possibility1,
-      possibility2: q.possibility2,
-      possibility3: q.possibility3,
-      possibility4: q.possibility4,
-      possibility5: q.possibility5,
-    );
+    name: q.question,
+    question: q.questionDetail ?? q.question,
+    attachment: q.attachment,
+    type: q.type ?? ApiQuestionType.choices,
+    multiple: q.multiple,
+    option1: q.option1,
+    option2: q.option2,
+    option3: q.option3,
+    option4: q.option4,
+    option5: q.option5,
+    isCorrect1: q.isCorrect1,
+    isCorrect2: q.isCorrect2,
+    isCorrect3: q.isCorrect3,
+    isCorrect4: q.isCorrect4,
+    isCorrect5: q.isCorrect5,
+    explanation1: q.explanation1,
+    explanation2: q.explanation2,
+    explanation3: q.explanation3,
+    explanation4: q.explanation4,
+    explanation5: q.explanation5,
+    possibility1: q.possibility1,
+    possibility2: q.possibility2,
+    possibility3: q.possibility3,
+    possibility4: q.possibility4,
+    possibility5: q.possibility5,
+  );
 
   @override
   Widget build(BuildContext context) {

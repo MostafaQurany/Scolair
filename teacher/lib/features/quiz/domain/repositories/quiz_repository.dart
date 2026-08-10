@@ -1,6 +1,7 @@
 import '../../../../core/network/api_result.dart';
 import '../../../../core/network/paginated_list.dart';
 import '../../data/models/quiz_models.dart';
+import '../../data/models/quiz_submission_models.dart';
 
 /// Quiz feature repository contract.
 abstract class QuizRepository {
@@ -34,5 +35,27 @@ abstract class QuizRepository {
   Future<ApiResult<QuizModel>> removeQuestionFromQuiz({
     required String quiz,
     required String question,
+  });
+
+  // Submissions
+  Future<ApiResult<PaginatedList<QuizSubmissionItemModel>>> getQuizSubmissions({
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  });
+
+  Future<ApiResult<PaginatedList<QuizSubmissionItemModel>>>
+  getStudentQuizSubmissions({
+    String? member,
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  });
+
+  Future<ApiResult<GradeQuizSubmissionResponseData>> gradeQuizSubmission({
+    required String submissionName,
+    required Map<String, dynamic> questionMarks,
   });
 }

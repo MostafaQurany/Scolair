@@ -167,7 +167,10 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
           final inlineData = update['inline'] as Map<String, dynamic>;
           if (inlineData.containsKey('local_attachment_path')) {
             final path = inlineData.remove('local_attachment_path') as String;
-            final uploadResult = await _uploadFileUseCase(file: File(path), isPrivate: 0);
+            final uploadResult = await _uploadFileUseCase(
+              file: File(path),
+              isPrivate: 0,
+            );
             var hasError = false;
             uploadResult.when(
               success: (url) {
@@ -178,7 +181,8 @@ class QuizDetailsCubit extends Cubit<QuizDetailsState> {
                 emit(
                   state.copyWith(
                     isBatchSaving: false,
-                    mutationError: 'Failed to upload attachment: ${failure.message}',
+                    mutationError:
+                        'Failed to upload attachment: ${failure.message}',
                   ),
                 );
               },

@@ -99,61 +99,58 @@ class _QuizFormScreenState extends State<QuizFormScreen> {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-      create: (_) => getIt<QuizFormCubit>(),
-      child: Builder(
-        builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: Text(
-              _isEditing
-                  ? context
-                        .l10n
-                        .quizCreateTitle // or edit title if available
-                  : context.l10n.quizCreateTitle,
-            ),
-          ),
-          body: BlocConsumer<QuizFormCubit, QuizFormState>(
-            listener: (context, state) {
-              state.whenOrNull(
-                success: () {
-                  AppSnackBar.showSuccess(
-                    context,
-                    context.l10n.quizSavedSuccess,
-                  );
-                  Navigator.pop(context, true);
-                },
-                error: (message) => AppSnackBar.showError(context, message),
-              );
-            },
-            builder: (context, state) {
-              final isLoading = state.maybeWhen(
-                submitting: () => true,
-                orElse: () => false,
-              );
-
-              return _QuizFormBody(
-                formKey: _formKey,
-                titleController: _titleController,
-                passingPercentageController: _passingPercentageController,
-                maxAttemptsController: _maxAttemptsController,
-                durationController: _durationController,
-                marksToCutController: _marksToCutController,
-                limitQuestionsToController: _limitQuestionsToController,
-                showAnswers: _showAnswers,
-                shuffleQuestions: _shuffleQuestions,
-                enableNegativeMarking: _enableNegativeMarking,
-                onShowAnswersChanged: (v) => setState(() => _showAnswers = v),
-                onShuffleQuestionsChanged: (v) =>
-                    setState(() => _shuffleQuestions = v),
-                onNegativeMarkingChanged: (v) =>
-                    setState(() => _enableNegativeMarking = v),
-                isLoading: isLoading,
-                onSubmit: () => _submit(context),
-              );
-            },
+    create: (_) => getIt<QuizFormCubit>(),
+    child: Builder(
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          title: Text(
+            _isEditing
+                ? context
+                      .l10n
+                      .quizCreateTitle // or edit title if available
+                : context.l10n.quizCreateTitle,
           ),
         ),
+        body: BlocConsumer<QuizFormCubit, QuizFormState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              success: () {
+                AppSnackBar.showSuccess(context, context.l10n.quizSavedSuccess);
+                Navigator.pop(context, true);
+              },
+              error: (message) => AppSnackBar.showError(context, message),
+            );
+          },
+          builder: (context, state) {
+            final isLoading = state.maybeWhen(
+              submitting: () => true,
+              orElse: () => false,
+            );
+
+            return _QuizFormBody(
+              formKey: _formKey,
+              titleController: _titleController,
+              passingPercentageController: _passingPercentageController,
+              maxAttemptsController: _maxAttemptsController,
+              durationController: _durationController,
+              marksToCutController: _marksToCutController,
+              limitQuestionsToController: _limitQuestionsToController,
+              showAnswers: _showAnswers,
+              shuffleQuestions: _shuffleQuestions,
+              enableNegativeMarking: _enableNegativeMarking,
+              onShowAnswersChanged: (v) => setState(() => _showAnswers = v),
+              onShuffleQuestionsChanged: (v) =>
+                  setState(() => _shuffleQuestions = v),
+              onNegativeMarkingChanged: (v) =>
+                  setState(() => _enableNegativeMarking = v),
+              isLoading: isLoading,
+              onSubmit: () => _submit(context),
+            );
+          },
+        ),
       ),
-    );
+    ),
+  );
 }
 
 class _QuizFormBody extends StatelessWidget {
@@ -218,124 +215,122 @@ class _QuizFormBody extends StatelessWidget {
   }
 
   Widget _mobileLayout(BuildContext context) => Column(
-      children: [
-        _buildGeneralSection(context),
-        SizedBox(height: 16.h),
-        _buildGradingSection(context),
-        SizedBox(height: 16.h),
-        _buildBehaviorSection(context),
-      ],
-    );
+    children: [
+      _buildGeneralSection(context),
+      SizedBox(height: 16.h),
+      _buildGradingSection(context),
+      SizedBox(height: 16.h),
+      _buildBehaviorSection(context),
+    ],
+  );
 
   Widget _tabletLayout(BuildContext context) => Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 5,
-          child: Column(
-            children: [
-              _buildGeneralSection(context),
-              SizedBox(height: 16.h),
-              _buildBehaviorSection(context),
-            ],
-          ),
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Expanded(
+        flex: 5,
+        child: Column(
+          children: [
+            _buildGeneralSection(context),
+            SizedBox(height: 16.h),
+            _buildBehaviorSection(context),
+          ],
         ),
-        SizedBox(width: 16.w),
-        Expanded(flex: 4, child: _buildGradingSection(context)),
-      ],
-    );
+      ),
+      SizedBox(width: 16.w),
+      Expanded(flex: 4, child: _buildGradingSection(context)),
+    ],
+  );
 
   Widget _buildGeneralSection(BuildContext context) => QuizSectionCard(
-      title: context.l10n.quizGeneralDetails,
-      children: [
-        TextFormField(
-          controller: titleController,
-          decoration: InputDecoration(labelText: context.l10n.quizTitleLabel),
-          validator: (value) {
-            if (value == null || value.trim().isEmpty) {
-              return context.l10n.quizTitleRequired;
-            }
-            return null;
-          },
+    title: context.l10n.quizGeneralDetails,
+    children: [
+      TextFormField(
+        controller: titleController,
+        decoration: InputDecoration(labelText: context.l10n.quizTitleLabel),
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return context.l10n.quizTitleRequired;
+          }
+          return null;
+        },
+      ),
+      SizedBox(height: 14.h),
+      TextFormField(
+        controller: durationController,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          labelText: context.l10n.quizDurationLabel,
+          hintText: context.l10n.quizDurationHint,
         ),
-        SizedBox(height: 14.h),
-        TextFormField(
-          controller: durationController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: context.l10n.quizDurationLabel,
-            hintText: context.l10n.quizDurationHint,
-          ),
-        ),
-      ],
-    );
+      ),
+    ],
+  );
 
   Widget _buildGradingSection(BuildContext context) => QuizSectionCard(
-      title: context.l10n.quizGradingLimits,
-      children: [
-        TextFormField(
-          controller: passingPercentageController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: context.l10n.quizPassingPercentage,
-            suffixText: '%',
-          ),
+    title: context.l10n.quizGradingLimits,
+    children: [
+      TextFormField(
+        controller: passingPercentageController,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          labelText: context.l10n.quizPassingPercentage,
+          suffixText: '%',
         ),
-        SizedBox(height: 14.h),
-        TextFormField(
-          controller: maxAttemptsController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: context.l10n.quizMaxAttempts,
-            helperText: context.l10n.quizMaxAttemptsHelper,
-          ),
+      ),
+      SizedBox(height: 14.h),
+      TextFormField(
+        controller: maxAttemptsController,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          labelText: context.l10n.quizMaxAttempts,
+          helperText: context.l10n.quizMaxAttemptsHelper,
         ),
-        SizedBox(height: 14.h),
-        TextFormField(
-          controller: limitQuestionsToController,
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: context.l10n.quizLimitQuestions,
-            helperText: context.l10n.quizLimitQuestionsHelper,
-          ),
+      ),
+      SizedBox(height: 14.h),
+      TextFormField(
+        controller: limitQuestionsToController,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          labelText: context.l10n.quizLimitQuestions,
+          helperText: context.l10n.quizLimitQuestionsHelper,
         ),
-      ],
-    );
+      ),
+    ],
+  );
 
   Widget _buildBehaviorSection(BuildContext context) => QuizSectionCard(
-      title: context.l10n.quizBehavior,
-      children: [
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.quizShowAnswers),
-          value: showAnswers,
-          onChanged: onShowAnswersChanged,
-        ),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.quizShuffleQuestions),
-          value: shuffleQuestions,
-          onChanged: onShuffleQuestionsChanged,
-        ),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.quizEnableNegativeMarking),
-          value: enableNegativeMarking,
-          onChanged: onNegativeMarkingChanged,
-        ),
-        if (enableNegativeMarking)
-          Padding(
-            padding: EdgeInsets.only(top: 14.h),
-            child: TextFormField(
-              controller: marksToCutController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: context.l10n.quizMarksToCut,
-              ),
-            ),
+    title: context.l10n.quizBehavior,
+    children: [
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.quizShowAnswers),
+        value: showAnswers,
+        onChanged: onShowAnswersChanged,
+      ),
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.quizShuffleQuestions),
+        value: shuffleQuestions,
+        onChanged: onShuffleQuestionsChanged,
+      ),
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.quizEnableNegativeMarking),
+        value: enableNegativeMarking,
+        onChanged: onNegativeMarkingChanged,
+      ),
+      if (enableNegativeMarking)
+        Padding(
+          padding: EdgeInsets.only(top: 14.h),
+          child: TextFormField(
+            controller: marksToCutController,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(labelText: context.l10n.quizMarksToCut),
           ),
-      ],
-    );
+        ),
+    ],
+  );
 }
 
 class _BottomAction extends StatelessWidget {

@@ -1,21 +1,23 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../../domain/entities/homework_submission.dart';
+
+part 'homework_submissions_state.freezed.dart';
 
 enum HomeworkSubmissionsStatus { initial, loading, success, failure }
 
 enum SubmissionFilter { all, submitted, graded, late, needsGrading }
 
-class HomeworkSubmissionsState {
-  const HomeworkSubmissionsState({
-    this.status = HomeworkSubmissionsStatus.initial,
-    this.submissions = const [],
-    this.errorMessage,
-    this.filter = SubmissionFilter.all,
-  });
+@freezed
+abstract class HomeworkSubmissionsState with _$HomeworkSubmissionsState {
+  const HomeworkSubmissionsState._();
 
-  final HomeworkSubmissionsStatus status;
-  final List<HomeworkSubmissionItem> submissions;
-  final String? errorMessage;
-  final SubmissionFilter filter;
+  const factory HomeworkSubmissionsState({
+    @Default(HomeworkSubmissionsStatus.initial) HomeworkSubmissionsStatus status,
+    @Default([]) List<HomeworkSubmissionItem> submissions,
+    String? errorMessage,
+    @Default(SubmissionFilter.all) SubmissionFilter filter,
+  }) = _HomeworkSubmissionsState;
 
   List<HomeworkSubmissionItem> get filteredSubmissions {
     switch (filter) {
@@ -31,16 +33,4 @@ class HomeworkSubmissionsState {
         return submissions.where((s) => s.status.toLowerCase() != 'graded').toList();
     }
   }
-
-  HomeworkSubmissionsState copyWith({
-    HomeworkSubmissionsStatus? status,
-    List<HomeworkSubmissionItem>? submissions,
-    String? errorMessage,
-    SubmissionFilter? filter,
-  }) => HomeworkSubmissionsState(
-      status: status ?? this.status,
-      submissions: submissions ?? this.submissions,
-      errorMessage: errorMessage ?? this.errorMessage,
-      filter: filter ?? this.filter,
-    );
 }

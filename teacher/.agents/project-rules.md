@@ -434,7 +434,8 @@ Text(context.l10n.itemCount(count));
 - Keep Retrofit annotations inside API service files, not inside Cubits or widgets.
 - Keep base URL, headers, timeouts, and interceptors inside `core/network/`.
 - Never expose raw Dio, Retrofit, HTTP, or storage calls directly to UI code.
-- Regenerate Retrofit and Freezed files after changing API services, models, or states.
+- Regenerate Retrofit and JsonSerializable files after changing API services, models, or states.
+- all the models is used JsonSerializable not freezed to easer in convert the data
 
 ## Dependency Injection
 
@@ -466,7 +467,7 @@ To stay within this limit:
 - Keep the `build` method of `_XxxView` under ~30 lines by delegating to extracted widgets.
 - Shared elements (logo header, form footer links, error banners) must be extracted into `presentation/widgets/` and reused across screens.
 - Do not duplicate widget code between screen files.
-
+- dont use inside the widgets and the screens a _wiedgets helper , make it in anther widget inside the widgets folder 
 
 ## Cached Network Image
 

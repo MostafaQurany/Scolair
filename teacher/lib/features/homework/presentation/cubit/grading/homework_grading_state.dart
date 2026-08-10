@@ -1,4 +1,8 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 import '../../../domain/entities/homework_submission.dart';
+
+part 'homework_grading_state.freezed.dart';
 
 enum HomeworkGradingStatus {
   initial,
@@ -10,24 +14,19 @@ enum HomeworkGradingStatus {
   submittedSuccess,
 }
 
-class HomeworkGradingState {
-  const HomeworkGradingState({
-    this.status = HomeworkGradingStatus.initial,
-    this.submission,
-    this.errorMessage,
-    this.questionMarks = const {},
-    this.questionNotes = const {},
-    this.overallFeedback = '',
-    this.downloadedFileBytes,
-  });
+@freezed
+abstract class HomeworkGradingState with _$HomeworkGradingState {
+  const HomeworkGradingState._();
 
-  final HomeworkGradingStatus status;
-  final HomeworkSubmissionDetail? submission;
-  final String? errorMessage;
-  final Map<String, num> questionMarks;
-  final Map<String, String> questionNotes;
-  final String overallFeedback;
-  final List<int>? downloadedFileBytes;
+  const factory HomeworkGradingState({
+    @Default(HomeworkGradingStatus.initial) HomeworkGradingStatus status,
+    HomeworkSubmissionDetail? submission,
+    String? errorMessage,
+    @Default({}) Map<String, num> questionMarks,
+    @Default({}) Map<String, String> questionNotes,
+    @Default('') String overallFeedback,
+    List<int>? downloadedFileBytes,
+  }) = _HomeworkGradingState;
 
   bool isValidMarks() {
     if (submission == null) return false;
@@ -39,22 +38,4 @@ class HomeworkGradingState {
     }
     return true;
   }
-
-  HomeworkGradingState copyWith({
-    HomeworkGradingStatus? status,
-    HomeworkSubmissionDetail? submission,
-    String? errorMessage,
-    Map<String, num>? questionMarks,
-    Map<String, String>? questionNotes,
-    String? overallFeedback,
-    List<int>? downloadedFileBytes,
-  }) => HomeworkGradingState(
-      status: status ?? this.status,
-      submission: submission ?? this.submission,
-      errorMessage: errorMessage ?? this.errorMessage,
-      questionMarks: questionMarks ?? this.questionMarks,
-      questionNotes: questionNotes ?? this.questionNotes,
-      overallFeedback: overallFeedback ?? this.overallFeedback,
-      downloadedFileBytes: downloadedFileBytes ?? this.downloadedFileBytes,
-    );
 }

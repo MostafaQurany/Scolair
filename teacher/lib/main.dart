@@ -9,7 +9,7 @@ import 'core/errors/app_logger.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  AppLogger.configure(enabled: kDebugMode);
+  AppLogger.configure(enabled:  kDebugMode);
 
   await setupDependencyInjection();
 

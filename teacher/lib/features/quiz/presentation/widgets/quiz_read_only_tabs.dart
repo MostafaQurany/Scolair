@@ -97,72 +97,72 @@ class _QuizSettingsTabState extends State<QuizSettingsTab> {
   }
 
   Widget _mobileLayout() => Column(
-      children: [
-        _buildGradingSection(),
-        SizedBox(height: 16.h),
-        _buildBehaviorSection(),
-      ],
-    );
+    children: [
+      _buildGradingSection(),
+      SizedBox(height: 16.h),
+      _buildBehaviorSection(),
+    ],
+  );
 
   Widget _tabletLayout() => Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(child: _buildGradingSection()),
-        SizedBox(width: 16.w),
-        Expanded(child: _buildBehaviorSection()),
-      ],
-    );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Expanded(child: _buildGradingSection()),
+      SizedBox(width: 16.w),
+      Expanded(child: _buildBehaviorSection()),
+    ],
+  );
 
   Widget _buildGradingSection() => QuizSectionCard(
-      title: context.l10n.quizGradingLimits,
-      children: [
-        TextFormField(
-          controller: _maxAttemptsCtrl,
-          decoration: InputDecoration(
-            labelText: context.l10n.quizMaxAttemptsLabel,
-            helperText: context.l10n.quizMaxAttemptsHelper,
-          ),
-          keyboardType: TextInputType.number,
+    title: context.l10n.quizGradingLimits,
+    children: [
+      TextFormField(
+        controller: _maxAttemptsCtrl,
+        decoration: InputDecoration(
+          labelText: context.l10n.quizMaxAttemptsLabel,
+          helperText: context.l10n.quizMaxAttemptsHelper,
         ),
-        SizedBox(height: 14.h),
-        TextFormField(
-          controller: _limitQuestionsCtrl,
-          decoration: InputDecoration(
-            labelText: context.l10n.quizLimitQuestions,
-            helperText: context.l10n.quizLimitQuestionsHelper,
-          ),
-          keyboardType: TextInputType.number,
+        keyboardType: TextInputType.number,
+      ),
+      SizedBox(height: 14.h),
+      TextFormField(
+        controller: _limitQuestionsCtrl,
+        decoration: InputDecoration(
+          labelText: context.l10n.quizLimitQuestions,
+          helperText: context.l10n.quizLimitQuestionsHelper,
         ),
-        SizedBox(height: 14.h),
-        TextFormField(
-          controller: _marksToCutCtrl,
-          decoration: InputDecoration(labelText: context.l10n.quizMarksToCut),
-          keyboardType: TextInputType.number,
-        ),
-      ],
-    );
+        keyboardType: TextInputType.number,
+      ),
+      SizedBox(height: 14.h),
+      TextFormField(
+        controller: _marksToCutCtrl,
+        decoration: InputDecoration(labelText: context.l10n.quizMarksToCut),
+        keyboardType: TextInputType.number,
+      ),
+    ],
+  );
 
   Widget _buildBehaviorSection() => QuizSectionCard(
-      title: context.l10n.quizBehavior,
-      children: [
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.quizShuffleQuestions),
-          value: _shuffleQuestions,
-          onChanged: (val) => setState(() => _shuffleQuestions = val),
-        ),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.quizShowCorrectAnswersToggle),
-          value: _showAnswers,
-          onChanged: (val) => setState(() => _showAnswers = val),
-        ),
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.quizNegativeMarkingToggle),
-          value: _enableNegativeMarking,
-          onChanged: (val) => setState(() => _enableNegativeMarking = val),
-        ),
-      ],
-    );
+    title: context.l10n.quizBehavior,
+    children: [
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.quizShuffleQuestions),
+        value: _shuffleQuestions,
+        onChanged: (val) => setState(() => _shuffleQuestions = val),
+      ),
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.quizShowCorrectAnswersToggle),
+        value: _showAnswers,
+        onChanged: (val) => setState(() => _showAnswers = val),
+      ),
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.quizNegativeMarkingToggle),
+        value: _enableNegativeMarking,
+        onChanged: (val) => setState(() => _enableNegativeMarking = val),
+      ),
+    ],
+  );
 }

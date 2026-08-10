@@ -4,7 +4,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/localization/localization_extension.dart';
 
-/// Skeleton shimmer loading state for quiz question lists.
+/// Skeleton shimmer loading state for Quiz Details dashboard.
 class QuizQuestionsShimmer extends StatelessWidget {
   const QuizQuestionsShimmer({super.key});
 
@@ -13,140 +13,170 @@ class QuizQuestionsShimmer extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
 
     return Skeletonizer(
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: SafeArea(
-              bottom: false,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 10.h),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 112.w,
-                      height: 22.h,
-                      decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainer,
-                        borderRadius: BorderRadius.circular(6.r),
-                      ),
-                    ),
-                    const Spacer(),
-                    Container(
-                      width: 96.w,
-                      height: 36.h,
-                      decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainer,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
-                    Container(
-                      width: 40.r,
-                      height: 40.r,
-                      decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainer,
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            sliver: SliverList.builder(
-              itemCount: 4,
-              itemBuilder: (context, index) => _ShimmerCard(index: index),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ShimmerCard extends StatelessWidget {
-  const _ShimmerCard({required this.index});
-
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
-    return Container(
-      margin: EdgeInsets.only(bottom: 8.h),
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: colorScheme.outlineVariant, width: 1.w),
-      ),
-      child: Row(
+      child: ListView(
+        padding: EdgeInsets.all(16.r),
         children: [
-          Icon(
-            Icons.drag_indicator,
-            size: 20.r,
-            color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+          SafeArea(
+            bottom: false,
+            child: SizedBox(height: 8.h),
           ),
-          SizedBox(width: 8.w),
-          Expanded(
+          // Shimmer for Quiz Info Card
+          Container(
+            height: 140.h,
+            padding: EdgeInsets.all(16.r),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(16.r),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  width: 180.w,
+                  height: 20.h,
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                ),
+                SizedBox(height: 12.h),
+                Container(
+                  width: 100.w,
+                  height: 16.h,
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+                ),
+                const Spacer(),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Q${index + 1}',
-                      style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                        color: colorScheme.onSurface,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 8.w),
                     Container(
-                      width: 64.w,
-                      height: 20.h,
+                      width: 80.w,
+                      height: 24.h,
                       decoration: BoxDecoration(
                         color: colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(6.r),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                     ),
-                    SizedBox(width: 8.w),
                     Container(
-                      width: 48.w,
-                      height: 20.h,
+                      width: 80.w,
+                      height: 24.h,
                       decoration: BoxDecoration(
                         color: colorScheme.surfaceContainerHighest,
-                        borderRadius: BorderRadius.circular(6.r),
+                        borderRadius: BorderRadius.circular(4.r),
                       ),
                     ),
                   ],
-                ),
-                SizedBox(height: 8.h),
-                Container(
-                  width: double.infinity,
-                  height: 14.h,
-                  decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
-                ),
-                SizedBox(height: 6.h),
-                Container(
-                  width: 220.w,
-                  height: 12.h,
-                  decoration: BoxDecoration(
-                    color: colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(4.r),
-                  ),
                 ),
               ],
             ),
           ),
-          SizedBox(width: 8.w),
-          Icon(Icons.delete_outline, size: 20.r, color: colorScheme.error),
+          SizedBox(height: 16.h),
+
+          // Shimmer for Add to Lesson Button
+          Container(
+            height: 48.h,
+            decoration: BoxDecoration(
+              color: colorScheme.primary.withAlpha(50),
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+          ),
+          SizedBox(height: 16.h),
+
+          // Shimmer for Questions Card
+          Container(
+            height: 80.h,
+            padding: EdgeInsets.all(16.r),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 48.r,
+                  height: 48.r,
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+                SizedBox(width: 16.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 140.w,
+                      height: 16.h,
+                      decoration: BoxDecoration(
+                        color: colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                    SizedBox(height: 6.h),
+                    Container(
+                      width: 100.w,
+                      height: 12.h,
+                      decoration: BoxDecoration(
+                        color: colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 12.h),
+
+          // Shimmer for Submissions Card
+          Container(
+            height: 80.h,
+            padding: EdgeInsets.all(16.r),
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainer,
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 48.r,
+                  height: 48.r,
+                  decoration: BoxDecoration(
+                    color: colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(10.r),
+                  ),
+                ),
+                SizedBox(width: 16.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 140.w,
+                      height: 16.h,
+                      decoration: BoxDecoration(
+                        color: colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                    SizedBox(height: 6.h),
+                    Container(
+                      width: 110.w,
+                      height: 12.h,
+                      decoration: BoxDecoration(
+                        color: colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -4,6 +4,7 @@ import '../../../../core/network/paginated_list.dart';
 import '../../domain/repositories/quiz_repository.dart';
 import '../datasources/remote/quiz_remote_datasource.dart';
 import '../models/quiz_models.dart';
+import '../models/quiz_submission_models.dart';
 
 class QuizRepositoryImpl implements QuizRepository {
   const QuizRepositoryImpl(this._remoteDataSource);
@@ -111,4 +112,67 @@ class QuizRepositoryImpl implements QuizRepository {
       'question': question,
     })).data,
   );
+
+  // --- Submissions ---
+
+  @override
+  Future<ApiResult<PaginatedList<QuizSubmissionItemModel>>> getQuizSubmissions({
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  }) => _getResult(() async {
+    final response = await _remoteDataSource.getQuizSubmissions(
+      quizName: quizName,
+      pendingGrading: pendingGrading,
+      start: start,
+      pageSize: pageSize,
+    );
+    final data = response.data;
+    return PaginatedList(
+      items: data.items,
+      total: data.total,
+      start: data.start,
+      pageSize: data.pageSize,
+      hasNextPage: data.hasNextPage,
+    );
+  });
+
+  @override
+  Future<ApiResult<PaginatedList<QuizSubmissionItemModel>>>
+  getStudentQuizSubmissions({
+    String? member,
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  }) => _getResult(() async {
+    final response = await _remoteDataSource.getStudentQuizSubmissions(
+      member: member,
+      quizName: quizName,
+      pendingGrading: pendingGrading,
+      start: start,
+      pageSize: pageSize,
+    );
+    final data = response.data;
+    return PaginatedList(
+      items: data.items,
+      total: data.total,
+      start: data.start,
+      pageSize: data.pageSize,
+      hasNextPage: data.hasNextPage,
+    );
+  });
+
+  @override
+  Future<ApiResult<GradeQuizSubmissionResponseData>> gradeQuizSubmission({
+    required String submissionName,
+    required Map<String, dynamic> questionMarks,
+  }) => _getResult(() async {
+    final response = await _remoteDataSource.gradeQuizSubmission({
+      'submission': submissionName,
+      'question_marks': questionMarks,
+    });
+    return response;
+  });
 }

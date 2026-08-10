@@ -11,25 +11,25 @@ class QuizSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(title: Text(context.l10n.quizTabSettings)),
-      body: BlocBuilder<QuizDetailsCubit, QuizDetailsState>(
-        builder: (context, state) {
-          final quiz = state.quiz;
-          if (quiz == null) return const SizedBox.shrink();
+    appBar: AppBar(title: Text(context.l10n.quizTabSettings)),
+    body: BlocBuilder<QuizDetailsCubit, QuizDetailsState>(
+      builder: (context, state) {
+        final quiz = state.quiz;
+        if (quiz == null) return const SizedBox.shrink();
 
-          return Column(
-            children: [
-              if (state.isUpdating)
-                LinearProgressIndicator(
-                  color: Theme.of(context).colorScheme.primary,
-                  backgroundColor: Theme.of(
-                    context,
-                  ).colorScheme.surfaceContainerHighest,
-                ),
-              Expanded(child: QuizSettingsTab(quiz: quiz)),
-            ],
-          );
-        },
-      ),
-    );
+        return Column(
+          children: [
+            if (state.isUpdating)
+              LinearProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+                backgroundColor: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest,
+              ),
+            Expanded(child: QuizSettingsTab(quiz: quiz)),
+          ],
+        );
+      },
+    ),
+  );
 }

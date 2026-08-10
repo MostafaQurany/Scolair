@@ -2314,4 +2314,50 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get actionRequired => 'يتطلب إجراء';
+
+  @override
+  String get quizSubmissionsTitle => 'تسليمات الاختبار';
+
+  @override
+  String get quizSubmissionDetailTitle => 'تفاصيل التسليم';
+
+  @override
+  String get quizGradedSuccess => 'تم تصحيح التسليم بنجاح';
+
+  @override
+  String get quizSubmitGrade => 'اعتماد الدرجة';
+
+  @override
+  String get quizNoSubmissions => 'لا توجد تسليمات بعد';
+
+  @override
+  String quizSelectedCount(int count) {
+    return 'تم تحديد $count';
+  }
+
+  @override
+  String get quizSelectTooltip => 'تحديد';
+
+  @override
+  String quizDeleteConfirm(int count) {
+    return 'حذف $count أسئلة؟';
+  }
+
+  @override
+  String get addToLessonTitle => 'إضافة الاختبار إلى درس';
+
+  @override
+  String get selectCourse => 'اختر الدورة';
+
+  @override
+  String get selectChapter => 'اختر الفصل';
+
+  @override
+  String get selectLesson => 'اختر الدرس';
+
+  @override
+  String get addQuizButton => 'إضافة للدرس';
+
+  @override
+  String get addedToLessonSuccess => 'تمت إضافة الاختبار للدرس بنجاح';
 }

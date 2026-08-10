@@ -1,5 +1,6 @@
 import '../../../../../core/network/api_client.dart';
 import '../../models/quiz_models.dart';
+import '../../models/quiz_submission_models.dart';
 
 /// Abstracts quiz-related API calls.
 abstract class QuizRemoteDataSource {
@@ -29,6 +30,26 @@ abstract class QuizRemoteDataSource {
     Map<String, dynamic> body,
   );
   Future<RemoveQuestionFromQuizResponseData> removeQuestionFromQuiz(
+    Map<String, dynamic> body,
+  );
+
+  // Submissions
+  Future<GetQuizSubmissionsResponseData> getQuizSubmissions({
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  });
+
+  Future<GetQuizSubmissionsResponseData> getStudentQuizSubmissions({
+    String? member,
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  });
+
+  Future<GradeQuizSubmissionResponseData> gradeQuizSubmission(
     Map<String, dynamic> body,
   );
 }
@@ -110,4 +131,35 @@ class QuizRemoteDataSourceImpl implements QuizRemoteDataSource {
   Future<RemoveQuestionFromQuizResponseData> removeQuestionFromQuiz(
     Map<String, dynamic> body,
   ) => _apiClient.removeQuestionFromQuiz(body);
+
+  // --- Submissions ---
+
+  @override
+  Future<GetQuizSubmissionsResponseData> getQuizSubmissions({
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  }) =>
+      _apiClient.getQuizSubmissions(quizName, pendingGrading, start, pageSize);
+
+  @override
+  Future<GetQuizSubmissionsResponseData> getStudentQuizSubmissions({
+    String? member,
+    String? quizName,
+    bool? pendingGrading,
+    int start = 0,
+    int pageSize = 30,
+  }) => _apiClient.getStudentQuizSubmissions(
+    member,
+    quizName,
+    pendingGrading,
+    start,
+    pageSize,
+  );
+
+  @override
+  Future<GradeQuizSubmissionResponseData> gradeQuizSubmission(
+    Map<String, dynamic> body,
+  ) => _apiClient.gradeQuizSubmission(body);
 }

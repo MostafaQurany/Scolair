@@ -4303,6 +4303,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Action Required'**
   String get actionRequired;
+
+  /// No description provided for @quizSubmissionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz Submissions'**
+  String get quizSubmissionsTitle;
+
+  /// No description provided for @quizSubmissionDetailTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Submission Detail'**
+  String get quizSubmissionDetailTitle;
+
+  /// No description provided for @quizGradedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Submission graded successfully'**
+  String get quizGradedSuccess;
+
+  /// No description provided for @quizSubmitGrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Grade'**
+  String get quizSubmitGrade;
+
+  /// No description provided for @quizNoSubmissions.
+  ///
+  /// In en, this message translates to:
+  /// **'No submissions yet'**
+  String get quizNoSubmissions;
+
+  /// No description provided for @quizSelectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String quizSelectedCount(int count);
+
+  /// No description provided for @quizSelectTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get quizSelectTooltip;
+
+  /// No description provided for @quizDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {count} questions?'**
+  String quizDeleteConfirm(int count);
+
+  /// No description provided for @addToLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Quiz to Lesson'**
+  String get addToLessonTitle;
+
+  /// No description provided for @selectCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Course'**
+  String get selectCourse;
+
+  /// No description provided for @selectChapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Chapter'**
+  String get selectChapter;
+
+  /// No description provided for @selectLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Lesson'**
+  String get selectLesson;
+
+  /// No description provided for @addQuizButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Lesson'**
+  String get addQuizButton;
+
+  /// No description provided for @addedToLessonSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiz added to lesson successfully'**
+  String get addedToLessonSuccess;
 }
 
 class _AppLocalizationsDelegate

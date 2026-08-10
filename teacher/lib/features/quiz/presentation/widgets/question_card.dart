@@ -82,6 +82,7 @@ class QuestionCard extends StatelessWidget {
     );
   }
 }
+
 class _CardContent extends StatelessWidget {
   const _CardContent({
     required this.index,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 
 import '../../data/mock_classes_data.dart';
-import '../../data/models/class_model.dart';
+
 import '../widgets/attendance_section.dart';
 import '../widgets/class_activity_section.dart';
 import '../widgets/class_detail_header.dart';

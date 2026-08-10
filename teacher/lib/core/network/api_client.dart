@@ -22,6 +22,7 @@ import '../../features/quiz/data/models/quiz_models.dart';
 import '../../features/profile_settings/data/models/user_profile_response_data.dart';
 import '../../features/profile_settings/data/models/edit_profile_request_data.dart';
 import '../../features/profile_settings/data/models/upload_profile_image_response_data.dart';
+import '../../features/quiz/data/models/quiz_submission_models.dart';
 import 'api_endpoints.dart';
 
 part 'api_client.g.dart';
@@ -234,6 +235,28 @@ abstract class ApiClient {
 
   @DELETE(ApiEndpoints.deleteQuiz)
   Future<DeleteQuizResponseData> deleteQuiz(@Body() Map<String, dynamic> body);
+
+  @GET(ApiEndpoints.getQuizSubmissions)
+  Future<GetQuizSubmissionsResponseData> getQuizSubmissions(
+    @Query('quiz') String? quizName,
+    @Query('pending_grading') bool? pendingGrading,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+  );
+
+  @GET(ApiEndpoints.getStudentQuizSubmissions)
+  Future<GetQuizSubmissionsResponseData> getStudentQuizSubmissions(
+    @Query('member') String? member,
+    @Query('quiz') String? quizName,
+    @Query('pending_grading') bool? pendingGrading,
+    @Query('start') int start,
+    @Query('page_size') int pageSize,
+  );
+
+  @POST(ApiEndpoints.gradeQuizSubmission)
+  Future<GradeQuizSubmissionResponseData> gradeQuizSubmission(
+    @Body() Map<String, dynamic> body,
+  );
 
   // === Quiz — Quiz-Question link ===
 

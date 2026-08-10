@@ -55,8 +55,11 @@ import '../features/quiz/data/models/quiz_models.dart';
 import '../features/quiz/presentation/cubit/quiz_details_cubit.dart';
 import '../features/quiz/presentation/screens/quiz_details_screen.dart';
 import '../features/quiz/presentation/screens/quiz_form_screen.dart';
+import '../features/quiz/presentation/screens/quiz_questions_screen.dart';
 import '../features/quiz/presentation/screens/quiz_questions_slider_screen.dart';
 import '../features/quiz/presentation/screens/quiz_settings_screen.dart';
+import '../features/quiz/presentation/screens/quiz_submission_detail_screen.dart';
+import '../features/quiz/presentation/screens/quiz_submissions_screen.dart';
 import '../features/quiz/presentation/screens/quizzes_list_screen.dart';
 import '../features/notifications/presentation/screens/notification_feed_screen.dart';
 import '../features/notifications/presentation/screens/archived_notifications_screen.dart';
@@ -66,219 +69,232 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ScreenUtilPlusInit(
-      designSize: const Size(360, 780),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) => BlocBuilder<ThemeCubit, ThemeMode>(
-          bloc: getIt<ThemeCubit>(),
-          builder: (context, themeMode) => BlocBuilder<LocaleCubit, Locale>(
-            bloc: getIt<LocaleCubit>(),
-            builder: (context, locale) => MaterialApp(
-              debugShowCheckedModeBanner: false,
-              navigatorKey: getIt<NavigationService>().navigatorKey,
-              title: 'Scolair',
-              theme: AppTheme.lightTheme,
-              darkTheme: AppTheme.darkTheme,
-              themeMode: themeMode,
-              locale: locale,
-              initialRoute: AppRouteNames.splash,
+    designSize: const Size(360, 780),
+    minTextAdapt: true,
+    splitScreenMode: true,
+    builder: (context, child) => BlocBuilder<ThemeCubit, ThemeMode>(
+      bloc: getIt<ThemeCubit>(),
+      builder: (context, themeMode) => BlocBuilder<LocaleCubit, Locale>(
+        bloc: getIt<LocaleCubit>(),
+        builder: (context, locale) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          navigatorKey: getIt<NavigationService>().navigatorKey,
+          title: 'Scolair',
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: themeMode,
+          locale: locale,
+          initialRoute: AppRouteNames.splash,
 
-              navigatorObservers: [UnfocusNavigationObserver()],
+          navigatorObservers: [UnfocusNavigationObserver()],
 
-              onGenerateInitialRoutes: (_) => [
-                MaterialPageRoute(
-                  settings: const RouteSettings(name: AppRouteNames.splash),
-                  builder: (_) => const SplashScreen(),
-                ),
-              ],
-              routes: {
-                AppRouteNames.splash: (_) => const SplashScreen(),
-                AppRouteNames.onboarding: (_) => const OnboardingScreen(),
-                AppRouteNames.home: (_) => const HomeScreen(),
-                AppRouteNames.homeLayout: (_) => const HomeLayout(),
-                AppRouteNames.login: (_) => const LoginScreen(),
-                AppRouteNames.orgEmailLogin: (_) => const OrgEmailLoginScreen(),
-                AppRouteNames.otpVerification: (_) =>
-                    const OtpVerificationScreen(),
-                AppRouteNames.forgotPassword: (_) =>
-                    const ForgotPasswordScreen(),
-                AppRouteNames.resetPassword: (_) => const ResetPasswordScreen(),
-                AppRouteNames.biometricUnlock: (_) =>
-                    const BiometricUnlockScreen(),
-                AppRouteNames.biometricRequest: (_) =>
-                    const BiometricRequestScreen(),
-                AppRouteNames.myCourses: (_) => const MyCoursesScreen(),
-                AppRouteNames.quizzesList: (_) => const QuizzesListScreen(),
-                AppRouteNames.homeworkList: (_) => const HomeworkListScreen(),
-                AppRouteNames.teacherProfile: (_) =>
-                    const ProfileSettingsScreen(),
-                AppRouteNames.profileSettings: (_) =>
-                    const ProfileSettingsScreen(),
-                AppRouteNames.editProfile: (_) => const EditProfileScreen(),
-                AppRouteNames.accountInformation: (_) =>
-                    const AccountInformationScreen(),
-                AppRouteNames.languageSettings: (_) =>
-                    const LanguageSettingsScreen(),
-                AppRouteNames.themeSettings: (_) => const ThemeSettingsScreen(),
-                AppRouteNames.notificationPreferences: (_) =>
-                    const NotificationPreferencesScreen(),
-                AppRouteNames.securitySettings: (_) =>
-                    const SecuritySettingsScreen(),
-                AppRouteNames.changePassword: (_) =>
-                    const ChangePasswordScreen(),
-                AppRouteNames.helpSupport: (_) => const HelpSupportScreen(),
-                AppRouteNames.toolkitWhiteboard: (_) =>
-                    const ToolkitWhiteboardScreen(),
-                AppRouteNames.notifications: (_) =>
-                    const NotificationFeedScreen(),
-                AppRouteNames.archivedNotifications: (_) =>
-                    const ArchivedNotificationsScreen(),
-              },
-              onGenerateRoute: (settings) {
-                switch (settings.name) {
-                  case AppRouteNames.homeworkCreate:
-                  case AppRouteNames.homeworkEdit:
-                    return MaterialPageRoute(
-                      builder: (_) => HomeworkFormScreen(
-                        editingHomework:
-                            settings.arguments as HomeworkListItem?,
-                      ),
-                    );
-                  case AppRouteNames.homeworkDetails:
-                    return MaterialPageRoute(
-                      builder: (_) => HomeworkDetailsScreen(
-                        homeworkName: settings.arguments! as String,
-                      ),
-                    );
-                  case AppRouteNames.homeworkQuestionsSlider:
-                    final args =
-                        settings.arguments! as HomeworkQuestionsSliderScreenArgs;
-                    return MaterialPageRoute(
-                      builder: (_) => BlocProvider.value(
-                        value: args.cubit,
-                        child: HomeworkQuestionsSliderScreen(
-                          homework: args.homework,
-                        ),
-                      ),
-                    );
-                  case AppRouteNames.homeworkSubmissionDetails:
-                    return MaterialPageRoute(
-                      builder: (_) => HomeworkSubmissionDetailScreen(
-                        submissionName: settings.arguments! as String,
-                      ),
-                    );
-                  case AppRouteNames.classDetail:
-                    return MaterialPageRoute(
-                      builder: (_) => ClassDetailScreen(
-                        classCode: settings.arguments! as String,
-                      ),
-                    );
-                  case AppRouteNames.courseForm:
-                    return MaterialPageRoute(
-                      builder: (_) => CourseFormScreen(
-                        editingCourse: settings.arguments as CourseModel?,
-                      ),
-                    );
-                  case AppRouteNames.courseStudents:
-                    final args = settings.arguments! as CourseStudentsScreenArgs;
-                    return MaterialPageRoute(
-                      builder: (_) => CourseStudentsScreen(
-                        courseName: args.courseName,
-                        courseTitle: args.courseTitle,
-                      ),
-                    );
-                  case AppRouteNames.courseDetails:
-                    return MaterialPageRoute(
-                      builder: (_) => CourseDetailsScreen(
-                        courseName: settings.arguments! as String,
-                      ),
-                    );
-                  case AppRouteNames.lessonForm:
-                    final args = settings.arguments! as LessonFormScreenArgs;
-                    return MaterialPageRoute(
-                      builder: (_) => LessonFormScreen(
-                        chapterName: args.chapterName,
-                        editingLesson: args.editingLesson,
-                      ),
-                    );
-                  case AppRouteNames.lessonDetails:
-                    final args = settings.arguments! as LessonDetailsScreenArgs;
-                    return MaterialPageRoute(
-                      builder: (_) => LessonDetailsScreen(
-                        lessonName: args.lessonName,
-                        chapterName: args.chapterName,
-                      ),
-                    );
-                  case AppRouteNames.quizDetails:
-                    return MaterialPageRoute(
-                      builder: (_) => QuizDetailsScreen(
-                        quizName: settings.arguments! as String,
-                      ),
-                    );
-                  case AppRouteNames.pdfViewer:
-                    return MaterialPageRoute(
-                      builder: (_) => PdfViewerScreen(
-                        fileUrl: settings.arguments! as String,
-                      ),
-                    );
-                  case AppRouteNames.quizQuestionsSlider:
-                    final args =
-                        settings.arguments! as QuizQuestionsSliderScreenArgs;
-                    return MaterialPageRoute(
-                      builder: (_) => BlocProvider.value(
-                        value: args.cubit,
-                        child: QuizQuestionsSliderScreen(
-                          quiz: args.quiz,
-                          initialIndex: args.initialIndex,
-                        ),
-                      ),
-                    );
-                  case AppRouteNames.quizSettings:
-                    final cubit = settings.arguments! as QuizDetailsCubit;
-                    return MaterialPageRoute(
-                      builder: (_) => BlocProvider.value(
-                        value: cubit,
-                        child: const QuizSettingsScreen(),
-                      ),
-                    );
-                  case AppRouteNames.questionBank:
-                    final args = settings.arguments! as QuestionBankScreenArgs;
-                    return MaterialPageRoute(
-                      builder: (_) => QuestionBankScreen(
-                        blockedTypes: args.blockedTypes,
-                        blockedQuestionNames: args.blockedQuestionNames,
-                        confirmLabel: args.confirmLabel,
-                      ),
-                    );
-                  case AppRouteNames.questionForm:
-                    return MaterialPageRoute(
-                      builder: (_) => QuestionFormScreen(
-                        editingQuestion: settings.arguments as QuestionModel?,
-                      ),
-                    );
-                  case AppRouteNames.quizForm:
-                    return MaterialPageRoute(
-                      builder: (_) => QuizFormScreen(
-                        editingQuiz: settings.arguments as QuizSummaryModel?,
-                      ),
-                    );
-                  default:
-                    return null;
-                }
-              },
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-
-              builder: (context, child) => GestureDetector(
-                  onTap: () {
-                    // Using FocusManager inside the global builder context to guarantee
-                    // it hits the correct scope regardless of the current context state.
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  },
-                  child: child,
-                ),
+          onGenerateInitialRoutes: (_) => [
+            MaterialPageRoute(
+              settings: const RouteSettings(name: AppRouteNames.splash),
+              builder: (_) => const SplashScreen(),
             ),
+          ],
+          routes: {
+            AppRouteNames.splash: (_) => const SplashScreen(),
+            AppRouteNames.onboarding: (_) => const OnboardingScreen(),
+            AppRouteNames.home: (_) => const HomeScreen(),
+            AppRouteNames.homeLayout: (_) => const HomeLayout(),
+            AppRouteNames.login: (_) => const LoginScreen(),
+            AppRouteNames.orgEmailLogin: (_) => const OrgEmailLoginScreen(),
+            AppRouteNames.otpVerification: (_) => const OtpVerificationScreen(),
+            AppRouteNames.forgotPassword: (_) => const ForgotPasswordScreen(),
+            AppRouteNames.resetPassword: (_) => const ResetPasswordScreen(),
+            AppRouteNames.biometricUnlock: (_) => const BiometricUnlockScreen(),
+            AppRouteNames.biometricRequest: (_) =>
+                const BiometricRequestScreen(),
+            AppRouteNames.myCourses: (_) => const MyCoursesScreen(),
+            AppRouteNames.quizzesList: (_) => const QuizzesListScreen(),
+            AppRouteNames.homeworkList: (_) => const HomeworkListScreen(),
+            AppRouteNames.teacherProfile: (_) => const ProfileSettingsScreen(),
+            AppRouteNames.profileSettings: (_) => const ProfileSettingsScreen(),
+            AppRouteNames.editProfile: (_) => const EditProfileScreen(),
+            AppRouteNames.accountInformation: (_) =>
+                const AccountInformationScreen(),
+            AppRouteNames.languageSettings: (_) =>
+                const LanguageSettingsScreen(),
+            AppRouteNames.themeSettings: (_) => const ThemeSettingsScreen(),
+            AppRouteNames.notificationPreferences: (_) =>
+                const NotificationPreferencesScreen(),
+            AppRouteNames.securitySettings: (_) =>
+                const SecuritySettingsScreen(),
+            AppRouteNames.changePassword: (_) => const ChangePasswordScreen(),
+            AppRouteNames.helpSupport: (_) => const HelpSupportScreen(),
+            AppRouteNames.toolkitWhiteboard: (_) =>
+                const ToolkitWhiteboardScreen(),
+            AppRouteNames.notifications: (_) => const NotificationFeedScreen(),
+            AppRouteNames.archivedNotifications: (_) =>
+                const ArchivedNotificationsScreen(),
+          },
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case AppRouteNames.homeworkCreate:
+              case AppRouteNames.homeworkEdit:
+                return MaterialPageRoute(
+                  builder: (_) => HomeworkFormScreen(
+                    editingHomework: settings.arguments as HomeworkListItem?,
+                  ),
+                );
+              case AppRouteNames.homeworkDetails:
+                return MaterialPageRoute(
+                  builder: (_) => HomeworkDetailsScreen(
+                    homeworkName: settings.arguments! as String,
+                  ),
+                );
+              case AppRouteNames.homeworkQuestionsSlider:
+                final args =
+                    settings.arguments! as HomeworkQuestionsSliderScreenArgs;
+                return MaterialPageRoute(
+                  builder: (_) => BlocProvider.value(
+                    value: args.cubit,
+                    child: HomeworkQuestionsSliderScreen(
+                      homework: args.homework,
+                    ),
+                  ),
+                );
+              case AppRouteNames.homeworkSubmissionDetails:
+                return MaterialPageRoute(
+                  builder: (_) => HomeworkSubmissionDetailScreen(
+                    submissionName: settings.arguments! as String,
+                  ),
+                );
+              case AppRouteNames.classDetail:
+                return MaterialPageRoute(
+                  builder: (_) => ClassDetailScreen(
+                    classCode: settings.arguments! as String,
+                  ),
+                );
+              case AppRouteNames.courseForm:
+                return MaterialPageRoute(
+                  builder: (_) => CourseFormScreen(
+                    editingCourse: settings.arguments as CourseModel?,
+                  ),
+                );
+              case AppRouteNames.courseStudents:
+                final args = settings.arguments! as CourseStudentsScreenArgs;
+                return MaterialPageRoute(
+                  builder: (_) => CourseStudentsScreen(
+                    courseName: args.courseName,
+                    courseTitle: args.courseTitle,
+                  ),
+                );
+              case AppRouteNames.courseDetails:
+                return MaterialPageRoute(
+                  builder: (_) => CourseDetailsScreen(
+                    courseName: settings.arguments! as String,
+                  ),
+                );
+              case AppRouteNames.lessonForm:
+                final args = settings.arguments! as LessonFormScreenArgs;
+                return MaterialPageRoute(
+                  builder: (_) => LessonFormScreen(
+                    chapterName: args.chapterName,
+                    editingLesson: args.editingLesson,
+                  ),
+                );
+              case AppRouteNames.lessonDetails:
+                final args = settings.arguments! as LessonDetailsScreenArgs;
+                return MaterialPageRoute(
+                  builder: (_) => LessonDetailsScreen(
+                    lessonName: args.lessonName,
+                    chapterName: args.chapterName,
+                  ),
+                );
+              case AppRouteNames.quizDetails:
+                return MaterialPageRoute(
+                  builder: (_) => QuizDetailsScreen(
+                    quizName: settings.arguments! as String,
+                  ),
+                );
+              case AppRouteNames.pdfViewer:
+                return MaterialPageRoute(
+                  builder: (_) =>
+                      PdfViewerScreen(fileUrl: settings.arguments! as String),
+                );
+              case AppRouteNames.quizQuestions:
+                final args = settings.arguments! as QuizQuestionsScreenArgs;
+                return MaterialPageRoute(
+                  builder: (_) => QuizQuestionsScreen(
+                    cubit: args.cubit,
+                    quiz: args.quiz,
+                  ),
+                );
+              case AppRouteNames.quizSubmissions:
+                return MaterialPageRoute(
+                  builder: (_) => QuizSubmissionsScreen(
+                    quizName: settings.arguments! as String,
+                  ),
+                );
+              case AppRouteNames.quizQuestionsSlider:
+                final args =
+                    settings.arguments! as QuizQuestionsSliderScreenArgs;
+                return MaterialPageRoute(
+                  builder: (_) => BlocProvider.value(
+                    value: args.cubit,
+                    child: QuizQuestionsSliderScreen(
+                      quiz: args.quiz,
+                      initialIndex: args.initialIndex,
+                    ),
+                  ),
+                );
+              case AppRouteNames.quizSubmissionDetails:
+                final args = settings.arguments! as Map<String, dynamic>;
+                return MaterialPageRoute(
+                  builder: (_) => QuizSubmissionDetailScreen(
+                    quizName: args['quizName'] as String,
+                    submission: args['submission'], // It's QuizSubmissionItem
+                  ),
+                );
+              case AppRouteNames.quizSettings:
+                final cubit = settings.arguments! as QuizDetailsCubit;
+                return MaterialPageRoute(
+                  builder: (_) => BlocProvider.value(
+                    value: cubit,
+                    child: const QuizSettingsScreen(),
+                  ),
+                );
+              case AppRouteNames.questionBank:
+                final args = settings.arguments! as QuestionBankScreenArgs;
+                return MaterialPageRoute(
+                  builder: (_) => QuestionBankScreen(
+                    blockedTypes: args.blockedTypes,
+                    blockedQuestionNames: args.blockedQuestionNames,
+                    confirmLabel: args.confirmLabel,
+                  ),
+                );
+              case AppRouteNames.questionForm:
+                return MaterialPageRoute(
+                  builder: (_) => QuestionFormScreen(
+                    editingQuestion: settings.arguments as QuestionModel?,
+                  ),
+                );
+              case AppRouteNames.quizForm:
+                return MaterialPageRoute(
+                  builder: (_) => QuizFormScreen(
+                    editingQuiz: settings.arguments as QuizSummaryModel?,
+                  ),
+                );
+              default:
+                return null;
+            }
+          },
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+
+          builder: (context, child) => GestureDetector(
+            onTap: () {
+              // Using FocusManager inside the global builder context to guarantee
+              // it hits the correct scope regardless of the current context state.
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: child,
           ),
         ),
-    );
+      ),
+    ),
+  );
 }

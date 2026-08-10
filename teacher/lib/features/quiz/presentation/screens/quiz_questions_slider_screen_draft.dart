@@ -1,7 +1,6 @@
 import '../../data/models/quiz_models.dart';
 
 class DraftQuestion {
-
   DraftQuestion({
     this.existingQuizQuestionId,
     this.originalData,
@@ -86,9 +85,16 @@ class DraftQuestion {
       return val1 != val2;
     }
 
-    if (inlineData!.containsKey('local_attachment_path') && inlineData!['local_attachment_path'] != null) return true;
+    if (inlineData!.containsKey('local_attachment_path') &&
+        inlineData!['local_attachment_path'] != null) {
+      return true;
+    }
 
-    if (isDifferent('question') || isDifferent('type') || isDifferent('attachment')) return true;
+    if (isDifferent('question') ||
+        isDifferent('type') ||
+        isDifferent('attachment')) {
+      return true;
+    }
 
     if (currentType == 'Choices') {
       if (isDifferent('multiple')) return true;
@@ -107,11 +113,11 @@ class DraftQuestion {
   }
 
   String _typeToString(ApiQuestionType type) => switch (type) {
-      ApiQuestionType.choices => 'Choices',
-      ApiQuestionType.userInput => 'User Input',
-      ApiQuestionType.openEnded => 'Open Ended',
-      ApiQuestionType.fileUpload => 'File Upload',
-    };
+    ApiQuestionType.choices => 'Choices',
+    ApiQuestionType.userInput => 'User Input',
+    ApiQuestionType.openEnded => 'Open Ended',
+    ApiQuestionType.fileUpload => 'File Upload',
+  };
 
   dynamic _normalize(dynamic value) {
     if (value == null) return '';

@@ -17,11 +17,11 @@ class QuestionTypeSelector extends StatelessWidget {
   final ValueChanged<ApiQuestionType> onChanged;
 
   IconData _iconFor(ApiQuestionType type) => switch (type) {
-      ApiQuestionType.choices => Icons.check_circle_outline,
-      ApiQuestionType.userInput => Icons.keyboard_alt_outlined,
-      ApiQuestionType.openEnded => Icons.notes_outlined,
-      ApiQuestionType.fileUpload => Icons.upload_file_outlined,
-    };
+    ApiQuestionType.choices => Icons.check_circle_outline,
+    ApiQuestionType.userInput => Icons.keyboard_alt_outlined,
+    ApiQuestionType.openEnded => Icons.notes_outlined,
+    ApiQuestionType.fileUpload => Icons.upload_file_outlined,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -142,52 +142,52 @@ class ChoicesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SwitchListTile(
-          contentPadding: EdgeInsets.zero,
-          title: Text(context.l10n.questionMultipleCorrect),
-          value: multiple,
-          onChanged: onMultipleChanged,
-        ),
-        SizedBox(height: 8.h),
-        OptionTile(
-          index: 1,
-          controller: option1,
-          explanationController: explanation1,
-          isCorrect: correctOptions.contains(1),
-          onToggle: () => onToggleCorrect(1),
-        ),
-        OptionTile(
-          index: 2,
-          controller: option2,
-          explanationController: explanation2,
-          isCorrect: correctOptions.contains(2),
-          onToggle: () => onToggleCorrect(2),
-        ),
-        OptionTile(
-          index: 3,
-          controller: option3,
-          explanationController: explanation3,
-          isCorrect: correctOptions.contains(3),
-          onToggle: () => onToggleCorrect(3),
-        ),
-        OptionTile(
-          index: 4,
-          controller: option4,
-          explanationController: explanation4,
-          isCorrect: correctOptions.contains(4),
-          onToggle: () => onToggleCorrect(4),
-        ),
-        OptionTile(
-          index: 5,
-          controller: option5,
-          explanationController: explanation5,
-          isCorrect: correctOptions.contains(5),
-          onToggle: () => onToggleCorrect(5),
-        ),
-      ],
-    );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.questionMultipleCorrect),
+        value: multiple,
+        onChanged: onMultipleChanged,
+      ),
+      SizedBox(height: 8.h),
+      OptionTile(
+        index: 1,
+        controller: option1,
+        explanationController: explanation1,
+        isCorrect: correctOptions.contains(1),
+        onToggle: () => onToggleCorrect(1),
+      ),
+      OptionTile(
+        index: 2,
+        controller: option2,
+        explanationController: explanation2,
+        isCorrect: correctOptions.contains(2),
+        onToggle: () => onToggleCorrect(2),
+      ),
+      OptionTile(
+        index: 3,
+        controller: option3,
+        explanationController: explanation3,
+        isCorrect: correctOptions.contains(3),
+        onToggle: () => onToggleCorrect(3),
+      ),
+      OptionTile(
+        index: 4,
+        controller: option4,
+        explanationController: explanation4,
+        isCorrect: correctOptions.contains(4),
+        onToggle: () => onToggleCorrect(4),
+      ),
+      OptionTile(
+        index: 5,
+        controller: option5,
+        explanationController: explanation5,
+        isCorrect: correctOptions.contains(5),
+        onToggle: () => onToggleCorrect(5),
+      ),
+    ],
+  );
 }
 
 class OptionTile extends StatelessWidget {
@@ -332,26 +332,26 @@ class UserInputSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          context.l10n.questionPossibilitiesLabel,
-          style: Theme.of(
-            context,
-          ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
-        ),
-        SizedBox(height: 12.h),
-        _PossibilityField(index: 1, controller: possibility1),
-        SizedBox(height: 8.h),
-        _PossibilityField(index: 2, controller: possibility2),
-        SizedBox(height: 8.h),
-        _PossibilityField(index: 3, controller: possibility3),
-        SizedBox(height: 8.h),
-        _PossibilityField(index: 4, controller: possibility4),
-        SizedBox(height: 8.h),
-        _PossibilityField(index: 5, controller: possibility5),
-      ],
-    );
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        context.l10n.questionPossibilitiesLabel,
+        style: Theme.of(
+          context,
+        ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+      ),
+      SizedBox(height: 12.h),
+      _PossibilityField(index: 1, controller: possibility1),
+      SizedBox(height: 8.h),
+      _PossibilityField(index: 2, controller: possibility2),
+      SizedBox(height: 8.h),
+      _PossibilityField(index: 3, controller: possibility3),
+      SizedBox(height: 8.h),
+      _PossibilityField(index: 4, controller: possibility4),
+      SizedBox(height: 8.h),
+      _PossibilityField(index: 5, controller: possibility5),
+    ],
+  );
 }
 
 class _PossibilityField extends StatelessWidget {

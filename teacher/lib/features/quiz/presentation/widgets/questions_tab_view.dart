@@ -14,7 +14,8 @@ import 'quiz_state_widgets.dart';
 class QuestionsTabView extends StatelessWidget {
   const QuestionsTabView({
     required this.quiz,
-    required this.onAddQuestion, this.onDeleteQuestion,
+    required this.onAddQuestion,
+    this.onDeleteQuestion,
     this.isSelectionMode = false,
     this.selectedQuestions = const {},
     this.onToggleSelection,

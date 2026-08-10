@@ -19,19 +19,16 @@ class QuizzesListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider(
-      create: (_) => getIt<QuizzesCubit>()..loadQuizzes(),
-      child: const _QuizzesListView(),
-    );
+    create: (_) => getIt<QuizzesCubit>()..loadQuizzes(),
+    child: const _QuizzesListView(),
+  );
 }
 
 class _QuizzesListView extends StatelessWidget {
   const _QuizzesListView();
 
   Future<void> _createQuiz(BuildContext context) async {
-    final created = await Navigator.pushNamed(
-      context,
-      AppRouteNames.quizForm,
-    );
+    final created = await Navigator.pushNamed(context, AppRouteNames.quizForm);
     if (created == true && context.mounted) {
       unawaited(context.read<QuizzesCubit>().loadQuizzes());
     }
@@ -39,58 +36,55 @@ class _QuizzesListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      body: RefreshIndicator(
-        onRefresh: context.read<QuizzesCubit>().loadQuizzes,
-        child: CustomScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          slivers: [
-            SliverAppBar(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(24.r),
-                  bottomRight: Radius.circular(24.r),
-                ),
+    body: RefreshIndicator(
+      onRefresh: context.read<QuizzesCubit>().loadQuizzes,
+      child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(24.r),
+                bottomRight: Radius.circular(24.r),
               ),
-              title: Text(context.l10n.quizzesTitle),
-              floating: true,
-              leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back_ios_new_rounded),
-              ),
-              actions: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 8.h,
-                  ),
-                  child: IconButton.filled(
-                    onPressed: () => _createQuiz(context),
-                    icon: const Icon(Icons.add),
-                    style: IconButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      iconSize: 24.r,
-                      backgroundColor: AppColors.primaryPressed,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.r),
-                      ),
+            ),
+            title: Text(context.l10n.quizzesTitle),
+            floating: true,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back_ios_new_rounded),
+            ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                child: IconButton.filled(
+                  onPressed: () => _createQuiz(context),
+                  icon: const Icon(Icons.add),
+                  style: IconButton.styleFrom(
+                    padding: EdgeInsets.zero,
+                    iconSize: 24.r,
+                    backgroundColor: AppColors.primaryPressed,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
                     ),
                   ),
                 ),
-              ],
-            ),
-            SliverSafeArea(
-              top: false,
-              sliver: SliverPadding(
-                padding: EdgeInsets.all(16.r),
-                sliver: const _QuizzesBody(),
               ),
+            ],
+          ),
+          SliverSafeArea(
+            top: false,
+            sliver: SliverPadding(
+              padding: EdgeInsets.all(16.r),
+              sliver: const _QuizzesBody(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ),
+  );
 }
 
 class _QuizzesBody extends StatelessWidget {
@@ -101,51 +95,52 @@ class _QuizzesBody extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => BlocConsumer<QuizzesCubit, QuizzesState>(
-      listener: (context, state) {
-        final error = state.errorMessage;
-        if (error != null) {
-          AppSnackBar.showError(context, error);
-        }
-      },
-      builder: (context, state) {
-        if (state.isLoading) {
-          return const SliverFillRemaining(
-            child: Center(child: CircularProgressIndicator()),
-          );
-        }
-        final quizzes = state.quizzes?.items ?? const [];
-
-        if (quizzes.isEmpty) {
-          return SliverFillRemaining(
-            child: Center(child: Text(context.l10n.quizzesEmptyMessage)),
-          );
-        }
-
-        return SliverList(
-          delegate: SliverChildBuilderDelegate((context, index) {
-            final quiz = quizzes[index];
-            return QuizCard(
-              quiz: quiz,
-              onTap: () => Navigator.pushNamed(
-                context,
-                AppRouteNames.quizDetails,
-                arguments: quiz.name,
-              ),
-              onEdit: () async {
-                final updated = await Navigator.pushNamed(
-                  context,
-                  AppRouteNames.quizForm,
-                  arguments: quiz,
-                );
-                if (updated == true && context.mounted) {
-                  unawaited(context.read<QuizzesCubit>().loadQuizzes());
-                }
-              },
-              onDelete: () => _onDeleteQuiz(context, quiz.name),
+  Widget build(BuildContext context) =>
+      BlocConsumer<QuizzesCubit, QuizzesState>(
+        listener: (context, state) {
+          final error = state.errorMessage;
+          if (error != null) {
+            AppSnackBar.showError(context, error);
+          }
+        },
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const SliverFillRemaining(
+              child: Center(child: CircularProgressIndicator()),
             );
-          }, childCount: quizzes.length),
-        );
-      },
-    );
+          }
+          final quizzes = state.quizzes?.items ?? const [];
+
+          if (quizzes.isEmpty) {
+            return SliverFillRemaining(
+              child: Center(child: Text(context.l10n.quizzesEmptyMessage)),
+            );
+          }
+
+          return SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              final quiz = quizzes[index];
+              return QuizCard(
+                quiz: quiz,
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  AppRouteNames.quizDetails,
+                  arguments: quiz.name,
+                ),
+                onEdit: () async {
+                  final updated = await Navigator.pushNamed(
+                    context,
+                    AppRouteNames.quizForm,
+                    arguments: quiz,
+                  );
+                  if (updated == true && context.mounted) {
+                    unawaited(context.read<QuizzesCubit>().loadQuizzes());
+                  }
+                },
+                onDelete: () => _onDeleteQuiz(context, quiz.name),
+              );
+            }, childCount: quizzes.length),
+          );
+        },
+      );
 }

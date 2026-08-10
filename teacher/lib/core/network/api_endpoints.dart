@@ -85,6 +85,12 @@ abstract final class ApiEndpoints {
       '/api/method/lms.quiz.controllers.add_question';
   static const String removeQuestionFromQuiz =
       '/api/method/lms.quiz.controllers.remove_question';
+  static const String getQuizSubmissions =
+      '/api/method/lms.quiz.controllers.get_submissions';
+  static const String getStudentQuizSubmissions =
+      '/api/method/lms.quiz.controllers.get_student_submissions';
+  static const String gradeQuizSubmission =
+      '/api/method/lms.quiz.controllers.grade_submission';
   static const String listHomeworks =
       '/api/method/lms.homework.controllers.list_homeworks';
   static const String getHomework =

@@ -55,16 +55,21 @@ import '../../features/courses/presentation/cubit/lesson_form_cubit.dart';
 import '../../features/quiz/data/datasources/remote/quiz_remote_datasource.dart';
 import '../../features/quiz/data/repositories/quiz_repository_impl.dart';
 import '../../features/quiz/domain/repositories/quiz_repository.dart';
+import '../../features/quiz/domain/usecases/quiz_submissions_usecases.dart';
 import '../../features/quiz/domain/usecases/quiz_usecases.dart';
+import '../../features/quiz/presentation/cubit/add_to_lesson/add_to_lesson_cubit.dart';
 import '../../features/quiz/presentation/cubit/quizzes_cubit.dart';
 import '../../features/quiz/presentation/cubit/quiz_form_cubit.dart';
+import '../../features/quiz/presentation/cubit/submissions/quiz_submissions_cubit.dart';
+import '../../features/quiz/presentation/cubit/grading/quiz_grading_cubit.dart';
+import '../../features/quiz/presentation/cubit/quiz_details_cubit.dart';
 import '../../features/notifications/data/datasources/local/notification_mock_datasource.dart';
 import '../../features/notifications/data/datasources/remote/notification_remote_data_source.dart';
 import '../../features/notifications/data/repositories/notification_repository_impl.dart';
 import '../../features/notifications/domain/repositories/notification_repository.dart';
 import '../../features/notifications/domain/usecases/notification_usecases.dart';
 import '../../features/notifications/presentation/cubit/notification_feed_cubit.dart';
-import '../../features/quiz/presentation/cubit/quiz_details_cubit.dart';
+
 import '../../features/question/data/datasources/remote/question_remote_datasource.dart'
     as question_data;
 import '../../features/question/data/repositories/question_repository_impl.dart'
@@ -301,10 +306,32 @@ Future<void> setupDependencyInjection() async {
     ..registerLazySingleton<RemoveQuestionFromQuizUseCase>(
       () => RemoveQuestionFromQuizUseCase(getIt()),
     )
+    ..registerLazySingleton<GetQuizSubmissionsUseCase>(
+      () => GetQuizSubmissionsUseCase(getIt()),
+    )
+    ..registerLazySingleton<GetStudentQuizSubmissionsUseCase>(
+      () => GetStudentQuizSubmissionsUseCase(getIt()),
+    )
+    ..registerLazySingleton<GradeQuizSubmissionUseCase>(
+      () => GradeQuizSubmissionUseCase(getIt()),
+    )
     ..registerFactory<QuizzesCubit>(() => QuizzesCubit(getIt(), getIt()))
     ..registerFactory<QuizFormCubit>(() => QuizFormCubit(getIt(), getIt()))
     ..registerFactory<QuizDetailsCubit>(
       () => QuizDetailsCubit(getIt(), getIt(), getIt(), getIt(), getIt()),
+    )
+    ..registerFactory<QuizSubmissionsCubit>(() => QuizSubmissionsCubit(getIt()))
+    ..registerFactory<QuizGradingCubit>(
+      () => QuizGradingCubit(getIt(), getIt()),
+    )
+    ..registerFactory<AddToLessonCubit>(
+      () => AddToLessonCubit(
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+      ),
     )
     // Question Feature
     ..registerLazySingleton<question_data.QuestionRemoteDataSource>(
@@ -418,11 +445,7 @@ Future<void> setupDependencyInjection() async {
       () => HomeworkSubmissionsCubit(getIt()),
     )
     ..registerFactory<HomeworkGradingCubit>(
-      () => HomeworkGradingCubit(
-        getIt(),
-        getIt(),
-        getIt(),
-      ),
+      () => HomeworkGradingCubit(getIt(), getIt(), getIt()),
     )
     // Profile Settings Feature
     ..registerLazySingleton<ProfileSettingsRemoteDataSource>(

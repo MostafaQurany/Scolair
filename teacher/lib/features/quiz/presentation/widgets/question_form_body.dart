@@ -331,7 +331,8 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                                 alpha: 0.4,
                               ),
                             ),
-                            if (_selectedImageFile != null || _existingAttachmentUrl != null)
+                            if (_selectedImageFile != null ||
+                                _existingAttachmentUrl != null)
                               Padding(
                                 padding: EdgeInsets.all(8.r),
                                 child: Stack(
@@ -361,7 +362,10 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                                         child: IconButton(
                                           padding: EdgeInsets.zero,
                                           iconSize: 16.r,
-                                          icon: Icon(Icons.close, color: colorScheme.error),
+                                          icon: Icon(
+                                            Icons.close,
+                                            color: colorScheme.error,
+                                          ),
                                           onPressed: () {
                                             setState(() {
                                               _selectedImageFile = null;
@@ -384,17 +388,21 @@ class QuestionFormBodyState extends State<QuestionFormBody> {
                                   alignment: Alignment.centerLeft,
                                   child: TextButton.icon(
                                     onPressed: () async {
-                                      final result = await FilePicker.platform.pickFiles(
-                                        type: FileType.image,
-                                      );
-                                      if (result != null && result.files.single.path != null) {
+                                      final result = await FilePicker.platform
+                                          .pickFiles(type: FileType.image);
+                                      if (result != null &&
+                                          result.files.single.path != null) {
                                         setState(() {
-                                          _selectedImageFile = File(result.files.single.path!);
+                                          _selectedImageFile = File(
+                                            result.files.single.path!,
+                                          );
                                         });
                                       }
                                     },
                                     icon: const Icon(Icons.image_outlined),
-                                    label: Text(context.l10n.questionAttachMedia),
+                                    label: Text(
+                                      context.l10n.questionAttachMedia,
+                                    ),
                                   ),
                                 ),
                               ),

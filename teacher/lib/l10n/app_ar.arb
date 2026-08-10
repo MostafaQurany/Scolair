@@ -1041,5 +1041,33 @@
   "noNotifications": "لا توجد إشعارات",
   "unread": "غير مقروءة",
   "all": "الكل",
-  "actionRequired": "يتطلب إجراء"
+  "actionRequired": "يتطلب إجراء",
+  "quizSubmissionsTitle": "تسليمات الاختبار",
+  "quizSubmissionDetailTitle": "تفاصيل التسليم",
+  "quizGradedSuccess": "تم تصحيح التسليم بنجاح",
+  "quizSubmitGrade": "اعتماد الدرجة",
+  "quizNoSubmissions": "لا توجد تسليمات بعد",
+  "quizSelectedCount": "تم تحديد {count}",
+  "@quizSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "quizSelectTooltip": "تحديد",
+  "quizDeleteConfirm": "حذف {count} أسئلة؟",
+  "@quizDeleteConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addToLessonTitle": "إضافة الاختبار إلى درس",
+  "selectCourse": "اختر الدورة",
+  "selectChapter": "اختر الفصل",
+  "selectLesson": "اختر الدرس",
+  "addQuizButton": "إضافة للدرس",
+  "addedToLessonSuccess": "تمت إضافة الاختبار للدرس بنجاح"
 }

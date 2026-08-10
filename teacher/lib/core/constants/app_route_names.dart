@@ -42,6 +42,9 @@ abstract final class AppRouteNames {
   static const String questionBank = '/question-bank';
   static const String questionForm = '/question-form';
   static const String quizForm = '/quiz-form';
+  static const String quizQuestions = '/quiz-questions';
+  static const String quizSubmissionDetails = '/quiz-submission-details';
+  static const String quizSubmissions = '/quiz-submissions';
 
   // Profile and Settings routes
   static const String profileSettings = '/profile-settings';

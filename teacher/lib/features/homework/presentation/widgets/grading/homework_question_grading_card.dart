@@ -5,7 +5,7 @@ import 'package:flutter_screenutil_plus/flutter_screenutil_plus.dart';
 import '../../../../../core/localization/localization_extension.dart';
 import '../../../domain/entities/homework_submission.dart';
 import '../../cubit/grading/homework_grading_cubit.dart';
-import '../../cubit/grading/homework_grading_state.dart';
+
 
 class HomeworkQuestionGradingCard extends StatelessWidget {
   const HomeworkQuestionGradingCard({
@@ -53,7 +53,7 @@ class HomeworkQuestionGradingCard extends StatelessWidget {
             _buildAnswerSection(context, colors, textTheme),
             SizedBox(height: 16.h),
             if (question.isManualGraded)
-              _buildManualGradingSection(context)
+              _ManualGradingSection(question: question)
             else
               _buildAutoGradedSection(context, colors),
           ],
@@ -112,51 +112,79 @@ class HomeworkQuestionGradingCard extends StatelessWidget {
         ],
       ),
     );
+}
 
-  Widget _buildManualGradingSection(BuildContext context) => BlocBuilder<HomeworkGradingCubit, HomeworkGradingState>(
-      builder: (context, state) {
-        final currentMark = state.questionMarks[question.question] ?? (question.marksAwarded ?? 0);
-        final currentNote = state.questionNotes[question.question] ?? (question.note ?? '');
+class _ManualGradingSection extends StatefulWidget {
+  const _ManualGradingSection({required this.question});
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+  final SubmissionQuestionDetail question;
+
+  @override
+  State<_ManualGradingSection> createState() => _ManualGradingSectionState();
+}
+
+class _ManualGradingSectionState extends State<_ManualGradingSection> {
+  late final TextEditingController _marksController;
+  late final TextEditingController _noteController;
+
+  @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<HomeworkGradingCubit>();
+    final currentMark = cubit.state.questionMarks[widget.question.question] ?? (widget.question.marksAwarded ?? 0);
+    final currentNote = cubit.state.questionNotes[widget.question.question] ?? (widget.question.note ?? '');
+
+    _marksController = TextEditingController(text: '$currentMark');
+    _noteController = TextEditingController(text: currentNote);
+  }
+
+  @override
+  void dispose() {
+    _marksController.dispose();
+    _noteController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                Text(context.l10n.homeworkAssignMarks, style: const TextStyle(fontWeight: FontWeight.w600)),
-                const Spacer(),
-                SizedBox(
-                  width: 100.w,
-                  child: TextFormField(
-                    initialValue: '$currentMark',
-                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    decoration: InputDecoration(
-                      isDense: true,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 8.r),
-                      border: const OutlineInputBorder(),
-                      suffixText: '/ ${question.maxMarks}',
-                    ),
-                    onChanged: (val) {
-                      final parsed = num.tryParse(val) ?? 0;
-                      context.read<HomeworkGradingCubit>().setMark(question.question, parsed, question.maxMarks);
-                    },
-                  ),
+            Text(context.l10n.homeworkAssignMarks, style: const TextStyle(fontWeight: FontWeight.w600)),
+            const Spacer(),
+            SizedBox(
+              width: 100.w,
+              child: TextFormField(
+                controller: _marksController,
+                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(
+                  isDense: true,
+                  contentPadding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 8.r),
+                  border: const OutlineInputBorder(),
+                  suffixText: '/ ${widget.question.maxMarks}',
                 ),
-              ],
-            ),
-            SizedBox(height: 12.h),
-            TextFormField(
-              initialValue: currentNote,
-              decoration: InputDecoration(
-                labelText: context.l10n.homeworkQuestionNote,
-                hintText: context.l10n.homeworkAddNoteHint,
-                isDense: true,
-                border: const OutlineInputBorder(),
+                onChanged: (val) {
+                  final parsed = num.tryParse(val) ?? 0;
+                  context.read<HomeworkGradingCubit>().setMark(widget.question.question, parsed, widget.question.maxMarks);
+                },
               ),
-              onChanged: (val) => context.read<HomeworkGradingCubit>().setNote(question.question, val),
             ),
           ],
-        );
-      },
+        ),
+        SizedBox(height: 12.h),
+        TextFormField(
+          controller: _noteController,
+          decoration: InputDecoration(
+            labelText: context.l10n.homeworkQuestionNote,
+            hintText: context.l10n.homeworkAddNoteHint,
+            isDense: true,
+            border: const OutlineInputBorder(),
+          ),
+          onChanged: (val) => context.read<HomeworkGradingCubit>().setNote(widget.question.question, val),
+        ),
+      ],
     );
+  }
 }

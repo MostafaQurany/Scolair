@@ -1049,5 +1049,33 @@
   "noNotifications": "No notifications",
   "unread": "Unread",
   "all": "All",
-  "actionRequired": "Action Required"
+  "actionRequired": "Action Required",
+  "quizSubmissionsTitle": "Quiz Submissions",
+  "quizSubmissionDetailTitle": "Submission Detail",
+  "quizGradedSuccess": "Submission graded successfully",
+  "quizSubmitGrade": "Submit Grade",
+  "quizNoSubmissions": "No submissions yet",
+  "quizSelectedCount": "{count} selected",
+  "@quizSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "quizSelectTooltip": "Select",
+  "quizDeleteConfirm": "Delete {count} questions?",
+  "@quizDeleteConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "addToLessonTitle": "Add Quiz to Lesson",
+  "selectCourse": "Select Course",
+  "selectChapter": "Select Chapter",
+  "selectLesson": "Select Lesson",
+  "addQuizButton": "Add to Lesson",
+  "addedToLessonSuccess": "Quiz added to lesson successfully"
 }

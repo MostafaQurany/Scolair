@@ -2316,4 +2316,50 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get actionRequired => 'Action Required';
+
+  @override
+  String get quizSubmissionsTitle => 'Quiz Submissions';
+
+  @override
+  String get quizSubmissionDetailTitle => 'Submission Detail';
+
+  @override
+  String get quizGradedSuccess => 'Submission graded successfully';
+
+  @override
+  String get quizSubmitGrade => 'Submit Grade';
+
+  @override
+  String get quizNoSubmissions => 'No submissions yet';
+
+  @override
+  String quizSelectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get quizSelectTooltip => 'Select';
+
+  @override
+  String quizDeleteConfirm(int count) {
+    return 'Delete $count questions?';
+  }
+
+  @override
+  String get addToLessonTitle => 'Add Quiz to Lesson';
+
+  @override
+  String get selectCourse => 'Select Course';
+
+  @override
+  String get selectChapter => 'Select Chapter';
+
+  @override
+  String get selectLesson => 'Select Lesson';
+
+  @override
+  String get addQuizButton => 'Add to Lesson';
+
+  @override
+  String get addedToLessonSuccess => 'Quiz added to lesson successfully';
 }

@@ -54,21 +54,67 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
                                       index: index,
                                     )),
                                   SizedBox(height: 16.h),
-                                  _buildOverallFeedbackSection(context, state),
+                                  const _FeedbackSection(),
                                   SizedBox(height: 32.h),
                                 ],
                               ),
                             ),
                           ),
-                          _buildBottomBar(context, state),
                         ],
                       ),
+            bottomNavigationBar: sub == null
+                ? null
+                : SafeArea(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.r),
+                      child: FilledButton(
+                        onPressed: state.status == HomeworkGradingStatus.submitting
+                            ? null
+                            : () => context.read<HomeworkGradingCubit>().submitGrade(),
+                        child: state.status == HomeworkGradingStatus.submitting
+                            ? SizedBox(
+                                width: 24.r,
+                                height: 24.r,
+                                child: const CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : Text(context.l10n.homeworkSubmitGrade),
+                      ),
+                    ),
+                  ),
           );
         },
       ),
     );
+}
 
-  Widget _buildOverallFeedbackSection(BuildContext context, HomeworkGradingState state) {
+class _FeedbackSection extends StatefulWidget {
+  const _FeedbackSection();
+
+  @override
+  State<_FeedbackSection> createState() => _FeedbackSectionState();
+}
+
+class _FeedbackSectionState extends State<_FeedbackSection> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<HomeworkGradingCubit>();
+    _controller = TextEditingController(text: cubit.state.overallFeedback);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.r),
@@ -78,7 +124,7 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
           Text(context.l10n.homeworkOverallFeedback, style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700)),
           SizedBox(height: 8.h),
           TextFormField(
-            initialValue: state.overallFeedback,
+            controller: _controller,
             maxLines: 3,
             decoration: InputDecoration(
               hintText: context.l10n.homeworkFeedbackHint,
@@ -87,45 +133,6 @@ class HomeworkSubmissionDetailScreen extends StatelessWidget {
             onChanged: (val) => context.read<HomeworkGradingCubit>().setFeedback(val),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildBottomBar(BuildContext context, HomeworkGradingState state) {
-    final colors = Theme.of(context).colorScheme;
-    final submission = state.submission!;
-          
-    final hasManualQuestions = submission.questions.any((q) => q.isManualGraded);
-    final isAlreadyGraded = submission.status.toLowerCase() == 'graded';
-
-    if (isAlreadyGraded || !hasManualQuestions) {
-      return const SizedBox.shrink();
-    }
-
-    final isSubmitting = state.status == HomeworkGradingStatus.submitting;
-    final isValid = state.isValidMarks();
-
-    return Container(
-      padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        border: Border(top: BorderSide(color: colors.outlineVariant)),
-      ),
-      child: SizedBox(
-        width: double.infinity,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 14.r)),
-          onPressed: !isValid || isSubmitting
-              ? null
-              : () => context.read<HomeworkGradingCubit>().submitGrade(),
-          child: isSubmitting
-              ? SizedBox(
-                  height: 20.r,
-                  width: 20.r,
-                  child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
-                )
-              : Text(context.l10n.homeworkSubmitGrade),
-        ),
       ),
     );
   }
